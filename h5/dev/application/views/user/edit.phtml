@@ -69,7 +69,7 @@ $(function(){
 		$(this).css("color","#fff");
 		$('#footer').hide();
 	});
-    $(".user_form input").on("blur",function(){
+    $(".user_form input").on("change",function(){
     	var _t = $(this);
         var v = $.trim(_t.val());
         if(v != ""){
@@ -105,7 +105,7 @@ $(function(){
             alert(check.nickname);
             return ;
         }
-        var reg = /^[\u4e00-\u9fa5a-z\d_]{4,16}$/i;
+        var reg = /^[\u4e00-\u9fa5a-z\d_]{2,16}$/i;
         if (reg.test(v)) {
         	check.nickname = '';
         } else {
