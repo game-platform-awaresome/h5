@@ -14,7 +14,8 @@ class SignonlogController extends F_Controller_Backend
                 $params['conditions'] = preg_replace('#time=\'([^\']+)\'#', "time BETWEEN {$begin} AND {$end}", $params['conditions']);
             }
         }
-        
+        //按时间最新的在前面
+        $params['orderby']='time desc';
         return $params;
     }
     

@@ -6,6 +6,7 @@ class AdminlogController extends F_Controller_Backend
     {
         $params = parent::beforeList();
         $params['op'] = F_Helper_Html::Op_Null;
+        $params['orderby']='op_time desc';
         return $params;
     }
     
