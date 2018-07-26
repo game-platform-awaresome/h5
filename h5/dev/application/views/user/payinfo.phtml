@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"/>
+<title>充值详情 - 久乐游戏</title>
+<link rel="stylesheet" href="/public/styles/base.css"/>
+<link rel="stylesheet" href="/styles/pay_record.css"/>
+</head>
+<body class="bg01">
+<!--div.container 总外框  start-->
+<div  class="z_container">
+    <header class="z_header">
+        <a target="_top" href="/user/paylogs.html"></a>充值详情
+    </header>
+
+    <!--div.z_min 内容区域 statr-->
+    <div class="z_main" data-role="conent">
+        <figure class="banner block_bg">
+        <?php foreach ($banner['ads'] as &$row) { ?>
+            <a target="_top" href="<?=$row['url']?>" class="line_01">
+                <img src="<?=$row['image']?>" width="100%" height="auto"<?php if($row['subject']) echo " alt=\"{$row['subject']}\""; ?>/>
+            </a>
+        <?php } ?>
+        </figure>
+        <section class="pay_infos">
+            <nav>
+                <a style="width:100%"><span>订单编号：</span><span class="bold"><?=sprintf('%16.0f', $pay['pay_id'])?></span></a>
+            </nav>
+            <ul>
+                <li>
+                    <span>充入游戏：</span>
+                    <span class="bold"><?=$pay['game_id']?$pay['game_name'].($pay['server_name']?'，'.$pay['server_name']:''):'平台币'?></span>
+                </li>
+                <li>
+                    <span>支付账号：</span>
+                    <span><?=$pay['username']?></span>
+                </li>
+                <li>
+                    <span>充入账号：</span>
+                    <span><?=$pay['to_user']?></span>
+                </li>
+                <li>
+                    <span>充值方式：</span>
+                    <span><?=$types[$pay['type']]?></span>
+                </li>
+                <li>
+                    <span>充值金额：</span>
+                    <span class="bold"><?=number_format($pay['money'], 0)?>￥</span>
+                </li>
+                <li>
+                    <span>下单时间：</span>
+                    <span><?=date('Y-m-d H:i:s', $pay['add_time'])?></span>
+                </li>
+                <li>
+                    <span>充值状态：</span>
+                    <span><?php
+                        if( $pay['finish_time'] ) echo '充值成功';
+                        elseif( $pay['pay_time'] ) echo '支付成功';
+                        else echo '<i style="color:red; font-style:normal; font-weight:bold">未支付</i>';
+                    ?></span>
+                </li>
+            </ul>
+        </section>
+        <div class="btn_cont">
+        <?php if( $pay['pay_time'] ) { ?>
+            <a class="btn_green" target="_top" href="/user/paylogs.html">返回</a>
+        <?php } else { ?>
+            <a class="btn_green" target="_top" href="/pay/checkout.html?pay_id=<?=sprintf('%16.0f', $pay['pay_id'])?>">去支付</a>
+        <?php } ?>
+        </div>
+        <div class="footer_padding"></div>
+    </div>
+    <!--div.z_min 内容区域 end-->
+</div>
+<!--div.container 总外框  end-->
+<?php include $this->getScriptPath().'/footer.phtml'; ?>
+<script src="/public/scripts/jquery-1.11.1.min.js"></script>
+<script>$('#footer a:eq(4)').attr('id', 'footer_nav_active');</script>
+</body>
+</html>

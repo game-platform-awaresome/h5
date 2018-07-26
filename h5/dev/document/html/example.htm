@@ -1,0 +1,99 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>UCenter 接口开发手册 - 范例程序</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" href="images/style.css" type="text/css" media="all" />
+<meta content="Comsenz Inc." name="Copyright" />
+<script type="text/javascript" src="javascript/common.js"></script>
+</head>
+<body>
+<script type="text/javascript" src="javascript/header.js"></script>
+
+<a name="add"></a>
+<h3>范例程序</h3>
+
+<div class="mainmsg">
+为了方便开发，我们把所有的 UCenter 接口函数组合在一起，制作了范例程序。要运行此范例程序，您需要做的准备工作如下：<br /><br />
+1、范例程序中默认不包含 client 目录，如果要运行此范例程序，请复制一份 UCenter 安装包中的 client 到范例程序根目录。<br />
+2、在 UCenter 添加一个应用，设置范例程序运行的 URL 等信息，通信密钥可随意填写，如“123456”。<br />
+3、打开范例程序的 config.inc.php 设置范例程序连接 UCenter 的方式，设置数据库连接等参数。“UC_KEY”填写在 UCenter 设置的通信密钥（上例的“12345”），“UC_APPID”填写刚才添加的应用 ID。<br />
+<br />
+
+ucexample_1.php 为无用户表的范例程序主文件<br />
+ucexample_2.php 为有自己的用户表的范例程序主文件<br /><br />
+
+具体目录结构请见下表：
+
+<table border="0" cellspacing="0" cellpadding="0" class="msgtable">
+<tbody>
+	<tr>
+		<th>client/</th>
+		<td>UCenter 客户端的文件目录，默认不包含此目录。</td>
+	</tr>
+	<tr>
+		<th>api/</th>
+		<td>API 接口目录</td>
+	</tr>
+	<tr>
+		<th>code/</th>
+		<td>范例代码程序段目录</td>
+	</tr>
+	<tr>
+		<th>code/login_nodb.php</th>
+		<td>ucexample_1.php 的用户登录范例代码，包含登录验证、同步登录的范例代码。让你了解到没有用户表也可以整合 UCenter。</td>
+	</tr>
+	<tr>
+		<th>code/login_db.php</th>
+		<td>ucexample_2.php 的用户登录范例代码，包含登录验证、同步登录和用户激活的范例代码。</td>
+	</tr>
+	<tr>
+		<th>code/register_nodb.php</th>
+		<td>ucexample_1.php 的用户注册范例代码，包含注册信息验证的范例代码。</td>
+	</tr>
+	<tr>
+		<th>code/register_db.php</th>
+		<td>ucexample_2.php 的用户注册范例代码，包含注册信息验证、用户激活判断的范例代码。</td>
+	</tr>
+	<tr>
+		<th>code/pmwin.php</th>
+		<td>直接进入短消息中心的范例代码。</td>
+	</tr>
+	<tr>
+		<th>code/pmlist.php</th>
+		<td>自制短消息平台的范例代码，包含获取短消息的列表、内容以及发送短消息的范例代码。</td>
+	</tr>
+	<tr>
+		<th>code/friend.php</th>
+		<td>管理好友列表的范例代码</td>
+	</tr>
+	<tr>
+		<th>code/avatar.php</th>
+		<td>查看、编辑头像的范例代码</td>
+	</tr>
+	<tr>
+		<th>include/</th>
+		<td>库文件文件</td>
+	</tr>
+	<tr>
+		<th>view/</th>
+		<td>模板目录</td>
+	</tr>
+	<tr>
+		<th>config.inc.php</th>
+		<td>配置文件</td>
+	</tr>
+	<tr>
+		<th>ucexample_1.php</th>
+		<td>应用程序无用户表的范例程序主文件</td>
+	</tr>
+	<tr>
+		<th>ucexample_2.php</th>
+		<td>应用程序有自己的用户表的范例程序主文件</td>
+	</tr>
+</tbody>
+</table>
+
+<script type="text/javascript" src="javascript/footer.js"></script>
+</body>
+</html>

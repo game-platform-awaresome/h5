@@ -1,0 +1,206 @@
+/**
+*info:咨询页面样式
+*author:zhangting
+*date:2015.09.14 09:56
+*logo:修改日志
+**/
+/**函数*/
+/**变量 variables**/
+/**颜色*/
+/**混合 Mixins**/
+/**display:box**/
+/**box-flex 需要传参：伸缩值，默认为1**/
+/**box-sizing: border_box 盒子边框模型*/
+/**box_align 默认为center*/
+/**黑色透明背景*/
+/**深蓝色透明背景**/
+/**圆角的兼容函数*/
+.z_header {
+  border: 0;
+}
+.banner {
+  width: 100%;
+  overflow: hidden;
+  border-top: 1px solid #00365a;
+}
+.banner ul {
+  display: block;
+  padding: 0;
+  width: auto;
+  height: auto;
+  overflow: hidden;
+  position: relative;
+  clear: both;
+}
+.banner ul li {
+  float: left;
+  position: relative;
+}
+.banner ul li a {
+  display: block;
+  width: 100%;
+  height: auto;
+  overflow: auto;
+  padding-bottom: 1px;
+}
+.banner ul li a img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+.line_blue {
+  height: 1px;
+  width: 100%;
+}
+.line_blue hr {
+  height: 100%;
+  width: 50%;
+  float: left;
+  border: 0;
+  border-bottom: 1px solid #ffffff;
+}
+.line_blue hr.left_blue {
+  border-bottom-color: #4083b0;
+}
+.line_blue hr.right_green {
+  border-bottom-color: #549747;
+}
+.play_list {
+  display: -webkit-box;
+  display: -moz-box;
+  display: box;
+  width: 100%;
+  height: 44px;
+  line-height: 44px;
+  padding: 0 3px 0 10px;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  background-color: rgba(0, 0, 0, 0.2);
+  -moz-box-align: center;
+  -webkit-box-align: center;
+  box-align: center;
+}
+.logo {
+  float: left;
+  width: 95px;
+  height: 22px;
+  background-position: -2px -76px;
+}
+.play_list ul {
+  position: relative;
+  float: left;
+  height: 100%;
+  -moz-box-flex: 3;
+  -webkit-box-flex: 3;
+  box-flex: 3;
+}
+.play_list ul li {
+  float: left;
+  width: 25%;
+  height: 100%;
+  color: #FFF;
+  font-size: 14px;
+  text-align: center;
+  cursor: pointer;
+}
+.play_list ul li.list_active {
+  color: #2abd72;
+  background: url("../images/index/index_09.png") no-repeat bottom;
+  background-size: 80% 6px;
+}
+.title_word {
+  float: left;
+  height: 100%;
+  line-height: 30px;
+  width: auto;
+  color: #FFF;
+  font-size: 1.4em;
+  position: relative;
+  padding-right: 2%;
+}
+.title_log {
+  position: relative;
+  float: left;
+  height: 30px;
+  width: 20%;
+  margin-left: 8%;
+  margin-right: 1%;
+  display: inline-block;
+  overflow: hidden;
+  text-align: center;
+}
+.title_log img {
+  position: absolute;
+  top: 50%;
+  margin-top: -7px;
+  left: 0px;
+}
+.play_list ul li.list_active {
+  color: #2abd72;
+  background: url("../images/index/index_09.png") no-repeat bottom;
+  background-size: 80% 6px;
+}
+.center {
+  height: 32px;
+  line-height: 32px;
+  margin-top: 5px;
+  font-weight: 300;
+  background-image: url("../public/images/lines.png");
+  background-repeat: no-repeat;
+  background-position: bottom;
+  background-size: 100% 1px;
+}
+.game_news {
+  padding: 5px;
+  -webkit-box-sizing: border-box;
+  -o-box-sizing: border-box;
+  -ms-box-sizing: border-box;
+  box-sizing: border-box;
+}
+.game_news li {
+  display: -webkit-box;
+  display: -moz-box;
+  display: box;
+  -moz-box-align: center;
+  -webkit-box-align: center;
+  box-align: center;
+  width: 100%;
+  background-color: rgba(0, 0, 0, 0.2);
+  margin-bottom: 5px;
+  padding: 10px;
+  border: 1px solid #2c2c2c;
+  -webkit-box-sizing: border-box;
+  -o-box-sizing: border-box;
+  -ms-box-sizing: border-box;
+  box-sizing: border-box;
+}
+.game_news li > a {
+  display: block;
+  width: 90px;
+  margin-right: 10px;
+  height: 60px;
+  max-height: 60px;
+  overflow: hidden;
+}
+.game_news li > a img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+.game_news li article {
+  -moz-box-flex: 3;
+  -webkit-box-flex: 3;
+  box-flex: 3;
+  line-height: 20px;
+}
+.game_news li article p {
+  height: 40px;
+  overflow: hidden;
+}
+.game_news li article div {
+  color: #a1a4a6;
+}
+.game_news li article div span {
+  float: right;
+  margin-right: 12px;
+}

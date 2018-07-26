@@ -1,0 +1,68 @@
+<script type="text/javascript" src="/js/My97DatePicker/WdatePicker.js"></script>
+    <div class="content-box">
+      <!-- Start Content Box -->
+      <div class="content-box-header">
+        <h3><?=$title?></h3>
+        <a class="go_back" href="javascript:history.go(-1);">返回上一页</a>
+        <div class="clear"></div>
+      </div>
+      <!-- End .content-box-header -->
+      <div class="content-box-content">
+        <div class="tab-content default-tab">
+          <form action="/admin/<?=$controller?>/update?<?=$query?>" method="post">
+          <input type="hidden" name="info[reward_id]" value="<?php echo isset($info) ? $info['reward_id'] : ''; ?>" />
+            <fieldset>
+            <!-- Set class to "column-left" or "column-right" on fieldsets to divide the form into columns -->
+            <p>
+              <label>触发类型</label>
+              <select name="info[type]">
+              <?php foreach ($types as $lk=>$lv) { ?>
+                <option value="<?=$lk?>"<?php if(isset($info) && $info['type'] == $lk) echo ' selected="selected"'; ?>><?=$lv?></option>
+              <?php } ?>
+              </select>
+            </p>
+            <p>
+              <label>触发签到天数</label>
+              <input class="text-input small-input" maxlength="3" type="text" name="info[days]" value="<?php echo isset($info) ? $info['days'] : ''; ?>">
+            </p>
+            <p>
+              <label>可反复领取的次数<small>（0为不限次数）</small></label>
+              <input class="text-input small-input" maxlength="3" type="text" name="info[times]" value="<?php echo isset($info) ? $info['times'] : '0'; ?>">
+            </p>
+            <p>
+              <label>奖励内容<small>（每行一个，格式：物品ID,物品名称,物品数量 [,物品图标]）</small></label>
+              <textarea class="text-input large-input" style="height:64px;" name="info[reward]"><?php echo isset($info) ? $info['reward'] : ''; ?></textarea>
+            </p>
+            
+            <p>
+              <label>重置签到天数<small>（触发此奖励会重置玩家的相应签到天数为0）</small></label>
+              <select name="info[reset]">
+              <?php foreach (array('0'=>'否', '1'=>'是') as $lk=>$lv) { ?>
+                <option value="<?=$lk?>"<?php if(isset($info) && $info['reset'] == $lk) echo ' selected="selected"'; ?>><?=$lv?></option>
+              <?php } ?>
+              </select>
+            </p>
+            <p>
+              <label>禁用此奖励<small>（即不触发）</small></label>
+              <select name="info[disabled]">
+              <?php foreach (array('0'=>'否', '1'=>'是') as $lk=>$lv) { ?>
+                <option value="<?=$lk?>"<?php if(isset($info) && $info['disabled'] == $lk) echo ' selected="selected"'; ?>><?=$lv?></option>
+              <?php } ?>
+              </select>
+            </p>
+            
+            <p>
+              <input class="button" type="submit" value="提交" />
+            </p>
+            </fieldset>
+            <div class="clear"></div>
+            <!-- End .clear -->
+          </form>
+        </div>
+        <!-- End #tab2 -->
+      </div>
+      <!-- End .content-box-content -->
+    </div>
+    <!-- End .content-box -->
+
+    <div class="clear"></div>

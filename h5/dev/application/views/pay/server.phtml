@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+<title>选择服务器-充值中心 久乐游戏</title>
+<link rel="stylesheet" href="/public/styles/base.css"/>
+<link rel="stylesheet" href="/styles/pay_center.css"/>
+</head>
+<body class="bg01">
+<!--div.container 总外框  start-->
+<div  class="z_container">
+    <header  class="z_header block_bg">
+        <a target="_top" href="/pay/game.html"></a>选择服务器
+    </header>
+
+    <!--div.z_min 内容区域 statr-->
+    <div class="z_main" data-role="conent">
+        <!--div.to_play 选择游戏 start-->
+        <section class="game_list to_play relative block_bg">
+            <h3 class="last_login">
+                <span class="logos logos2"><i class="icons i_game"></i></span>
+                <span><?=$game['name']?> - 当前选择</span>
+            </h3>
+            <nav class="servers two">
+                <div class="two_cont">
+                    <span><?=$game['name']?></span>
+                    <a id="selected">请选择充值服务器</a>
+                </div>
+            </nav>
+        </section>
+        <!--div.to_play 选择游戏 end-->
+
+        <!--div.game_detail 其他选择 start-->
+        <section class="game_detail block_bg margint5">
+            <h2>
+                <i class="i_game2"></i>其他选择
+            </h2>
+            <?php if($play) { ?>
+            <div class="nav_list border0">
+                <nav class="servers thred" id="play_list">
+                <?php foreach ($play as $row) { ?>
+                    <div><a target="_top" data-href="/pay/numstype.html?game_id=<?=$game['game_id']?>&server_id=<?=$row['server_id']?>"><?=$row['name']?></a></div>
+                <?php } ?>
+                </nav>
+            </div>
+            <?php } ?>
+        </section>
+        <!--div.game_detail 其他选择 end-->
+        <!--div.game_detail 服务器内容 srart-->
+        <section class="game_detail block_bg margint1">
+            <nav class="servers thred" id="server_list">
+            <?php $i = 0; foreach ($server as $row) { ?>
+                <div<?=($i >= 5)?' style="display:none"':''?>><a data-href="/pay/numstype.html?game_id=<?=$game['game_id']?>&server_id=<?=$row['server_id']?>"><?=$row['name']?></a></div>
+                <?php ++$i; if( $i == 5 ) { ?>
+                <div class="hide_split">
+                    <a href="javascript:void(0)">
+                        <i class="i_down"></i>
+                    </a>
+                </div>
+                <?php } ?>
+            <?php } ?>
+            </nav>
+        </section>
+        <div class="next_btn">
+            <button id="next_step" class="btn_green">下一步</button>
+        </div>
+        <!--div.game_detail 服务器内容 end-->
+        <div class="footer_padding"></div>
+    </div>
+    <!--div.z_min 内容区域 end-->
+</div>
+<!--div.container 总外框  end-->
+<?php include $this->getScriptPath().'/footer.phtml'; ?>
+<script src="/public/scripts/jquery-1.11.1.min.js"></script>
+<script src="/public/scripts/jquery.mobile.min.js"></script>
+<script>
+$('#footer a:eq(4)').attr('id', 'footer_nav_active');
+$(function() {
+    /**选择服务器列表内容选项事件*/
+    var split_pos = $('#server_list div.hide_split').index();
+    var activeId = 0; //被选择的ID
+    var placeHtml = $(".hide_split").prev().find("a").html(); //被暂时替换的选项内容
+    /**选择服务器列表内容选项事件*/
+    $("#server_list div").on("tap",function(){
+        var _t = $(this);
+        _t.blur();
+        if(_t.index() != split_pos){
+            $('#play_list div').removeClass("active");
+        }
+        if( split_pos == -1 ) {
+        	_t.addClass("active").siblings().removeClass("active");
+        	$('#selected').html(_t.find('a').html());
+        }else if(_t.index() == split_pos){
+        	_t.nextAll("div").toggle();
+            $("#server_list div").eq(activeId).addClass("active").siblings().removeClass("active");
+            _t.prev().find("a").html(placeHtml);
+            _t.find("i").toggleClass("i_up");
+        }else if(_t.index() < split_pos){
+        	_t.addClass("active").siblings().removeClass("active");
+        	$('#selected').html(_t.find('a').html());
+            $(".hide_split").find("i").removeClass("i_up");
+            $("#server_list div").eq(split_pos).nextAll("div").slideUp(100);
+            activeId = _t.index();
+        }else{
+        	_t.addClass("active").siblings().removeClass("active");
+            $(".hide_split").find("i").removeClass("i_up");
+            $("#server_list div").eq(split_pos).nextAll("div").slideUp(100);
+            var thisVal = _t.find("a").html();
+            $('#selected').html(thisVal);
+            $("#server_list div").eq(split_pos-1).addClass("active").siblings().removeClass("active").end().find("a").html(thisVal);
+            activeId = _t.index();
+        }
+        return false;
+    });
+    $("#play_list div").on("tap",function(){
+    	$('#server_list div').removeClass("active");
+    	$(this).addClass("active").blur().siblings().removeClass("active");
+    	$('#selected').html($(this).find('a').html());
+    });
+    //下一步
+    $('#next_step').on('tap', function(){
+    	var div = $("nav.thred div.active");
+    	if( div.length < 1 ) {
+        	alert('请选择你要充值的服务器！');
+        	return false;
+    	}
+    	location.href = div.find('a').attr('data-href');
+    });
+});
+</script>
+</body>
+</html>

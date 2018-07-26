@@ -1,0 +1,137 @@
+<?php
+
+class ApiController extends Yaf_Controller_Abstract
+{
+    //游戏直充
+    public function payAction()
+    {
+        $req = $this->getRequest();
+        $user_id = $req->get('user_id', 0);
+        $sign = $req->get('sign', '');
+        if( $user_id < 1 || strlen($sign) != 32 ) {
+            exit('Params error.');
+        }
+        $sign = preg_replace('/[^0-9a-f]+/', '', $sign);
+        
+        $arr = array(
+            'user_id' => $user_id,
+            'username' => $req->get('username', ''),
+            'game_id' => $req->get('game_id', 0),
+            'money' => $req->get('money', 0),
+            'subject' => $req->get('subject', ''),
+            'body' => $req->get('body', ''),
+            'cp_order' => $req->get('cp_order', ''),
+            'cp_return' => $req->get('cp_return', ''),
+            'time' => $req->get('time', 0),
+            'extra' => $req->get('extra', ''),
+        );
+        if( isset($_GET['server_id']) || isset($_POST['server_id']) ) {
+            $srv_id_i = $req->get('server_id', 0);
+            $srv_id_s = $req->get('server_id', '');
+            if( strval($srv_id_i) === $srv_id_s ) {
+                $arr['server_id'] = $srv_id_i;
+            }
+        }
+        $time = time();
+        if( ($arr['time'] + 300) < $time ) {
+            exit('Time error.');
+        }
+        
+        if( $arr['server_id'] ) {
+            $m_server = new ServerModel();
+            $server = $m_server->fetch("server_id='{$arr['server_id']}'", 'name,game_name,login_url,sign_key');
+            $server_name = $server['name'];
+            $game_name = $server['game_name'];
+            $login_url = $server['login_url'];
+            $sign_key = $server['sign_key'];
+        } else {
+            $m_game = new GameModel();
+            $game = $m_game->fetch("game_id='{$arr['game_id']}'", 'name,login_url,sign_key');
+            $server_name = '';
+            $game_name = $game['name'];
+            $login_url = $game['login_url'];
+            $sign_key = $game['sign_key'];
+        }
+        
+        ksort($arr);
+        $md5 = md5(implode('', $arr).$sign_key);
+        if( strcmp($sign, $md5) != 0 ) {
+            exit('Sign error.');
+        }
+        $subject = $arr['subject'];
+        $body = $arr['body'];
+        unset($arr['subject'], $arr['body'], $arr['time']);
+        
+        $m_pay = new PayModel();
+        $arr['pay_id'] = $m_pay->createPayId();
+        $arr['to_uid'] = $arr['user_id'];
+        $arr['username'] = urldecode($arr['username']); //解决有些商户并没有urldecode的兼容性问题
+        $arr['to_user'] = $arr['username'];
+        $arr['add_time'] = $time;
+        $arr['game_name'] = $game_name;
+        $arr['server_name'] = $server_name;
+        $arr['type'] = 'iapppay';
+        $arr['cp_return'] = $arr['cp_return'] ? $arr['cp_return'] : '1';
+        
+        $rs = $m_pay->insert($arr, false);
+        if( ! $rs ) {
+            exit('Save payment failed.');
+        }
+        
+        //判断用户是否有足够的平台币
+        $m_user = new UsersModel();
+        $user = $m_user->fetch("user_id='{$user_id}'", 'money');
+        if( $user && $user['money'] >= $arr['money'] ) {
+            $return = $arr['cp_return'];
+            if( $return == '1' ) {
+                $return = Game_Login::redirect($user_id, $arr['username'], $arr['game_id'], $arr['server_id'], $login_url, $sign_key);
+            }
+            $this->forward('api', 'gotop', array('pay'=>$arr, 'subject'=>$subject, 'deposit'=>$user['money'], 'return'=>$return));
+            return false;
+        }
+        
+        if( empty($subject) ) {
+            $conf = Yaf_Application::app()->getConfig();
+            if( $arr['server_id'] ) {
+                $subject = "充值到《{$arr['game_name']}，{$arr['server_name']}》 - {$conf['application']['sitename']}";
+            } else {
+                $subject = "充值到《{$arr['game_name']}》 - {$conf['application']['sitename']}";
+            }
+        }
+        
+        $iapppay = new Pay_Iapppay_Mobile();
+        $url = $iapppay->redirect($arr['pay_id'], $arr['money'], $subject, $body, $arr['username']);
+        $this->getView()->assign('url', $url);
+    }
+    
+    //跳转到顶层框架
+    public function gotopAction()
+    {
+        $req = $this->getRequest();
+        $arr = $req->getParams();
+        if( count($arr) != 4 || empty($arr['pay']) || empty($arr['deposit']) || empty($arr['return']) ) {
+            exit;
+        }
+        $this->getView()->assign($arr);
+    }
+    //选择支付方式
+    public function typeAction()
+    {
+        $req = $this->getRequest();
+        if( ! $req->isPost() ) {
+            exit;
+        }
+        $arr['pay'] = $req->getPost('pay', array());
+        $arr['subject'] = $req->getPost('subject', '');
+        $arr['deposit'] = $req->getPost('deposit', 0);
+        $arr['return'] = $req->getPost('return', '');
+        if( empty($arr['pay']) || empty($arr['deposit']) || empty($arr['return']) ) {
+            exit;
+        }
+        
+        $conf = Yaf_Application::app()->getConfig();
+        $arr['parities'] = $conf->application->parities;
+        
+        $this->getView()->assign($arr);
+    }
+}

@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Simpla Admin</title>
+<!--                       CSS                       -->
+<!-- Reset Stylesheet -->
+<link rel="stylesheet" href="/admin/css/reset.css" type="text/css" media="screen" />
+<!-- Main Stylesheet -->
+<link rel="stylesheet" href="/admin/css/style.css" type="text/css" media="screen" />
+<!-- Invalid Stylesheet. This makes stuff look pretty. Remove it if you want the CSS completely valid -->
+<link rel="stylesheet" href="/admin/css/invalid.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="/jquery/Magnific-Popup/magnific-popup.css" type="text/css" media="screen" />
+<!--                       Javascripts                       -->
+<!-- jQuery -->
+<script type="text/javascript" src="/js/jquery-1.11.0.min.js"></script>
+<!-- jQuery Configuration -->
+<script type="text/javascript" src="/admin/js/simpla.jquery.configuration.js"></script>
+
+<script type="text/javascript" src="/jquery/Magnific-Popup/jquery.magnific-popup.min.js"></script>
+<script type="text/javascript" src="/admin/js/common.js"></script>
+<script>
+	preloadImages(['/admin/images/loading.gif']);
+</script>
+</head>
+
+<body>
+<div id="body-wrapper">
+  <div id="main-content">
+	
+    <?php echo $content; ?>
+    
+    <div id="footer"> <small>
+      <!-- Remove this notice or replace it with whatever you want -->
+      &#169; Copyright 2015 ZCHL | Powered by <a>admin templates</a> | <a href="#">Top</a> </small> </div>
+    <!-- End #footer -->
+  </div>
+  <!-- End #main-content -->
+</div>
+</body>
+</html>

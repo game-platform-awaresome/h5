@@ -1,0 +1,256 @@
+/**
+*info:活动中心 action_center.html styles
+*author:zhangting
+*date:2015.09.24 09:56
+*logo:
+**/
+/**变量 variables**/
+/**颜色*/
+/**混合 Mixins**/
+/**display:box**/
+/**box-flex 需要传参：伸缩值，默认为1**/
+/**box-sizing: border_box 盒子边框模型*/
+/**box_align 默认为center*/
+/**黑色透明背景*/
+/**深蓝色透明背景**/
+/**圆角的兼容函数*/
+figure,
+ul {
+  margin: 0;
+  padding: 0;
+}
+.sign {
+  width: 100%;
+  height: 36px;
+  line-height: 36px;
+  margin: 15px 0 5px;
+  visibility: visible;
+  position: relative;
+  text-indent: 18px;
+  padding: 0 10px;
+  display: -webkit-box;
+  display: -moz-box;
+  display: box;
+  -webkit-box-sizing: border-box;
+  -o-box-sizing: border-box;
+  -ms-box-sizing: border-box;
+  box-sizing: border-box;
+}
+.sign time {
+  display: block;
+  -moz-box-flex: 3;
+  -webkit-box-flex: 3;
+  box-flex: 3;
+  text-align: center;
+}
+.sign a {
+  display: block;
+}
+.z_container .sign mark {
+  color: #FFFFFF;
+  background-color: rgba(0, 0, 0, 0.1);
+}
+.z_container .sign2 {
+  margin: 15px 0 1px;
+  font-weight: 100;
+  text-indent: 10px;
+}
+.i_detepicker {
+  display: inline-block;
+  width: 13px;
+  height: 13px;
+  background: url("../images/action_center/action_03.png") no-repeat center;
+  background-size: 100% 100%;
+  position: absolute;
+  top: 50%;
+  left: 5px;
+  margin-top: -6px;
+}
+/**日历样式调整*/
+#datepicker {
+  padding: 5px;
+}
+.ui-corner-all {
+  display: block;
+  border: 0px none;
+  border-radius: 0px;
+  padding: 0px;
+  width: 100%;
+}
+.ui-datepicker .ui-datepicker-header {
+  display: none;
+}
+.ui-widget-content {
+  background: none;
+  color: #FFFFFF;
+}
+.ui-state-default,
+.ui-widget-content .ui-state-default {
+  background: rgba(0, 0, 0, 0.2);
+  color: #FFFFFF;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  padding: 7px 0;
+  text-align: center;
+}
+.ui-datepicker th {
+  background-color: #293639;
+  border-right: 1px solid rgba(255, 255, 255, 0.1);
+}
+.ui-datepicker th:last-child {
+  border: 0;
+}
+.ui-state-default,
+.ui-widget-content .ui-state-default {
+  background: #2b3e44;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  font-weight: 100;
+}
+.ui-widget-content .ui-datepicker-today .ui-state-highlight {
+  background-color: #29ba67;
+  background-image: none;
+  color: #ffffff;
+}
+.ui-widget-content .ui-state-active {
+  background-color: #468a6c;
+  color: rgba(255, 255, 255, 0);
+  background-image: url("../images/action_center/i_select.png");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 50% 50%;
+}
+.ui-state-disabled,
+.ui-widget-content .ui-state-disabled,
+.ui-widget-header .ui-state-disabled {
+  background-color: #1f3b45;
+  border: 0;
+}
+.sign a {
+  color: #ffff00;
+  font-size: 14px;
+}
+.sign a:hover {
+  color: yellow;
+}
+.titles {
+  height: 36px;
+  line-height: 36px;
+  font-weight: 100;
+  font-size: 14px;
+  margin: 5px 0 1px 0;
+  color: #33cc66;
+}
+.titles span {
+  margin: 0 10px;
+}
+.titles strong {
+  font-weight: 100;
+  margin: 0 3px;
+  color: #ffff00;
+}
+.gift_list {
+  overflow: hidden;
+  padding: 5px;
+}
+.gift_list li {
+  float: left;
+  width: 25%;
+  padding: 5px;
+  -webkit-box-sizing: border-box;
+  -o-box-sizing: border-box;
+  -ms-box-sizing: border-box;
+  box-sizing: border-box;
+}
+.gift_list li a {
+  display: block;
+}
+.gift_list li img {
+  display: block;
+  border: 0;
+}
+.sign_record {
+  padding: 0 3px;
+  margin-bottom: 20px;
+}
+.sign_record li {
+  background-color: rgba(0, 0, 0, 0.2);
+  margin-bottom: 1px;
+  height: 36px;
+  line-height: 36px;
+  padding: 0 5px;
+}
+.sign_record li strong {
+  font-weight: 100;
+}
+.sign_record li time {
+  float: right;
+  color: #CCCCCC;
+}
+.sign_record li span {
+  font-size: 14px;
+  color: #29BA67;
+  margin-right: 6px;
+}
+.i_gold {
+  display: inline-block;
+  width: 19px;
+  height: 19px;
+  background: url("../images/action_center/i_gold.png") no-repeat center;
+  background-size: 100% auto;
+  position: relative;
+  top: 3px;
+}
+.i_sign {
+  display: inline-block;
+  width: 14px;
+  height: 13px;
+  background: url("../images/action_center/i_sign.png") no-repeat center;
+  background-size: 100% auto;
+  position: relative;
+  top: 0;
+}
+#datepicker table {
+  border-collapse: collapse;
+  font-size: 0.9em;
+  margin: 0 0 0.4em;
+  width: 100%;
+}
+#datepicker th {
+  border: 0 none;
+  font-weight: bold;
+  padding: 0.7em 0.3em;
+  text-align: center;
+  background-color: #293639;
+  border-right: 1px solid rgba(255, 255, 255, 0.1);
+}
+#datepicker th:last-child {
+  border: 0 none;
+}
+#datepicker td {
+  border: 0 none;
+  padding: 1px;
+}
+#datepicker td span {
+  display: block;
+  text-align: center;
+  background-color: #2f4b49;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  font-weight: 100;
+  color: #ffffff;
+  padding: 7px 0;
+  line-height: 14px;
+}
+#datepicker td.month_p span,
+#datepicker td.month_n span {
+  background-image: none;
+  opacity: 0.35;
+  background-color: #1f3e43;
+  border: 0 none;
+}
+#datepicker td.today span {
+  background-color: #28bb66;
+}
+#datepicker td.signed span {
+  background: #468b6c url("../images/action_center/i_select.png") no-repeat scroll center center;
+  background-size: 50% 50%;
+  color: rgba(255, 255, 255, 0);
+}

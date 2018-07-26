@@ -1,0 +1,152 @@
+/**
+*info:
+*1、管理中心-游戏管理-已上线 user_hasOnline.html
+*2、管理中心-游戏管理-未上线 user_notOnline.html
+*3、管理中心-游戏管理-审核中 user_review.html
+*author:zhangting
+*date:2015.12.10 09:33
+*logo:
+**/
+.pages_con{
+
+}
+.user_title > a {
+    color: #fff;
+}
+.user_title>a:hover {
+    color: #FFFFFF;
+    background-color: #276c32;
+    text-decoration: none;
+}
+.ul_game{
+    display: none;
+    overflow: hidden;
+}
+.ul_game:first-child{
+    display: block;
+}
+.ul_game li{
+    float: left;
+    width: 33.333%;
+}
+.ul_game li figure{
+    border: 1px solid #E9E9E9;
+    border-radius: 5px;
+    overflow: hidden;
+    padding: 20px;
+    margin: 10px;
+}
+.ul_game li figure>a{
+    float: left;
+    margin-right: 22px;
+}
+.ul_game li figure>a img{
+    display: block;
+    border-radius: 14px;
+    border: 0;
+    width: 87px;
+    height: 87px;
+}
+.ul_game li figure figcaption{
+    float: left;
+    line-height: 28px;
+}
+.ul_game li figure figcaption h3{
+    font-size: 14px;
+    color: rgb(0, 0, 0);
+    max-width: 147px;
+    overflow: hidden;
+    white-space: nowrap;
+}
+.ul_game li figure figcaption p{
+    font-size: 14px;
+    color: grey;
+}
+/**2、管理中心-游戏管理-未上线 user_notOnline.html */
+.ul_game2 li figure{
+    padding: 0px;
+}
+.ul_game2 li figure>a{
+    margin: 20px 10px;
+}
+.ul_game2 li figure figcaption{
+    margin-top: 20px;
+}
+.group_func{
+    clear: both;
+    font-size: 14px;
+    line-height: 36px;
+    border-top: 1px solid rgb(249, 249, 249);
+}
+.group_func .splits{
+    display: inline-block;
+    width: 10%;
+    text-align: center;
+}
+.group_func a{
+    display: inline-block;
+    width: 40%;
+    text-align: center;
+    cursor: pointer;
+}
+.group_func a:hover{
+    text-decoration: underline;
+}
+.ul_game2 .i_imgs{
+    width: 20px;
+    height: 20px;
+    top: 5px;
+}
+
+/***3、管理中心-游戏管理-审核中 user_review.html*/
+.table_game{
+    width: 100%;
+    border-color: #e6e6e6;
+    text-align: center;
+    line-height: 36px;
+    font-size: 14px;
+    border-collapse:collapse;
+    border: 0;
+}
+/*.table_game tbody{*/
+    /*display: none;*/
+/*}*/
+/*.table_game tbody:first-child{*/
+    /*display: table-row-group;*/
+/*}*/
+.table_game th{
+    background: #56a161;
+    color: #FFFFFF;
+    border-color: #459751;
+}
+.table_game td{
+    border-color: #e6e6e6;
+}
+.table_game a{
+    color: #555555;
+}
+.table_game a:hover{
+    text-decoration: underline;
+    color: #276c32;
+}
+.table_game .pass td:nth-child(3){
+    color: #56a161;
+}
+.table_game .no_pass td:nth-child(3){
+    color: #ea1e1e;
+}
+.table_game .no_pass td:last-child{
+    color: #ea1e1e;
+}
+.rank_a{
+    color: #56a161;
+}
+.rank_b{
+    color: #0c68a1;
+}
+.rank_c{
+    color: #c7c241;
+}
+.rank_d{
+    color: #F0916F;
+}

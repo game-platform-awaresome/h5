@@ -1,0 +1,189 @@
+<style>
+.ui-icons-blue, .ui-icons-red{cursor:pointer; display:inline-block; width:16px; height:16px; overflow:hidden; vertical-align:-15%}
+.ui-icons-blue{background:transparent url(/admin/js/ui-icons_70b2e1_256x240.png) no-repeat}
+.ui-icons-red{background:transparent url(/admin/js/ui-icons_cc0000_256x240.png) no-repeat}
+.ui-icon-expand{background-position:-64px -16px}
+.ui-icon-shrink{background-position:-32px -16px}
+.ui-icon-empty{background-position:-96px -144px}
+.ui-icon-add-bro{background-position:0 -192px}
+.ui-icon-add-son{background-position:-32px -128px; margin-left:12px}
+.ui-icon-rule{background-position:-176px -112px}
+.ui-icon-del{background-position:-96px -128px}
+#group_box ol{clear:both; margin-left:12px}
+#group_box ol[data-pid="0"]{padding-left:0}
+#group_box li .ui-icon-add-son, #group_box li .ui-icon-rule, #group_box li .ui-icon-del{display:none}
+#group_box li:hover .ui-icon-add-son, #group_box li:hover .ui-icon-rule, #group_box li:hover .ui-icon-del{display:inline-block}
+#group_box ol li{list-style-type:inside}
+#group_box li{cursor:move; line-height:20px}
+#group_box li.item-add{cursor:default; list-style:none}
+</style>
+<div class="notification attention png_bg">
+	<a href="#" class="close"><img src="/admin/images/icons/cross_grey_small.png" title="Close this notification" alt="close" /></a>
+	<div>1、删除权限组也会级联删除其所有子权限组；&nbsp;2、拖动排序只能在同一级下，跨级拖动不会生效并会导致错误排序；<br>
+	   3、分配权限必须自上而下先分配父权限组的权限；&nbsp;4、点击权限组的名字可以修改，Esc取消修改,Enter或失去焦点确认修改；</div>
+</div>
+<div class="content-box">
+  <div class="content-box-header">
+    <h3>管理员权限分组</h3>
+  </div>
+  <!-- End .content-box-header -->
+  <div class="content-box-content" id="group_box">
+    <?=$html?>
+  </div>
+</div>
+<link rel="stylesheet" href="/js/dxj-alert/dxj-alert.css" type="text/css" media="screen" />
+<script src="/js/dxj-alert/dxj-alert.js"></script>
+<script src="/admin/js/jquery-ui.min.js"></script>
+<script>
+$(function(){
+	var start_i = -1, stop_i = -1;
+	function sortStart(event, ui){
+		start_i = ui.item.index();
+	}
+	function sortStop(event, ui){
+		stop_i = ui.item.index();
+		if( start_i == stop_i ) {
+			return true;
+		}
+		start_i = stop_i = -1;
+		var data = '';
+		ui.item.parent().children('li:not(.item-add)').each(function(){
+			data += 'info[]='+ $(this).attr('data-gid') +'&';
+		});
+		$.post('/admin/admingroup/resort', data.substr(0, data.length-1));
+	}
+	$('#group_box ol').sortable({
+      items: "li:not(.item-add)",
+      start: sortStart,
+      stop: sortStop
+    }).disableSelection();
+    function newItem(gid, name){
+    	var html = '<li data-gid="'+gid+'">';
+        html += '<i class="ui-icons-blue ui-icon-empty"></i><span>'+name+'</span>';
+        html += '<i class="ui-icons-blue ui-icon-add-son" title="添加子权限组"></i>';
+        html += '<i class="ui-icons-blue ui-icon-rule" title="分配权限"></i>';
+        html += '<i class="ui-icons-red ui-icon-del" title="删除此权限组"></i>';
+        html += '</li>';
+        return html;
+    }
+    $('#group_box').on('click', '.ui-icon-add-bro, .ui-icon-add-son', function(){
+        var _p = $(this).parent();
+        if( _p.parent().children().length >= 50 ) {
+            dxjalert('子权限组不能超过50个！', 'error');
+            return false;
+        }
+        var is_p = _p.hasClass('item-add');
+        dxjalert("权限组名称", "input", {onOk:function(name){
+            if( typeof name == 'undefined' || name == '' ) {
+                return false;
+            }
+            var pid = is_p ? _p.parent().attr('data-pid') : _p.attr('data-gid');
+            var w = _p.parent().children().length;
+            var data = 'pid='+pid+'&name='+name+'&weight='+w;
+            $.post('/admin/admingroup/ajaxadd', data, function(msg){
+                var gid = parseInt(msg);
+                if( isNaN(gid) ) {
+                    dxjalert(msg, 'error');
+                } else if( is_p ) {
+                    var html = newItem(gid, name);
+                    $(html).insertBefore(_p);
+                } else {
+                    var has_ol = _p.find('ol').length;
+                    var html = has_ol ? '' : '<ol class="sortable" data-pid="'+pid+'">';
+                    html += newItem(gid, name);
+                    if( has_ol ) {
+                    	$(html).insertBefore(_p.find('ol li.item-add'));
+                    } else {
+                    	html += '<li class="item-add"><i class="ui-icons-blue ui-icon-add-bro" title="添加同级权限组"></i><div class="clear"></div></li>';
+                        html += '</ol>';
+                        _p.append(html).find('.ui-icon-empty:first').removeClass('ui-icon-empty').addClass('ui-icon-expand');
+                        _p.find('ol').sortable({
+                            items: "li:not(.item-add)",
+                            start: sortStart,
+                            stop: sortStop
+                        }).disableSelection();
+                    }
+                }
+            }, 'text');
+        }});
+    });
+
+    $('#group_box').on('click', '.ui-icon-expand', function(){
+        $(this).removeClass('ui-icon-expand').addClass('ui-icon-shrink').nextAll('ol').slideUp();
+    }).on('click', '.ui-icon-shrink', function(){
+        $(this).removeClass('ui-icon-shrink').addClass('ui-icon-expand').nextAll('ol').slideDown();
+    }).on('click', '.ui-icon-rule', function(){
+        var gid = $(this).parent().attr('data-gid');
+        location.href = '/admin/admingroup/edit?group_id='+gid;
+    });
+
+    $('#group_box').on('click', 'li[data-gid] span', function(){
+        var v = $(this).html();
+        var ipt = $('<input type="text" value="'+v+'">');
+        ipt.insertAfter($(this).hide());
+        ipt.focus();
+        ipt = ipt.get(0);
+        if(document.selection) {
+            var sel = ipt.createTextRange();
+            sel.moveStart('character', v.length);
+            sel.collapse();
+            sel.select();
+        } else if(typeof ipt.selectionStart == 'number' && typeof ipt.selectionEnd == 'number') {
+        	ipt.selectionStart = ipt.selectionEnd = v.length;
+        }
+    });
+    function saveItem(gid, name) {
+    	$.post('/admin/admingroup/changename', 'gid='+gid+'&name='+name, function(msg){
+            if( msg != '1' ) {
+                dxjalert(msg, 'error');
+            }
+        }, 'text');
+    }
+    $('#group_box').on('blur', 'input', function(){
+        var _t = $(this);
+        var v = $.trim(_t.val());
+        var c = _t.prev().html();
+        _t.prev().show().html(v);
+        _t.hide();
+        if( v != '' && v != c ) {
+            var gid = _t.parent().attr('data-gid');
+            saveItem(gid, v);
+        }
+        _t.remove();
+    }).on('keydown', 'input', function(event){
+        if( event.which == 27 ) {
+            var _t = $(this);
+            _t.prev().show();
+            _t.remove();
+        } else if( event.which == 13 ) {
+        	var _t = $(this);
+        	var v = $.trim(_t.val());
+            var c = _t.prev().html();
+            _t.prev().show().html(v);
+            _t.hide();
+            if( v != '' && v != c ) {
+                var gid = _t.parent().attr('data-gid');
+                saveItem(gid, v);
+            }
+            _t.remove();
+        }
+        return true;
+    });
+
+    $('#group_box').on('click', '.ui-icon-del', function(){
+        var _p = $(this).parent();
+        dxjalert('权限组及其子权限组会被级联删除，要继续删除吗？', 'confirm', {btn:dxjalert.btn.okcancle, onOk:function(){
+        	var gid = _p.attr('data-gid');
+            $.post('/admin/admingroup/delete', 'ajax=1&group_id='+gid, function(msg){
+                if( msg == '1' ) {
+                    _p.fadeOut(function(){
+                        _p.remove();
+                    });
+                } else {
+                    dxjalert(msg, 'error');
+                }
+            }, 'text');
+        }});
+    });
+});
+</script>

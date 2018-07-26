@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8"><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<meta name="keywords" content="H5 HTML5 H5游戏 HTML5游戏 小游戏 手机游戏 网页游戏 在线游戏 点击即玩 久乐游戏 久乐H5 平台 活动 礼包 兑换码 激活码">
+<meta name="description" content="久乐游戏是一个行业领先的H5在线游戏平台，玩游戏不再苦苦的等待下载，点击即玩。">
+<title>最新活动 - 久乐H5在线游戏平台</title>
+<link rel="stylesheet" href="/public/styles/base.css"/>
+<link rel="stylesheet" href="/styles/index.css"/>
+</head>
+<body class="bg01">
+<div data-role="page" class="z_container">
+    <div class="z_main" data-role="conent">
+        <!--section.game_news action 最新活动  statr-->
+        <section class="game_news action">
+            <h2 class="title">
+                <span class="title_name"> <i class="icons i_action"></i>最新活动</span>
+            </h2>
+        <?php foreach ($activity['ads'] as $row) { ?>
+            <div class="actions">
+                <a href="<?=$row['url']?>">
+                    <img src="<?=$row['image']?>"<?=$row['subject'] ? " alt=\"{$row['subject']}\"" : ''?> style="width:100%">
+                </a>
+                <p><?=$row['subject']?></p>
+            </div>
+        <?php } ?>
+        </section>
+        <!--section.game_news action 最新活动  end-->
+    </div>
+    <div class="footer_padding"></div>
+</div>
+<?php include $this->getScriptPath().'/footer.phtml'; ?>
+<script src="/public/scripts/jquery-1.11.1.min.js"></script>
+<script>$('#footer a:eq(3)').attr('id', 'footer_nav_active');</script>
+</body>
+</html>

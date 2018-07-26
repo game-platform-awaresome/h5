@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"/>
+<title>游戏大厅 - 久乐游戏</title>
+<link rel="stylesheet" href="/public/styles/base.css"/>
+<link rel="stylesheet" href="/public/styles/game_list.css"/>
+<link rel="stylesheet" href="/styles/game_center.css"/>
+</head>
+<body class="bg01">
+    <!--div.container 总外框  start-->
+    <div data-role="page" class="z_container">
+        <header class="z_header">
+            <a target="_top" href="/game/index.html"></a><span>游戏大厅</span>
+        </header>
+        <!--div.z_min 内容区域 statr-->
+        <div class="z_main">
+            <section class="classify">
+                <h3 class="block_bg"> <i class="i_game2"></i>游戏分类 </h3>
+                <nav class="block_bg nav_classify" id="nav_class">
+                <?php $i = 1; foreach ($types as $tk=>$tv) { ?>
+                    <a data-type="<?=$tk?>"<?=($i > 7) ? 'style="display:none"' : ''?>><?=$tv?></a>
+                  <?php if( $i == 7 ) { ?>
+                    <a class="open"><i class="i_down"></i></a>
+                  <?php } ?>
+                <?php ++$i; } ?>
+                </nav>
+                <div class="search">
+                    <input type="search" placeholder="请输入游戏名称、拼音或首字母缩写" autocomplete="on" class="left_input"/>
+                    <input type="button" class="search_icon" value=""/>
+                </div>
+                <div class="hot_game">
+                <?php foreach ($ad_2col['ads'] as $row) { ?>
+                    <figure><a target="_top" href="<?=$row['url']?>">
+                        <img src="<?=$row['image']?>" width="100%" height="auto" <?=$row['subject']?"alt=\"{$row['subject']}\"":''?>/>
+                    </a></figure>
+                <?php } ?>
+                    <hr class="linear">
+                </div>
+            </section>
+            <!--div.game_list 游戏列表  start-->
+            <section class="game_list">
+                <div class="slide_cont">
+                    <ul id="game_list_1">
+                        <li id="loading"><img src="/images/loader/loading.gif"><span>数据玩命加载中...</span></li>
+                    </ul>
+                </div>
+            </section>
+            <!--div.game_list 游戏列表  end-->
+            <div class="footer_padding"></div>
+        </div>
+        <!--div.z_min 内容区域 end-->
+    </div>
+    <!--div.container 总外框  end-->
+<?php include $this->getScriptPath().'/footer.phtml'; ?>
+<script src="/public/scripts/jquery-1.11.1.min.js"></script>
+<script src="/public/scripts/jquery.mobile.min.js"></script>
+<script>
+$('#footer a:eq(2)').attr('id', 'footer_nav_active');
+$(function(){
+    var split_pos = $('#nav_class .open').index();
+    var active_id = -1;
+    var store_text = $("#nav_class .open").prev().text();
+
+    var loader = $('#loading').html();
+    var nomore = '<label>没有更多数据了</label>';
+    var cache = {
+	    all: {pn:1, more:1, html:''}
+    };
+    var current = '';
+    var limit = 8;
+    var loading = false;
+    function pull(type)
+    {
+        if( loading ) return ;
+        if( typeof type == 'undefined' ) {
+            type = current;
+        }
+        if( type == '' ) return ;
+        if( typeof cache[type] == 'undefined' ) {
+        	cache[type] = {pn:1, more:1, html:''};
+        	$('#loading').html(loader);
+        }
+
+        if( type != current ) {
+            current = type;
+        	$('#loading').prevAll().remove();
+        	$(cache[type].html).insertBefore('#loading');
+        	cache[type].more == 0 ? $('#loading').html(nomore) : $('#loading').html(loader);
+        	if( cache[type].html != '' ) {
+         	    return ;
+            }
+        }
+        if( cache[type].more == 0 ) {
+        	$('#loading').html(nomore);
+            return ;
+        } else if( $('#loading').html() == '' ) {
+        	$('#loading').html(loader);
+        }
+
+        loading = true;
+        var pn = cache[type].pn++;
+        $.ajax({
+            url: '/game/pull.html',
+            type: 'post',
+            dataType: 'html',
+            data: 'type='+encodeURIComponent(type)+'&pn='+pn+'&limit='+limit,
+            success: function(html){
+                if( html == '' ) {
+                	cache[type].more = 0;
+                	$('#loading').html(nomore);
+                	loading = false;
+                    return ;
+                }
+                var h = $(html).hide().insertBefore('#loading').fadeIn();
+            	cache[type].html += html;
+            	if( h.length < limit ) {
+                	cache[type].more = 0;
+                	$('#loading').html(nomore);
+            	}
+            	loading = false;
+            },
+            error: function(){
+                loading = false;
+            }
+        });
+    }
+
+    $("#nav_class a").on("tap",function(){
+        if( loading ) return false;
+        var _t = $(this);
+        var type = _t.attr('data-type');
+        var text = _t.text();
+        if( split_pos == -1 ) {
+        	_t.addClass("nav_active").siblings().removeClass("nav_active");
+        	pull(type);
+        }else if(_t.index() == split_pos){
+        	_t.nextAll().toggle();
+            _t.find("i").toggleClass("i_up");
+            if( active_id != -1 ) {
+                if( _t.find("i").hasClass('i_up') ) {
+                	$("#nav_class a").eq(active_id).addClass("nav_active").siblings().removeClass("nav_active");
+                	_t.prev().html(store_text);
+                } else {
+                	_t.prev().addClass("nav_active").siblings().removeClass("nav_active");
+              	    _t.prev().html($("#nav_class a").eq(active_id).html());
+                }
+            }
+        }else if(_t.index() < split_pos){
+        	_t.addClass("nav_active").siblings().removeClass("nav_active");
+            $("#nav_class .open").find("i").removeClass("i_up");
+            $("#nav_class .open").nextAll().hide();
+            $("#nav_class .open").prev().find("a").html(store_text);
+            active_id = -1;
+            pull(type);
+        }else{
+            $("#nav_class .open").find("i").removeClass("i_up");
+            $("#nav_class .open").nextAll().hide();
+            $("#nav_class .open").prev().html(text).addClass("nav_active").siblings().removeClass("nav_active");
+            active_id = _t.index();
+            pull(type);
+        }
+        return false;
+    });
+
+    $(window).on('scrollstop', function(){
+        var t_h = $('.z_header').height() + $('.z_main').height();
+        var c_h = $(document).scrollTop();
+        if( c_h == 0 ) c_h = $('.z_container').scrollTop();
+        c_h += $(window).height() + 10;
+        if( c_h >= t_h ) {
+            pull();
+        }
+    });
+
+    $("#nav_class a").eq(0).trigger('tap');
+
+    var search = {
+	    old: '',
+	    html: ''
+    };
+    $('.search_icon').on('tap', function(){
+        var ipt = $(this).prev();
+    	var v = $.trim(ipt.val());
+		v = v.replace(/[\'\"\?`~\!\$\%\^\*\(\)\[\]\{\}\-\+\\]+/, '');
+		ipt.val(v);
+		if( v == '' ) {
+			alert('请输入游戏名称、拼音或首字母缩写！');
+			ipt.focus();
+			return false;
+		}
+		if( v == search.old ) {
+			current = '';
+			$('#loading').html('').prevAll().remove();
+			$(search.html).hide().insertBefore('#loading').fadeIn();
+			return false;
+		}
+		loading = true;
+		search.old = v;
+		$('#loading').html(loader).prevAll().remove();
+		$.ajax({
+            url: '/game/find.html',
+            type: 'post',
+            dataType: 'html',
+            data: 'search='+encodeURIComponent(v),
+            success: function(html){
+                current = '';
+                search.html = html;
+                $('#loading').html('').prevAll().remove();
+                $(html).hide().insertBefore('#loading').fadeIn();
+            	loading = false;
+            },
+            error: function(){
+                loading = false;
+                alert('网络连接失败，请稍后再试！');
+            }
+        });
+    });
+});
+</script>
+</body>
+</html>

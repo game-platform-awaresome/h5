@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<meta name="keywords" content="<?php echo $game['name'],' ',$game['type'],' ',$game['classic']; ?> H5 HTML5 H5游戏 HTML5游戏 小游戏 手机游戏 网页游戏 在线游戏 点击即玩 久乐游戏 久乐H5">
+<meta name="description" content="<?=$game['in_short'] ? $game['in_short'] : '久乐游戏是一个行业领先的H5在线游戏平台，玩游戏不再苦苦的等待下载，点击即玩。'?>">
+<title><?=$game['name']?> - 久乐H5游戏平台</title>
+<link rel="stylesheet" href="/public/styles/base.css"/>
+<link rel="stylesheet" href="/styles/game_info.css"/>
+</head>
+<body class="bg01">
+<!--div.container 总外框  start-->
+<div class="z_container">
+    <header class="z_header">
+        <a target="_top" href="/game/index.html"></a>
+        <i class="i_game"></i><span>游戏</span>
+    </header>
+
+    <!--div.z_min 内容区域 statr-->
+    <div class="z_main" data-role="conent">
+        <!--div.infos 游戏信息 statr-->
+        <section class="infos game_list block_bg">
+            <div class="infos_main">
+                <div class="game_log relative">
+                    <a><img src="<?=$game['logo']?>" alt="<?=$game['name']?>" width="100%" height="auto"/></a>
+                </div>
+                <div class="game_info">
+                    <h3>
+                        <span><?=$game['name']?></span>
+                    </h3>
+                    <P>
+                    <span class="start_list fl">
+                        <?=$game['grade']?>
+                    </span>
+                        <span>人气：<?=$game['support']?></span>
+                    </P>
+                    <?php if($game['version']) { ?>
+                    <p><?php echo "版本{$game['version']}"; ?></p>
+                    <?php } ?>
+                </div>
+            </div>
+            <hr class="linear"/>
+        </section>
+        <!--div.infos 游戏信息 end-->
+
+        <!--div.to_play 游戏功能 start-->
+        <section class="game_list to_play block_bg">
+            <div class="game_list_main">
+                <div class="save_game fl">
+                    <a id="add_favorite" data-gid="<?=$game['game_id']?>">
+                        <img src="<?php echo $favorited ? '/images/game_info/info_12.png' : '/images/game_info/info_11.png'; ?>" alt="收藏" width="100%" height="auto">
+                    </a>
+                    <p>收藏</p>
+                </div>
+                <?php if( $game['giftbag'] ) { ?>
+                <div class="save_game ml_20 fl">
+                    <a target="_top" href="/game/giftbag.html?gift_id=<?=$game['giftbag']?>" class="lb_cont">
+                        <img src="/images/game_info/info_14.png" alt="<?=$game['name']?> 游戏礼包" width="70%" height="auto">
+                    </a>
+                    <p>礼包</p>
+                </div>
+                <?php } ?>
+                <div class="game_btn">
+                <?php if($game['visible'] == 1) { ?>
+                    <a target="_top" class="btn_blue" href="/game/play.html?game_id=<?=$game['game_id']?>">开始玩</a>
+                <?php } else { ?>
+                    <a class="btn_blue" href="javascript:void(0);">敬请期待</a>
+                <?php } ?>
+                </div>
+            </div>
+        </section>
+        <!--div.to_play 游戏功能 end-->
+
+        <!--div.game_banner 图片banner区域 start-->
+        <div class="game_banner block_bg">
+            <div class="list_imgs swipe" id='slider'>
+                <ul id="img_slider" class="swipe-wrap">
+                <?php $i = 1; foreach ($game['screenshots'] as $row) {
+                    if( empty($row) ) continue;
+                    if( $i%2 ) { ?>
+                    <li class="wrap">
+                <?php } ?>
+                        <a><img src="<?=$row?>" alt="<?=$game['name']?> 游戏截图" width="100%" height="auto"></a>
+                <?php  if( $i%2 == 0 ) { ?>
+                    </li>
+                <?php } ++$i; }
+                    if( $i != 1 && $i%2 ) echo '</li>';
+                ?>
+                </ul>
+            </div>
+            <div class="btn_check">
+                <ul></ul>
+            </div>
+        </div>
+        <!--div.game_banner 图片banner区域 end-->
+
+        <!--div.game_detail 游戏介绍 start-->
+        <section class="game_detail block_bg">
+            <div class="game_detail_main">
+                <h2>游戏介绍<hr class="linear"/></h2>
+                <article>
+                    <p><?=$game['details']?></p>
+                </article>
+            </div>
+        </section>
+        <!--div.game_detail 游戏介绍 end-->
+        <div class="footer_zoom"></div>
+    </div>
+    <!--div.z_min 内容区域 end-->
+</div>
+<!--div.container 总外框  end-->
+<?php include $this->getScriptPath().'/footer.phtml'; ?>
+<script src="/public/scripts/jquery-1.11.1.min.js"></script>
+<script src="/public/scripts/jquery.mobile.min.js"></script>
+<script src="/jquery/swipe.js"></script>
+<script>
+$('#footer a:eq(2)').attr('id', 'footer_nav_active');
+$(function(){
+	$(".z_container").css({"padding-top":0});
+
+	var img_nums = $('#img_slider li').length;
+	if( img_nums > 0 ) {
+    	var html = (new Array(img_nums + 1)).join('<li></li>');
+    	html = $(html);
+    	html.eq(0).addClass('active_role');
+    	$('.btn_check ul').append(html);
+	}
+    window.mySwipe = Swipe(document.getElementById('slider'), {
+        auto: 2000,
+        continuous: true,
+        disableScroll: false,
+        stopPropagation: false,
+        callback: function(index, element) {
+            $(".btn_check ul li").eq(index % img_nums).addClass("active_role").siblings().removeClass("active_role");
+        }
+    });
+
+    //收藏
+    var favorited = <?=$favorited?'true':'false'?>;
+    var loading = false;
+    $('#add_favorite').tap(function(){
+        if( '<?=$user?$user['user_id']:''?>' == '' ) {
+            if( confirm('还未登录，是否现在去登录？') ) {
+                location.href = '/user/login.html?fwd=<?=urlencode("/game/detail.html?game_id={$game['game_id']}")?>';
+            }
+        } else if( ! favorited ) {
+            if( loading ) return false;
+            loading = true;
+            $.post('/user/addfavorite.html?game_id=<?=$game['game_id']?>', '', function(msg){
+                if( msg == 'success' ) {
+                    $('#add_favorite img').attr('src', '/images/game_info/info_12.png');
+                	favorited = true;
+                } else if( msg ) {
+                    alert(msg);
+                }
+                loading = false;
+            });
+        }
+    });
+});
+</script>
+</body>
+</html>

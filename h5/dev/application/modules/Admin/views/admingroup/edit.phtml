@@ -1,0 +1,114 @@
+<style>
+.ui-icons-green, .ui-icons-red{cursor:pointer; display:inline-block; width:16px; height:16px; overflow:hidden; vertical-align:-15%}
+.ui-icons-green{background:transparent url(/admin/js/ui-icons_459300_256x240.png) no-repeat}
+.ui-icons-red{background:transparent url(/admin/js/ui-icons_cc0000_256x240.png) no-repeat}
+.ui-icon-checkbox{background-position:16px 16px; border:1px solid #60a820; border-radius:3px; height:14px; width:14px}
+.ui-icon-checked{background-position:-65px -145px}
+.ui-icon-deny{background-position:0 -128px}
+.item-title{font-weight:bold; font-size:larger; line-height:22px}
+.item-deny{color:gray}
+</style>
+<div class="content-box">
+  <!-- Start Content Box -->
+  <div class="content-box-header">
+    <h3>分配权限</h3>
+    <a class="go_back" href="javascript:history.go(-1);">返回上一页</a>
+    <div class="clear"></div>
+  </div>
+  <!-- End .content-box-header -->
+  <div class="content-box-content">
+    <div class="tab-content default-tab">
+      <form action="/admin/admingroup/update" method="post">
+        <fieldset>
+        <ol class="column-left">
+        <?php foreach ($menu as &$row) { ?>
+          <li data-mid="<?=$row['menu_id']?>" data-pid="<?=$row['parent_id']?>">
+          <?php if($parent === null || array_key_exists($row['menu_id'], $parent)) { ?>
+            <i data-mid="<?=$row['menu_id']?>" data-ctl="<?=$row['controller']?>" class="ui-icons-green ui-icon-checkbox<?=array_key_exists($row['menu_id'], $self)?' ui-icon-checked':''?>"></i>
+            <span class="item-title"><?=$row['name']?></span>
+          <?php } else { ?>
+            <i class="ui-icons-red ui-icon-deny"></i>
+            <span class="item-title item-deny"><?=$row['name']?></span>
+          <?php } ?>
+            <ol>
+            <?php foreach ($row['children'] as &$tmp) { ?>
+              <li data-mid="<?=$tmp['menu_id']?>" data-pid="<?=$tmp['parent_id']?>">
+              <?php if($parent === null || array_key_exists($tmp['menu_id'], $parent)) { ?>
+                <i data-mid="<?=$tmp['menu_id']?>" data-ctl="<?=$tmp['controller']?>" class="ui-icons-green ui-icon-checkbox<?=array_key_exists($tmp['menu_id'], $self)?' ui-icon-checked':''?>"></i>
+                <span><?=$tmp['name']?></span>
+              <?php } else { ?>
+                <i class="ui-icons-red ui-icon-deny"></i>
+                <span class="item-deny"><?=$tmp['name']?></span>
+              <?php } ?>
+              </li>
+            <?php } ?>
+            </ol>
+          </li>
+        <?php } ?>
+        </ol>
+        <h3 class="column-right" style="color:red">注意事项：</h3>
+        <ol class="column-right">
+            <li>必须先给父级的权限组分配权限后，方可给下级分配；</li>
+            <li>权限是按照控制器controller来分配的，拥有一个动作action的权限即拥有所有；</li>
+            <li>如果子菜单没有一个被选中，也请也不要选中父菜单（没有什么影响也没有任何意义）；</li>
+            <li>子权限组的权限只能在父权限组中选（即父权限组没有子权限组就不能选）；</li>
+        </ol>
+        <p class="clear">
+          <input class="button" type="button" id="save" value="提交" />
+        </p>
+        </fieldset>
+        <div class="clear"></div>
+        <!-- End .clear -->
+      </form>
+    </div>
+    <!-- End #tab2 -->
+  </div>
+  <!-- End .content-box-content -->
+</div>
+<!-- End .content-box -->
+<div class="clear"></div>
+<link rel="stylesheet" href="/js/dxj-alert/dxj-alert.css" type="text/css" media="screen" />
+<script src="/js/dxj-alert/dxj-alert.js"></script>
+<script>
+$(function(){
+    $('form').on('click', '.ui-icon-checkbox', function(){
+        var _t = $(this);
+        var pid = _t.parent().attr('data-pid');
+        _t.toggleClass('ui-icon-checked');
+        var ck = _t.hasClass('ui-icon-checked');
+        if( pid == '0' ) {
+            if( ! ck ) {
+                _t.nextAll('ol').find('.ui-icon-checkbox').removeClass('ui-icon-checked');
+            }
+        } else {
+            if( ck ) {
+                _t.parent().parent().prevAll('.ui-icon-checkbox').addClass('ui-icon-checked');
+            }
+        }
+    });
+    $('#save').click(function(){
+        var menu = [], ctls = [], tmp = {};
+        $('.ui-icon-checked').each(function(){
+            menu.push($(this).attr('data-mid'));
+            var ctl = $(this).attr('data-ctl');
+            if( ctl != '' ) tmp[ctl] = 1;
+        });
+        for(var ctl in tmp)
+        {
+            ctls.push(ctl);
+        }
+        if( menu.length == 0 || ctls.length == 0 ) {
+            return false;
+        }
+        menu = menu.join(',');
+        ctls = ctls.join(',');
+        $.post('/admin/admingroup/update', 'group_id=<?=$group_id?>&menu='+menu+'&ctls='+ctls, function(msg){
+            if( msg == '1' ) {
+                dxjalert('权限已保存。', 'success');
+            } else {
+            	dxjalert(msg, 'error');
+            }
+        }, 'text');
+    });
+});
+</script>

@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+<meta charset="UTF-8">
+<title><?=$info['name']?> - 游戏管理 久乐游戏开发者平台</title>
+<link rel="stylesheet" href="/css/base.css"/>
+<link rel="stylesheet" href="/css/game_api.css"/>
+</head>
+<body class="user">
+    <div class="container">
+        <?php include $this->getScriptPath().'/header.phtml'; ?>
+        <div class="main2">
+            <div class="center">
+                <?php include $this->getScriptPath().'/info_menu.phtml'; ?>
+                <section class="content">
+                    <header class="user_title">
+                        <nav>
+                            <a href="/gameinfo/index.html?game_id=<?=$game_id?>">游戏总览</a>
+                            <span class="gt"> &gt; </span>
+                            <a href="/gameinfo/baseinfo.html?game_id=<?=$game_id?>">基本信息</a>
+                            <span class="gt"> &gt; </span>
+                            <strong>编辑</strong>
+                        </nav>
+                    </header>
+                    <article>
+                        <form class="ul_info" id="js_validate" method="post">
+                            <div class="info_list">
+                                <strong>游戏ID：</strong>
+                                <span><?=$game_id?></span>
+                            </div>
+                            <div class="info_list">
+                                <strong>游戏KEY：</strong>
+                                <span><?=$info['sign_key']?></span>
+                            </div>
+                            <div class="info_list">
+                                <strong> <i class="red">*</i> 游戏名称：</strong>
+                                <span class="grey"><?=$info['name']?></span>
+                            </div>
+                            <div class="info_list">
+                                <strong> <i class="red">*</i> 类别：</strong>
+                                <select id="classic" name="classic">
+                                <?php foreach ($classic as $tp) { ?>
+                                    <option value="<?=$tp?>"<?php if($tp == $info['classic']) echo ' selected="selected"'; ?>><?=$tp?></option>
+                                <?php } ?>
+                                </select>
+                            </div>
+                            <div class="info_list">
+                                <strong> <i class="red">*</i> 屏幕适配：</strong>
+                                <select id="screen" name="screen">
+                                <?php foreach ($screens as $k=>$v) { ?>
+                                    <option value="<?=$k?>"<?php if($k == $info['screen']) echo ' selected="selected"'; ?>><?=$v?></option>
+                                <?php } ?>
+                                </select>
+                            </div>
+                            <div class="info_list">
+                                <label class="labels"> <i class="red">*</i> 版本信息：</label>
+                                <input type="text" id="version" name="version" maxlength="16" value="<?=$info['version']?>"/>
+                            </div>
+                            <div class="info_list">
+                                <label class="labels"> <i class="red">*</i> 游戏描述：</label>
+                                <textarea class="game_show" id="in_short" name="in_short"><?=$info['in_short']?></textarea>
+                            </div>
+                            <div class="info_list">
+                                <label class="labels"> <i class="red">*</i> 游戏详情：</label>
+                                <textarea class="game_show" id="details" name="details" style="margin-top:12px"><?=$info['details']?></textarea>
+                            </div>
+                        </form>
+                    </article>
+                    <footer class="buttons_group">
+                        <div class="buttons_center">
+                            <input type="submit" id="save" value="保存信息" class="btn_green2 fl">
+                            <button class="btn_white fl" onclick="javascript:location.href='/gameinfo/baseinfo.html?game_id=<?=$game_id?>';return false;">取消修改</button>
+                        </div>
+                    </footer>
+                </section>
+            </div>
+        </div>
+        <?php include $this->getScriptPath().'/footer.phtml'; ?>
+    </div>
+<script src="/js/jquery-1.11.1.min.js"></script>
+<script src="/js/jquery.validate.min.js"></script>
+<script>
+<?php include $this->getScriptPath().'/info_base.js'; ?>
+$(function(){
+    $("#js_validate").validate({
+        rules:{
+        	version: {
+                required: true,
+                rangelength:[1,16]
+            },
+            in_short: {
+                required: true,
+                rangelength:[8,255]
+            },
+            details: {
+            	required: true,
+                maxlength: 60000
+            }
+        },
+        messages:{
+        	version: {
+                required: "版本信息不能为空",
+                rangelength:"版本信息一般由1-16位的数字与字符组成"
+            },
+            in_short: {
+                required: "游戏简介不能为空",
+                rangelength: "请填写8-255位长度的描述信息作为游戏简介"
+            },
+            details: {
+            	required: "游戏详情不能为空",
+                maxlength: "请输入长度不超过60000的文字或图片链接等作为游戏详情"
+            }
+        }
+    });
+    $('#save').click(function(event){
+        event.preventDefault();
+        if( $("#js_validate").valid() ) {
+        	$("#js_validate").get(0).submit();
+        }
+        return false;
+    });
+});
+</script>
+</body>
+</html>

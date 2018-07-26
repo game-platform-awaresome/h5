@@ -1,0 +1,1232 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>UCenter 接口开发手册 - 短消息接口</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" href="images/style.css" type="text/css" media="all" />
+<meta content="Comsenz Inc." name="Copyright" />
+<script type="text/javascript" src="javascript/common.js"></script>
+</head>
+<body>
+<script type="text/javascript" src="javascript/header.js"></script>
+
+<a name="location"></a>
+<h3>进入短消息中心</h3>
+
+<div class="submsg">
+<h4>uc_pm_location(<i>integer</i> uid , <i>bool</i> newpm)</h4>
+
+<h5>函数参数</h5>
+<table border="0" cellspacing="0" cellpadding="0" class="msgtable">
+<thead>
+	<tr>
+	<th>参数</th>
+	<td>含义</td>
+	</tr>
+</thead>
+<tbody>
+	<tr>
+	<th><i>integer</i> uid</th>
+	<td>用户 ID</td>
+	</tr>
+	<tr>
+	<th><i>bool</i> newpm</th>
+	<td>
+	是否直接查看未读短消息<br />
+	<em>1:</em>是<br />
+	<em>0:</em><strong>(默认值)</strong> 否<br />
+	</td>
+	</tr>
+</tbody>
+</table>
+
+<br />
+本接口函数运行后会发送一个 header 的 location 请求，使当前页面跳转到短消息中心。所以请不要在这个函数运行前后有任何的输出性的代码。如果 newpm 为 1 则进入短消息中心后，会默认打开新件箱。
+
+<h6><a href="###" class="spread" onclick="collapse(this, 's1')">进入短消息中心示例 (PHP)</a></h6>
+<div class="code" id="s1" style="display: none"><pre>
+&lt;?php
+
+uc_pm_location($uid);
+
+?&gt;
+</pre></div>
+
+</div>
+
+<a name="checknew"></a>
+<h3>检查新的短消息</h3>
+
+<div class="submsg">
+<h4><i>bool/array</i> uc_pm_checknew(<i>integer</i> uid [, <i>bool</i> more])</h4>
+
+<h5>函数参数</h5>
+<table border="0" cellspacing="0" cellpadding="0" class="msgtable">
+<thead>
+	<tr>
+	<th>参数</th>
+	<td>含义</td>
+	</tr>
+</thead>
+<tbody>
+	<tr>
+	<th><i>integer</i> uid</th>
+	<td>用户 ID</td>
+	</tr>
+	<tr>
+	<th><i>bool</i> more</th>
+	<td>是否显示更多信息<br />
+	<em>2:</em>返回短消息数、最后消息时间, 最后消息内容<br />
+	<em>1:</em>返回短消息数、最后消息时间<br />
+	<em>0:</em><strong>(默认值)</strong> 只返回短消息数<br />
+	</td>
+	</tr>
+</tbody>
+</table>
+
+<h5>返回值 (当 more = 0 时)</h5>
+<table border="0" cellspacing="0" cellpadding="0" class="msgtable">
+<thead>
+	<tr>
+	<th>值</th>
+	<td>含义</td>
+	</tr>
+</thead>
+<tbody>
+	<tr>
+	<th><i>integer</i></th>
+	<td>未读消息数</td>
+	</tr>
+</tbody>
+</table>
+
+<h5>返回值 (当 more = 1 时)</h5>
+<table border="0" cellspacing="0" cellpadding="0" class="msgtable">
+<thead>
+	<tr>
+	<th colspan="2">值</th>
+	<td>含义</td>
+	</tr>
+</thead>
+<tbody>
+	<tr>
+	<th rowspan="2"><i>array</i></th>
+	<th><i>integer</i> ['newpm']</th>
+	<td>未读消息数</td>
+	</tr>
+	<tr>
+	<th><i>integer</i> ['newprivatepm']</th>
+	<td>私人消息数</td>
+	</tr>
+</tbody>
+</table>
+
+<h5>返回值 (当 more = 2 时)</h5>
+<table border="0" cellspacing="0" cellpadding="0" class="msgtable">
+<thead>
+	<tr>
+	<th colspan="2">值</th>
+	<td>含义</td>
+	</tr>
+</thead>
+<tbody>
+	<tr>
+	<th rowspan="4"><i>array</i></th>
+	<th><i>integer</i> ['newpm']</th>
+	<td>未读消息数</td>
+	</tr>
+	<tr>
+	<th><i>integer</i> ['newprivatepm']</th>
+	<td>私人消息数</td>
+	</tr>
+	<tr>
+	<th><i>integer</i> ['newchatpm']</th>
+	<td>群聊消息数</td>
+	</tr>
+</tbody>
+</table>
+
+<h5>返回值 (当 more = 3 时)</h5>
+<table border="0" cellspacing="0" cellpadding="0" class="msgtable">
+<thead>
+	<tr>
+	<th colspan="2">值</th>
+	<td>含义</td>
+	</tr>
+</thead>
+<tbody>
+	<tr>
+	<th rowspan="8"><i>array</i></th>
+	<th><i>integer</i> [newpm]</th>
+	<td>未读消息数</td>
+	</tr>
+	<tr>
+	<th><i>integer</i> ['newprivatepm']</th>
+	<td>私人消息数</td>
+	</tr>
+	<tr>
+	<th><i>integer</i> ['newchatpm']</th>
+	<td>群聊消息数</td>
+	</tr>
+	<tr>
+	<th><i>integer</i> ['lastdate']</th>
+	<td>最后消息时间</td>
+	</tr>
+	<tr>
+	<th><i>integer</i> ['lastmsgfromid']</th>
+	<td>最后消息发件人 ID</td>
+	</tr>
+	<tr>
+	<th><i>string</i> ['lastmsgfrom']</th>
+	<td>最后消息发件人用户名</td>
+	</tr>
+	<tr>
+	<th><i>string</i> ['lastmsg']</th>
+	<td>最后消息内容</td>
+	</tr>
+</tbody>
+</table>
+
+<br />
+本接口函数会检查指定用户是否有新的短消息。
+
+<h6><a href="###" class="spread" onclick="collapse(this, 's2')">检查新短消息示例 (PHP)</a></h6>
+<div class="code" id="s2" style="display: none"><pre>
+if(uc_pm_checknew($uid)) {
+	echo "您有新短消息";
+}
+</pre></div>
+
+</div>
+
+<a name="send"></a>
+<h3>发送短消息</h3>
+
+<div class="submsg">
+<h4><i>integer</i> uc_pm_send(<i>integer</i> fromuid , <i>string</i> msgto , <i>string</i> subject , <i>string</i> message [, <i>bool</i> instantly , <i>integer</i> replypmid , <i>bool</i> isusername , <i>integer</i> type])</h4>
+
+<h5>函数参数</h5>
+<table border="0" cellspacing="0" cellpadding="0" class="msgtable">
+<thead>
+	<tr>
+	<th>参数</th>
+	<td>含义</td>
+	</tr>
+</thead>
+<tbody>
+	<tr>
+	<th><i>integer</i> fromuid</th>
+	<td>发件人用户 ID</td>
+	</tr>
+	<tr>
+	<th><i>string</i> msgto</th>
+	<td>收件人用户名 / 用户 ID，多个用逗号分割</td>
+	</tr>
+	<tr>
+	<th><i>string</i> subject</th>
+	<td>消息标题</td>
+	</tr>
+	<tr>
+	<th><i>string</i> message</th>
+	<td>消息内容</td>
+	</tr>
+	<tr>
+	<th><i>bool</i> instantly</th>
+	<td>
+	是否直接发送<br />
+	<em>1:</em><strong>(默认值)</strong> 直接发送消息<br />
+	<em>0:</em>进入发送短消息的界面<br />
+	</td>
+	</tr>
+	<tr>
+	<th><i>integer</i> replypid</th>
+	<td>
+	回复的消息 ID<br />
+	<em>大于 0:</em>回复指定的短消息<br />
+	<em>0:</em><strong>(默认值)</strong> 发送新的短消息<br />
+	</td>
+	</tr>
+	<tr>
+	<th><i>bool</i> isusername</th>
+	<td>
+	msgto 参数是否为用户名<br />
+	<em>1:</em>msgto 参数为用户名<br />
+	<em>0:</em><strong>(默认值)</strong> msgto 参数为用户 ID<br />
+	</td>
+	</tr>
+	<tr>
+	<th><i>integer</i> type</th>
+	<td>
+	消息类别<br />
+	<em>1:</em>群聊消息<br />
+	<em>0:</em><strong>(默认值)</strong>私人消息<br />
+	</td>
+	</tr>
+</tbody>
+</table>
+
+<h5>返回值</h5>
+<table border="0" cellspacing="0" cellpadding="0" class="msgtable">
+<thead>
+	<tr>
+	<th>值</th>
+	<td>含义</td>
+	</tr>
+</thead>
+<tbody>
+	<tr>
+	<th><i>integer</i></th>
+	<td>
+	<em>大于 0:</em>发送成功的最后一条消息 ID<br />
+	<em>0:</em>发送失败<br />
+	<em>-1:</em>超过两人会话的最大上限<br />
+	<em>-2:</em>超过两次发送短消息时间间隔<br />
+	<em>-3:</em>不能给非好友批量发送短消息(已废弃)<br />
+	<em>-4:</em>目前还不能使用发送短消息功能（注册多少日后才可以使用发短消息限制）<br />
+	<em>-5:</em>超过群聊会话的最大上限<br />
+	<em>-6:</em>在忽略列表中<br />
+	<em>-7:</em>超过群聊人数上限<br />
+	<em>-8:</em>不能给自己发短消息<br />
+	<em>-9:</em>收件人为空<br />
+	<em>-10:</em>发起群聊人数小于两人<br />
+	</td>
+	</tr>
+</tbody>
+</table>
+
+<br />
+本接口函数用于发送短消息。当 instantly 为 1 时，短消息会直接发送出去，否则本函数会发送一个 header 的 location 请求，使当前页面跳转到短消息中心的发送短消息页面。因此，当 instantly 为 0 时请不要在这个函数运行前后有任何的输出性的代码。type 为 1 时为发送群聊消息。msgto 默认为用户 ID，如果要让用户名作为参数，可让 isusername 为 1。replypid 为 0 表示发送的短消息为短消息话题的发起者，如果 replypid 为指定的消息 ID 则表示发送的短消息为回复指定短消息话题的回复信息。如果 instantly 为 1，那么发送成功后函数返回发送成功的最后一条消息 ID，返回 0 表示发送失败。
+
+<h6><a href="###" class="spread" onclick="collapse(this, 's3')">发送短消息示例 (PHP)</a></h6>
+<div class="code" id="s3" style="display: none"><pre>
+if(uc_pm_send($uid, $_POST['msgto'], $_POST['subject'], $_POST['message'])) {
+	echo "短消息发送成功";
+}
+</pre></div>
+
+</div>
+
+<a name="delete"></a>
+<h3>删除短消息</h3>
+
+<div class="submsg">
+<h4><i>integer</i> uc_pm_delete(<i>integer</i> uid , <i>string</i> folder , <i>array</i> pmids)</h4>
+
+<h5>函数参数</h5>
+<table border="0" cellspacing="0" cellpadding="0" class="msgtable">
+<thead>
+	<tr>
+	<th>参数</th>
+	<td>含义</td>
+	</tr>
+</thead>
+<tbody>
+	<tr>
+	<th><i>integer</i> uid</th>
+	<td>用户 ID</td>
+	</tr>
+	<tr>
+	<th><i>string</i> folder</th>
+	<td>
+	短消息所在的文件夹<br />
+	<em>inbox:</em>收件箱<br />
+	<em>outbox:</em>发件箱<br />
+	</td>
+	</tr>
+	<tr>
+	<th><i>array</i> pmids</th>
+	<td>消息 ID 数组</td>
+	</tr>
+</tbody>
+</table>
+
+<h5>返回值</h5>
+<table border="0" cellspacing="0" cellpadding="0" class="msgtable">
+<thead>
+	<tr>
+	<th>值</th>
+	<td>含义</td>
+	</tr>
+</thead>
+<tbody>
+	<tr>
+	<th><i>integer</i></th>
+	<td>1: 删除成功，0: 删除失败</td>
+	</tr>
+</tbody>
+</table>
+
+<br />
+本接口函数将删除指定文件夹中的指定消息 ID 的短消息。pmids 参数是一个自由 Key 数组类型，如“ array(1, 2, 3, 4, 5 ...) ”，数组的每一个值均为消息 ID。删除的每一条短消息 UCenter 会进行对方删除状态的检测，如果短消息对方也是删除状态，那么当前消息将在数据库中删除，否则只记录一个删除标记。
+
+<h6><a href="###" class="spread" onclick="collapse(this, 's4')">删除短消息示例 (PHP)</a></h6>
+<div class="code" id="s4" style="display: none"><pre>
+$if(!empty($_POST['delete']) && is_array($_POST['delete'])) {
+	uc_pm_delete($uid, 'inbox',  $_POST['delete']);
+}
+</pre></div>
+
+</div>
+
+<br />
+
+<div class="submsg">
+<h4><i>integer</i> uc_pm_deleteuser(<i>integer</i> uid , <i>array</i> touids)</h4>
+
+<h5>函数参数</h5>
+<table border="0" cellspacing="0" cellpadding="0" class="msgtable">
+<thead>
+	<tr>
+	<th>参数</th>
+	<td>含义</td>
+	</tr>
+</thead>
+<tbody>
+	<tr>
+	<th><i>integer</i> uid</th>
+	<td>用户 ID</td>
+	</tr>
+	<tr>
+	<th><i>array</i> touids</th>
+	<td>对方用户 ID 数组</td>
+	</tr>
+</tbody>
+</table>
+
+<h5>返回值</h5>
+<table border="0" cellspacing="0" cellpadding="0" class="msgtable">
+<thead>
+	<tr>
+	<th>值</th>
+	<td>含义</td>
+	</tr>
+</thead>
+<tbody>
+	<tr>
+	<th><i>integer</i></th>
+	<td>1: 删除成功, 0: 删除失败</td>
+	</tr>
+</tbody>
+</table>
+
+<br />
+本接口函数将删除和 uid 对话的 touids 中的所有短消息。
+
+</div>
+
+<br />
+
+<div class="submsg">
+<h4>uc_pm_deletechat(<i>integer</i> uid , <i>array</i> plids [, <i>bool</i> type])</h4>
+
+<h5>函数参数</h5>
+<table border="0" cellspacing="0" cellpadding="0" class="msgtable">
+<thead>
+	<tr>
+	<th>参数</th>
+	<td>含义</td>
+	</tr>
+</thead>
+<tbody>
+	<tr>
+	<th><i>integer</i> uid</th>
+	<td>用户 ID</td>
+	</tr>
+	<tr>
+	<th><i>array</i> plids</th>
+	<td>要删除的消息会话 ID 数组</td>
+	</tr>
+	<tr>
+	<th><i>bool</i> type</th>
+	<td>
+	类别<br />
+	<em>0:</em><strong>(默认值)</strong> 退出群聊<br />
+	<em>1:</em>删除群聊<br />
+	</td>
+	</tr>
+</tbody>
+</table>
+
+<br />
+本接口函数用于群聊短消息的退出和删除。plids 参数是一个自由 Key 数组类型，如“ array(1, 2, 3, 4, 5 ...) ”，数组的每一个值均为 ID。
+
+</div>
+
+<br />
+
+<a name="delete"></a>
+<h3>标记短消息已读/未读状态</h3>
+
+<div class="submsg">
+<h4>uc_pm_readstatus(<i>integer</i> uid , <i>array</i> uids [, <i>array</i> plids, <i>bool</i> status])</h4>
+
+<h5>函数参数</h5>
+<table border="0" cellspacing="0" cellpadding="0" class="msgtable">
+<thead>
+	<tr>
+	<th>参数</th>
+	<td>含义</td>
+	</tr>
+</thead>
+<tbody>
+	<tr>
+	<th><i>integer</i> uid</th>
+	<td>用户 ID</td>
+	</tr>
+	<tr>
+	<th><i>array</i> uids</th>
+	<td>要标记的对方用户 ID 数组</td>
+	</tr>
+	<tr>
+	<th><i>array</i> pmids</th>
+	<td>要标记的会话 ID 数组，默认值空数组</td>
+	</tr>
+	<tr>
+	<th><i>bool</i> status</th>
+	<td>
+	要标记的状态<br />
+	<em>0:</em><strong>(默认值)</strong> 标记为已读<br />
+	<em>1:</em>标记为未读<br />
+	</td>
+	</tr>
+</tbody>
+</table>
+
+<br />
+本接口函数用于标记短消息的已读/未读状态。uids 和 plids 参数是一个自由 Key 数组类型，如“ array(1, 2, 3, 4, 5 ...) ”，数组的每一个值均为 ID。
+
+<h6><a href="###" class="spread" onclick="collapse(this, 's9')">标记短消息状态示例 (PHP)</a></h6>
+<div class="code" id="s9" style="display: none"><pre>
+uc_pm_readstatus($uid, $uids);
+echo "短消息已标记为已读";
+</pre></div>
+
+</div>
+
+<br />
+
+<a name="list"></a>
+<h3>获取短消息列表</h3>
+
+<div class="submsg">
+<h4><i>array</i> uc_pm_list(<i>integer</i> uid [, <i>integer</i> page , <i>integer</i> pagesize , <i>string</i> folder , <i>string</i> filter, <i>integer</i> msglen])</h4>
+
+<h5>函数参数</h5>
+<table border="0" cellspacing="0" cellpadding="0" class="msgtable">
+<thead>
+	<tr>
+	<th>参数</th>
+	<td>含义</td>
+	</tr>
+</thead>
+<tbody>
+	<tr>
+	<th><i>integer</i> uid</th>
+	<td>用户 ID</td>
+	</tr>
+	<tr>
+	<th><i>integer</i> page</th>
+	<td>当前页编号，默认值 1</td>
+	</tr>
+	<tr>
+	<th><i>integer</i> pagesize</th>
+	<td>每页最大条目数，默认值 10</td>
+	</tr>
+	<tr>
+	<th><i>string</i> folder</th>
+	<td class="max">
+	短消息所在的文件夹<br />
+	<em>newbox:</em>新件箱<br />
+	<em>inbox:</em><strong>(默认值)</strong> 收件箱<br />
+	<em>outbox:</em>发件箱<br />
+	</td>
+	</tr>
+	<tr>
+	<th><i>string</i> filter</th>
+	<td class="max">
+	过滤方式<br />
+	<em>newpm:</em><strong>(默认值)</strong> 未读消息，folder 为 inbox 和 outbox 时使用<br />
+	</td>
+	</tr>
+	<tr>
+	<th><i>integer</i> msglen</th>
+	<td>截取短消息内容文字的长度，0 为不截取，默认值 0</td>
+	</tr>
+</tbody>
+</table>
+
+<h5>返回值</h5>
+<table border="0" cellspacing="0" cellpadding="0" class="msgtable">
+<thead>
+	<tr>
+	<th colspan="2">值</th>
+	<td>含义</td>
+	</tr>
+</thead>
+<tbody>
+	<tr>
+	<th rowspan="2"><i>array</i></th>
+	<th><i>integer</i> ['count']</th>
+	<td>消息总数</td>
+	</td>
+	</tr>
+	<tr>
+	<th><i>array</i> ['data']</th>
+	<td>
+	短消息列表数据，其中单条消息数组结构请参看<a href="pm.htm#table1">附表</a>。
+	</td>
+	</tr>
+</tbody>
+</table>
+
+<br />
+本接口函数用于获取指定文件夹的短消息列表。函数已内置分页，直接通过 page 和 pagesize 即可实现翻页。
+
+</div>
+
+<a name="ignore"></a>
+<h3>忽略未读消息提示</h3>
+
+<div class="submsg">
+<h4>uc_pm_ignore(<i>integer</i> uid)</h4>
+
+<h5>函数参数</h5>
+<table border="0" cellspacing="0" cellpadding="0" class="msgtable">
+<thead>
+	<tr>
+	<th>参数</th>
+	<td>含义</td>
+	</tr>
+</thead>
+<tbody>
+	<tr>
+	<th><i>integer</i> uid</th>
+	<td>用户 ID</td>
+	</tr>
+</tbody>
+</table>
+
+<br />
+本接口函数用于直接忽略未读短消息的提示状态。
+
+</div>
+
+<a name="view"></a>
+<h3>获取短消息内容</h3>
+
+<div class="submsg">
+<h4><i>array</i> uc_pm_view(<i>integer</i> uid , <i>integer</i> pmid [, <i>integer</i> touid , <i>integer</i> daterange , <i>integer</i> page , <i>integer</i> pagesize , <i>integer</i> type , <i>integer</i> isplid])</h4>
+
+<h5>函数参数</h5>
+<table border="0" cellspacing="0" cellpadding="0" class="msgtable">
+<thead>
+	<tr>
+	<th>参数</th>
+	<td>含义</td>
+	</tr>
+</thead>
+<tbody>
+	<tr>
+	<th><i>integer</i> uid</th>
+	<td>用户 ID</td>
+	</tr>
+	<tr>
+	<th><i>integer</i> pmid</th>
+	<td>消息 ID</td>
+	</tr>
+	<tr>
+	<th><i>integer</i> touid</th>
+	<td>消息对方用户 ID</td>
+	</tr>
+	<tr>
+	<th><i>integer</i> daterange</th>
+	<td>日期范围<br />
+	<em>1:</em><strong>(默认值)</strong> 今天<br />
+	<em>2:</em>昨天<br />
+	<em>3:</em>前天<br />
+	<em>4:</em>上周<br />
+	<em>5:</em>更早<br />
+	</td>
+	</tr>
+	<tr>
+	<th><i>integer</i> page</th>
+	<td>当前页码</td>
+	</tr>
+	<tr>
+	<th><i>integer</i> pagesize</th>
+	<td>每页最大条数</td>
+	</tr>
+	<tr>
+	<th><i>integer</i> type</th>
+	<td>消息类型 1: 私人消息, 2: 群聊消息</td>
+	</tr>
+	<tr>
+	<th><i>integer</i> isplid</th>
+	<td>touid参数是会话id还是用户id</td>
+	</tr>
+</tbody>
+</table>
+
+<h5>返回值</h5>
+<table border="0" cellspacing="0" cellpadding="0" class="msgtable">
+<thead>
+	<tr>
+	<th>值</th>
+	<td>含义</td>
+	</tr>
+</thead>
+<tbody>
+	<tr>
+	<th><i>array</i></th>
+	<td>短消息内容数据，其中单条消息数组结构请参看<a href="pm.htm#table2">附表</a></td>
+	</tr>
+</tbody>
+</table>
+
+<br />
+本接口函数用于返回指定用户的指定消息 ID 的消息，返回的数据中包含针对这个消息的回复。如果指定 touid 参数，那么短消息将列出所有 uid 和 touid 之间的短消息，daterange 可以指定返回消息的日期范围, page 和 pagesize 可以指定返回消息的页码和页面大小。
+
+</div>
+
+<a name="viewnum"></a>
+<h3>查找会话消息数量</h3>
+
+<div class="submsg">
+<h4><i>integer</i> uc_pm_view_num(<i>integer</i> uid , <i>integer</i> touid , <i>bool</i> isplid)</h4>
+
+<h5>函数参数</h5>
+<table border="0" cellspacing="0" cellpadding="0" class="msgtable">
+<thead>
+	<tr>
+	<th>参数</th>
+	<td>含义</td>
+	</tr>
+</thead>
+<tbody>
+	<tr>
+	<th><i>integer</i> uid</th>
+	<td>用户 ID</td>
+	</tr>
+	<tr>
+	<th><i>integer</i> touid</th>
+	<td>查找的会话 ID 或者用户 ID</td>
+	</tr>
+	<tr>
+	<th><i>bool</i> isplid</th>
+	<td>touid参数是会话 ID 还是用户 ID</td>
+	</tr>
+</tbody>
+</table>
+
+<h5>返回值</h5>
+<table border="0" cellspacing="0" cellpadding="0" class="msgtable">
+<thead>
+	<tr>
+	<th>值</th>
+	<td>含义</td>
+	</tr>
+</thead>
+<tbody>
+	<tr>
+	<th><i>integer</i></th>
+	<td>指定会话的消息数量</td>
+	</tr>
+</tbody>
+</table>
+
+<br />
+
+<h6><a href="###" class="spread" onclick="collapse(this, 's4')">查找会话消息数量示例 (PHP)</a></h6>
+<div class="code" id="s4" style="display: none"><pre>
+
+	uc_pm_view_num($uid, $plid, 1);
+
+</pre></div>
+
+</div>
+
+<br />
+
+<a name="viewnode"></a>
+<h3>获取单条短消息内容</h3>
+
+<div class="submsg">
+<h4><i>integer</i> uc_pm_viewnode(<i>integer</i> uid , <i>integer</i> type , <i>integer</i> pmid)</h4>
+
+<h5>函数参数</h5>
+<table border="0" cellspacing="0" cellpadding="0" class="msgtable">
+<thead>
+	<tr>
+	<th>参数</th>
+	<td>含义</td>
+	</tr>
+</thead>
+<tbody>
+	<tr>
+	<th><i>integer</i> uid</th>
+	<td>用户 ID</td>
+	</tr>
+	<tr>
+	<th><i>integer</i> type</th>
+	<td>
+	消息的类型<br />
+	<em>0: </em>获取指定单条消息<br />
+	</td>
+	</tr>
+	<tr>
+	<th><i>integer</i> pmid</th>
+	<td>消息 ID</td>
+	</tr>
+</tbody>
+</table>
+
+<h5>返回值</h5>
+<table border="0" cellspacing="0" cellpadding="0" class="msgtable">
+<thead>
+	<tr>
+	<th>值</th>
+	<td>含义</td>
+	</tr>
+</thead>
+<tbody>
+	<tr>
+	<th><i>array</i></th>
+	<td>短消息内容数据，其中单条消息数组结构请参看<a href="pm.htm#table2">附表</a></td>
+	</tr>
+</tbody>
+</table>
+
+<br />
+
+</div>
+
+<a name="chatpmmemberlist"></a>
+<h3>查找群聊成员列表</h3>
+
+<div class="submsg">
+<h4><i>integer</i> uc_pm_chatpmmemberlist(<i>integer</i> uid , <i>integer</i> plid)</h4>
+
+<h5>函数参数</h5>
+<table border="0" cellspacing="0" cellpadding="0" class="msgtable">
+<thead>
+	<tr>
+	<th>参数</th>
+	<td>含义</td>
+	</tr>
+</thead>
+<tbody>
+	<tr>
+	<th><i>integer</i> uid</th>
+	<td>用户 ID</td>
+	</tr>
+	<tr>
+	<th><i>integer</i> plid</th>
+	<td>群聊会话 ID</td>
+	</tr>
+</tbody>
+</table>
+
+<h5>返回值</h5>
+<table border="0" cellspacing="0" cellpadding="0" class="msgtable">
+<thead>
+	<tr>
+	<th>值</th>
+	<td>含义</td>
+	</tr>
+</thead>
+<tbody>
+	<tr>
+	<th><i>array</i></th>
+	<td>返回群聊的成员列表<a href="pm.htm#table3">附表</a></td>
+	</tr>
+</tbody>
+</table>
+
+<br />
+
+</div>
+
+<a name="kickchatpm"></a>
+<h3>踢出群聊成员</h3>
+
+<div class="submsg">
+<h4><i>integer</i> uc_pm_kickchatpm(<i>integer</i> plid , <i>integer</i> uid , <i>integer</i> touid)</h4>
+
+<h5>函数参数</h5>
+<table border="0" cellspacing="0" cellpadding="0" class="msgtable">
+<thead>
+	<tr>
+	<th>参数</th>
+	<td>含义</td>
+	</tr>
+</thead>
+<tbody>
+	<tr>
+	<th><i>integer</i> plid</th>
+	<td>会话 ID</td>
+	</tr>
+	<tr>
+	<th><i>integer</i> uid</th>
+	<td>用户 ID</td>
+	</tr>
+	<tr>
+	<th><i>integer</i> touid</th>
+	<td>踢出的用户 ID</td>
+	</tr>
+</tbody>
+</table>
+
+<h5>返回值</h5>
+<table border="0" cellspacing="0" cellpadding="0" class="msgtable">
+<thead>
+	<tr>
+	<th>值</th>
+	<td>含义</td>
+	</tr>
+</thead>
+<tbody>
+	<tr>
+	<th><i>integer</i></th>
+	<td>1: 踢出成功, 2: 踢出失败</td>
+	</tr>
+</tbody>
+</table>
+
+<br />
+
+</div>
+
+<a name="appendchatpm"></a>
+<h3>添加群聊成员</h3>
+
+<div class="submsg">
+<h4><i>integer</i> uc_pm_appendchatpm(<i>integer</i> plid , <i>integer</i> uid , <i>integer</i> touid)</h4>
+
+<h5>函数参数</h5>
+<table border="0" cellspacing="0" cellpadding="0" class="msgtable">
+<thead>
+	<tr>
+	<th>参数</th>
+	<td>含义</td>
+	</tr>
+</thead>
+<tbody>
+	<tr>
+	<th><i>integer</i> plid</th>
+	<td>会话 ID</td>
+	</tr>
+	<tr>
+	<th><i>integer</i> uid</th>
+	<td>用户 ID</td>
+	</tr>
+	<tr>
+	<th><i>integer</i> touid</th>
+	<td>添加的用户 ID</td>
+	</tr>
+</tbody>
+</table>
+
+<h5>返回值</h5>
+<table border="0" cellspacing="0" cellpadding="0" class="msgtable">
+<thead>
+	<tr>
+	<th>值</th>
+	<td>含义</td>
+	</tr>
+</thead>
+<tbody>
+	<tr>
+	<th><i>integer</i></th>
+	<td>1: 添加成功, 2: 添加失败</td>
+	</tr>
+</tbody>
+</table>
+
+<br />
+
+</div>
+
+<a name="blackls_get"></a>
+<h3>获取黑名单</h3>
+
+<div class="submsg">
+<h4><i>string</i> uc_pm_blackls_get(<i>integer</i> uid)</h4>
+
+<h5>函数参数</h5>
+<table border="0" cellspacing="0" cellpadding="0" class="msgtable">
+<thead>
+	<tr>
+	<th>参数</th>
+	<td>含义</td>
+	</tr>
+</thead>
+<tbody>
+	<tr>
+	<th><i>integer</i> uid</th>
+	<td>用户 ID</td>
+	</tr>
+</tbody>
+</table>
+
+<h5>返回值</h5>
+<table border="0" cellspacing="0" cellpadding="0" class="msgtable">
+<thead>
+	<tr>
+	<th>值</th>
+	<td>含义</td>
+	</tr>
+</thead>
+<tbody>
+	<tr>
+	<th><i>string</i></th>
+	<td>黑名单内容数据</td>
+	</tr>
+</tbody>
+</table>
+
+<br />
+本接口函数返回用户的黑名单设置的内容。
+
+<h6><a href="###" class="spread" onclick="collapse(this, 's5')">获取黑名单示例 (PHP)</a></h6>
+<div class="code" id="s5" style="display: none"><pre>
+$blackls = uc_pm_blackls_get($uid);
+echo '&lt;form method="post"&gt;&lt;textarea name="blackls"&gt;'.htmlspecialchars($blackls).'&lt;/textarea&gt;';
+echo '&lt;input type="submit" value="保存" /&gt;&lt;/form&gt;';
+</pre></div>
+
+</div>
+
+<a name="blackls_set"></a>
+<h3>更新黑名单</h3>
+
+<div class="submsg">
+<h4><i>bool</i> uc_pm_blackls_set(<i>integer</i> uid , <i>string</i> blackls)</h4>
+
+<h5>函数参数</h5>
+<table border="0" cellspacing="0" cellpadding="0" class="msgtable">
+<thead>
+	<tr>
+	<th>参数</th>
+	<td>含义</td>
+	</tr>
+</thead>
+<tbody>
+	<tr>
+	<th><i>integer</i> uid</th>
+	<td>用户 ID</td>
+	</tr>
+	<tr>
+	<th><i>string</i> blackls</th>
+	<td>黑名单内容</td>
+	</tr>
+</tbody>
+</table>
+
+<h5>返回值</h5>
+<table border="0" cellspacing="0" cellpadding="0" class="msgtable">
+<thead>
+	<tr>
+	<th>值</th>
+	<td>含义</td>
+	</tr>
+</thead>
+<tbody>
+	<tr>
+	<th><i>bool</i></th>
+	<td>
+	<em>1:</em>更新成功<br />
+	<em>0:</em>更新失败<br />
+	</td>
+	</tr>
+</tbody>
+</table>
+
+<br />
+本接口函数用于更新用户的黑名单列表数据。设置黑名单后，黑名单中的人员将无法发送短消息给 uid 指定的用户。黑名单中被忽略的人员用用户名表示，多个忽略人员名单时用逗号 "," 隔开(如:张三,李四,王五)，如需禁止所有用户发来的短消息，请用 "{ALL}" 表示。
+
+<h6><a href="###" class="spread" onclick="collapse(this, 's6')">更新黑名单示例 (PHP)</a></h6>
+<div class="code" id="s6" style="display: none"><pre>
+if(uc_pm_blackls_set($uid, $_POST['blackls'])) {
+	echo '黑名单更新成功';
+}
+</pre></div>
+
+</div>
+
+<a name="blackls_add"></a>
+<h3>添加黑名单项目</h3>
+
+<div class="submsg">
+<h4><i>bool</i> uc_pm_blackls_add(<i>integer</i> uid , <i>array</i> username)</h4>
+
+<h5>函数参数</h5>
+<table border="0" cellspacing="0" cellpadding="0" class="msgtable">
+<thead>
+	<tr>
+	<th>参数</th>
+	<td>含义</td>
+	</tr>
+</thead>
+<tbody>
+	<tr>
+	<th><i>integer</i> uid</th>
+	<td>用户 ID</td>
+	</tr>
+	<tr>
+	<th><i>array</i> username</th>
+	<td>用户名数组</td>
+	</tr>
+</tbody>
+</table>
+
+<h5>返回值</h5>
+<table border="0" cellspacing="0" cellpadding="0" class="msgtable">
+<thead>
+	<tr>
+	<th>值</th>
+	<td>含义</td>
+	</tr>
+</thead>
+<tbody>
+	<tr>
+	<th><i>bool</i></th>
+	<td>
+	<em>1:</em>添加成功<br />
+	<em>0:</em>添加失败<br />
+	</td>
+	</tr>
+</tbody>
+</table>
+
+<br />
+本接口函数用于添加用户的黑名单项目。如需添加屏蔽所有用户的设置，请让 username 数组中包含 "{ALL}"
+
+<h6><a href="###" class="spread" onclick="collapse(this, 's7')">添加黑名单项目示例 (PHP)</a></h6>
+<div class="code" id="s7" style="display: none"><pre>
+uc_pm_blackls_add(1, array('username1', ''username2'));
+</pre></div>
+
+</div>
+
+<a name="blackls_delete"></a>
+<h3>删除黑名单项目</h3>
+
+<div class="submsg">
+<h4>uc_pm_blackls_delete(<i>integer</i> uid , <i>array</i> username)</h4>
+
+<h5>函数参数</h5>
+<table border="0" cellspacing="0" cellpadding="0" class="msgtable">
+<thead>
+	<tr>
+	<th>参数</th>
+	<td>含义</td>
+	</tr>
+</thead>
+<tbody>
+	<tr>
+	<th><i>integer</i> uid</th>
+	<td>用户 ID</td>
+	</tr>
+	<tr>
+	<th><i>array</i> username</th>
+	<td>用户名数组</td>
+	</tr>
+</tbody>
+</table>
+
+<br />
+本接口函数用于删除用户的黑名单项目。如需删除屏蔽所有用户的设置，请让 username 数组中包含 "{ALL}"
+
+<h6><a href="###" class="spread" onclick="collapse(this, 's8')">添加黑名单项目示例 (PHP)</a></h6>
+<div class="code" id="s8" style="display: none"><pre>
+uc_pm_blackls_delete(1, array('username1', ''username2'));
+</pre></div>
+
+</div>
+
+<div class="line"></div>
+
+<a name="table1"></a>
+<h3>附表：消息列表单条数组结构</h3>
+
+<div class="submsg">
+<table border="0" cellspacing="0" cellpadding="0" class="msgtable">
+	<tbody>
+
+	<tr><th style="width:150px"><i>integer</i> ['plid']</th><td>会话 ID</td></tr>
+	<tr><th style="width:150px"><i>integer</i> ['uid']</th><td>当前用户 ID</td></tr>
+	<tr><th style="width:150px"><i>bool</i> ['isnew']</th><td>是否未读标记</td></tr>
+	<tr><th style="width:150px"><i>integer</i> ['pmnum']</th><td>该会话相对于当前用户的消息数量</td></tr>
+	<tr><th style="width:150px"><i>integer</i> ['lastupdate']</th><td>当前用户的最后更新时间</td></tr>
+	<tr><th style="width:150px"><i>integer</i> ['lastdateline']</th><td>会话最后更新时间</td></tr>
+	<tr><th style="width:150px"><i>integer</i> ['authorid']</th><td>会话发起者 ID</td></tr>
+	<tr><th style="width:150px"><i>integer</i> ['pmtype']</th><td>会话类别 1: 私人消息, 2: 群聊消息</td></tr>
+	<tr><th style="width:150px"><i>string</i> ['subject']</th><td>标题</td></tr>
+	<tr><th style="width:150px"><i>integer</i> ['members']</th><td>会话参与人数</td></tr>
+	<tr><th style="width:150px"><i>integer</i> ['touid']</th><td>pmtype参数为1时,该返回值表示对方用户 ID</td></tr>
+	<tr><th style="width:150px"><i>string</i> ['tousername']</th><td>pmtype参数为1时,该返回值表示对方用户名</td></tr>
+	<tr><th style="width:150px"><i>integer</i> ['founddateline']</th><td>会话发起时间</td></tr>
+	<tr><th style="width:150px"><i>integer</i> ['lastauthorid']</th><td>会话最后一条的发送人 ID</td></tr>
+	<tr><th style="width:150px"><i>string</i> ['lastauthor']</th><td>会话最后一条的发送人用户名</td></tr>
+	<tr><th style="width:150px"><i>string</i> ['lastsummary']</th><td>会话最后一条的发送的内容截取</td></tr>
+
+	<tr><th style="width:150px"><i>integer</i> ['pmid'][兼容]</th><td>消息 ID</td></tr>
+	<tr><th style="width:150px"><i>integer</i> ['msgfromid'][兼容]</th><td>发件人用户 ID</td></tr>
+	<tr><th style="width:150px"><i>string</i> ['msgfrom'][兼容]</th><td>发件人用户名</td></tr>
+	<tr><th style="width:150px"><i>integer</i> ['msgtoid'][兼容]</th><td>收件人用户 ID</td></tr>
+	<tr><th style="width:150px"><i>integer</i> ['new'][兼容]</th><td><em>1:</em>未读短消息<br /><em>0:</em>已读短消息<br /></td></tr>
+	<tr><th style="width:150px"><i>string</i> ['message'][兼容]</th><td>内容</td></tr>
+	<tr><th style="width:150px"><i>integer</i> ['dateline'][兼容]</th><td>发送时间的时间戳</td></tr>
+	<tr><th style="width:150px"><i>integer</i> ['daterange'][兼容]</th><td><em>1:</em>今天<br /><em>2:</em>昨天<br /><em>3:</em>前天<br /><em>4:</em>上周<br /><em>5:</em>更早<br /></td></tr>
+
+</tbody>
+</table>
+</div>
+
+
+<a name="table2"></a>
+<h3>附表：消息详细内容单条数组结构</h3>
+
+<div class="submsg">
+<table border="0" cellspacing="0" cellpadding="0" class="msgtable">
+	<tbody>
+
+	<tr><th style="width:150px"><i>integer</i> ['pmid']</th><td>消息 ID</td></tr>
+	<tr><th style="width:150px"><i>integer</i> ['plid']</th><td>所属会话 ID</td></tr>
+	<tr><th style="width:150px"><i>integer</i> ['authorid']</th><td>消息发起者 ID</td></tr>
+	<tr><th style="width:150px"><i>string</i> ['author']</th><td>消息发起者用户名</td></tr>
+	<tr><th style="width:150px"><i>integer</i> ['pmtype']</th><td>会话类别 1: 私人消息, 2: 群聊消息</td></tr>
+	<tr><th style="width:150px"><i>string</i> ['subject']</th><td>标题</td></tr>
+	<tr><th style="width:150px"><i>integer</i> ['members']</th><td>会话参与人数</td></tr>
+	<tr><th style="width:150px"><i>integer</i> ['dateline']</th><td>消息发起时间</td></tr>
+	<tr><th style="width:150px"><i>string</i> ['message']</th><td>消息内容</td></tr>
+	<tr><th style="width:150px"><i>integer</i> ['founderuid']</th><td>发起会话的用户 ID</td></tr>
+	<tr><th style="width:150px"><i>integer</i> ['founddateline']</th><td>会话发起时间</td></tr>
+	<tr><th style="width:150px"><i>integer</i> ['touid']</th><td>pmtype参数为1时,该返回值表示对方用户 ID</td></tr>
+
+	兼容
+	<tr><th style="width:150px"><i>integer</i> ['msgfromid'][兼容]</th><td>发件人用户 ID</td></tr>
+	<tr><th style="width:150px"><i>string</i> ['msgfrom'][兼容]</th><td>发件人用户名</td></tr>
+	<tr><th style="width:150px"><i>integer</i> ['msgtoid'][兼容]</th><td>收件人用户 ID</td></tr>
+
+</tbody>
+</table>
+</div>
+
+<a name="table3"></a>
+<h3>附表：群聊成员列表单个数组结构</h3>
+
+<div class="submsg">
+<table border="0" cellspacing="0" cellpadding="0" class="msgtable">
+	<tbody>
+
+	<tr><th style="width:150px"><i>integer</i> ['author']</th><td>群聊发起者 ID</td></tr>
+	<tr><th style="width:150px"><i>array</i> ['member']</th><td>所有成员用户 ID 列表 如: “ array(1, 2, 3, ...) ”</td></tr>
+
+</tbody>
+</table>
+</div>
+
+<script type="text/javascript" src="javascript/footer.js"></script>
+</body>
+</html>

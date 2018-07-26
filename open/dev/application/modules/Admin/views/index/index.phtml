@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Simpla Admin</title>
+<!--                       CSS                       -->
+<!-- Reset Stylesheet -->
+<link rel="stylesheet" href="/admin/css/reset.css" type="text/css" media="screen" />
+<!-- Main Stylesheet -->
+<link rel="stylesheet" href="/admin/css/style.css" type="text/css" media="screen" />
+<!-- Invalid Stylesheet. This makes stuff look pretty. Remove it if you want the CSS completely valid -->
+<link rel="stylesheet" href="/admin/css/invalid.css" type="text/css" media="screen" />
+<!--                       Javascripts                       -->
+<!-- jQuery -->
+<script type="text/javascript" src="/js/jquery-1.11.1.min.js"></script>
+<!-- jQuery Configuration -->
+<script type="text/javascript" src="/admin/js/simpla.jquery.configuration.js"></script>
+</head>
+
+<body id="login">
+<div id="login-wrapper" class="png_bg">
+  <div id="login-top">
+    <h1>Simpla Admin</h1>
+    <!-- Logo (221px width) -->
+    <a href="#"><img id="logo" src="/admin/images/logo.png" alt="Simpla Admin logo" /></a> </div>
+  <!-- End #logn-top -->
+  <div id="login-content">
+    <form action="/admin/index/login" method="post">
+      <div class="notification information png_bg">
+        <div> <?php if(isset($error)){echo '<font color="red">',$error,'</font>';}else{echo 'Please input your username and password.';} ?></div>
+      </div>
+      <p>
+        <label>Username</label>
+        <input class="text-input" type="text" name="username" required />
+      </p>
+      <div class="clear"></div>
+      <p>
+        <label>Password</label>
+        <input class="text-input" type="password" name="password" required />
+      </p>
+      <div class="clear"></div>
+      <p id="remember-password">
+        <input type="checkbox" id="remember" name="remember" value="1" />
+        <label for="remember" style="float:right; margin-top:-2px; width:94px;">Remember me</label>
+      </p>
+      <div class="clear"></div>
+      <p>
+        <input class="button" type="submit" value="Sign On" />
+      </p>
+    </form>
+  </div>
+  <!-- End #login-content -->
+</div>
+<!-- End #login-wrapper -->
+</body>
+</html>

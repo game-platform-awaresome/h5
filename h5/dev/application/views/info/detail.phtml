@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+<meta name="screen-orientation" content="portrait">
+<meta name="keywords" content="<?=$info['keywords']?> H5 HTML5 H5游戏 HTML5游戏 小游戏 手机游戏 网页游戏 在线游戏 点击即玩 久乐游戏 久乐H5 资讯 新闻 攻略 视频 ">
+<meta name="description" content="久乐游戏是一个行业领先的H5在线游戏平台，玩游戏不再苦苦的等待下载，点击即玩。">
+<title><?=$info['title']?> - 久乐H5游戏资讯</title>
+<link rel="stylesheet" href="/public/styles/base.css"/>
+<link rel="stylesheet" href="/styles/synthssize.css"/>
+</head>
+<body class="bg01">
+<!--div.container 总外框  start-->
+<div data-role="page" class="z_container news">
+    <nav class="play_list">
+        <i class="icons logo"></i>
+        <ul class="ui-grid-d" id="nav_bar">
+            <li><a href="/info/index.html?type=综合">综合</a></li>
+            <li><a href="/info/index.html?type=活动">活动</a></li>
+            <li><a href="/info/index.html?type=新闻">新闻</a></li>
+            <li><a href="/info/index.html?type=公告">公告</a></li>
+        </ul>
+    </nav>
+    <header class="z_header">
+        <a target="_top" href="/info/index.html<?=$type ? "?type={$type}" : ''?>"></a>
+        <?php if($info['game_name']) { ?><span>《<?=$info['game_name']?>》</span><?php } else { ?><span><?=$info['title']?></span><?php } ?>
+    </header>
+    <!--div.z_min 内容区域 statr-->
+    <div class="z_main">
+    <?php if($info['game_name']) { ?>
+        <h2 class="block_bg info-title"><?=$info['title']?></h2>
+    <?php } ?>
+        <article class="block_bg info-content">
+            <?=$info['content']?>
+        </article>
+        <div class="footer_padding"></div>
+    </div>
+    <!--div.z_min 内容区域 end-->
+</div>
+<!--div.container 总外框  end-->
+<?php include $this->getScriptPath().'/footer.phtml'; ?>
+<script src="/public/scripts/jquery-1.11.1.min.js"></script>
+<script>
+$('#footer a:eq(1)').attr('id', 'footer_nav_active');
+$('#nav_bar li').each(function(){
+	var _t = $(this);
+	if( _t.find('a').text() == '<?=$type?>' ) {
+		_t.addClass('list_active');
+	}
+});
+</script>
+</body>
+</html>

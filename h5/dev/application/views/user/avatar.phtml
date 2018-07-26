@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"/>
+<title>修改头像 - 个人资料 - 久乐游戏</title>
+<link rel="stylesheet" href="/public/styles/base.css"/>
+<link rel="stylesheet" href="/styles/user_password.css"/>
+<style>
+.z_main{padding:10px;}
+.img-box{height:300px; width:100%; position:relative; border:1px solid #324f5a; border-radius:1px;
+    background-color:#151f26; overflow:hidden; background-repeat:no-repeat; cursor:move;}
+.thumb-box{height:102px; width:102px; position:absolute; left:50%; top:50%; margin:-51px auto auto -51px;
+    box-sizing:border-box; border:1px solid rgb(102, 102, 102); box-shadow:0 0 0 1000px rgba(0, 0, 0, 0.5); background:transparent;}
+.spinner{position:absolute; top:0; left:0; bottom:0; right:0; text-align:center; line-height:300px; background:rgba(0,0,0,0.7); color:#fff;}
+.action{padding:10px 0;}
+#file{display:none;}
+#f_wrap{background-color:transparent; border:2px solid #29ba67; border-radius:5px; color:#29ba67; float:left;
+    height:30px; line-height:26px; width:80px;}
+#zoom_in,#zoom_out{background:transparent url(/images/avatar/zoom.png) no-repeat; background-size:74px 26px;
+    border:none; color:#fff; height:25px; line-height:25px; font-weight:bold; float:right; width:24px;}
+#zoom_in{background-position:-1px 0;}
+#zoom_out{margin-right:8px; background-position:-49px 0;}
+</style>
+</head>
+<body class="bg02">
+<!--div.container 总外框  start-->
+<div class="z_container" >
+    <header class="z_header block_bg">
+        <a target="_top" href="/user/edit.html"></a><span>修改头像</span>
+    </header>
+
+    <!--div.z_min 内容区域 statr-->
+    <div class="z_main" data-role="conent">
+        <form class="user_form">
+            <div class="img-box">
+                <div class="thumb-box"></div>
+                <div class="spinner" style="display:none">Loading...</div>
+            </div>
+            <div class="action">
+                <input type="file" id="file" accept="image/png,image/jpeg,image/jpg,image/gif">
+                <input type="button" id="f_wrap" value="上传头像">
+                <input type="button" id="zoom_in" value="">
+                <input type="button" id="zoom_out" value="">
+            </div>
+            <a class="login_btn" id="save" href="javascript:void(0)">保存头像</a>
+        </form>
+        <div class="footer_padding"></div>
+    </div>
+    <!--div.z_min 内容区域 end-->
+</div>
+<!--div.container 总外框  end-->
+<?php include $this->getScriptPath().'/footer.phtml'; ?>
+<script src="/public/scripts/jquery-1.11.1.min.js"></script>
+<script src="/public/scripts/jquery.mobile.min.js"></script>
+<script src="/jquery/cropbox.mobile.js"></script>
+<script>
+$('#footer a:eq(4)').attr('id', 'footer_nav_active');
+$(function(){
+	var tmp_w = $('.img-box').width();
+	$('.img-box, .spinner').css({height: tmp_w, width: tmp_w});
+	delete tmp_w;
+	var options =
+	{
+		thumbBox: '.thumb-box',
+		spinner: '.spinner',
+		imgSrc: '/images/avatar/ava_dft.png',
+		maxWidth: 480,
+		maxHeight: 480
+	};
+	var cropper = $('.img-box').cropbox(options);
+	$('#f_wrap').on('tap', function(){
+		$('#file').trigger('click');
+	});
+	$('#file').on('change', function(){
+		if( this.files.length < 1 ) return false;
+		var tp = this.files[0].type;
+		if( tp != 'image/jpeg' && tp != 'image/png' && tp != 'image/gif' ) {
+			alert('请选择PNG、JPG或GIF格式的图片！');
+			return false;
+		}
+		var reader = new FileReader();
+		reader.onload = function(e) {
+			options.imgSrc = e.target.result;
+			cropper = $('.img-box').cropbox(options);
+		}
+		reader.readAsDataURL(this.files[0]);
+		this.files = [];
+	});
+	$('#zoom_in').on('tap', function(){
+		cropper.zoomIn();
+		return false;
+	});
+	$('#zoom_out').on('tap', function(){
+		cropper.zoomOut();
+		return false;
+	});
+	var loading = false;
+	$('#save').on('tap', function(){
+		if( loading ) return false;
+		if( $('#file').get(0).files.length < 1 ) {
+			alert('请先选择您要作为头像的图片！');
+			return false;
+		}
+		var img = cropper.getDataURL();
+		loading = true;
+		$.ajax({
+			url: '/user/avatar.html',
+			type: 'POST',
+			dataType: 'json',
+			data: 'avatar='+ img,
+			success: function(msg){
+				loading = false;
+				alert(msg.msg);
+				if( msg.fwd != '' ) location.href = msg.fwd;
+			},
+			error: function(){
+				loading = false;
+				alert('网络不给力啊，再试试呢？');
+			}
+		});
+	});
+});
+</script>
+</body>
+</html>

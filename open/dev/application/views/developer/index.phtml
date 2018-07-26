@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+<meta charset="UTF-8">
+<title>管理中心 - 久乐游戏开发者平台</title>
+<link rel="stylesheet" href="/css/base.css"/>
+<link rel="stylesheet" href="/css/user_info.css"/>
+</head>
+<body class="user">
+    <div class="container">
+        <?php include $this->getScriptPath().'/header.phtml'; ?>
+        <div class="main2">
+            <div class="center">
+                <?php include $this->getScriptPath().'/menu.phtml'; ?>
+                <section class="content">
+                    <div class="box">
+                        <h2 class="title"><i class="icons i_account"></i>游戏累计流水</h2>
+                        <p class="box_cont">
+                            <i class="icons i_add"></i>
+                            <span class="orange"><?=$dev['trade_money']?></span>
+                        </p>
+                    </div>
+                    <div class="box">
+                        <h2 class="title">
+                            <i class="icons i_developer"></i>我是开发者
+                            <a href="javascript:void(0)" class="green fr">查看 &gt;</a>
+                        </h2>
+                        <ul class="game_account">
+                            <li>
+                                <div class="list_main">
+                                    <h4>已上线游戏</h4>
+                                    <strong><?=$dev['on_nums']?></strong>
+                                    <span>款</span>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="list_main">
+                                    <h4>未上线游戏</h4>
+                                    <strong><?=$dev['off_nums']?></strong>
+                                    <span>款</span>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="list_main">
+                                    <h4>游戏总数量</h4>
+                                    <strong><?=($dev['on_nums']+$dev['off_nums'])?></strong>
+                                    <span>款</span>
+                                </div>
+                            </li>
+                        </ul>
+                        <div class="text_center">
+                        <?php if($dev['status'] == 9) { ?>
+                            <a href="/game/create.html" class="btn_green">创建游戏</a>
+                        <?php } elseif($dev['status'] == 0 || $dev['status'] == 2) { ?>
+                            <?php if($dev['message']){ ?><span style="color:red;font-size:14px"><?=$dev['message']?></span><?php } ?>
+                            <button id="apply" class="btn_green3">提交审核</button>
+                        <?php } else { ?>
+                            <span style="color:<?=$dev['status']==1?'green':'red'?>;font-size:16px"><?=$dev['message']?></span>
+                        <?php } ?>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+        <?php include $this->getScriptPath().'/footer.phtml'; ?>
+    </div>
+<script src="/js/jquery-1.4.2.min.js"></script>
+<script>
+<?php include $this->getScriptPath().'/base.js'; ?>
+$(function(){
+    $(".main_info aside h3").click(function(){
+        $(this).find("i").toggleClass("i_down").end().nextAll("a").toggleClass("show");
+    });
+    var loading = false;
+    $('#apply').click(function(){
+        if(loading) return false;
+        loading = true;
+        $.post('/developer/apply.html', 'apply=1', function(msg){
+        	loading = false;
+        	$('#apply').parent().html(msg);
+        });
+    });
+});
+</script>
+</body>
+</html>

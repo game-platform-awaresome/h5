@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Simpla Admin</title>
+<!--                       CSS                       -->
+<!-- Reset Stylesheet -->
+<link rel="stylesheet" href="/admin/css/reset.css" type="text/css" media="screen" />
+<!-- Main Stylesheet -->
+<link rel="stylesheet" href="/admin/css/style.css" type="text/css" media="screen" />
+<!-- Invalid Stylesheet. This makes stuff look pretty. Remove it if you want the CSS completely valid -->
+<link rel="stylesheet" href="/admin/css/invalid.css" type="text/css" media="screen" />
+<!--                       Javascripts                       -->
+<!-- jQuery -->
+<script type="text/javascript" src="/js/jquery-1.11.0.min.js"></script>
+<!-- jQuery Configuration -->
+<script type="text/javascript" src="/admin/js/simpla.jquery.configuration.js"></script>
+</head>
+<body class="body_left">
+<div id="body-wrapper">
+  <!-- Wrapper for the radial gradient background -->
+  <div id="sidebar">
+    <div id="sidebar-wrapper">
+      <!-- Sidebar with logo and menu -->
+      <h1 id="sidebar-title"><a href="#">Simpla Admin</a></h1>
+      <!-- Logo (221px wide) -->
+      <a href="#"><img id="logo" src="/admin/images/logo.png" alt="Simpla Admin logo" /></a>
+      <!-- Sidebar Profile links -->
+      <div id="profile-links">Hello, <a href="#" title="Edit your profile"><?=$username?></a> |
+      	<a target="_parent" href="/admin/index/logout" title="Sign Out">Sign Out</a> |
+      	<a href="javascript:void(0);" onclick="javascript:parent.document.getElementById('right').contentWindow.history.go(-1);" title="go back">Go Back</a>
+	  </div>
+      <ul id="main-nav">
+        <!-- Accordion Menu -->
+        <li><a href="/admin/index/right" class="nav-top-item no-submenu current">系统信息</a></li>
+        <?php foreach ($menu as $each) { ?>
+        <li>
+        	<a href="javascript:void(0);" class="nav-top-item"><?=$each['nav']['name']?></a>
+        	<?php if( $each['items'] ) { ?>
+        	<ul>
+        	<?php foreach ($each['items'] as $item) { ?>
+        		<li><a href="/admin/<?=$item['controller']?>/<?=$item['action']?>"><?=$item['name']?></a></li>
+        	<?php } ?>
+        	</ul>
+        	<?php } ?>
+        </li>
+        <?php } ?>
+      </ul>
+      <!-- End #main-nav -->
+      <div id="messages" style="display: none">
+      </div>
+      <!-- End #messages -->
+    </div>
+  </div>
+  <!-- End #sidebar -->
+</div>
+</body>
+<!-- Download From www.exet.tk-->
+</html>

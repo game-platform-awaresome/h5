@@ -1,0 +1,54 @@
+<?php echo $html; ?>
+
+<script src="/js/My97DatePicker/WdatePicker.js"></script>
+<div class="content-box closed-box">
+  <div class="content-box-header">
+    <!-- Add the class "closed" to the Content box header to have it closed by default -->
+    <h3>用户导出<small>（CSV格式，点击展开）</small></h3>
+  </div>
+  <!-- End .content-box-header -->
+  <div class="content-box-content">
+    <div class="tab-content default-tab">
+    <form action="/admin/<?=$controller?>/export" id="export_form" method="post" target="_self">
+      <h4>选择导出时间范围<small>（注册时间）</small></h4>
+      <p>
+        <input class="text-input small-input" type="text" id="export_begin" placeholder="起始时间" name="export_begin" required onclick="WdatePicker({dateFmt:'yyyy-MM-dd'})" style="width:130px !important;" /> ~
+        <input class="text-input small-input" type="text" id="export_end" placeholder="结束时间" name="export_end" required onclick="WdatePicker({dateFmt:'yyyy-MM-dd'})" style="width:130px !important;" />
+      </p>
+      <p>
+        <input class="button" type="button" id="export_btn" value="下载用户数据" />
+      </p>
+    </form>
+    </div>
+    <!-- End #tab3 -->
+  </div>
+  <!-- End .content-box-content -->
+</div>
+<!-- End .content-box -->
+<script>
+$(function(){
+	$('#export_begin').val($('#s_reg_begin').val());
+	$('#export_end').val($('#s_reg_end').val());
+	var loading = false;
+	$('#export_btn').click(function(){
+		if( loading ) return false;
+		var begin = $('#export_begin').val();
+		var end = $('#export_end').val();
+		if( begin == '' ) {
+			alert('请选择起始时间！');
+			$('#export_begin').focus();
+			return false;
+		}
+		if( end == '' ) {
+			alert('请选择结束时间！');
+			$('#export_end').focus();
+			return false;
+		}
+		loading = true;
+		setTimeout(function(){
+			loading = false;
+		}, 10000);
+		$('#export_form').submit();
+	});
+});
+</script>

@@ -1,0 +1,85 @@
+/**
+*info:我的收藏 my_favs.html styles
+*author:zhangting
+*date:2015.09.24 09:56
+*logo:
+**/
+figure {
+  margin: 0;
+  padding: 0;
+}
+.banner {
+  padding: 10px 2%;
+  margin: 0;
+}
+.games {
+  margin-top: 10px;
+}
+.games h1 {
+  height: 35px;
+  line-height: 35px;
+  font-size: 14px;
+  font-weight: 100;
+  padding: 0 5%;
+  margin-bottom: 1px;
+}
+.games h1 span {
+  display: inline-block;
+  position: relative;
+  text-indent: 16px;
+}
+.games h1 span i {
+  display: inline-block;
+  position: absolute;
+  width: 14px;
+  height: 14px;
+  left: 0;
+  top: 50%;
+  margin-top: -7px;
+}
+.i_start {
+  background: url("../images/my_favs/i_start.png") no-repeat center;
+  background-size: 100% auto;
+}
+.i_delete {
+  background: url("../images/my_favs/i_delet.png") no-repeat center;
+  background-size: 100% auto;
+}
+.game_list {
+  overflow: hidden;
+  padding: 10px 3%;
+}
+.game_list li {
+  width: 31.333%;
+  height: 88px;
+  float: left;
+  background-color: rgba(255, 255, 255, 0.11);
+  position: relative;
+  margin: 2% 1%;
+}
+.game_list li img {
+  border-radius:7px;
+  position: absolute;
+  width: 50px;
+  height: 50px;
+  top: 50%;
+  left: 50%;
+  margin: -25px 0 0 -25px;
+}
+.i_close {
+  display: inline-block;
+  width: 14px;
+  height: 14px;
+  background: url("../images/my_favs/i_close.png") no-repeat center;
+  background-size: 100% 100%;
+  position: absolute;
+  top: 0;
+  right: 0;
+}
+.none {
+  display: none;
+}
+.i_game {
+  background: url("../images/my_favs/game.png") no-repeat center;
+  background-size: 100% auto;
+}

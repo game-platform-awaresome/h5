@@ -1,0 +1,176 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>UCenter 接口开发手册 - 了解 UCenter</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" href="images/style.css" type="text/css" media="all" />
+<meta content="Comsenz Inc." name="Copyright" />
+<script type="text/javascript" src="javascript/common.js"></script>
+</head>
+<body>
+<script type="text/javascript" src="javascript/header.js"></script>
+
+<div class="mainmsg">以下关于文件的阐述以及代码的样例，均以 PHP 程序为例。<br /><br /></div>
+
+<h3>UCenter 的目录结构</h3>
+
+<div class="mainmsg">
+UCenter 分为服务端和客户端 2 个部分。服务端目录为“upload/”，客户端目录为“client/”。无论你的网站有多少个应用程序，服务端在一个网站中只需安装一次。而客户端则必须存在于每一个应用的根目录中。具体目录结构请见下表：
+</div>
+<h4>服务端：upload/</h4>
+<div class="mainmsg">
+UCenter 安装时上传此文件夹中的文件到您的服务器，在浏览器输入“http://网站地址/install/”安装 UCenter。安装后删除 install/ 目录。
+<table border="0" cellspacing="0" cellpadding="0" class="msgtable">
+<tbody>
+	<tr>
+		<th>control/</th>
+		<td>应用程序 control 部分目录</td>
+	</tr>
+	<tr>
+		<th>data/</th>
+		<td>缓存数据目录，此目录及其子目录需要有可写权限</td>
+	</tr>
+	<tr>
+		<th>images/</th>
+		<td>图片目录</td>
+	</tr>
+	<tr>
+		<th>install/</th>
+		<td>安装目录，安装后必须删除</td>
+	</tr>
+	<tr>
+		<th>js/</th>
+		<td>javascript 脚本目录</td>
+	</tr>
+	<tr>
+		<th>lib/</th>
+		<td>应用程序函数库目录</td>
+	</tr>
+	<tr>
+		<th>module/</th>
+		<td>应用程序 module 部分目录</td>
+	</tr>
+	<tr>
+		<th>view/</th>
+		<td>模板目录</td>
+	</tr>
+	<tr>
+		<th>index.php</th>
+		<td>服务端接口函数库接口文件</td>
+	</tr>
+	<tr>
+		<th>admin.php</th>
+		<td>用户管理中心主文件</td>
+	</tr>
+	<tr>
+		<th>avatar.php</th>
+		<td>头像显示</td>
+	</tr>
+</tbody>
+</table>
+</div>
+
+<h4>客户端：client/</h4>
+<div class="mainmsg">
+UCenter 应用程序必备的目录，如果您的应用程序基于 UCenter，那么您的应用程序目录中必须包含此目录，目录名可自定义（所有 Comsenz 的产品对应的目录名为“uc_client/”）。
+<table border="0" cellspacing="0" cellpadding="0" class="msgtable">
+<tbody>
+	<tr>
+		<th>control/</th>
+		<td>应用程序 control 部分目录</td>
+	</tr>
+	<tr>
+		<th>data/</th>
+		<td>缓存数据目录，此目录及其子目录需要有可写权限</td>
+	</tr>
+	<tr>
+		<th>lib/</th>
+		<td>应用程序函数库目录</td>
+	</tr>
+	<tr>
+		<th>module/</th>
+		<td>应用程序 module 部分目录</td>
+	</tr>
+	<tr>
+		<th>client.php</th>
+		<td>接口函数库</td>
+	</tr>
+</tbody>
+</table>
+</div>
+
+<h3>UCenter 的接口函数</h3>
+
+<div class="mainmsg">
+UCenter 分为 MySQL 和远程两种接口连接方式，MySQL 方式是直接连接数据库因此速度较快，但当 UCenter 的服务端和客户端不在同一主机中且没有远程 MySQL 帐号的情况下，则只能使用远程连接方式。使用 UCenter 接口函数前请根据应用程序的需求定义以下相关常量：
+<table border="0" cellspacing="0" cellpadding="0" class="msgtable">
+<tbody>
+<tr>
+<th>UC_CONNECT</th>
+<td>
+连接 UCenter 的方式<br />
+<em>mysql:</em>MySQL 方式<br />
+<em>空:</em>远程方式<br />
+</td>
+</tr>
+<tr>
+<th>UC_DBHOST</th>
+<td>UCenter 数据库主机</td>
+</tr>
+<tr>
+<th>UC_DBUSER</th>
+<td>UCenter 数据库用户名</td>
+</tr>
+<tr>
+<th>UC_DBPW</th>
+<td>UCenter 数据库密码</td>
+</tr>
+<tr>
+<th>UC_DBNAME</th>
+<td>UCenter 数据库名称</td>
+</tr>
+<tr>
+<th>UC_DBCHARSET</th>
+<td>UCenter 数据库字符集</td>
+</tr>
+<tr>
+<th>UC_DBTABLEPRE</th>
+<td>UCenter 数据库表前缀</td>
+</tr>
+<tr>
+<th>UC_DBCONNECT</th>
+<td>UCenter 数据库持久连接 0=关闭, 1=打开</td>
+</tr>
+<tr>
+<th>UC_KEY</th>
+<td>与 UCenter 的通信密钥, 要与 UCenter 保持一致</td>
+</tr>
+<tr>
+<th>UC_API</th>
+<td>UCenter 服务端的 URL 地址</td>
+</tr>
+<tr>
+<th>UC_IP</th>
+<td>UCenter 的 IP, 当 UC_CONNECT 为非 mysql 方式时, 并且当前应用服务器解析域名有问题时, 请设置此值</td>
+</tr>
+<tr>
+<th>UC_CHARSET</th>
+<td>UCenter 的字符集</td>
+</tr>
+<tr>
+<th>UC_APPID</th>
+<td>当前应用的 ID</td>
+</tr>
+</tbody>
+</table>
+使用 UCenter 接口函数库必须包含 uc_client/client.php 接口函数库文件，例如下面检查新短消息的代码：
+<div class="code"><pre>
+include './uc_client/client.php';
+$newpm = uc_pm_checknew($Example_uid);
+</pre></div>
+详细的接口函数说明，请看“接口函数”章节。
+</div>
+
+<script type="text/javascript" src="javascript/footer.js"></script>
+</body>
+</html>

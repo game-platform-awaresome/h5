@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+<meta charset="UTF-8">
+<title><?=$action=='login' ? '登录到久乐开发者平台' : '注册成为久乐游戏开发者'?></title>
+<link rel="stylesheet" href="/css/base.css"/>
+<link rel="stylesheet" href="/css/login.css"/>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="header_main">
+                <a href="/" class="icons i_logo"></a>
+                <h1>久乐游戏开发者平台管理系统</h1>
+            </div>
+            <hr class="line"/>
+        </header>
+        <section class="main">
+            <form<?=$action=='login' ? '' : ' class="none"'?> id="login_form">
+                <h3 class="green">登录开发者平台</h3>
+                <div>
+                    <i class="icons i_user"></i>
+                    <input type="text" placeholder="登录账号" id="l_un" maxlength="32" class="width350"/>
+                </div>
+                <div>
+                    <i class="icons i_password"></i>
+                    <input type="password" placeholder="登录密码" id="l_pwd" maxlength="16" class="width266"/>
+                    <a href="/password/forget.html" class="forget" style="color:#fff">忘记密码？</a>
+                </div>
+                <div>
+                    <input type="text" placeholder="输入验证码" class="verification" id="l_code" maxlength="4"/>
+                    <img src="<?=$action=='login' ? '/imgcode/developer.html?'.mt_rand() : ''?>" width="103" height="auto"/>
+                </div>
+                <div class="btns">
+                    <input type="button" class="icons btn_login" value="立即登录" id="login"/>
+                    <span>我还没有账号，</span>
+                    <a class="green" id="to_register">马上注册</a>
+                </div>
+            </form>
+
+            <!--注册表单-->
+            <form class="register_form<?=$action=='login' ? ' none' : ''?>" id="register_form">
+                <h3 class="green">注册成为开发者</h3>
+                <div>
+                    <label>账号</label>
+                    <input type="text" placeholder="请输入电子邮箱作为登录账号" id="username" maxlength="32"/>
+                </div>
+                <p class="tips none">邮箱格式不正确！</p>
+
+                <div>
+                    <label>密码</label>
+                    <input type="password" placeholder="请输入密码" id="password" maxlength="16"/>
+                </div>
+                <p class="tips none">密码由6-16位字母、数字或字符组成！</p>
+
+                <div>
+                    <label>重复密码</label>
+                    <input type="password" placeholder="请再次输入密码" id="re_pwd" maxlength="16"/>
+                </div>
+                <p class="tips none">确认密码与密码不符！</p>
+
+                <div class="btns">
+                    <label>验证码</label>
+                    <input type="text" placeholder="请输入验证码" class="verification" id="xcode" maxlength="4" style="margin-left:0"/>
+                    <img src="<?=$action=='login' ? '' : '/imgcode/developer.html?'.mt_rand()?>" width="103" height="auto"/>
+                </div>
+                <p class="tips none">请输入有效的图片验证码！</p>
+
+                <div class="btns">
+                    <input type="button" class="icons btn_login btn_register" value="立即注册" id="register"/>
+                    <span>我已有账号，</span>
+                    <a class="green" id="to_login">马上登录</a>
+                </div>
+            </form>
+        </section>
+        <?php include $this->getScriptPath().'/footer.phtml'; ?>
+    </div>
+<link rel="stylesheet" href="/js/dxj-alert/dxj-alert.css"/>
+<script src="/js/jquery-1.4.2.min.js"></script>
+<script src="/js/dxj-alert/dxj-alert.js"></script>
+<script>
+$(function(){
+	function xcode($obj)
+	{
+		var src = '/imgcode/developer.html?';
+    	src += Math.random().toString().replace(/^0\./, '');
+    	$obj.attr('src', src);
+	}
+	$("#to_login").click(function(){
+        $("#register_form").animate({opacity:0.2}, '260', '', function(){
+        	$("#register_form").addClass("none");
+        	$("#login_form").removeClass("none").css('opacity', 0.2).animate({opacity:1}, 260);
+        	xcode($('#l_code').next());
+        });
+    });
+    $("#to_register").click(function(){
+    	$("#login_form").animate({opacity:0.2}, '260', '', function(){
+        	$("#login_form").addClass("none");
+        	$("#register_form").removeClass("none").css('opacity', 0.2).animate({opacity:1}, 260);
+        	xcode($('#xcode').next());
+        });
+    });
+    var refresh = true;
+    $('#l_code, #xcode').next().click(function(){
+        if( ! refresh ) return false;
+        refresh = false;
+    	xcode($(this));
+    	setTimeout(function(){
+    		refresh = true;
+    	}, 3000);
+    });
+
+    var loading = false;
+    var fwd = '<?=$fwd?>';
+    $('#login').click(function(){
+        if( loading ) return false;
+        var u = $.trim($('#l_un').val());
+        if( ! /^[\w\-\.]+@[\w\-]+(\.\w+)+$/.test(u) ) {
+            dxjalert('登录账号格式不正确！', 'error');
+            $('#l_un').focus();
+            return false;
+        }
+        var p = $.trim($('#l_pwd').val());
+        if( p.length < 6 ) {
+        	dxjalert('请输入登录密码！', 'error');
+            $('#l_pwd').focus();
+            return false;
+        }
+        var c = $.trim($('#l_code').val());
+        if( c.length != 4 ) {
+        	dxjalert('请输入有效的图片验证码！', 'error');
+            $('#l_code').focus();
+            return false;
+        }
+        loading = true;
+        $('#login').val('请稍后...');
+        $.ajax({
+            url: '/developer/ajaxlogin.html',
+            type: 'POST',
+            dataType: 'json',
+            data: 'username='+encodeURIComponent(u)+'&password='+p+'&xcode='+c,
+            success: function(msg){
+            	loading = false;
+            	if( msg.msg == 'success' ) {
+                	if( msg.fwd != '' ) location.href = msg.fwd;
+                	else location.href = fwd;
+            	} else {
+            		dxjalert(msg.msg, 'error');
+            		$('#login').val('立即登录');
+            	}
+            	if( msg.xcode == 'refresh' ) xcode($('#l_code').next());
+            	if( msg.fwd ) location.href = msg.fwd;
+            },
+            error: function(){
+            	$('#login').val('立即登录');
+            	dxjalert('网络链接失败，请稍后再试！', 'error');
+            	loading = false;
+            }
+        });
+    });
+
+    function ckUn()
+    {
+    	var u = $.trim($('#username').val());
+    	if( u != '' && ! /^[\w\-\.]+@[\w\-]+(\.\w+)+$/.test(u) ) {
+            $('#username').focus().parent().next().removeClass('none');
+            return false;
+        }
+        $('#username').parent().next().addClass('none');
+        return u;
+    }
+    function ckPwd()
+    {
+    	var p = $.trim($('#password').val());
+    	if( p != '' && p.length < 6 ) {
+            $('#password').focus().parent().next().removeClass('none');
+            $('#re_pwd').parent().next().addClass('none');
+            return false;
+        }
+        $('#password').parent().next().addClass('none');
+        return p;
+    }
+    function ckRepw(p,r)
+    {
+    	if( ! ckPwd() ) return false;
+    	var p = $.trim($('#password').val());
+    	var r = $.trim($('#re_pwd').val());
+    	if( r != p ) {
+            $('#re_pwd').focus().parent().next().removeClass('none');
+            return false;
+        }
+        $('#re_pwd').parent().next().addClass('none');
+        return r;
+    }
+    function ckCd()
+    {
+    	var c = $.trim($('#xcode').val());
+    	if( c != '' && c.length != 4 ) {
+            $('#xcode').focus().parent().next().removeClass('none');
+            return false;
+        }
+        $('#xcode').parent().next().addClass('none');
+        return c;
+    }
+    $('#username').blur(ckUn);
+    $('#password').blur(ckPwd);
+    $('#re_pwd').blur(ckRepw);
+    $('#xcode').blur(ckCd);
+    $('#register').click(function(){
+    	if( loading ) return false;
+        var u = ckUn();
+        if( ! u ) return false;
+        var p = ckPwd();
+        if( ! p ) return false;
+        var r = ckRepw();
+        if( ! r ) return false;
+        var c = ckCd();
+        if( ! c ) return false;
+        loading = true;
+        $('#register').val('请稍后...');
+        $.ajax({
+            url: '/developer/ajaxreg.html',
+            type: 'POST',
+            dataType: 'json',
+            data: 'username='+encodeURIComponent(u)+'&password='+p+'&re_pwd='+r+'&xcode='+c,
+            success: function(msg){
+            	loading = false;
+            	if( msg.msg == 'success' ) {
+                	if( msg.fwd != '' ) location.href = msg.fwd;
+                	else location.href = fwd;
+            	} else {
+            		dxjalert(msg.msg, 'error');
+            		$('#register').val('立即注册');
+            	}
+            	if( msg.xcode == 'refresh' ) xcode($('#xcode').next());
+            	if( msg.fwd ) location.href = msg.fwd;
+            },
+            error: function(){
+            	$('#register').val('立即注册');
+            	dxjalert('网络链接失败，请稍后再试！', 'error');
+            	loading = false;
+            }
+        });
+    });
+});
+</script>
+</body>
+</html>

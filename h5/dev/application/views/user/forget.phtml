@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+<title>找回密码 - 久乐游戏</title>
+<link rel="stylesheet" href="/public/styles/base.css"/>
+<link rel="stylesheet" href="/styles/user_password.css"/>
+</head>
+<body class="bg02">
+<!--div.container 总外框  start-->
+<div class="z_container">
+    <header class="z_header block_bg">
+        <a target="_top" href="/user/login.html"></a><span>找回密码</span>
+    </header>
+
+    <!--div.z_min 内容区域 statr-->
+    <div class="z_main" data-role="conent">
+        <form class="user_form" action="/user/reset.html" method="post">
+            <input class="text" type="text" placeholder="手机/邮箱地址" id="username" name="username" maxlength="32"/>
+            <div class="yzm">
+                <input class="text" type="text" placeholder="平台验证码" id="xcode" name="xcode" maxlength="4"/>
+                <div class="button_cont">
+                    <img class="yzm_img" src="/imgcode/user.html?r=<?=time()?>" width="100%" height="auto"/>
+                </div>
+                <div class="right_cont">
+                    <i id="xcode_refresh" class="i_flash"></i>
+                </div>
+            </div>
+            <div class="yzm" id="phone_code" style="display:none">
+                <input class="text" type="text" placeholder="手机短信验证码" id="sms_code" name="sms_code" maxlength="6"/>
+                <div class="button_cont">
+                    <button class="ger_btn">获取</button>
+                </div>
+                <div class="right_cont"><i class="i_flash" style="background:none"></i></div>
+            </div>
+            <div class="yzm" id="email_code" style="display:none">
+                <input class="text" type="text" placeholder="邮箱验证码" id="em_code" name="em_code" maxlength="6"/>
+                <div class="button_cont">
+                    <button class="ger_btn">发送</button>
+                </div>
+                <div class="right_cont"><i class="i_flash" style="background:none"></i></div>
+            </div>
+            <a class="login_btn" href="javascript:void(0)">下一步</a>
+            <div class="service">
+                <i class="i_qq"></i>客服QQ:<?=$qq_group?>
+            </div>
+        </form>
+        <div class="footer_padding"></div>
+    </div>
+    <!--div.z_min 内容区域 end-->
+</div>
+<!--div.container 总外框  end-->
+<?php include $this->getScriptPath().'/footer.phtml'; ?>
+<script src="/public/scripts/jquery-1.11.1.min.js"></script>
+<script src="/public/scripts/jquery.mobile.min.js"></script>
+<script>
+$('#footer a:eq(4)').attr('id', 'footer_nav_active');
+$(function(){
+	$('.user_form input').focus(function(){
+		$(this).css('color', '#FFF');
+		$('#footer').hide();
+	}).change(function(){
+		$('#footer').show();
+		var v = $.trim($(this).val());
+		if( v.length > 0 ) {
+    		$(this).css("color","#FFF");
+    	} else {
+    		$(this).css("color","#3c555e");
+    	}
+	});
+
+	var xcode_url = $("img.yzm_img").attr('src');
+	$("#xcode_refresh").on('tap', function(){
+        $(this).addClass("i_flash2");
+        var rand = Math.random().toString().replace(/^0\.?/, '');
+        var src = xcode_url.replace(/r=\d+/, 'r='+rand);
+        $("img.yzm_img").attr('src', src);
+        $("#xcode").val('');
+    });
+	$("img.yzm_img").on('tap', function(){
+		$("#xcode_refresh").trigger('tap');
+	});
+
+	function checkUsername(){
+        var v = $.trim($("#username").val());
+        var reg_phone = /^(?:13[0-9]|14[57]|15[0-9]|17[0678]|18[0-9])\d{8}$/;
+        var reg_email = /^[\w\-\.]+@[\w\-]+(\.\w+)+$/;
+        if(reg_phone.test(v)){
+            $('#phone_code').show();
+            $('#email_code').hide().find('input').val('');
+            return true;
+        } else if(reg_email.test(v)){
+        	$('#phone_code').hide().find('input').val('');
+        	$('#email_code').show();
+            return true;
+        }else{
+        	$('#phone_code').hide().find('input').val('');
+        	$('#email_code').hide().find('input').val('');
+            alert("请输入有效的手机号码或者邮箱地址！");
+            $("#username").focus();
+            return false;
+        }
+    }
+	function checkXcode()
+    {
+    	var v = $.trim($('#xcode').val());
+    	v = v.replace(/[^a-zA-Z0-9]+/, '');
+    	if( v.length != 4 ) {
+        	alert('请输入4位有效图片验证码！');
+        	$("#xcode").focus();
+        	return false;
+    	}
+    	return true;
+    }
+    function checkSmscode()
+    {
+        if( $('#phone_code').css('display') == 'none' ) {
+        	var id = '#em_code';
+        	var tp = '邮箱';
+        } else {
+        	var id = '#sms_code';
+        	var tp = '手机';
+        }
+        var v = $(id).val();
+    	v = v.replace(/\D+/, '');
+    	if( v.length != 6 ) {
+        	alert('请输入6位'+ tp +'验证码！');
+        	$(id).focus();
+        	return false;
+    	}
+    	return true;
+    }
+    $("#username").change(function(){
+    	var v = $.trim($("#username").val());
+    	if( v.length > 0 ) {
+    		$("#username").css("color","#FFF");
+    		checkUsername();
+    	} else {
+    		$("#username").css("color","#3c555e");
+    	}
+    });
+
+	var timer;
+    var count = 0;
+    $('#phone_code button').on('tap', function(){
+        if( count > 0 ) return false;
+        if( ! checkUsername() || $('#phone_code').css('display') == 'none' ) return false;
+        if( ! checkXcode() ) return false;
+        var _t = $(this);
+        _t.addClass('gray_btn').html('发送中...');
+        var m = $.trim($('#username').val());
+        var x = $.trim($('#xcode').val());
+        count = 60;
+        $.ajax({
+            url: '/smscode/forget.html',
+            type: 'POST',
+            dataType: 'json',
+            data: 'mobile='+m+'&xcode='+x,
+            success: function(msg){
+            	timer = setInterval(function(){
+                	_t.html(--count);
+                	if( count <= 0 ) {
+                    	clearInterval(timer);
+                    	_t.removeClass('gray_btn').html('获取');
+                	}
+            	}, 1000);
+            	if( msg.msg != 'success' ) alert(msg.msg);
+                if( msg.xcode == 'refresh' ) $("#xcode_refresh").trigger('tap');
+            },
+            error: function(){
+            	_t.removeClass('gray_btn');
+            	alert('网络连接失败，请重试！');
+            }
+        });
+        return false;
+    });
+    $('#email_code button').on('tap', function(){
+        if( count > 0 ) return false;
+        if( ! checkUsername() || $('#email_code').css('display') == 'none' ) return false;
+        if( ! checkXcode() ) return false;
+        var _t = $(this);
+        _t.addClass('gray_btn').html('发送中...');
+        var m = $.trim($('#username').val());
+        var x = $.trim($('#xcode').val());
+        count = 60;
+        $.ajax({
+            url: '/emailcode/forget.html',
+            type: 'POST',
+            dataType: 'json',
+            data: 'email='+m+'&xcode='+x,
+            success: function(msg){
+            	timer = setInterval(function(){
+                	_t.html(--count);
+                	if( count <= 0 ) {
+                    	clearInterval(timer);
+                    	_t.removeClass('gray_btn').html('发送');
+                	}
+            	}, 1000);
+            	if( msg.msg != 'success' ) alert(msg.msg);
+                if( msg.xcode == 'refresh' ) $("#xcode_refresh").trigger('tap');
+            },
+            error: function(){
+            	_t.removeClass('gray_btn');
+            	alert('网络连接失败，请重试！');
+            }
+        });
+        return false;
+    });
+
+    $('a.login_btn').on('tap', function(){
+        if( ! checkUsername() ) return false;
+        if( ! checkXcode() ) return false;
+        if( ! checkSmscode() ) return false;
+        $('.user_form').submit();
+    });
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"/>
+<meta name="screen-orientation" content="portrait">
+<meta http-equiv="keywords" content="久乐游戏">
+<meta http-equiv="description" content="久乐游戏">
+<title>久乐游戏</title>
+<link rel="stylesheet" href="http://apps.bdimg.com/libs/jquerymobile/1.4.2/jquery.mobile.min.css"/>
+<link rel="stylesheet" href="/public/styles/base.css"/>
+<link rel="stylesheet" href="/styles/index3.css"/>
+<link rel="stylesheet" href="/public/styles/game_list.css"/>
+</head>
+<body>
+<div class="bg01"></div>
+<!--div.container 总外框  start-->
+<div data-role="page" class="z_container">
+    <!--div.z_min 内容区域 statr-->
+    <div class="z_main" data-role="conent">
+        <div class="banner" id="banner_silider">
+            <ul>
+            <?php foreach ($banner['ads'] as &$row) { ?>
+                <li>
+                    <a target="_top" href="<?=$row['url']?>" class="line_01">
+                        <img src="<?=$row['image']?>" width="100%" height="auto"<?php if($row['subject']) echo " alt=\"{$row['subject']}\""; ?>>
+                    </a>
+                </li>
+            <?php } ?>
+            </ul>
+        </div>
+        <nav class="play_list">
+            <i class="logo"></i>
+            <ul class="ui-grid-d" id="list_nav">
+            <?php $i = 0; $r = range('a', 'e'); foreach ($games as $type=>&$row) { ?>
+                <li class="ui-block-<?=$r[$i]?><?php echo $i==0 ? ' list_active' : ''; ++$i; ?>"><?=$type?></li>
+            <?php } ?>
+            </ul>
+        </nav>
+
+        <!--div.center 游戏大厅  start-->
+        <section class="ui-grid-b center block_bg">
+            <div class="center_main relative">
+                <div class="info_table tabs">
+                    <i class="i_game"></i>游戏大厅
+                </div>
+                <div class="btn_list ui-block-b tabs" >
+                    <ul id="list_btn">
+                        <li class="btn_active"></li>
+                        <li></li>
+                        <li></li>
+                        <li></li>
+                        <li></li>
+                    </ul>
+                </div>
+                <hr class="linear"/>
+            </div>
+        </section>
+        <!--div.center 游戏大厅  start-->
+
+        <!--div.playing 最近在玩  start-->
+        <section class="playing ui-grid-d block_bg">
+            <nav>
+                <div class="ui-block-a tablist">
+                    <a class="playing_word " href="javascript:void(0)">
+                        <img src="<?php echo $user ? '/images/index/index_23.png' : '/images/index/index_24.png'; ?>" width="100%" height="auto"/>
+                    </a>
+                </div>
+                <?php if( empty($play) ) {
+                    $i = 0; $r = range('b', 'd');
+                    foreach ($recommend['ads'] as &$row) {
+                ?>
+                <div class="ui-block-<?=$r[$i]?> tablist">
+                    <a target="_top" href="<?=$row['url']?>">
+                        <img src="<?=$row['image']?>" width="100%" height="auto"<?php if($row['subject']) echo " alt=\"{$row['subject']}\""; ?>>
+                    </a>
+                </div>
+                <?php ++$i; } } else {
+                    $i = 0; $r = range('b', 'd');
+                    foreach ($play as &$row) {
+                ?>
+                <div class="ui-block-<?=$r[$i]?> tablist">
+                    <a target="_top" href="/game/detail.html?game_id=<?=$row['game_id']?>">
+                        <img src="<?=$row['logo']?>" width="100%" height="auto" alt="<?=$row['name']?>">
+                    </a>
+                </div>
+                <?php ++$i; } } ?>
+                <div class="ui-block-e tablist">
+                    <a target="_top" class="last_a" href="<?php echo $user ? '/user/games.html' : '/game/center.html'; ?>">
+                        <img src="/images/index/index_15.png" width="100%" height="auto"/>
+                    </a>
+                </div>
+            </nav>
+        </section>
+        <!--div.playing 最近在玩  end-->
+
+        <!--div.game_list 游戏列表  start-->
+        <section class="game_list" id="game_list">
+            <div class="slide_cont">
+            <?php $i = 1; foreach ($games as $type=>&$list) { ?>
+                <!--ui#game_list_<?=$i?> <?=$type?>游戏列表  start-->
+                <ul id="game_list_<?=$i?>">
+                <?php foreach ($list as &$row) { ?>
+                    <li>
+                        <?php if($row['corner'] != 'normal') { ?>
+                        <div class="icon_cont">
+                            <img src="/game/corner/<?=$row['corner']?>.png" width="100%" height="auto">
+                        </div>
+                        <?php } ?>
+                        <section class="list_content">
+                            <div class="game_log relative">
+                                <a target="_top" href="/game/detail.html?game_id=<?=$row['game_id']?>"><img src="<?=$row['logo']?>" width="100%" height="auto" alt="<?=$row['name']?>"></a>
+                            </div>
+                            <div class="game_info">
+                                <h3>
+                                    <span><a target="_top" href="/game/detail.html?game_id=<?=$row['game_id']?>" style="color:#fff;"><?=$row['name']?></a></span>
+                                <?php if($row['label'] != 'normal') { ?>
+                                    <i class="small <?=$row['label']?>"></i>
+                                <?php } ?>
+                                </h3>
+                                <P>
+                                <span class="start_list fl">
+                                    <?=$row['grade']?>
+                                </span>
+                                    <span>人气：<?=$row['support']?></span>
+                                </P>
+                                <p><?=$row['in_short']?></p>
+                            </div>
+                            <?php if($row['giftbag']) { ?>
+                            <div class="game_lb">
+                                <a target="_top" href="/game/giftbag.html?gift_id=<?=$row['giftbag']?>">
+                                    <img src="/images/index/index_31.png" width="100%" height="auto">
+                                </a>
+                            </div>
+                            <?php } else { ?>
+                            <div class="game_lb"></div>
+                            <?php } ?>
+                            <div class="game_btn">
+                                <a target="_top" href="/game/play.html?game_id=<?=$row['game_id']?>" class="btn_blue">开始玩</a>
+                            </div>
+                        </section>
+                        <hr class="linear"/>
+                    </li>
+                    <?php } ?>
+                </ul>
+                <!--ui#game_list_<?=$i?> <?=$type?>游戏列表  end-->
+            <?php ++$i; } ?>
+            </div>
+        </section>
+        <!--div.game_list 游戏列表  end-->
+
+        <!--div.game_news 今日推荐  statr-->
+        <section class="game_news">
+            <h2>
+                <div class="title yellow"> <i class="i_hand"></i>今日推荐</div>
+                <div class="height_min">
+                    <ul class="dot_list" id="today_dot">
+                    <?php
+                        $nums = ceil(count($today) / 4);
+                        if( $nums > 1 ) {
+                            $arr = array_slice(array('<li class="btn_active"></li>', '<li></li>', '<li></li>', '<li></li>', '<li></li>'), 0, $nums);
+                            echo implode('', $arr);
+                        }
+                    ?>
+                    </ul>
+                </div>
+                <div class="more_con"><a class="more" target="_top" href="/game/center.html">更多 &gt;</a></div>
+            </h2>
+            <div id="slider">
+                <ul class="swipe-wrap">
+                <?php $i = 1; foreach ($today as &$row) { ?>
+                <?php if($i % 4 == 1) { ?>
+                    <li class="block_bg recommend wrap">
+                <?php } ?>
+                        <a target="_top" href="/game/detail.html?game_id=<?=$row['game_id']?>">
+                            <h3><?=$row['name']?></h3>
+                            <figure>
+                                <div><img src="<?=$row['logo']?>" width="50" height="50"/></div>
+                                <article>
+                                    <h4>人气</h4>
+                                    <div><?=$row['grade']?></div>
+                                    <p><?=$row['in_short']?>&nbsp;</p>
+                                </article>
+                            </figure>
+                        </a>
+                <?php if($i % 4 == 0) { ?>
+                    </li>
+                <?php } ++$i; } ?>
+                <?php if($i % 4 != 0) { ?>
+                    </li>
+                <?php } ?>
+                </ul>
+            </div>
+        </section>
+        <!--div.game_news 今日推荐  end-->
+
+        <!--figure.game_figure 推荐两款游戏  statr-->
+        <figure class="game_figure">
+        <?php foreach ($special['ads'] as &$row) { ?>
+            <a target="_top" href="<?=$row['url']?>">
+                <img src="<?=$row['image']?>" width="100%" height="auto"<?php if($row['subject']){ ?> alt="<?=$row['subject']?>"<?php } ?>/>
+            </a>
+        <?php } ?>
+        </figure>
+        <!--figure.game_figure 推荐两款游戏  end-->
+
+        <!--section.game_news 火爆新游  statr-->
+        <section class="game_news">
+            <h2>
+                <div class="title"> <i class="i_hand i_fire"></i>火爆新游</div>
+                <div class="more_con"><a class="more" target="_top" href="/game/center.html">更多 &gt;</a></div>
+            </h2>
+            <nav class="block_bg nav_img">
+            <?php foreach ($hotnew['ads'] as &$row) { ?>
+                <a target="_top" href="<?=$row['url']?>">
+                    <img src="<?=$row['image']?>" width="50" height="50"<?php if($row['subject']){ ?> alt="<?=$row['subject']?>"<?php } ?>>
+                </a>
+            <?php } ?>
+            </nav>
+        </section>
+        <!--section.game_news 今日推荐  end-->
+
+        <!--section.game_news action 最新活动  statr-->
+        <section class="game_news action">
+            <h2>
+                <div class="title"> <i class="i_hand i_action"></i>最新活动</div>
+                <div class="more_con"><a class="more green" href="#">更多 &gt;</a></div>
+            </h2>
+            <figure class="img_info block_bg">
+                <a href="#">
+                    <img src="/images/index/index2_30.png" width="100%" height="auto" alt="图片" />
+                </a>
+                <div class="action_menu">
+                    <article>
+                        <h4>天天爱消除》代你孕检Q笔是法国搜狗搜狗</h4>
+                        <h5>活动时间：2015年10月2日 到 12月19日 </h5>
+                    </article>
+                    <div>
+                        <a href="javascript:void(0)" class="btn_green2">参与活动</a>
+                    </div>
+                </div>
+            </figure>
+            <figure class="img_info block_bg">
+                <a href="#">
+                    <img src="/images/index/index2_34.png" width="100%" height="auto" alt="图片" />
+                </a>
+                <div class="action_menu">
+                    <article>
+                        <h4>天天爱消除》代你孕检Q笔是法国搜狗搜狗</h4>
+                        <h5>活动时间：2015年10月2日 到 12月19日 </h5>
+                    </article>
+                    <div>
+                        <a href="javascript:void(0)" class="btn_green2">参与活动</a>
+                    </div>
+                </div>
+            </figure>
+
+        </section>
+        <!--section.game_news action 最新活动  end-->
+
+        <!--<div class="footer_zoom"></div>-->
+        <div class="footer_padding"></div>
+    </div>
+    <!--div.z_min 内容区域 end-->
+</div>
+<!--div.container 总外框  end-->
+<?php include $this->getScriptPath().'/footer.phtml'; ?>
+<script src="/public/scripts/jquery-1.11.1.min.js"></script>
+<script src="/public/scripts/jquery.mobile.min.js"></script>
+<script src="/jquery/swipe.js"></script>
+<script>
+$('#footer a:eq(0)').attr('id', 'footer_nav_active');
+$(function(){
+	var banner_slider = new Swipe(document.getElementById('banner_silider'), {
+	  startSlide: 0,
+	  speed: 400,
+	  auto: 3000,
+	  continuous: true
+	});
+
+	var game_slider = new Swipe(document.getElementById('game_list'), {
+	  startSlide: 0,
+	  speed: 400,
+	  auto: false,
+	  continuous: true,
+	  disableScroll: false,
+	  stopPropagation: false,
+	  callback: function(index, elem) {
+		  $('#list_nav li').removeClass('list_active').eq(index).addClass('list_active');
+		  $('#list_btn li').removeClass('btn_active').eq(index).addClass('btn_active');
+	  }
+	});
+	$('#list_nav li').on('tap', function(){
+		game_slider.slide($(this).index(), 400);
+		return true;
+	});
+
+    var today_slider = new Swipe(document.getElementById('slider'), {
+        auto: false,
+        continuous: true,
+        disableScroll: false,
+        stopPropagation: false,
+        callback: function(index, element) {
+            $("#today_dot li").eq(index).addClass("btn_active").siblings().removeClass("btn_active");
+        }
+    });
+});
+</script>
+</body>
+</html>

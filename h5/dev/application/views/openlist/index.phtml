@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"/>
+<meta name="keywords" content="H5 HTML5 H5游戏 HTML5游戏 小游戏 手机游戏 网页游戏 在线游戏 点击即玩 久乐游戏 久乐H5 开服">
+<meta name="description" content="久乐游戏是一个行业领先的H5在线游戏平台，玩游戏不再苦苦的等待下载，点击即玩。">
+<title>开服详情 - 久乐H5在线游戏平台</title>
+<link rel="stylesheet" href="/public/styles/base.css"/>
+<link rel="stylesheet" href="/styles/open_info.css"/>
+</head>
+<body class="bg01">
+    <header class="z_header">
+        <a href="javascript:location.go(-1);"></a><span>开服详情</span>
+    </header>
+    <figure class="top_banner">
+    <?php foreach ($banner['ads'] as $row) { ?>
+        <a href="<?=$row['url']?>">
+            <img src="<?=$row['image']?>" width="100%" height="auto"<?=$row['subject'] ? " alt=\"{$row['subject']}\"" : ''?>/>
+        </a>
+    <?php } ?>
+    </figure>
+    <div class="chose">
+        <a><img src="/images/index/index_06.png" width="100%" height="auto"></a>
+        <nav id="open_nav">
+            <a class="nav_active" data-type="today">今日开服</a>
+            <a data-type="tomorrow">明日开服</a>
+            <a data-type="opened">往日开服</a>
+        </nav>
+    </div>
+    <div class="main swipe" id='slider'>
+        <div class="swipe-wrap">
+            <!--section#open_01今日开服  statr-->
+            <section class="wrap">
+                <h2 class="title">
+                    <span class="fl">今日开服</span>
+                    <time class="fr"><?=$today?></time>
+                </h2>
+                <ul class="gift_list" id="open_list_0">
+                    <li class="loading"><img src="/images/loader/loading.gif"><span>数据玩命加载中...</span></li>
+                </ul>
+            </section>
+            <!--section#open_01今日开服  end-->
+
+            <!--section#open_02明日开服  statr-->
+            <section class="wrap">
+                <h2 class="title yellow">
+                    <span class="fl">开服预告</span>
+                    <time class="fr"><?=$tomorrow?></time>
+                </h2>
+                <ul class="gift_list" id="open_list_1">
+                    <li class="loading"><img src="/images/loader/loading.gif"><span>数据玩命加载中...</span></li>
+                </ul>
+            </section>
+            <!--section#open_02明日开服  end-->
+
+            <!--section#open_03往日开服  statr-->
+            <section  class="wrap">
+                <h2 class="title">
+                    <span class="fl">已经开服</span>
+                </h2>
+                <ul class="gift_list" id="open_list_2">
+                    <li class="loading"><img src="/images/loader/loading.gif"><span>数据玩命加载中...</span></li>
+                </ul>
+            </section>
+            <!--section#open_03往日开服  end-->
+        </div>
+    </div>
+
+<?php include $this->getScriptPath().'/footer.phtml'; ?>
+<script src="/public/scripts/jquery-1.11.1.min.js"></script>
+<script src="/public/scripts/jquery.mobile.min.js"></script>
+<script src="/jquery/swipe.js"></script>
+<script>
+    var nomore = '<label>没有更多数据了</label>';
+    var current = 0;
+    var pn = [0,0,0];
+    var limit = 8;
+    var loading = false;
+    function list()
+    {
+        if( loading ) return ;
+        var t = $('#open_list_'+current);
+        var l = t.children('li.loading');
+        if( l.children('label').length > 0 ) return ;
+        loading = true;
+        ++pn[current];
+        $.ajax({
+            url: '/openlist/list.html?type='+ $('#open_nav a').eq(current).attr('data-type') +'&pn='+pn[current]+'&limit='+limit,
+            dataType: 'html',
+            success: function(h){
+                if( $(h).length > 0 ) {
+                    $(h).hide().insertBefore(l).fadeIn('fast');
+                }
+                if( $(h).length < limit ) {
+                    l.html(nomore);
+                }
+                loading = false;
+            },
+            error: function(){
+            	loading = false;
+            }
+        });
+    }
+    list();
+    $(window).on('scrollstop', function(){
+        var t_h = $('.z_container').height();
+        var c_h = $(document).scrollTop();
+        if( c_h == 0 ) c_h = $('.z_container').scrollTop();
+        c_h += $(window).height() + 10;
+        if( c_h >= t_h ) {
+        	list();
+        }
+    });
+
+    /**滑动切换列表*/
+    var slider = Swipe(document.getElementById('slider'), {
+        auto: false,
+        callback: function(index, element) {
+            $("#open_nav a").eq(index).addClass("nav_active").siblings().removeClass("nav_active");
+            current = index;
+            list();
+        }
+    });
+    /**点击导航切换列表*/
+    $("#open_nav a").on("tap",function(){
+        $(this).addClass("nav_active").siblings().removeClass("nav_active");
+        slider.slide($(this).index(), 500);
+    });
+</script>
+</body>
+</html>

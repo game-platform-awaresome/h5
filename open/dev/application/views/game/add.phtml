@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+<meta charset="UTF-8">
+<title>游戏创建成功 - 游戏管理 久乐游戏开发者平台</title>
+<link rel="stylesheet" href="/css/base.css"/>
+<link rel="stylesheet" href="/css/game_add.css"/>
+</head>
+<body class="user">
+    <div class="container">
+        <?php include $this->getScriptPath().'/header.phtml'; ?>
+        <div class="main2">
+            <section class="center center2">
+                <header class="user_title">
+                    <nav>
+                        <a href="/game/index.html">游戏总览</a>
+                        <span class="gt"> &gt; </span>
+                        <a href="/game/create.html">创建游戏</a>
+                        <span class="gt"> &gt; </span>
+                        <strong>创建成功</strong>
+                    </nav>
+                </header>
+                <!--div.step_cont 步骤  start-->
+                <div class="step_cont">
+                    <ul class="step">
+                        <li class="choose">
+                            <span class="number"> <i>1</i> </span>
+                            <i class="lines lines_right"></i>
+                            <h3>创建游戏</h3>
+                        </li>
+                        <li>
+                            <i class="lines lines_left"></i>
+                            <span class="number"> <i>2</i> </span>
+                            <i class="lines lines_right"></i>
+                            <h3>完善资料</h3>
+                        </li>
+                        <li>
+                            <i class="lines lines_left"></i>
+                            <span class="number"> <i>3</i> </span>
+                            <i class="lines lines_right"></i>
+                            <h3>提交审核</h3>
+                        </li>
+                        <li>
+                            <i class="lines lines_left"></i>
+                            <span class="number"> <i>4</i> </span>
+                            <i class="lines lines_right"></i>
+                            <h3>等待审核</h3>
+                        </li>
+                        <li>
+                            <i class="lines lines_left"></i>
+                            <span class="number"><i>5</i></span>
+                            <h3>申请上线</h3>
+                        </li>
+                    </ul>
+                </div>
+                <!--div.step_cont 步骤  end-->
+                <h2 class="h2_title">恭喜您，您的游戏已经成功创建！</h2>
+                <ul class="ul_info border1">
+                    <li class="info_list">
+                        <label>游戏ID：</label>
+                        <span><?=$game_id?></span>
+                    </li>
+                    <li class="info_list">
+                        <label>游戏名：</label>
+                        <span><?=$name?></span>
+                    </li>
+                    <li class="info_list">
+                        <label>游戏KEY：</label>
+                        <span><?=$key?></span>
+                    </li>
+                </ul>
+                <p class="tips_time">系统将在 <span class="f24 dark_grey" id="interval">10</span> 秒后自动进入完善资料页面。您也可以点下面的链接直接进入</p>
+                <div class="text_center">
+                    <a class="btn_green2" href="/gameinfo/editinfo.html?game_id=<?=$game_id?>">完善资料</a>
+                </div>
+            </section>
+        </div>
+        <?php include $this->getScriptPath().'/footer.phtml'; ?>
+    </div>
+<script src="/js/jquery-1.11.1.min.js"></script>
+<script>
+$('#top_nav a:eq(1)').addClass('selected');
+var time = 10;
+setInterval(function(){
+	$('#interval').html(time--);
+	if( time <= 0 ) {
+	    location.href = "/gameinfo/editinfo.html?game_id=<?=$game_id?>";
+	}
+}, 1000);
+</script>
+</body>
+</html>

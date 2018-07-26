@@ -1,0 +1,25 @@
+/**
+*info:分享  user_share.html styles
+*author:zhangting
+*date:2015.10.12 09:56
+*log:
+**/
+.z_main {
+  height: auto;
+  padding: 5% 13%;
+  color: #ffffff;
+  position: relative;
+}
+.z_main figure {
+  margin-bottom: 10px;
+}
+.z_main figure img {
+  width: 100%;
+  height: auto;
+}
+.z_main p {
+  height: 25px;
+  line-height: 25px;
+  text-align: center;
+  font-size: 14px;
+}

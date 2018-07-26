@@ -1,0 +1,178 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>UCenter 接口开发手册 - 头像接口</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" href="images/style.css" type="text/css" media="all" />
+<meta content="Comsenz Inc." name="Copyright" />
+<script type="text/javascript" src="javascript/common.js"></script>
+</head>
+<body>
+<script type="text/javascript" src="javascript/header.js"></script>
+
+<h3>修改头像</h3>
+
+<div class="submsg">
+<h4><i>string</i> uc_avatar(<i>integer</i> uid[, <i>string</i> type, <i>boolean</i> returnhtml])</h4>
+
+<h5>函数参数</h5>
+<table border="0" cellspacing="0" cellpadding="0" class="msgtable">
+<thead>
+	<tr>
+	<th>参数</th>
+	<td>含义</td>
+	</tr>
+</thead>
+<tbody>
+	<tr>
+	<th><i>integer</i> uid</th>
+	<td>用户 ID</td>
+	</tr>
+	<tr>
+	<th><i>string</i> type</th>
+	<td>头像类型<br />
+		<em>real:</em>真实头像<br />
+		<em>virtual:</em><strong>(默认值)</strong> 虚拟头像<br />
+	</td>
+	</tr>
+	<tr>
+	<th><i>boolean</i> returnhtml</th>
+	<td>是否返回 HTML 代码<br />
+		<em>1:</em><strong>(默认值)</strong> 是，返回设置头像的 HTML 代码<br />
+		<em>0:</em>否，返回设置头像的 Flash 调用数组<br />
+	</td>
+	</tr>
+</tbody>
+</table>
+
+<h5>返回值</h5>
+<table border="0" cellspacing="0" cellpadding="0" class="msgtable">
+<thead>
+	<tr>
+	<th>值</th>
+	<td>含义</td>
+	</tr>
+</thead>
+<tbody>
+	<tr>
+	<th><i>mixed</i></th>
+	<td>
+		<em>string:</em>返回设置头像的 HTML 代码<br />
+		<em>array:</em>返回设置头像的 Flash 调用数组<br />
+	</td>
+	</tr>
+</tbody>
+</table>
+
+<br />
+本接口函数用于返回设置用户头像的 HTML 代码，HTML 会输出一个 Flash，生成的显示效果类似如下效果。<br />
+<img src="images/avatar.jpg" /><br />
+</div>
+
+<h3>头像格式</h3>
+
+<div class="submsg">
+<table border="0" cellspacing="0" cellpadding="0" class="msgtable">
+<thead>
+	<tr>
+	<th style="width:100px">头像尺寸</th>
+	<td style="width:300px">调用方法</td>
+	<td>说明</td>
+	</tr>
+</thead>
+<tbody>
+	<tr>
+	<th style="width:100px">200 x 250</th>
+	<td><i>{UC_URL}</i>/avatar.php?uid=<i>{N}</i>&type=<i>{S}</i>&size=big</td>
+	<td>用原照片进行缩放，宽高不超过200*250，如果照片为小图，不进行放大。</td>
+	</tr>
+	<tr>
+	<th style="width:100px">120 x 120</th>
+	<td><i>{UC_URL}</i>/avatar.php?uid=<i>{N}</i>&type=<i>{S}</i>&size=middle</td>
+	<td>用裁切框裁出的范围进行缩放，可以随裁切框为任意比例。 </td>
+	</tr>
+	<tr>
+	<th style="width:100px">48 x 48</th>
+	<td><i>{UC_URL}</i>/avatar.php?uid=<i>{N}</i>&type=<i>{S}</i>&size=small</td>
+	<td>用裁切框裁出的范围进行缩放，区域为矩形左上区域(后来版本改为居中)内的正方形选区。</td>
+	</tr>
+	</td></tr>
+</tbody>
+</table>
+
+<i>{UC_URL}</i> 为 UCenter 的 URL。<i>{N}</i> 为用户 ID。<i>{S}</i>为头像类型 real 为真实头像，virtual 或者为空时为虚拟头像<br /><br />
+例如调用用户 ID 为 58 用户的 200 x 250 尺寸真实头像方法为：
+<div class="code"><pre>
+&lt;img src=&quot;http://www.yourwebsite.com/uc_server/avatar.php?uid=58&amp;type=real&amp;size=big&quot; /&gt;
+</pre></div><br />
+例如调用用户 ID 为 58 用户的 200 x 250 尺寸虚拟头像方法为：
+<div class="code"><pre>
+&lt;img src=&quot;http://www.yourwebsite.com/uc_server/avatar.php?uid=58&amp;type=virtual&amp;size=big&quot; /&gt;<br />
+或者<br />
+&lt;img src=&quot;http://www.yourwebsite.com/uc_server/avatar.php?uid=58&amp;size=big&quot; /&gt;
+</pre></div>
+
+</div>
+
+<h3>检测头像是否存在</h3>
+
+<div class="submsg">
+<h4><i>string</i> uc_check_avatar(<i>integer</i> uid[, <i>string</i> size, <i>string</i> type])</h4>
+
+<h5>函数参数</h5>
+<table border="0" cellspacing="0" cellpadding="0" class="msgtable">
+<thead>
+	<tr>
+	<th>参数</th>
+	<td>含义</td>
+	</tr>
+</thead>
+<tbody>
+	<tr>
+	<th><i>integer</i> uid</th>
+	<td>用户 ID</td>
+	</tr>
+	<tr>
+	<th><i>string</i> size</th>
+	<td>头像大小<br />
+		<em>big:</em>大头像（200 x 250）<br />
+		<em>middle:</em><strong>(默认值)</strong> 中头像（120 x 120），默认值为此<br />
+		<em>small:</em>小头像（48 x 48）<br />
+	</td>
+	</tr>
+	<tr>
+	<th><i>string</i> type</th>
+	<td>头像类型<br />
+		<em>real:</em>真实头像<br />
+		<em>virtual:</em><strong>(默认值)</strong> 虚拟头像，默认值为此<br />
+	</td>
+	</tr>
+</tbody>
+</table>
+
+<h5>返回值</h5>
+<table border="0" cellspacing="0" cellpadding="0" class="msgtable">
+<thead>
+	<tr>
+	<th>值</th>
+	<td>含义</td>
+	</tr>
+</thead>
+<tbody>
+	<tr>
+	<th><i>boolean</i></th>
+	<td>
+		<em>1:</em>头像存在<br />
+		<em>0:</em>头像不存在<br />
+	</td>
+	</tr>
+</tbody>
+</table>
+
+<br />
+本接口函数用于检测指定用户的头像是否存在。<br />
+</div>
+
+<script type="text/javascript" src="javascript/footer.js"></script>
+</body>
+</html>

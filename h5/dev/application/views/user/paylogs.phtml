@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"/>
+<title>充值记录 - 久乐游戏</title>
+<link rel="stylesheet" href="/public/styles/base.css"/>
+<link rel="stylesheet" href="/styles/pay_list.css"/>
+</head>
+<body class="bg01">
+<!--div.container 总外框 充值列表 start-->
+<div  class="z_container">
+    <header class="z_header">
+        <a target="_top" href="/user/index.html"></a>充值记录
+    </header>
+
+    <!--div.z_min 内容区域 statr-->
+    <div class="z_main" data-role="conent">
+        <figure class="banner block_bg">
+        <?php foreach ($banner['ads'] as &$row) { ?>
+            <a target="_top" href="<?=$row['url']?>" class="line_01">
+                <img src="<?=$row['image']?>" width="100%" height="auto"<?php if($row['subject']) echo " alt=\"{$row['subject']}\""; ?>/>
+            </a>
+        <?php } ?>
+        </figure>
+        <section class="pay_list">
+            <ul class="list_header">
+                <li>
+                    <span>充入账号</span>
+                    <span>充入游戏</span>
+                    <span class="bold">金额</span>
+                    <span class="bold">时间</span>
+                </li>
+            </ul>
+            <ul class="list_body">
+                <li>
+                    <a id="show_more" href="javascript:void(0)"><span>显示跟多 &gt;</span></a>
+                </li>
+            </ul>
+        </section>
+        <div class="footer_padding"></div>
+    </div>
+    <!--div.z_min 内容区域 end-->
+</div>
+<!--div.container 总外框  end-->
+<?php include $this->getScriptPath().'/footer.phtml'; ?>
+<script src="/public/scripts/jquery-1.11.1.min.js"></script>
+<script src="/public/scripts/jquery.mobile.min.js"></script>
+<script>
+$('#footer a:eq(4)').attr('id', 'footer_nav_active');
+$(function(){
+	var pn = 0;
+	var limit = 8;
+	var nomore = false;
+	var loading = false;
+	function morePayLogs()
+	{
+	    if( loading || nomore ) return false;
+	    ++pn;
+	    var send = 'pn='+pn+'&limit='+limit;
+	    loading = true;
+	    $.ajax({
+		    type: 'GET',
+		    url: '/user/paylist.html',
+		    data: send,
+		    dataType: 'html',
+		    success: function(msg){
+			    if( $(msg).length < 1 ) {
+			    	$('#show_more span').html('没有更多了...');
+			    	nomore = true;
+			    } else {
+			        $(msg).insertBefore($('#show_more').parent());
+			        if( $(msg).length < limit) {
+			        	$('#show_more span').html('没有更多了...');
+				    	nomore = true;
+			        }
+			    }
+		    	loading = false;
+		    },
+		    error: function(){
+		    	loading = false;
+		    }
+	    });
+	}
+	morePayLogs();
+	$('#show_more').on('tap', morePayLogs);
+});
+</script>
+</body>
+</html>

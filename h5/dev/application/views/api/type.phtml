@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+<title>确认充值 - 久乐游戏</title>
+<link rel="stylesheet" href="/public/styles/base.css"/>
+<link rel="stylesheet" href="/styles/pay_infos.css"/>
+</head>
+<body class="bg01">
+<!--div.container 总外框  start-->
+<div  class="z_container">
+    <header class="z_header">
+        <a target="_top" href="<?=$return?>"></a>确认充值
+    </header>
+
+    <!--div.z_min 内容区域 statr-->
+    <div class="z_main" data-role="conent">
+        <div class="block_bg your_money">
+            <span>当前余额：</span>
+            <b class="bold green"><?=$deposit*$parities?></b>
+            <span>平台币</span>
+            <span class="fr">(1RMB = <?=$parities?>平台币)</span>
+        </div>
+        <section class="pay_infos infos2">
+            <ul>
+                <li>
+                    <span>充入账号：</span>
+                    <span class="bold"><?=$pay['to_user']?></span>
+                </li>
+                <li>
+                    <span>充入游戏：</span>
+                    <span class="bold"><?=$pay['game_name']?></span>
+                </li>
+                <?php if( $pay['server_id'] ) { ?>
+                <li>
+                    <span>充入服务器：</span>
+                    <span><?=$pay['server_name']?></span>
+                </li>
+                <?php } ?>
+                <li>
+                    <span>充值金额：</span>
+                    <span class="bold"><?=$pay['money']?>￥</span>
+                </li>
+                <?php if( $subject ) { ?>
+                <li>
+                    <span>商品名称：</span>
+                    <span class="bold"><?=$subject?></span>
+                </li>
+                <?php } ?>
+                <li>
+                    <span>支付方式：</span>
+                    <span></span>
+                </li>
+                <li class="choses">
+                    <div>
+                        <span data-type="iapppay" class="checkbox"><i></i></span>
+                        <span class="i_zfb"><i></i></span>
+                        <span>在线支付</span>
+                    </div>
+                <?php /* if( strpos($_SERVER['HTTP_USER_AGENT'], 'MicroMessenger') ) { ?>
+                    <div>
+                        <span data-type="wxpay" class="checkbox"><i></i></span>
+                        <span class="i_weixin"><i></i></span>
+                        <span>微信</span>
+                    </div>
+                <?php } */ ?>
+                    <div>
+                        <span data-type="deposit" class="checkbox checkbox_active"><i></i></span>
+                        <span>平台币支付</span>
+                    </div>
+                </li>
+            </ul>
+        </section>
+        <div class="btn_cont">
+            <button id="next_step" class="btn_green">确认充值</button>
+        </div>
+
+        <div class="footer_padding"></div>
+    </div>
+    <!--div.z_min 内容区域 end-->
+</div>
+<!--div.container 总外框  end-->
+<?php include $this->getScriptPath().'/footer.phtml'; ?>
+<script src="/public/scripts/jquery-1.11.1.min.js"></script>
+<script src="/public/scripts/jquery.mobile.min.js"></script>
+<script>
+$('#footer a:eq(4)').attr('id', 'footer_nav_active');
+$(function(){
+    $(".checkbox").on('tap', function(){
+        $(this).addClass("checkbox_active");
+        $(this).parents("div").siblings().find(".checkbox").removeClass("checkbox_active");
+    });
+    $('#next_step').on('tap', function(){
+        var tp = $('.checkbox_active');
+        if( tp.length < 1 ) {
+            alert('请选择支付方式！');
+            return false;
+        }
+        location.href = '/pay/checkout.html?pay_id=<?=$pay['pay_id']?>&type='+ tp.attr('data-type');
+    });
+});
+</script>
+</body>
+</html>

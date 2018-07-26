@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<meta name="keywords" content="H5 HTML5 H5游戏 HTML5游戏 小游戏 手机游戏 网页游戏 在线游戏 点击即玩 久乐游戏 久乐H5">
+<meta name="description" content="久乐游戏是一个行业领先的H5在线游戏平台，玩游戏不再苦苦的等待下载，点击即玩。">
+<title>服务器列表 <?=$game['name']?> 久乐H5在线游戏平台</title>
+<link rel="stylesheet" href="/public/styles/base.css"/>
+<link rel="stylesheet" href="/styles/sever_list.css"/>
+</head>
+<body>
+<div class="bg01"></div>
+<!--div.container 总外框  start-->
+<div class="z_container">
+    <header class="z_header">
+        <a target="_top" href="/game/index.html"></a><span>服务器列表</span>
+    </header>
+
+    <!--div.z_min 内容区域 statr-->
+    <div class="z_main" data-role="conent">
+        <!--div.infos 游戏信息 statr-->
+        <section class="infos game_list relative">
+            <div class="infos_main block_bg">
+                <div class="game_log relative">
+                    <a><img src="<?=$game['logo']?>" width="100%" height="auto"/></a>
+                </div>
+                <div class="game_info">
+                    <h3>
+                        <span><?=$game['name']?></span>
+                    </h3>
+                    <P>
+                        欢迎你 : <span class="green"><?=$user['username']?>
+                        <a target="_top" class="fr" href="/user/logout.html?fwd=/game/index.html">[注销]</a></span>
+                    </P>
+                </div>
+            </div>
+        </section>
+        <!--div.infos 游戏信息 end-->
+    <?php if($play) { ?>
+        <!--div.to_play 最近登录服务器 start-->
+        <section class="game_list to_play relative block_bg">
+            <h3 class="last_login">
+                <span class="logos"><i class="icons i_play"></i></span>
+                <span>最近登录服务器</span>
+            </h3>
+            <nav class="servers">
+            <?php foreach ($play as &$row) { ?>
+                <a target="_top" href="/game/play.html?server_id=<?=$row['server_id']?>" class="green">
+                    <?php if($row['corner'] == 'recommend'){echo '<i class="icon_server i_tj"></i>';}elseif($row['corner'] == 'new'){echo '<i class="icon_server i_xf"></i>';} ?>
+                    <span><?=$row['name']?></span>
+                </a>
+            <?php } ?>
+            </nav>
+        </section>
+        <!--div.to_play 最近登录服务器 end-->
+    <?php } ?>
+        <!--div.game_detail 所有服务器 start-->
+        <section class="game_detail block_bg">
+            <h2><i class="i_all"></i>所有服务器</h2>
+            <nav class="servers">
+            <?php foreach ($list as &$row) { ?>
+                <a target="_top" href="/game/play.html?server_id=<?=$row['server_id']?>">
+                    <?php if($row['corner'] == 'recommend'){echo '<i class="icon_server i_tj"></i>';}elseif($row['corner'] == 'new'){echo '<i class="icon_server i_xf"></i>';} ?>
+                    <span><?=$row['name']?></span>
+                </a>
+            <?php } ?>
+            </nav>
+        </section>
+        <!--div.game_detail 游戏介绍 end-->
+        <div class="footer_padding"></div>
+    </div>
+    <!--div.z_min 内容区域 end-->
+</div>
+<!--div.container 总外框  end-->
+<?php include $this->getScriptPath().'/footer.phtml'; ?>
+<script src="/public/scripts/jquery-1.11.1.min.js"></script>
+<script>$('#footer a:eq(2)').attr('id', 'footer_nav_active');</script>
+</body>
+</html>

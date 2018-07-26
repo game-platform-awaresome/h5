@@ -1,0 +1,112 @@
+/**
+*info:综合  synthesize.html styles
+*author:zhangting
+*date:2015.10.12 09:56
+*log:
+**/
+/**函数*/
+/**变量 variables**/
+/**颜色*/
+/**混合 Mixins**/
+/**display:box**/
+/**box-flex 需要传参：伸缩值，默认为1**/
+/**box-sizing: border_box 盒子边框模型*/
+/**box_align 默认为center*/
+/**黑色透明背景*/
+/**深蓝色透明背景**/
+/**圆角的兼容函数*/
+.z_header span {
+  display: inline-block;
+  max-width: 70%;
+  height: 40px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.z_main {
+  margin: 2%;
+}
+.z_main figure {
+  margin: 10px 0;
+}
+.z_main h2 {
+  margin: 1px 0;
+  font-size: 13px;
+  height: 40px;
+  line-height: 40px;
+  font-weight: 100;
+  position: relative;
+  padding: 0 3%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.z_main .i_18 {
+  display: inline-block;
+  width: 25px;
+  height: 25px;
+  background: url("../images/index/index_58.png") no-repeat center;
+  background-size: 100% auto;
+  position: absolute;
+  top: 50%;
+  margin-top: -12px;
+  right: 3%;
+}
+.z_main article {
+  padding: 10px 10px 20px 10px;
+}
+.z_main article p {
+  color: #bbbbbb;
+  font-size: 14px;
+  line-height: 22px;
+}
+.z_main article img {
+  width: 100%;
+}
+b {
+  font-weight: 300;
+}
+.play_list {
+  display: -webkit-box;
+  display: -moz-box;
+  display: box;
+  width: 100%;
+  height: 44px;
+  line-height: 44px;
+  padding: 0 3px 0 10px;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  background-color: rgba(0, 0, 0, 0.2);
+  -moz-box-align: center;
+  -webkit-box-align: center;
+  box-align: center;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+.logo {
+  float: left;
+  width: 95px;
+  height: 22px;
+  background-position: -2px -76px;
+}
+.play_list ul {
+  position: relative;
+  float: left;
+  height: 100%;
+  -moz-box-flex: 3;
+  -webkit-box-flex: 3;
+  box-flex: 3;
+}
+.play_list ul li {
+  float: left;
+  width: 25%;
+  height: 100%;
+  color: #FFF;
+  font-size: 14px;
+  text-align: center;
+  cursor: pointer;
+}
+.play_list ul li.list_active {
+  color: #2abd72;
+  background: url("../images/index/index_09.png") no-repeat bottom;
+  background-size: 80% 6px;
+}

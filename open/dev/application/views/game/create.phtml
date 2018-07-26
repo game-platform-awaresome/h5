@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+<meta charset="UTF-8">
+<title>创建游戏 - 游戏管理 久乐游戏开发者平台</title>
+<link rel="stylesheet" href="/css/base.css"/>
+<link rel="stylesheet" href="/css/game_add.css"/>
+</head>
+<body class="user">
+    <div class="container">
+        <?php include $this->getScriptPath().'/header.phtml'; ?>
+        <div class="main2">
+            <section class="center center2">
+                <header class="user_title">
+                    <nav>
+                        <a href="/game/index.html">游戏总览</a>
+                        <span class="gt"> &gt; </span>
+                        <strong>创建游戏</strong>
+                    </nav>
+                </header>
+                <div class="step_cont">
+                    <ul class="step">
+                        <li class="choose">
+                            <span class="number"> <i>1</i> </span>
+                            <i class="lines lines_right"></i>
+                            <h3>创建游戏</h3>
+                        </li>
+                        <li>
+                            <i class="lines lines_left"></i>
+                            <span class="number"> <i>2</i> </span>
+                            <i class="lines lines_right"></i>
+                            <h3>完善资料</h3>
+                        </li>
+                        <li>
+                            <i class="lines lines_left"></i>
+                            <span class="number"> <i>3</i> </span>
+                            <i class="lines lines_right"></i>
+                            <h3>提交审核</h3>
+                        </li>
+                        <li>
+                            <i class="lines lines_left"></i>
+                            <span class="number"> <i>4</i> </span>
+                            <i class="lines lines_right"></i>
+                            <h3>等待审核</h3>
+                        </li>
+                        <li>
+                            <i class="lines lines_left"></i>
+                            <span class="number"><i>5</i></span>
+                            <h3>申请上线</h3>
+                        </li>
+                    </ul>
+                </div>
+
+                <form class="ul_info" id="js_validate" method="post"<?=$dev['status']==9 ? ' action="/game/add.html"' : ''?>>
+                    <div class="info_list">
+                        <label> <i class="red">*</i>  游戏名称:</label>
+                        <input type="text" id="name" name="name" placeholder="" />
+                    </div>
+                    <div class="info_list">
+                        <label> <i class="red">*</i> 类别:</label>
+                        <select id="type" name="type">
+                            <option value="" selected="selected">请选择游戏类别</option>
+                            <?php foreach ($classic as $tp) { ?>
+                            <option value="<?=$tp?>"><?=$tp?></option>
+                            <?php } ?>
+                        </select>
+                    </div>
+                    <div class="info_list">
+                        <label> <i class="red">*</i> 联系人:</label>
+                        <span><?=$dev['contact']?></span>
+                    </div>
+                    <div class="info_list">
+                        <label> <i class="red">*</i> 联系电话:</label>
+                        <span><?=$dev['mobile']?></span>
+                    </div>
+                    <div class="info_list">
+                        <label> <i class="red">*</i> QQ:</label>
+                        <span><?=$dev['qq']?></span>
+                    </div>
+                    <div class="info_list">
+                        <label> <i class="red">*</i> 微信:</label>
+                        <span><?=$dev['wx']?></span>
+                    </div>
+                    <div class="agree">
+                        <input id="agreement" name="agreement" type="checkbox" value="1"/> 我已经阅读并同意
+                        <a href="javascript:void(0)" class="green">《久乐游戏开发平台注册协议》</a>
+                    </div>
+                    <div class="text_center">
+                    <?php if($dev['status'] == 9) { ?>
+                        <input type="submit" class="btn_green2" value="立即创建"/>
+                    <?php } else { ?>
+                        <span style="color:red;font-size:16px"><?=$dev['message']?></span>
+                    <?php } ?>
+                    </div>
+                </form>
+            </section>
+        </div>
+        <?php include $this->getScriptPath().'/footer.phtml'; ?>
+    </div>
+<script src="/js/jquery-1.11.1.min.js"></script>
+<script src="/js/jquery.validate.min.js"></script>
+<script>
+$('#top_nav a:eq(1)').addClass('selected');
+$(function(){
+	$("#js_validate").validate({
+        rules:{
+            name: {
+                required: true,
+                rangelength:[2,16]
+            },
+            type: {
+                required: true
+            },
+            agreement: {
+                required: true
+            }
+        },
+        messages:{
+        	name: {
+                required: "请输入游戏名称",
+                rangelength: "请输入2-16个汉字或字符作为游戏名称"
+            },
+            type: {
+                required: "请选择游戏类别"
+            },
+            agreement: {
+                required: "请阅读并同意《久乐游戏开发平台注册协议》中的相关条款"
+            }
+        }
+    });
+});
+</script>
+</body>
+</html>

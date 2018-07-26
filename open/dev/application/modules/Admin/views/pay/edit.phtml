@@ -1,0 +1,99 @@
+    <div class="content-box">
+      <!-- Start Content Box -->
+      <div class="content-box-header">
+        <h3><?=$title?></h3>
+        <a class="go_back" href="javascript:history.go(-1);">返回上一页</a>
+        <div class="clear"></div>
+      </div>
+      <!-- End .content-box-header -->
+      <div class="content-box-content">
+        <div class="tab-content default-tab">
+          <form action="/admin/<?=$controller?>/update?<?=$query?>" method="post" enctype="multipart/form-data">
+          <input type="hidden" id="pay_id" name="info[pay_id]" value="<?php echo isset($info) ? $info['pay_id'] : ''; ?>" />
+            <fieldset>
+            <!-- Set class to "column-left" or "column-right" on fieldsets to divide the form into columns -->
+            <p>
+              <label>支付ID：<span style="text-indent:32px;"><?=$info['pay_id']?></span></label>
+            </p>
+            <p>
+              <label>支付账号：<span style="text-indent:32px;"><?=$info['username']?></span></label>
+            </p>
+            <p>
+              <label>充入账号：<span style="text-indent:32px;"><?=$info['to_user']?></span></label>
+            </p>
+            <p>
+              <label>游戏名：<span style="text-indent:32px;"><?=$info['game_name']?$info['game_name']:'平台'?></span></label>
+            </p>
+            <p>
+              <label>区/服：<span style="text-indent:32px;"><?=$info['server_name']?$info['server_name']:'--'?></span></label>
+            </p>
+            
+            <p>
+              <label>充值金额：<span style="text-indent:32px;"><?=number_format($info['money'])?>￥</span></label>
+            </p>
+            <p>
+              <label>充值方式：<span style="text-indent:32px;"><?=$types[$info['type']]?></span></label>
+            </p>
+            <p>
+              <label>第三方流水号：<span style="text-indent:32px;"><?=$info['trade_no']?></span></label>
+            </p>
+            
+            <p>
+              <label>下单时间：<span style="text-indent:32px;"><?=date('Y-m-d H:i:s', $info['add_time'])?></span></label>
+            </p>
+            <p>
+              <label>支付时间：<span style="text-indent:32px;"><?=$info['pay_time'] ? date('Y-m-d H:i:s', $info['pay_time']) : '<input id="setPay" class="button" type="button" value="设为已支付" />'?></span></label>
+            </p>
+            <p>
+              <label>到账时间：<span style="text-indent:32px;"><?=$info['finish_time'] ? date('Y-m-d H:i:s', $info['finish_time']) : '<input id="setFinish" class="button" type="button" value="设为已完成" />'?></span></label>
+            </p>
+            
+            <p>
+              <input class="button" type="submit" value="返回" />
+            </p>
+            </fieldset>
+            <div class="clear"></div>
+            <!-- End .clear -->
+          </form>
+        </div>
+        <!-- End #tab2 -->
+      </div>
+      <!-- End .content-box-content -->
+    </div>
+    <!-- End .content-box -->
+
+    <div class="clear"></div>
+
+<script>
+$(function(){
+	var pay_id = $('#pay_id').val();
+	$('#setPay').click(function(){
+		$.getJSON('/admin/pay/setpay?pay_id='+pay_id, function(data){
+			if( data.error != '' ) {
+				alert(data.error);
+				return ;
+			}
+			if( data.pay_time ) {
+				$('#setPay').after(data.pay_time).remove();
+			}
+			if( data.finish_time ) {
+				$('#setFinish').after(data.finish_time).remove();
+			}
+		});
+	});
+	$('#setFinish').click(function(){
+		$.getJSON('/admin/pay/setfinish?pay_id='+pay_id, function(data){
+			if( data.error != '' ) {
+				alert(data.error);
+				return ;
+			}
+			if( data.pay_time && $('#setPay').length > 0 ) {
+				$('#setPay').after(data.pay_time).remove();
+			}
+			if( data.finish_time ) {
+				$('#setFinish').after(data.finish_time).remove();
+			}
+		});
+	});
+});
+</script>

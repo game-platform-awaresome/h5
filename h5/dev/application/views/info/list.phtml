@@ -1,0 +1,13 @@
+<?php foreach ($list as &$row) { ?>
+<li>
+    <?php if( $row['cover'] ) { ?>
+    <a href="/info/detail.html?type=<?=$type?>&article_id=<?=$row['article_id']?>"><img src="<?=$row['cover']?>" width="90" height="auto" alt="<?=$row['title']?>"/></a>
+    <?php } ?>
+    <article>
+        <p><a href="/info/detail.html?type=<?=$type?>&article_id=<?=$row['article_id']?>"><?=$row['title']?></a></p>
+        <div>
+            <span><?=$row['up_time']?></span>
+        </div>
+    </article>
+</li>
+<?php } ?>

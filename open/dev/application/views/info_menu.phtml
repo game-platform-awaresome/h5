@@ -1,0 +1,35 @@
+<aside class="menu">
+    <div class="lists">
+        <h3 class="bg_blue">
+            <i class="icons i_app"></i><span><?=$game_name?></span>
+            <i class="icons i_open"></i>
+        </h3>
+        <nav>
+        <?php foreach ($games as $row) { ?>
+            <a href="/gameinfo/index.html?game_id=<?=$row['game_id']?>"<?php if($row['game_id'] == $game_id) echo ' class="choose"'; ?>><?=$row['name']?></a>
+        <?php } ?>
+        </nav>
+    </div>
+    <?php foreach ($menu as $name=>$row) { ?>
+    <div class="lists<?=(isset($row['action']) && $row['action'] == $menu_a) ? ' selected' : ''?>">
+        <h3>
+        <?php if( isset($row[0]) ) { ?>
+            <i class="icons <?=$row['icon']?>"></i><span><?=$name?></span>
+            <i class="icons i_open"></i>
+        <?php } else { ?>
+            <a href="/gameinfo/<?=$row['action']?>.html?game_id=<?=$game_id?>">
+                <i class="icons <?=$row['icon']?>"></i><span><?=$name?></span>
+            </a>
+        <?php } ?>
+        </h3>
+        <?php if( isset($row[0]) ) { ?>
+        <nav>
+        <?php foreach ($row as $tmp) { ?>
+        <?php if( ! is_array($tmp) ) break; ?>
+            <a href="/gameinfo/<?=$tmp['action']?>.html?game_id=<?=$game_id?>"<?php if($menu_a == $tmp['action']) echo ' class="choose"'; ?>><?=$tmp['name']?></a>
+        <?php } ?>
+        </nav>
+        <?php } ?>
+    </div>
+    <?php } ?>
+</aside>

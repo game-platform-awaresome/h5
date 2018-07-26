@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"/>
+<meta name="keywords" content="H5 HTML5 H5游戏 HTML5游戏 小游戏 手机游戏 网页游戏 在线游戏 点击即玩 久乐游戏 久乐H5 H5平台 活动 签到 奖励">
+<meta name="description" content="久乐游戏是一个行业领先的H5在线游戏平台，玩游戏不再苦苦的等待下载，点击即玩。">
+<title>签到活动 - 久乐H5在线游戏平台</title>
+<link rel="stylesheet" href="/public/styles/base.css"/>
+<link rel="stylesheet" href="/styles/action_center2.css"/>
+</head>
+<body class="bg02">
+<div data-role="page" class="z_container">
+    <!--<div class="z_container">-->
+        <div class="main">
+            <header class="z_header">
+                <a href="/activity/index.html"></a><span>签到日历</span>
+            </header>
+            <section class="sign block_bg">
+                <div>
+                    <i class="i_detepicker"></i>
+                    <span class="f16">签到</span>
+                </div>
+                <?php $_tmp = date("Ymd"); ?>
+                <time><?=substr($_tmp,0,4)?>年<mark> <?=substr($_tmp,4,2)?></mark>月<mark> <?=substr($_tmp,6,2)?></mark>日</time>
+                <a href="/signreward/rules.html">活动规则</a>
+            </section>
+
+            <!--div.datepicker_cont  日历外框-->
+            <div class="datepicker_cont" id="datepicker">
+            <table>
+                <thead>
+                    <tr>
+                        <th>日</th>
+                        <th>一</th>
+                        <th>二</th>
+                        <th>三</th>
+                        <th>四</th>
+                        <th>五</th>
+                        <th>六</th>
+                    </tr>
+                </thead>
+                <tbody>
+                <?php foreach ($days as $k=>$row) { ?>
+                    <?php if($k % 7 == 0) echo '<tr>'; ?>
+                        <td class="month_<?=$row[0]?><?=($row[0]=='c' && $row[1]==$today)?' today':''?><?=$row[2]?' signed':''?>"><span><?=$row[1]?></span></td>
+                    <?php if($k % 7 == 6) echo '</tr>'; ?>
+                <?php } ?>
+                </tbody>
+            </table>
+            </div>
+            <!--div.datepicker_cont  日历外框-->
+
+            <h2 class="block_bg titles">
+                <span>您已</span>
+                <span>连续签到：<strong id="serial_days"><?=$serial_days?></strong>天 </span>
+                <span>累计签到：<strong id="total_days"><?=$total_days?></strong>天 </span>
+            </h2>
+
+            <!--ul.gift_list   start-->
+            <ul class="block_bg gift_list">
+                <li>
+                    <a><img id="serial_1" src="/images/action_center/<?=$serial_days>=1 ? 'money_01.jpg' : 'money_10.jpg'?>" width="100%" height="auto" alt="每日签到奖励" /></a>
+                </li>
+                <li>
+                    <a><img id="total_10" src="/images/action_center/<?=$total_days>=10 ? 'money_02.jpg' : 'money_20.jpg'?>" width="100%" height="auto" alt="累计签到10日奖励" /></a>
+                </li>
+                <li>
+                    <a><img id="total_20" src="/images/action_center/<?=$total_days>=20 ? 'money_03.jpg' : 'money_30.jpg'?>" width="100%" height="auto" alt="累计签到20日奖励" /></a>
+                </li>
+                <li>
+                    <a><img id="total_30" src="/images/action_center/<?=$total_days>=30 ? 'money_04.jpg' : 'money_40.jpg'?>" width="100%" height="auto" alt="累计签到30日奖励" /></a>
+                </li>
+            </ul>
+            <!--ul.gift_list   end-->
+
+            <h2 class="block_bg sign sign2">
+                <i class="i_sign"></i>
+                <span class="f16">签到记录</span>
+            </h2>
+
+            <!--ul.sign_record  签到记录 start-->
+            <ul class="sign_record">
+            <?php if($logs) { foreach ($logs as &$row) { ?>
+                <li>
+                    <?=$row['rewards']?>
+                    <time><?=$row['date']?></time>
+                </li>
+            <?php } } else { ?>
+                <li>
+                    <strong>暂时还没有获得奖励，努力哦。</strong>
+                    <time></time>
+                </li>
+            <?php } ?>
+            </ul>
+            <!--ul.sign_record  签到记录 end-->
+            <div class="footer_padding"></div>
+        </div>
+</div>
+<?php include $this->getScriptPath().'/footer.phtml'; ?>
+<script src="/public/scripts/jquery-1.11.1.min.js"></script>
+<script src="/public/scripts/jquery.mobile.min.js"></script>
+<script>
+$('#footer a:eq(3)').attr('id', 'footer_nav_active');
+$(function(){
+	var loading = false;
+	$('#datepicker td.today').on('tap', function(){
+		if( '<?=$user?$user['user_id']:''?>' == '' ) {
+			location.href = '/user/login.html?fwd=/signreward/index.html';
+			return false;
+		}
+		var _t = $(this);
+		if( _t.hasClass('signed') ) {
+			return false;
+		}
+		if( loading ) return false;
+		loading = true;
+		$.post('/signreward/sign.html', function(msg){
+			if( msg[0] ) {
+				alert('签到成功，奖励已发放。');
+				_t.addClass('signed').off('tap');
+				$('#serial_days').html(msg[2]);
+				$('#total_days').html(msg[3]);
+
+				if( msg[2] >= 1 ) $('#serial_1').attr('src', '/images/action_center/money_01.jpg');
+			    $('#total_30').attr('src', '/images/action_center/money_'+(msg[3] >= 30 ? '04' : '40')+'.jpg');
+			    $('#total_20').attr('src', '/images/action_center/money_'+(msg[3] >= 20 ? '03' : '30')+'.jpg');
+			    $('#total_10').attr('src', '/images/action_center/money_'+(msg[3] >= 10 ? '02' : '20')+'.jpg');
+
+				$('ul.sign_record').prepend('<li>'+msg[1]+'</li>');
+			} else {
+			    alert(msg[1]);
+			}
+			loading = false;
+		}, 'json');
+	});
+});
+</script>
+</body>
+</html>

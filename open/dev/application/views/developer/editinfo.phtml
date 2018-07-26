@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+<meta charset="UTF-8">
+<title>编辑基本信息 - 管理中心 久乐游戏开发者平台</title>
+<link rel="stylesheet" href="/css/base.css"/>
+<link rel="stylesheet" href="/css/user_public.css"/>
+</head>
+<body class="user">
+<div class="container">
+    <?php include $this->getScriptPath().'/header.phtml'; ?>
+    <div class="main2">
+        <div class="center">
+            <?php include $this->getScriptPath().'/menu.phtml'; ?>
+            <section class="content">
+                <div class="user_title">
+                    <nav>
+                        <a href="/developer/index.html">账号中心</a>
+                        <span class="gt"> &gt; </span>
+                        <a href="/developer/baseinfo.html">基本信息</a>
+                        <span class="gt"> &gt; </span>
+                        <strong>编辑</strong>
+                    </nav>
+                </div>
+                <nav class="buttons"><?php $display = $dev['type'] == 'company' ? '' : ' style="display:none"'; ?>
+                    <a<?=($dev['type'] == 'company')?' class="selected"':''?> id="companyID" >公司账号</a>
+                    <a<?=($dev['type'] == 'person')?' class="selected"':''?> id="personID" >个人账号</a>
+                </nav>
+                <form class="form_edit" id="js_validate" method="post">
+                    <input type="hidden" id="type" name="type" value="<?=$dev['type']?>" />
+                    <div class="company_list"<?=$display?>>
+                        <label>
+                            <span class="red">*</span> 公司简称
+                        </label>
+                        <input type="text" name="com_short" id="com_short" value="<?=$dev['com_short']?>"/>
+                    </div>
+                    <div class="company_list"<?=$display?>>
+                        <label>
+                            <span class="red">*</span> 公司全称
+                        </label>
+                        <input type="text" id="company" name="company" value="<?=$dev['company']?>" class="widen"/>
+                    </div>
+                    <div class="company_list"<?=$display?>>
+                        <label>
+                            <span class="red">*</span> 组织机构代码
+                        </label>
+                        <input type="text" placeholder="" id="org_code" name="org_code" value="<?=$dev['org_code']?>"/>
+                    </div>
+                    <div class="company_list"<?=$display?>>
+                        <label>
+                            <span class="red">*</span> 营业执照注册号
+                        </label>
+                        <input type="text" placeholder="" id="license" name="license" value="<?=$dev['license']?>"/>
+                    </div>
+                    <div class="company_list"<?=$display?>>
+                        <label>
+                            <span class="red">*</span> 公司规模
+                        </label>
+                        <select id="scale" name="scale">
+                        <?php unset($scales[0]); foreach ($scales as $k=>$v) { ?>
+                            <option<?=($k==$dev['scale'])?' selected="selected"':''?> value="<?=$k?>"><?=$v?></option>
+                        <?php } ?>
+                        </select>
+                    </div>
+                    <div>
+                        <label>
+                            <span class="red">*</span> 所在城市
+                        </label>
+                        <ul>
+                            <li>
+                                <select id="province" name="province"></select>
+                            </li>
+                            <li>
+                                <select id="city" name="city"></select>
+                            </li>
+                            <li>
+                                <select id="county" name="county"></select>
+                            </li>
+                        </ul>
+                    </div>
+                    <div>
+                        <label>
+                            <span class="red">*</span> 联系地址
+                        </label>
+                        <input type="text" class="widen" id="addr" name="addr" value="<?=$dev['addr']?>"/>
+                    </div>
+                    <div>
+                        <label>
+                            <span class="red">*</span> 联系人
+                        </label>
+                        <input type="text" id="contact" name="contact" value="<?=$dev['contact']?>"/>
+                    </div>
+                    <div>
+                        <label>
+                            <span class="red">*</span> 移动电话
+                        </label>
+                        <input type="text" id="mobile" name="mobile" value="<?=$dev['mobile']?>"/>
+                    </div>
+                    <div class="company_list"<?=$display?>>
+                        <label>固定电话</label>
+                        <input type="text" id="tel" name="tel" value="<?=$dev['tel']?>"/>
+                    </div>
+                    <div>
+                        <label>
+                            <span class="red">*</span> 邮箱
+                        </label>
+                        <input type="text" class="widen" id="email" name="email" value="<?=$dev['email']?>"/>
+                    </div>
+                    <div>
+                        <label>
+                            <span class="red">*</span> QQ号
+                        </label>
+                        <input type="text" id="qq" name="qq" value="<?=$dev['qq']?>"/>
+                    </div>
+                    <div>
+                        <label>
+                            <span class="red">*</span> 微信号
+                        </label>
+                        <input type="text" id="wx" name="wx" value="<?=$dev['wx']?>"/>
+                    </div>
+                    <div class="btn_group">
+                        <input type="submit" value="保存信息"/>
+                        <button onclick="javascript:history.go(-1);return false;">取消修改</button>
+                    </div>
+                </form>
+            </section>
+        </div>
+    </div>
+    <?php include $this->getScriptPath().'/footer.phtml'; ?>
+</div>
+<script src="/js/jquery-1.11.1.min.js"></script>
+<script src="/js/jquery.validate.min.js"></script>
+<script src="/js/area-3.min.js"></script>
+<script>
+<?php include $this->getScriptPath().'/base.js'; ?>
+
+Area([['province','<?=$dev['province']?>'],['city','<?=$dev['city']?>'],['county','<?=$dev['county']?>']]);
+
+$(function(){
+	$("#companyID").click(function(){
+        $(".company_list").show();
+        $(this).addClass("selected").siblings().removeClass("selected");
+        $('#type').val('company');
+    });
+    $("#personID").click(function(){
+        $(".company_list").hide();
+        $(this).addClass("selected").siblings().removeClass("selected");
+        $('#type').val('person');
+    });
+
+    /**自定义手机验证*/
+    $.validator.addMethod("isMobile",function(value,element){
+        var phone =  /^(?:13[0-9]|14[57]|15[0-9]|17[0678]|18[0-9])\d{8}$/;
+        return this.optional(element) || (phone.test(value));
+    });
+
+    /**自定义固定电话验证*/
+    $.validator.addMethod("isTelephone",function(value,element){
+        var telephone =  /^([0-9]{3,4})?[\-\s]?[0-9]{7,8}$/;
+        return this.optional(element) || (telephone.test(value));
+    });
+
+    /**自定义  QQ验证*/
+    $.validator.addMethod("isQQ",function(value,element){
+        var QQnumber =  /^[1-9][0-9]{4,11}$/;
+        return this.optional(element) || (QQnumber.test(value));
+    });
+
+    $("#js_validate").validate({
+        rules:{
+            com_short: {
+                required: true,
+                rangelength:[2,6]
+            },
+            company: {
+                required: true,
+                rangelength:[6,32]
+            },
+            org_code: {
+                required: true,
+                rangelength:[10,10]
+            },
+            license: {
+                required: true,
+                number: true,
+                rangelength:[15,15]
+            },
+            province: {
+            	required: true
+            },
+            city: {
+            	required: true
+            },
+            addr: {
+                required: true,
+                minlength: 6
+            },
+            contact:{
+                required: true,
+                rangelength: [2,8]
+            },
+            mobile: {
+                required: true,
+                isMobile: true
+            },
+            tel: {
+                isTelephone: true
+            },
+            email: {
+                required: true,
+                email: true
+            },
+            qq: {
+                required: true,
+                isQQ:true
+            },
+            wx: {
+                required: true,
+                rangelength:[4,32]
+            }
+        },
+        messages:{
+            com_short: {
+                required: "请输入公司简称",
+                rangelength: "公司简称为2-6个字符"
+            },
+            company: {
+                required: "请输入公司全称",
+                rangelength: "公司全称为6-32字符"
+            },
+            org_code: {
+                required: "请输入组织机构代码",
+                rangelength: "组织机构代码为10个字符"
+            },
+            license: {
+                required: "请输入营业执照注册号",
+                number: "必须为数字",
+                rangelength: "营业执照注册号为15个数字"
+            },
+            province: {
+            	required: "必选"
+            },
+            city: {
+            	required: "必选"
+            },
+            addr: {
+                required: "请输入联系地址",
+                minlength: "名称不少于6个字"
+            },
+            contact: {
+                required: "请输入联系人",
+                rangelength: "名字一般为2-8个汉字"
+            },
+            mobile: {
+                required: "请输入联系手机号",
+                isMobile: "请输入正确的手机号"
+            },
+            tel: {
+                isTelephone: "请输入正确的座机号"
+            },
+            email: {
+                required: "请输入联系邮箱",
+                email: "请输入正确的邮箱地址"
+            },
+            qq: {
+                required: "请输入QQ号码",
+                isQQ: "请输入正确的QQ号码"
+            },
+            wx: {
+                required: "请输入微信号",
+                rangelength: "请输入正确的微信号"
+            }
+        },
+        submitHandler: function(form){
+            if( $('#js_validate').valid() ) {
+            	form.submit();
+            }
+        }
+    });
+});
+</script>
+</body>
+</html>

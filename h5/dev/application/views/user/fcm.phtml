@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"/>
+<title>防沉迷验证 - 个人资料 - 久乐游戏</title>
+<link rel="stylesheet" href="/public/styles/base.css"/>
+<link rel="stylesheet" href="/styles/user_password.css"/>
+<style>.user_form input[type=text]{color:#aaa}</style>
+</head>
+<body class="bg02">
+<!--div.container 总外框  start-->
+<div class="z_container" >
+    <header class="z_header block_bg">
+        <a target="_top" href="/user/index.html"></a><span>防沉迷验证</span>
+    </header>
+    <!--div.z_min 内容区域 statr-->
+    <div class="z_main" data-role="conent">
+        <form class="user_form">
+        <?php if($fcm_status == 1 || ($identity && $realname)) { ?>
+            <div style="line-height:150%; font-size:120%">您已提交防沉迷信息。</div>
+            <input class="text" type="text" readonly="readonly" value="<?=$identity?>"/>
+            <input class="text" type="text" readonly="readonly" value="<?=$realname?>"/>
+        <?php } else { ?>
+            <div style="line-height:150%; font-size:120%">防沉迷信息一经填写便不可更改，请慎重填写，并核对无误之后再提交。</div>
+            <div id="notice" style="line-height:150%; font-size:120%; font-weight:bold; color:#e41d42<?=$notice?'':'; display:none'?>"><?=$notice?></div>
+            <input class="text" type="text" placeholder="身份证号码" id="idno" maxlength="18"/>
+            <input class="text" type="text" placeholder="真实姓名" id="name" maxlength="12"/>
+            <a class="login_btn" id="save" href="javascript:void(0)">确认提交</a>
+        <?php } ?>
+            <div class="service">
+                <i class="i_qq"></i>客服QQ:<?=$qq_group?>
+            </div>
+        </form>
+        <div class="footer_padding"></div>
+    </div>
+    <!--div.z_min 内容区域 end-->
+</div>
+<!--div.container 总外框  end-->
+<?php include $this->getScriptPath().'/footer.phtml'; ?>
+<script src="/public/scripts/jquery-1.11.1.min.js"></script>
+<script src="/public/scripts/jquery.mobile.min.js"></script>
+<script>
+$('#footer a:eq(4)').attr('id', 'footer_nav_active');
+<?php if($fcm_status == 1 || ($identity && $realname)) { } else { ?>
+$(function(){
+    /**修改默认输入框失去焦点事件样式*/
+    $(".user_form input").blur(function(){
+    	var _t = $(this);
+        var v = $.trim(_t.val());
+        if(v != ""){
+            _t.css("color","#fff");
+        } else {
+        	_t.css("color","#3c555e");
+        }
+    	$('#footer').show();
+    }).focus(function(){
+        $(this).css("color","#fff");
+    	$('#footer').hide();
+    });
+
+    function checkIdno(idno)
+    {
+        idno = idno.toUpperCase();
+    	if( ! /^\d{17}[0-9X]$/.test(idno) ) {
+            return false;
+        }
+    	var province = {11:"北京",12:"天津",13:"河北",14:"山西",15:"内蒙古",21:"辽宁",22:"吉林",23:"黑龙江 ",31:"上海",32:"江苏",33:"浙江",34:"安徽",35:"福建",36:"江西",37:"山东",41:"河南",42:"湖北 ",43:"湖南",44:"广东",45:"广西",46:"海南",50:"重庆",51:"四川",52:"贵州",53:"云南",54:"西藏 ",61:"陕西",62:"甘肃",63:"青海",64:"宁夏",65:"新疆",71:"台湾",81:"香港",82:"澳门",91:"国外"};
+    	if( typeof province[idno.substr(0, 2)] == 'undefined' ) {
+        	return false;
+    	}
+    	var y = parseInt(idno.substr(6,4));
+    	var m = parseInt(idno.substr(10,2)) - 1;
+    	var d = new Date(y, m, idno.substr(12,2));
+    	var ty = (new Date()).getFullYear();
+    	if( y < (ty - 70) || y > (ty - 5) || d.toString() == 'Invalid Date' ) {
+        	return false;
+    	}
+    	idno = idno.split('');
+        var factor = [7, 9, 10, 5, 8, 4, 2, 1, 6, 3, 7, 9, 10, 5, 8, 4, 2];
+        var parity = [1, 0, 'X', 9, 8, 7, 6, 5, 4, 3, 2];
+        var sum = 0;
+        var ai = 0;
+        var wi = 0;
+        for (var i = 0; i < 17; i++)
+        {
+            ai = idno[i];
+            wi = factor[i];
+            sum += ai * wi;
+        }
+        if(parity[sum % 11] != idno[17]){
+            return false;
+        }
+        return true;
+    }
+    function checkRealname(name)
+    {
+        if( ! /^[\u2E80-\u9FFF]{2,12}$/.test(name) ) {
+            return false;
+        }
+        var fn = '赵 钱 孙 李 周 吴 郑 王 冯 陈 褚 卫 蒋 沈 韩 杨 朱 秦 尤 许 何 吕 施 张 孔 曹 严 华 金 魏 陶 姜 戚 谢 邹 喻 柏 水 窦 章 云 苏 潘 葛 奚 范 彭 郎 鲁 韦 昌 马 苗 凤 花 方 俞 任 袁 柳 酆 鲍 史 唐 费 廉 岑 薛 雷 贺 倪 汤 滕 殷 罗 毕 郝 邬 安 常 乐 于 时 傅 皮 卞 齐 康 伍 余 元 卜 顾 孟 平 黄 和 穆 萧 尹 姚 邵 湛 汪 祁 毛 禹 狄 米 贝 明 臧 计 伏 成 戴 谈 宋 茅 庞 熊 纪 舒 屈 项 祝 董 梁 杜 阮 蓝 闵 席 季 麻 强 贾 路 娄 危 江 童 颜 郭 梅 盛 林 刁 锺 徐 邱 骆 高 夏 蔡 田 樊 胡 凌 霍 虞 万 支 柯 昝 管 卢 莫 经 房 裘 缪 干 解 应 宗 丁 宣 贲 邓 \
+郁 单 杭 洪 包 诸 左 石 崔 吉 钮 龚 程 嵇 邢 滑 裴 陆 荣 翁 荀 羊 於 惠 甄 麴 家 封 芮 羿 储 靳 汲 邴 糜 松 井 段 富 巫 乌 焦 巴 弓 牧 隗 山 谷 车 侯 宓 蓬 全 郗 班 仰 秋 仲 伊 宫 宁 仇 栾 暴 甘 钭 历 戎 祖 武 符 刘 景 詹 束 龙 叶 幸 司 韶 郜 黎 蓟 溥 印 宿 白 怀 蒲 邰 从 鄂 索 咸 籍 赖 卓 蔺 屠 蒙 池 乔 阳 郁 胥 能 苍 双 闻 莘 党 翟 谭 贡 劳 逄 姬 申 扶 堵 冉 宰 郦 雍 却 璩 桑 桂 濮 牛 寿 通 边 扈 燕 冀 僪 浦 尚 农 温 别 庄 晏 柴 瞿 阎 充 慕 连 茹 习 宦 艾 鱼 容 向 古 易 慎 戈 廖 庾 终 暨 居 衡 步 都 耿 满 弘 匡 国 文 寇 广 禄 阙 东 \
+欧 殳 沃 利 蔚 越 夔 隆 师 巩 厍 聂 晁 勾 敖 融 冷 訾 辛 阚 那 简 饶 空 曾 毋 沙 乜 养 鞠 须 丰 巢 关 蒯 相 查 后 荆 红 游 竺 权 逮 盍 益 桓 公 万俟 司马 上官 欧阳 夏侯 诸葛 闻人 东方 赫连 皇甫 尉迟 公羊 澹台 公冶 宗政 濮阳 淳于 单于 太叔 申屠 公孙 仲孙 轩辕 令狐 钟离 宇文 长孙 慕容 司徒 司空 召 有 舜 叶赫那拉 丛 岳 寸 贰 皇 侨 彤 竭 端 赫 实 甫 集 象 翠 狂 辟 典 良 函 芒 苦 其 京 中 夕 之 章佳 那拉 冠 宾 香 果 依尔根觉罗 依尔觉罗 萨嘛喇 赫舍里 额尔德特 萨克达 钮祜禄 他塔喇 喜塔腊 讷殷富察 叶赫那兰 库雅喇 瓜尔佳 舒穆禄 爱新觉罗 索绰络 纳喇 乌雅 范姜 碧鲁 张廖 张简 图门 太史 公叔 乌孙 完颜 马佳 佟佳 富察 费莫 蹇 称 诺 来 多 繁 戊 朴 回 毓 税 荤 靖 绪 愈 硕 牢 买 但 巧 枚 撒 泰 秘 亥 绍 以 壬 森 斋 释 奕 姒 朋 \
+求 羽 用 占 真 穰 翦 闾 漆 贵 代 贯 旁 崇 栋 告 休 褒 谏 锐 皋 闳 在 歧 禾 示 是 委 钊 频 嬴 呼 大 威 昂 律 冒 保 系 抄 定 化 莱 校 么 抗 祢 綦 悟 宏 功 庚 务 敏 捷 拱 兆 丑 丙 畅 苟 随 类 卯 俟 友 答 乙 允 甲 留 尾 佼 玄 乘 裔 延 植 环 矫 赛 昔 侍 度 旷 遇 偶 前 由 咎 塞 敛 受 泷 袭 衅 叔 圣 御 夫 仆 镇 藩 邸 府 掌 首 员 焉 戏 可 智 尔 凭 悉 进 笃 厚 仁 业 肇 资 合 仍 九 衷 哀 刑 俎 仵 圭 夷 徭 蛮 汗 孛 乾 帖 罕 洛 淦 洋 邶 郸 郯 邗 邛 剑 虢 隋 蒿 茆 菅 苌 树 桐 锁 钟 机 盘 铎 斛 玉 线 针 箕 庹 绳 磨 蒉 瓮 弭 刀 疏 牵 浑 恽 势 世 仝 \
+同 蚁 止 戢 睢 冼 种 涂 肖 己 泣 潜 卷 脱 谬 蹉 赧 浮 顿 说 次 错 念 夙 斯 完 丹 表 聊 源 姓 吾 寻 展 出 不 户 闭 才 无 书 学 愚 本 性 雪 霜 烟 寒 少 字 桥 板 斐 独 千 诗 嘉 扬 善 揭 祈 析 赤 紫 青 柔 刚 奇 拜 佛 陀 弥 阿 素 长 僧 隐 仙 隽 宇 祭 酒 淡 塔 琦 闪 始 星 南 天 接 波 碧 速 禚 腾 潮 镜 似 澄 潭 謇 纵 渠 奈 风 春 濯 沐 茂 英 兰 檀 藤 枝 检 生 折 登 驹 骑 貊 虎 肥 鹿 雀 野 禽 飞 节 宜 鲜 粟 栗 豆 帛 官 布 衣 藏 宝 钞 银 门 盈 庆 喜 及 普 建 营 巨 望 希 道 载 声 漫 犁 力 贸 勤 革 改 兴 亓 睦 修 信 闽 北 守 坚 勇 汉 练 尉 士 旅 \
+五 令 将 旗 军 行 奉 敬 恭 仪 母 堂 丘 义 礼 慈 孝 理 伦 卿 问 永 辉 位 让 尧 依 犹 介 承 市 所 苑 杞 剧 第 零 谌 招 续 达 忻 六 鄞 战 迟 候 宛 励 粘 萨 邝 覃 辜 初 楼 城 区 局 台 原 考 妫 纳 泉 老 清 德 卑 过 麦 曲 竹 百 福 言 第五 佟 爱 年 笪 谯 哈 墨 南宫 赏 伯 佴 佘 牟 商 西门 东门 左丘 梁丘 琴 后 况 亢 缑 帅 微生 羊舌 海 归 呼延 南门 东郭 百里 钦 鄢 汝 法 闫 楚 晋 谷梁 宰父 夹谷 拓跋 壤驷 乐正 漆雕 公西 巫马 端木 颛孙 子车 督 仉 司寇 亓官 鲜于 锺离 盖 逯 库 郏 逢 阴 薄 厉 稽 闾丘 公良 段干 开 光 操 瑞 眭 泥 运 摩 伟 铁 迮 ';
+        var has = false;
+        for(var i = 1; i < name.length; i++)
+        {
+            if( fn.indexOf(name.substr(0, i)+' ') != -1 ) {
+            	has = true;
+            	break;
+            }
+        }
+        return has;
+    }
+    var loading = false;
+    $('#save').on('tap', function(){
+        if( loading ) return false;
+        var idno = $.trim($('#idno').val());
+        var name = $.trim($('#name').val());
+        if( ! checkIdno(idno) ) {
+        	alert('请输入18位有效身份证号码！');
+            $('#idno').focus();
+            return false;
+        }
+        if( ! checkRealname(name) ) {
+            alert('请输入2-12位的真实姓名！');
+            $('#name').focus();
+            return false;
+        }
+        loading = true;
+        $.ajax({
+            url: '/user/fcm.html',
+            type: 'POST',
+            dataType: 'json',
+            data: 'idno='+idno+'&name='+name,
+            success: function(msg){
+            	loading = false;
+                alert(msg.msg);
+                if( msg.notice ) $('#notice').html(msg.notice).fadeIn('fast');
+                if( msg.fwd ) location.href = msg.fwd;
+            },
+            error: function(){
+                loading = false;
+                alert('网络连接失败！');
+            }
+        });
+    });
+});
+<?php } ?>
+</script>
+</body>
+</html>

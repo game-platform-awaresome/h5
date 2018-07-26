@@ -1,0 +1,183 @@
+<style>
+.ui-icons-blue, .ui-icons-red{cursor:pointer; display:inline-block; width:16px; height:16px; overflow:hidden; vertical-align:-15%}
+.ui-icons-blue{background:transparent url(/admin/js/ui-icons_70b2e1_256x240.png) no-repeat}
+.ui-icons-red{background:transparent url(/admin/js/ui-icons_cc0000_256x240.png) no-repeat}
+.ui-icon-add{background-position:0 -192px}
+.ui-icon-del{background-position:-96px -128px}
+#act_box tbody tr{cursor:move}
+</style>
+<script type="text/javascript" src="/js/My97DatePicker/WdatePicker.js"></script>
+<div class="content-box">
+  <!-- Start Content Box -->
+  <div class="content-box-header">
+    <h3><?=$title?></h3>
+    <a class="go_back" href="javascript:history.go(-1);">返回上一页</a>
+    <div class="clear"></div>
+  </div>
+  <!-- End .content-box-header -->
+  <div class="content-box-content">
+    <div class="tab-content default-tab">
+      <form action="/admin/<?=$controller?>/update?<?=$query?>" method="post" enctype="multipart/form-data">
+      <input type="hidden" name="info[<?=$primary?>]" value="<?php echo isset($info) ? $info[$primary] : ''; ?>" />
+        <fieldset>
+        <!-- Set class to "column-left" or "column-right" on fieldsets to divide the form into columns -->
+        <p>
+          <label>活动标题</label>
+          <input class="text-input small-input" type="text" name="info[title]" value="<?php echo isset($info) ? $info['title'] : ''; ?>" />
+        </p>
+        <p>
+          <label>活动简述</label>
+          <textarea style="height:100px; width:800px !important" name="info[in_short]"><?php echo isset($info) ? $info['in_short'] : ''; ?></textarea>
+        </p>
+        <p>
+          <label>封面</label>
+          <input type="file" name="cover">&nbsp;&nbsp;
+          <?php if(isset($info) && $info['cover']) echo "<a class=\"lightbox\" href=\"{$info['cover']}\"><img style=\"max-height:100px;\" src=\"{$info['cover']}\"></a>"; ?>
+        </p>
+        
+        <p>
+          <label>参与方式</label>
+          <select class="small-input" id="cond" name="info[cond]">
+          <?php foreach ($conds as $c=>$tp) { ?>
+            <option value="<?=$c?>"<?php if(isset($info) && $info['cond'] == $c) echo ' selected="selected"'; ?>><?=$tp?></option>
+          <?php } ?>
+          </select>
+        </p>
+        <p>
+          <label>每次消耗</label>
+          <input class="text-input small-input" type="text" id="consume" name="info[consume]" value="<?=isset($info)?$info['consume']:''?>">
+        </p>
+        <p>
+          <label>参与频率</label>
+          <select class="small-input" id="period" name="info[period]">
+          <?php foreach ($periods as $c=>$tp) { ?>
+            <option value="<?=$c?>"<?php if(isset($info) && $info['period'] == $c) echo ' selected="selected"'; ?>><?=$tp?></option>
+          <?php } ?>
+          </select>
+        </p>
+        <p>
+          <label>活动类型</label>
+          <select class="small-input" id="controller" name="info[controller]">
+          <?php foreach ($ctls as $c=>$tp) { ?>
+            <option value="<?=$c?>"<?php if(isset($info) && $info['controller'] == $c) echo ' selected="selected"'; ?>><?=$tp?></option>
+          <?php } ?>
+          </select>
+        </p>
+        
+        <p>
+          <label>活动上线时间</label>
+          <input class="text-input small-input" type="text" name="info[begin_time]" value="<?php echo empty($info['begin_time']) ? '' : date('Y-m-d H:i:s', $info['begin_time']); ?>" onclick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss'})"/>
+        </p>
+        <p>
+          <label>活动下线时间</label>
+          <input class="text-input small-input" type="text" name="info[end_time]" value="<?php echo empty($info) ? '' : date('Y-m-d H:i:s', $info['end_time']); ?>" onclick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss'})"/>
+        </p>
+        <div id="settings" style="line-height:1.6em; padding:5px 0 10px">
+          <label>奖品设置<small>（所有奖品的中奖率加起来必须达到100%，拖动可以排序）</small></label>
+          <?=$chtml?>
+        </div>
+        
+        <p>
+          <label>是否可见</label>
+          <select name="info[visible]">
+          <?php foreach (array('1'=>'是','0'=>'否') as $lk=>$lv) { ?>
+            <option value="<?=$lk?>"<?php if(isset($info) && $info['visible'] == $lk) echo ' selected="selected"'; ?>><?=$lv?></option>
+          <?php } ?>
+          </select>
+        </p>
+        <p>
+          <label>排序（升序， 0-65535）</label>
+          <input class="text-input small-input" type="text" name="info[weight]" value="<?php echo isset($info) ? $info['weight'] : '0'; ?>" />
+        </p>
+        <p>
+          <input class="button" type="submit" value="提交" />
+        </p>
+        </fieldset>
+        <div class="clear"></div>
+        <!-- End .clear -->
+      </form>
+    </div>
+    <!-- End #tab2 -->
+  </div>
+  <!-- End .content-box-content -->
+</div>
+<!-- End .content-box -->
+<div class="clear"></div>
+<link rel="stylesheet" href="/js/dxj-alert/dxj-alert.css" type="text/css" media="screen" />
+<script src="/js/dxj-alert/dxj-alert.js"></script>
+<script src="/admin/js/jquery-ui.min.js"></script>
+<script>
+$(function(){
+	function initSort(){
+		$('#settings tbody').sortable({
+	      items: "tr",
+	      stop: function(){
+	    	  $('#settings tbody tr').each(function(i){
+		    	  var _t = $(this);
+		    	  _t.attr('id', 'act_row_'+i);
+		    	  _t.find('input,select').each(function(){
+			    	  $(this).attr('name', $(this).attr('name').replace(/settings\[\d+\]/g, 'settings['+i+']'));
+		    	  });
+	    	  });
+	      }
+	    });
+	}
+	initSort();
+
+	$('#cond').change(function(){
+		var v = this.value;
+		if( v == 'integral' ) {
+			$('#consume').attr('placeholder', '请输入每次需消耗的积分数量').parent().show();
+		} else if( v == 'money' ) {
+			$('#consume').attr('placeholder', '请输入每次需消耗的平台币数量').parent().show();
+		} else {
+			$('#consume').val('').parent().hide();
+			if( $('#period').val() == 'unlimited' ) {
+				$('#period').val('day');
+			}
+		}
+	}).trigger('change');
+	$('#period').change(function(){
+		if( $('#cond').val() == 'free' && this.value == 'unlimited' ) {
+			this.value = 'day';
+			return false;
+		}
+	});
+	$('#controller').change(function(){
+		$.post('/admin/activity/chtml', 'act_id=<?=isset($info)?$info['act_id']:''?>&controller='+this.value, function(html){
+			$('#act_box').remove();
+			$('#settings').append(html);
+			initSort();
+		}, 'html');
+	});
+	if( '<?=empty($chtml)?'':'1'?>' == '' ) {
+		$('#controller').trigger('change');
+	}
+
+	$('#settings').on('click', '.ui-icon-add', function(){
+		var last = $('#settings tbody tr:last');
+		var idx = parseInt(last.attr('id').replace(/act_row_/, ''));
+		++idx;
+		var html = $('<p></p>').append(last.clone()).html();
+		html = html.replace(/act_row_\d+/g, 'act_row_'+idx);
+		html = html.replace(/settings\[\d+\]/g, 'settings['+idx+']');
+		html = html.replace(/value=\"[^\"]*\"/g, 'value=""');
+    	$('#settings tbody').append(html);
+	}).on('click', '.ui-icon-del', function(){
+		$(this).parent().parent().remove();
+	});
+
+	$('form').on('submit', function(){
+		var tt = 0;
+		$('#settings input[name*=odds]').each(function(){
+			var i = parseInt(this.value);
+			tt += isNaN(i) ? 0 : i;
+		});
+		if( tt != 10000 ) {
+			dxjalert('中奖几率必须等于100%', 'error');
+			return false;
+		}
+		return true;
+	});
+});
+</script>

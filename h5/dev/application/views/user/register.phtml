@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<title>用户注册 - 久乐游戏</title>
+<link rel="stylesheet" href="/public/styles/base.css"/>
+<link rel="stylesheet" href="/styles/register.css"/>
+</head>
+<body class="bg02">
+<!--div.container 总外框  start-->
+<div class="wrapper z_container">
+    <header class="z_header">
+        <a target="_top" href="<?=$fwd?>" class="fl"></a>
+        <span>用户注册</span>
+    </header>
+
+    <!--div.z_min 内容区域 statr-->
+    <div class="z_main" data-role="conent">
+        <form class="user_form">
+            <p class="tips">账号输入错误</p>
+            <input class="text" type="text" placeholder="账号" id="username" maxlength="32"/>
+            <input class="text" type="password" placeholder="密码" id="password" maxlength="16"/>
+            <div class="yzm">
+                <input class="text" type="text" placeholder="平台验证码" id="xcode" maxlength="4"/>
+                <div class="button_cont">
+                    <img class="yzm_img" src="/imgcode/user.html?r=<?=time()?>" width="100%" height="auto"/>
+                </div>
+                <div class="right_cont">
+                    <i id="xcode_refresh" class="i_flash"></i>
+                </div>
+            </div>
+            <div class="yzm" id="phone_code" style="display:none">
+                <input class="text" type="text" id="sms_code" placeholder="手机短信验证码" maxlength="6"/>
+                <div class="button_cont">
+                    <button class="ger_btn">获取</button>
+                </div>
+                <div class="right_cont"><i class="i_flash" style="background:none"></i></div>
+            </div>
+            <p class="agree">
+                <i class="i_check selected"></i>
+                <span>我已经阅读并同意<a target="_top" href="/user/agreement.html">《注册协议》</a></span>
+            </p>
+            <a class="login_btn" href="javascript:void(0)">确认注册</a>
+            <a id="x_cancle"><img src="/public/images/x.png"></a>
+        </form>
+        
+        <section class="bottom_btns">
+            <div class="box1">
+                <label>已有久乐账号</label>
+            </div>
+    		<div class="box2">
+            	<a target="_top" href="/user/login.html?fwd=<?=$fwd?>" class="btn_green2">立即登录</a>
+    		</div>
+    		<div class="box3"></div>
+        </section>
+        
+        <div class="footer_padding"></div>
+    </div>
+    <!--div.z_min 内容区域 end-->
+</div>
+<!--div.container 总外框  end-->
+<?php include $this->getScriptPath().'/footer.phtml'; ?>
+<script src="/public/scripts/jquery-1.11.1.min.js"></script>
+<script src="/public/scripts/jquery.mobile.min.js"></script>
+<script>
+$('#footer a:eq(4)').attr('id', 'footer_nav_active');
+$(function(){
+	$('.user_form input').focus(function(){
+		$(this).css('color', '#FFF');
+		$('#footer, .bottom_btns').hide();
+	}).change(function(){
+		$('#footer, .bottom_btns').show();
+	});
+
+	$('#x_cancle').on('tap', function(){
+		$("#username").val('');
+		setTimeout(function(){
+			$("#username").focus();
+		}, 17);
+	});
+
+	var check_protocol = true;
+	$(".i_check").on("tap", function(){
+        $(this).toggleClass("selected");
+        check_protocol = $(this).hasClass("selected");
+    });
+
+	var xcode_url = $("img.yzm_img").attr('src');
+	$("#xcode_refresh").on('tap', function(){
+        $(this).addClass("i_flash2");
+        var rand = Math.random().toString().replace(/^0\.?/, '');
+        var src = xcode_url.replace(/r=\d+/, 'r='+rand);
+        $("img.yzm_img").attr('src', src);
+        $("#xcode").val('');
+    });
+	$("img.yzm_img").on('tap', function(){
+		$("#xcode_refresh").trigger('tap');
+	});
+
+	function checkUsername(){
+        var v = $.trim($("#username").val());
+        var reg_phone = /^(?:13[0-9]|14[57]|15[0-9]|17[0678]|18[0-9])\d{8}$/;
+        var reg_email = /^[\w\-\.]+@[\w\-]+(\.\w+)+$/;
+        var reg_name = /^[a-zA-Z0-9_-]{4,16}$/;
+        if(reg_phone.test(v)){
+            // $('#phone_code').show();
+            return true;
+        } else if(reg_email.test(v) || reg_name.test(v)){
+        	$('#phone_code').hide();
+            return true;
+        } else{
+        	$('#phone_code').hide();
+            alert("请输入有效的手机号码或者邮箱地址！");
+            $("#username").focus();
+            $('#x_cancle').fadeIn('fast');
+            return false;
+        }
+    }
+    function checkPassword(){
+        var v = $.trim($('#password').val());
+        if( v.length < 6 ) {
+            alert('为了你的账号安全，请输入6位以上的密码！');
+            $("#password").focus();
+            return false;
+        }
+        return true;
+    }
+    function checkXcode()
+    {
+    	var v = $.trim($('#xcode').val());
+    	v = v.replace(/[^a-zA-Z0-9]+/, '');
+    	if( v.length != 4 ) {
+        	alert('请输入4位有效图片验证码！');
+        	$("#xcode").focus();
+        	return false;
+    	}
+    	return true;
+    }
+    function checkSmscode()
+    {
+    	var v = $.trim($('#sms_code').val());
+    	v = v.replace(/\D+/, '');
+    	if( v.length != 6 ) {
+        	alert('请输入6位短信验证码！');
+        	$("#sms_code").focus();
+        	return false;
+    	}
+    	return true;
+    }
+    $("#username").change(function(){
+    	var v = $.trim($("#username").val());
+    	if( v.length > 0 ) {
+    		$("#username").css("color","#FFF");
+    		checkUsername();
+    	} else {
+    		$("#username").css("color","#3c555e");
+    		$('#x_cancle').hide();
+    	}
+        return false;
+    });
+    $("#password").change(function(){
+    	var v = $.trim($("#password").val());
+    	if( v.length > 0 ) {
+    		$("#password").css("color","#FFF");
+    		checkPassword();
+    	} else {
+    		$("#password").css("color","#3c555e");
+    	}
+    });
+    $("#xcode").change(function(){
+    	var v = $.trim($("#xcode").val());
+    	if( v.length > 0 ) {
+    		$("#xcode").css("color","#FFF");
+    	} else {
+    		$("#xcode").css("color","#3c555e");
+    	}
+    });
+    $("#sms_code").change(function(){
+    	var v = $.trim($("#sms_code").val());
+    	if( v.length > 0 ) {
+    		$("#sms_code").css("color","#FFF");
+    	} else {
+    		$("#sms_code").css("color","#3c555e");
+    	}
+    });
+    var fwd = '<?=$fwd?>';
+    var loading = false;
+    $('a.login_btn').on('tap', function(){
+        if( loading ) return false;
+        if( ! checkUsername() ) return false;
+        if( ! checkPassword() ) return false;
+        if( ! checkXcode() ) return false;
+        if( $('#phone_code').css('display') != 'none' && ! checkSmscode() ) return false;
+        if( ! check_protocol ) {
+            alert('请阅读并同意久乐游戏《注册协议》');
+            return false;
+        }
+        var u = $.trim($("#username").val());
+        var p = $.trim($("#password").val());
+        var x = $.trim($("#xcode").val());
+        var s = $.trim($('#sms_code').val());
+        loading = true;
+        $.ajax({
+        	type: 'POST',
+	        url: '/user/ajaxreg.html',
+	        data: 'username='+u+'&password='+p+'&xcode='+x+'&sms_code='+s,
+	        dataType: 'json',
+	        success: function(msg){
+	        	loading = false;
+	        	$(".ui-loader").hide();
+	        	if( msg.msg != 'success' ) {
+		            alert(msg.msg);
+	            } else {
+		            alert('恭喜你注册成功！');
+		            if( fwd != '' ) {
+			            location.href = fwd;
+			            return ;
+		            }
+	            }
+	            if( msg.xcode == 'refresh' ) {
+	            	$("#xcode_refresh").trigger('tap');
+	            }
+	            if( msg.fwd != '' ) {
+		            location.href = msg.fwd;
+	            }
+	        },
+	        error: function(){
+	        	loading = false;
+	        	$(".ui-loader").hide();
+	        	alert('网络连接失败！');
+	        }
+        });
+    });
+
+    var timer;
+    var count = 0;
+    $('#phone_code button').on('tap', function(){
+        if( count > 0 ) return false;
+        if( ! checkUsername() || $('#phone_code').css('display') == 'none' ) return false;
+        if( ! checkXcode() ) return false;
+        var _t = $(this);
+        _t.addClass('gray_btn');
+        var m = $.trim($('#username').val());
+        var x = $.trim($('#xcode').val());
+        $.ajax({
+            url: '/smscode/register.html',
+            type: 'POST',
+            dataType: 'json',
+            data: 'mobile='+m+'&xcode='+x,
+            success: function(msg){
+                count = 60;
+            	timer = setInterval(function(){
+                	_t.html(--count);
+                	if( count <= 0 ) {
+                    	clearInterval(timer);
+                    	_t.removeClass('gray_btn').html('获取');
+                	}
+            	}, 1000);
+            	if( msg.msg != 'success' ) alert(msg.msg);
+                if( msg.xcode == 'refresh' ) $("#xcode_refresh").trigger('tap');
+            },
+            error: function(){
+            	_t.removeClass('gray_btn');
+            	alert('网络连接失败，请重试！');
+            }
+        });
+        return false;
+    });
+});
+</script>
+</body>
+</html>

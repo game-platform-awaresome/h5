@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"/>
+<meta name="keywords" content="H5 HTML5 H5游戏 HTML5游戏 小游戏 手机游戏 网页游戏 在线游戏 点击即玩 久乐游戏 久乐H5 礼包 兑换码 激活码 活动 奖励">
+<meta name="description" content="久乐游戏是一个行业领先的H5在线游戏平台，玩游戏不再苦苦的等待下载，点击即玩。">
+<title>礼包中心 - 久乐H5在线游戏平台</title>
+<link rel="stylesheet" href="/public/styles/base.css"/>
+<link rel="stylesheet" href="/styles/game_gift_center.css"/>
+</head>
+<body class="bg01">
+    <header class="z_header">
+        <a target="_top" href="/game/index.html"></a><span>礼包中心</span>
+    </header>
+    <section class="main">
+        <h2 class="title"><i class="i_lb2"></i>热门礼包</h2>
+        <ul id="gift_list" class="gift_list">
+            <li id="loading"><img src="/images/loader/loading.gif"><span>数据玩命加载中...</span></li>
+        </ul>
+        <div class="footer_padding"></div>
+    </section>
+<?php include $this->getScriptPath().'/footer.phtml'; ?>
+</body>
+<script src="/public/scripts/jquery-1.11.1.min.js"></script>
+<script src="/public/scripts/jquery.mobile.min.js"></script>
+<script>
+$('#footer a:eq(3)').attr('id', 'footer_nav_active');
+$(function(){
+    $('#gift_list').on('tap', 'a', function(){
+        var _t = $(this);
+        if( _t.attr('id') != undefined ) {
+            return true;
+        } else {
+            _t = _t.parents('li');
+            location.href = _t.children('a').attr('href');
+        }
+        return false;
+    });
+
+    var nomore = '<label>没有更多数据了</label>';
+    var pn = 0;
+    var limit = 8;
+    var loading = false;
+    function pull()
+    {
+        if( loading || nomore == '' ) return false;
+        loading = true;
+        ++pn;
+        $.ajax({
+            url: '/activity/giftlist.html',
+            type: 'post',
+            dataType: 'html',
+            data: 'pn='+pn+'&limit='+limit,
+            success: function(html){
+                if( html == '' ) {
+                	$('#loading').html(nomore);
+                	nomore = '';
+                	loading = false;
+                    return ;
+                }
+                var h = $(html).hide().insertBefore('#loading').fadeIn();
+            	if( h.length < limit ) {
+                	$('#loading').html(nomore);
+                	nomore = '';
+            	}
+            	loading = false;
+            },
+            error: function(){
+                loading = false;
+            }
+        });
+    }
+    pull();
+
+    $(window).on('scrollstop', function(){
+        var t_h = $('.z_header').height() + $('.main').height();
+        var c_h = $(document).scrollTop();
+        if( c_h == 0 ) c_h = $('.z_header').scrollTop();
+        c_h += $(window).height() + 10;
+        if( c_h >= t_h ) {
+            pull();
+        }
+    });
+});
+</script>
+</html>

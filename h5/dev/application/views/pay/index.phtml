@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"/>
+<title>充值中心</title>
+<link rel="stylesheet" href="/public/styles/base.css"/>
+<link rel="stylesheet" href="/styles/pay_center.css"/>
+<style>
+#to_box{float:right; width:45%; text-overflow:ellipsis; text-indent:0; overflow:hidden}
+#to_user{width:100%}
+</style>
+</head>
+<body class="bg01">
+<!--div.container 总外框  start-->
+<div  class="z_container">
+    <header class="z_header">
+        <a target="_top" href="/user/index.html"></a>充值中心
+    </header>
+
+    <!--div.z_min 内容区域 statr-->
+    <div class="z_main" data-role="conent">
+        <figure class="banner block_bg">
+            <img src="/images/index/index_03.png" width="100%" height="auto" alt="图片"/>
+        </figure>
+        <!--div.to_play 充值类型选择 start-->
+        <section class="game_list to_play relative">
+            <nav class="user_lists">
+                <a href="javascript:void(0)">
+                    <i class="i_list1"></i>
+                    <span>我要充值的账号:<b class="green" id="to_box"><?=$pay['to_user']?></b></span>
+                </a>
+                <a id="to_game" href="/pay/game.html" target="_top">
+                    <i class="i_list2"></i>
+                    <span>充值到游戏</span>
+                    <span class="logo_right"></span>
+                </a>
+                <a id="to_deposit" href="/pay/deposit.html" target="_top">
+                    <i class="i_list3"></i>
+                    <span>充值到平台</span>
+                    <span class="logo_right"></span>
+                </a>
+            </nav>
+        </section>
+        <!--div.to_play 充值类型选择 end-->
+        <div class="footer_padding"></div>
+    </div>
+    <!--div.z_min 内容区域 end-->
+</div>
+<!--div.container 总外框  end-->
+<?php include $this->getScriptPath().'/footer.phtml'; ?>
+<script src="/public/scripts/jquery-1.11.1.min.js"></script>
+<script>$('#footer a:eq(4)').attr('id', 'footer_nav_active');</script>
+</body>
+</html>

@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+<meta name="screen-orientation" content="portrait">
+<meta name="keywords" content="H5 HTML5 H5游戏 HTML5游戏 小游戏 手机游戏 网页游戏 在线游戏 点击即玩 久乐游戏 久乐H5 H5平台 资讯 新闻 攻略 视频 ">
+<meta name="description" content="久乐游戏是一个行业领先的H5在线游戏平台，玩游戏不再苦苦的等待下载，点击即玩。">
+<title>资讯 - 久乐H5在线游戏平台</title>
+<link rel="stylesheet" href="/public/styles/base.css"/>
+<link rel="stylesheet" href="/styles/news.css"/>
+<style>.game_news li.loading{display:block;-webkit-box-sizing:content-box;-o-box-sizing:content-box;-ms-box-sizing:content-box;box-sizing:content-box;width:auto;}</style>
+</head>
+
+<body class="bg01">
+<!--div.container 总外框  start-->
+<div data-role="page" class="z_container news">
+    <!--div.z_min 内容区域 statr-->
+    <div class="z_main" data-role="conent">
+        <div class="banner swipe" id="banner_silider">
+            <ul class="swipe-wrap">
+            <?php foreach ($banner['ads'] as $row) { ?>
+                <li class="wrap">
+                    <a target="_top" href="<?=$row['url']?>" class="line_01">
+                        <img src="<?=$row['image']?>" width="100%" height="auto"<?php if($row['subject']) echo " alt=\"{$row['subject']}\""; ?>/>
+                    </a>
+                </li>
+            <?php } ?>
+            </ul>
+        </div>
+        <nav class="play_list">
+<!--            <i class="icons logo"></i>-->
+            <ul id="list_nav" class="ui-grid-d">
+                <li>综合</li>
+                <li>活动</li>
+                <li>新闻</li>
+                <li>公告</li>
+            </ul>
+        </nav>
+
+        <!--div.center 游戏咨询标题栏  statr-->
+        <div class="center block_bg">
+            <i class="icons i_news"></i>
+            <span>游戏资讯</span>
+        </div>
+        <!--div.center 游戏咨询标题栏  end-->
+
+        <!--div.game_news 游戏咨询  statr-->
+        <section class="swipe" id="news_list">
+        <div class="swipe-wrap">
+            <ul class="game_news">
+                <li id="loader_0" class="loading"><img src="/images/loader/loading.gif"><span>数据玩命加载中...</span></li>
+            </ul>
+            <ul class="game_news">
+                <li id="loader_1" class="loading"><img src="/images/loader/loading.gif"><span>数据玩命加载中...</span></li>
+            </ul>
+            <ul class="game_news">
+                <li id="loader_2" class="loading"><img src="/images/loader/loading.gif"><span>数据玩命加载中...</span></li>
+            </ul>
+            <ul class="game_news">
+                <li id="loader_3" class="loading"><img src="/images/loader/loading.gif"><span>数据玩命加载中...</span></li>
+            </ul>
+        </div>
+        </section>
+        <!--div.game_news 游戏咨询  end-->
+
+        <div class="footer_padding"></div>
+    </div>
+    <!--div.z_min 内容区域 end-->
+</div>
+<!--div.container 总外框  end-->
+<?php include $this->getScriptPath().'/footer.phtml'; ?>
+<script src="/public/scripts/jquery-1.11.1.min.js"></script>
+<script src="/public/scripts/jquery.mobile.min.js"></script>
+<script src="/jquery/swipe.js"></script>
+<script>
+$('#footer a:eq(1)').attr('id', 'footer_nav_active');
+$(function(){
+	var banner_slider = new Swipe(document.getElementById('banner_silider'), {
+	  startSlide: 0,
+	  speed: 400,
+	  auto: 3000,
+	  continuous: true
+	});
+
+    var nomore = '<label>没有更多数据了</label>';
+    var cache = [
+        {pn:1,more:1},
+        {pn:1,more:1},
+        {pn:1,more:1},
+        {pn:1,more:1}
+    ];
+    var limit = 6;
+    var loading = false;
+    function pull(index)
+    {
+        if( loading || cache[index].more == 0 ) return false;
+        var type = $('#list_nav li').eq(index).text();
+        var pn = cache[index].pn++;
+        loading = true;
+        $.ajax({
+            url: '/info/list.html',
+            type: 'POST',
+            dataType: 'html',
+            data: 'type='+encodeURIComponent(type)+'&pn='+pn+'&limit='+limit,
+            success: function(html){
+            	loading = false;
+                var h = $(html).hide().insertBefore('#loader_'+index).fadeIn();
+                if( h.length < limit ) {
+                    cache[index].more = 0;
+                    $('#loader_'+index).html(nomore);
+                }
+            },
+            error: function(){
+            	loading = false;
+            }
+        });
+    }
+    var start_slide = 0;
+    if( '<?=$type?>' == '' ) {
+    	$('#list_nav li:eq(0)').addClass('list_active');
+        pull(0);
+    } else {
+    	$('#list_nav li').each(function(i){
+    		var _t = $(this);
+    		if( _t.text() == '<?=$type?>' ) {
+    			_t.addClass('list_active');
+    			start_slide = i;
+    			pull(i);
+    		}
+    	});
+    }
+
+	var news_slider = new Swipe(document.getElementById('news_list'), {
+	  startSlide: start_slide,
+	  speed: 400,
+	  auto: false,
+	  callback: function(index, elem) {
+		  $('#list_nav li').removeClass('list_active').eq(index).addClass('list_active');
+		  if( cache[index].pn == 1 && cache[index].more == 1 ) {
+			  pull(index);
+		  }
+	  }
+	});
+	$('#list_nav li').on('tap', function(){
+		news_slider.slide($(this).index(), 400);
+		return true;
+	});
+
+	$(window).on('scrollstop', function(){
+        var t_h = $('.z_main').height();
+        var c_h = $(document).scrollTop();
+        if( c_h == 0 ) c_h = $('.z_container').scrollTop();
+        c_h += $(window).height() + 10;
+        if( c_h >= t_h ) {
+            pull(news_slider.getPos());
+        }
+    });
+});
+</script>
+</body>
+</html>

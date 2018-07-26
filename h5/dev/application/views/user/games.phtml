@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<title>最近在玩</title>
+<link rel="stylesheet" href="/public/styles/base.css"/>
+<link rel="stylesheet" href="/styles/my_favs.css"/>
+</head>
+<body class="bg01">
+<div data-role="page" class="z_container">
+    <div class="main">
+        <header class="z_header">
+            <a target="_top" href="/user/index.html"></a>最近在玩
+        </header>
+        <figure class="banner block_bg">
+            <img src="/images/index/index_03.png" width="100%" height="auto"/>
+        </figure>
+        <section class="games">
+            <h1 class="block_bg">
+                <span class="fl">
+                    <i class="i_start i_game"></i>最近在玩
+                </span>
+            </h1>
+            <ul class="game_list block_bg">
+            <?php if($games) { foreach ($games as $row) { ?>
+                <li>
+                    <a target="_top" href="/game/detail.html?game_id=<?=$row['game_id']?>"><img src="<?=$row['logo']?>" width="50" height="50" alt="<?=$row['name']?>"/></a>
+                </li>
+            <?php } } else { ?>
+                <li style="width:98%">
+                    <h4 style="font-weight:normal; padding-top:34px; text-align:center">快开始游戏吧，骚年！</h4>
+                </li>
+            <?php } ?>
+            </ul>
+        </section>
+    </div>
+    <div class="footer_padding"></div>
+</div>
+<?php include $this->getScriptPath().'/footer.phtml'; ?>
+<script src="/public/scripts/jquery-1.11.1.min.js"></script>
+<script>$('#footer a:eq(4)').attr('id', 'footer_nav_active');</script>
+</body>
+</html>

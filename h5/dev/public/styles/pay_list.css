@@ -1,0 +1,118 @@
+/**
+*info:充值记录pay_list.html
+*author:zhangting
+*date:2015.10.8 10:30
+*logo:
+**/
+.banner {
+  padding: 15px 2%;
+}
+/*.pay_table{*/
+/*width: 96%;*/
+/*text-align: center;*/
+/*margin: 10px auto;*/
+/*}*/
+/*.pay_table tr{*/
+/*height: 36px;*/
+/*line-height: 36px;*/
+/*}*/
+/*.pay_table tr:active{*/
+/*background-color: #00ce7d;*/
+/*}*/
+/*.pay_table tr td{*/
+/*border: 1px solid rgba(0, 0, 0, 0);*/
+/*background-clip: content-box;*/
+/*}*/
+/*.pay_table thead tr td{*/
+/*background-color: rgba(0, 0, 0, 0.5);*/
+/*}*/
+/*.pay_table tbody tr td{*/
+/*background-color: rgba(0, 0, 0, 0.2);*/
+/*}*/
+/*.bold{*/
+/*font-weight: 300;*/
+/*}*/
+/*.btn_cont{*/
+/*text-align: center;*/
+/*margin: 20px 0;*/
+/*}*/
+/*.btn_cont button{*/
+/*width: 80%;*/
+/*height: 45px;*/
+/*line-height: 45px;*/
+/*letter-spacing: 15px;*/
+/*font-size: 22px;*/
+/*}*/
+.pay_list {
+  margin: 10px 0;
+  font-size: 13px;
+}
+.pay_list ul {
+  width: 96%;
+  margin: 0 auto;
+  text-align: center;
+}
+.pay_list ul li {
+  height: 36px;
+  line-height: 36px;
+}
+.pay_list ul li span {
+  float: left;
+  box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  border: 1px solid rgba(0, 0, 0, 0);
+  border-top: 0;
+  border-right: 0;
+  width: 25%;
+  background-color: rgba(0, 0, 0, 0.2);
+  background-clip: content-box;
+  -moz-background-clip: content-box;
+  -webkit-background-clip: content-box;
+  color: #bbbbbb;
+  height: 36px;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+.gift_logs ul li span {
+  width: 30%;
+}
+.gift_logs ul li span.col-2 {
+  width: 45%;
+}
+.gift_logs ul li span.col-3 {
+  width: 25%;
+}
+.pay_list ul li a {
+  display: block;
+  height: 100%;
+  -webkit-appearance: none;
+}
+.pay_list ul li a:active {
+  /*-webkit-appearance:none;*/
+  /*border: 0;*/
+  /*border-radius: 0;*/
+}
+.pay_list ul li a:active span {
+  background-color: rgba(0, 0, 0, 0.3);
+  background-clip: content-box;
+  -moz-background-clip: content-box;
+  -webkit-background-clip: content-box;
+  -webkit-appearance: none;
+}
+.pay_list .list_header li span {
+  height: 35px;
+  background-color: rgba(0, 0, 0, 0.3);
+  color: #FFFFFF;
+}
+.pay_list .list_body li:last-child span {
+  width: 100%;
+  /*border-right: 3px solid rgba(0, 0, 0, 0);*/
+}
+a:active {
+  /*-webkit-appearance:button;*/
+  /*border: 0;*/
+  /*border-radius: 0;*/
+  /*background-color: rgba(0, 0, 0, 0);*/
+}

@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<title>选择游戏-充值中心 久乐游戏</title>
+<link rel="stylesheet" href="/public/styles/base.css">
+<link rel="stylesheet" href="/styles/pay_center.css">
+<style>
+nav.three div a{height:26px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis}
+nav.five{height:auto}
+</style>
+</head>
+<body class="bg01">
+<!--div.container 总外框  start-->
+<div class="z_container">
+    <header class="z_header">
+        <a target="_top" href="/pay/index.html"></a>选择游戏
+    </header>
+
+    <!--div.z_min 内容区域 statr-->
+    <div class="z_main" data-role="conent">
+    <?php if($play) { ?>
+        <!--div.game_detail 常玩游戏 start-->
+        <section class="game_detail block_bg">
+            <h2>
+                <i class="i_game2 i_game"></i>常玩游戏
+            </h2>
+            <nav class="servers three">
+            <?php foreach ($play as $row) { ?>
+                <div><a data-href="/pay/server.html?game_id=<?=$row['game_id']?>"><?=$row['name']?></a></div>
+            <?php } ?>
+            </nav>
+        </section>
+        <!--div.game_detail 常玩游戏 end-->
+    <?php } ?>
+
+        <!--div.game_detail 其他选择 start-->
+        <section class="game_detail block_bg">
+            <h2>
+                <i class="i_game2"></i>
+                其他选择
+            </h2>
+            <div id="nav_list" class="nav_list">
+                <nav id="four" class="servers four">
+                    <div class="active" data-initial=""><a href="javascript:void(0)">全部</a></div>
+                <?php $i = 0; foreach ($initial as $key=>&$row) { ?>
+                    <div<?=($i >= 6)?' style="display:none"':''?> data-initial="<?=$key?>"><a href="javascript:void(0)"><?=$key?></a></div>
+                    <?php ++$i; if($i == 6) { ?>
+                    <div class="hide_split">
+                        <a href="javascript:void(0)">
+                            <i class="i_down"></i>
+                        </a>
+                    </div>
+                    <?php } ?>
+                <?php } ?>
+                </nav>
+            </div>
+            <nav id="five" class="servers three five">
+            <?php foreach ($initial as &$row) { ?>
+                <?php foreach ($row as &$tmp) { ?>
+                <div data-key="<?=$tmp['initial']?>"><a data-href="/pay/server.html?game_id=<?=$tmp['game_id']?>"><?=$tmp['name']?></a></div>
+                <?php } ?>
+            <?php } ?>
+            </nav>
+        </section>
+        <div class="next_btn">
+            <button id="next_step" class="btn_green">下一步</button>
+        </div>
+        <!--div.game_detail 其他选择 end-->
+        <div class="footer_padding"></div>
+    </div>
+    <!--div.z_min 内容区域 end-->
+</div>
+<!--div.container 总外框  end-->
+<?php include $this->getScriptPath().'/footer.phtml'; ?>
+<script src="/public/scripts/jquery-1.11.1.min.js"></script>
+<script src="/public/scripts/jquery.mobile.min.js"></script>
+<script>
+$('#footer a:eq(4)').attr('id', 'footer_nav_active');
+$(function(){
+    /**常玩游戏 选中效果*/
+    $("nav.three div").on('tap', function(){
+    	$("nav.three div").removeClass("active");
+        $(this).addClass("active").blur();
+    });
+
+    /**根据字母来选择*/
+    var split_pos = $('#four div.hide_split').index();
+    var active_id = -1; //被选择的ID
+    var store_key = $(".hide_split").prev().find("a").html(); //被暂时替换的选项内容
+
+    $("#four div").on("tap",function(){
+        var _t = $(this);
+        _t.blur();
+        if( _t.hasClass('active') ) return false;
+        var key = _t.find('a').text();
+        if( key == '全部' ) {
+        	_t.addClass("active").siblings().removeClass("active");
+        	$(".hide_split").find("i").removeClass("i_up");
+            $(".hide_split").nextAll('div').hide();
+        	$("#five div").show();
+        	$(".hide_split").prev().find("a").html(store_key);
+        	active_id = -1;
+        } else if( split_pos == -1 ) {
+        	_t.addClass("active").siblings().removeClass("active");
+        	$("#five div").hide().filter('[data-key="'+key+'"]').show();
+        }else if(_t.index() == split_pos){
+        	_t.nextAll("div").toggle();
+            _t.find("i").toggleClass("i_up");
+            if( active_id != -1 ) {
+                if( _t.find("i").hasClass('i_up') ) {
+                	$("#four div").eq(active_id).addClass("active").siblings().removeClass("active");
+                	_t.prev().find("a").html(store_key);
+                } else {
+                	_t.prev().addClass("active").siblings().removeClass("active");
+              	    _t.prev().find("a").html($("#four div").eq(active_id).find('a').html());
+                }
+            }
+        }else if(_t.index() < split_pos){
+        	_t.addClass("active").siblings().removeClass("active");
+            $(".hide_split").find("i").removeClass("i_up");
+            $(".hide_split").nextAll('div').hide();
+            $("#five div").hide().filter('[data-key="'+key+'"]').show();
+            $(".hide_split").prev().find("a").html(store_key);
+            active_id = -1;
+        }else{
+            $(".hide_split").find("i").removeClass("i_up");
+            $(".hide_split").nextAll('div').hide();
+            $("#five div").hide().filter('[data-key="'+key+'"]').show();
+            $(".hide_split").prev().find("a").html(key).parent().addClass("active").siblings().removeClass("active");
+            active_id = _t.index();
+        }
+        return false;
+    });
+
+    if( '<?=$init_key?>' == '' ) {
+    	$("#four div").eq(1).trigger('tap');
+    } else {
+    	$('#four div[data-initial="<?=$init_key?>"]').trigger('tap');
+    }
+
+    //下一步
+    $('#next_step').on('tap', function(){
+    	var div = $("nav.three div.active");
+    	if( div.length < 1 ) {
+        	alert('请选择你要充值的服务器！');
+        	return false;
+    	}
+    	location.href = div.find('a').attr('data-href');
+    });
+});
+</script>
+</body>
+</html>

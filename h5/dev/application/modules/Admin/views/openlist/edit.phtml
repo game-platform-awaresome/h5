@@ -1,0 +1,84 @@
+<script type="text/javascript" src="/js/My97DatePicker/WdatePicker.js"></script>
+<div class="content-box">
+  <!-- Start Content Box -->
+  <div class="content-box-header">
+    <h3><?=$title?></h3>
+    <a class="go_back" href="javascript:history.go(-1);">返回上一页</a>
+    <div class="clear"></div>
+  </div>
+  <!-- End .content-box-header -->
+  <div class="content-box-content">
+    <div class="tab-content default-tab">
+      <form action="/admin/<?=$controller?>/update?<?=$query?>" method="post">
+      <input type="hidden" name="info[id]" value="<?php echo isset($info) ? $info['id'] : ''; ?>" />
+        <fieldset>
+        <!-- Set class to "column-left" or "column-right" on fieldsets to divide the form into columns -->
+        <p>
+          <label>请选择开服游戏及区/服</label>
+          <span>游戏：</span>
+          <select id="game_id" name="info[game_id]">
+          <?php foreach ($games as $gm) { ?>
+            <option value="<?=$gm['game_id']?>"<?php if(isset($info) && $info['game_id'] == $gm['game_id']) echo ' selected="selected"'; ?>><?=$gm['name']?></option>
+          <?php } ?>
+          </select>
+          <span>区/服：</span>
+          <select id="server_id" name="info[server_id]"></select>
+          <input type="hidden" id="g_name" name="info[game_name]" value="<?=isset($info)?$info['game_name']:''?>">
+          <input type="hidden" id="s_name" name="info[server_name]" value="<?=isset($info)?$info['server_name']:''?>">
+        </p>
+        <p>
+          <label>开服时间</label>
+          <input class="text-input small-input" type="text" name="info[open_time]" value="<?php echo isset($info) ? date('Y-m-d H:i', $info['open_time']) : ''; ?>" onclick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm'})"/>
+        </p>
+        <p>
+          <input class="button" type="submit" value="提交" />
+        </p>
+        </fieldset>
+        <div class="clear"></div>
+        <!-- End .clear -->
+      </form>
+    </div>
+    <!-- End #tab2 -->
+  </div>
+  <!-- End .content-box-content -->
+</div>
+<!-- End .content-box -->
+<div class="clear"></div>
+
+<script>
+$(function(){
+    var servers = {};
+	var server_id = parseInt('<?php echo isset($info['server_id']) ? $info['server_id'] : ''; ?>');
+    var func = function(game_id){
+    	var html = '';
+    	if( typeof servers[game_id] == 'undefined' ) {
+        	$.getJSON('/admin/gamemap/server?game_id='+game_id, function(data){
+            	html += '<option value="">--请选择区/服--</option>';
+        		var selected;
+        		for(var key in data)
+            	{
+                	if( server_id == data[key]['server_id'] ) {
+                    	selected = ' selected="selected"';
+                    } else {
+                    	selected = '';
+                    }
+            		html += '<option value="'+ data[key]['server_id'] + '"'+ selected +'>'+ data[key]['name'] + '</option>';
+            	}
+        		servers[game_id] = html;
+        		$('#server_id').html(html);
+        	});
+        } else {
+            html = servers[game_id];
+            $('#server_id').html(html);
+        }
+    };
+    $('#game_id').change(function(){
+        $('#g_name').val($('#game_id option:selected').text());
+    	func($(this).val());
+    });
+    $('#server_id').change(function(){
+        $('#s_name').val($('#server_id option:selected').text());
+    });
+    func($('#game_id').val());
+});
+</script>

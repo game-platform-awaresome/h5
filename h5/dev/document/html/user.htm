@@ -1,0 +1,982 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>UCenter 接口开发手册 - 用户接口</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" href="images/style.css" type="text/css" media="all" />
+<meta content="Comsenz Inc." name="Copyright" />
+<script type="text/javascript" src="javascript/common.js"></script>
+</head>
+<body>
+<script type="text/javascript" src="javascript/header.js"></script>
+
+<a name="register"></a>
+<h3>用户注册</h3>
+
+<div class="submsg">
+<h4><i>integer</i> uc_user_register(<i>string</i> username , <i>string</i> password [, <i>string</i> email , <i>integer</i> questionid , <i>string</i> answer])</h4>
+
+<h5>函数参数</h5>
+<table border="0" cellspacing="0" cellpadding="0" class="msgtable">
+<thead>
+	<tr>
+	<th>参数</th>
+	<td>含义</td>
+	</tr>
+</thead>
+<tbody>
+	<tr>
+	<th><i>string</i> username</th>
+	<td>用户名，可以是手机号、电子邮件、普通账号或第三方账号</td>
+	</tr>
+	<tr>
+	<th><i>string</i> password</th>
+	<td>密码</td>
+	</tr>
+	<tr>
+	<th><i>string</i> email</th>
+	<td>电子邮件</td>
+	</tr>
+	<tr>
+	<th><i>integer</i> questionid</th>
+	<td>安全提问索引</td>
+	</tr>
+	<tr>
+	<th><i>string</i> answer</th>
+	<td>安全提问答案</td>
+	</tr>
+	<tr>
+	<th><i>string</i> regip</th>
+	<td>注册ip</td>
+	</tr>
+</tbody>
+</table>
+
+<h5>返回值</h5>
+<table border="0" cellspacing="0" cellpadding="0" class="msgtable">
+<thead>
+	<tr>
+	<th>值</th>
+	<td>含义</td>
+	</tr>
+</thead>
+<tbody>
+	<tr>
+	<th><i>integer</i></th>
+	<td>
+	<em>大于 0:</em>返回用户 ID，表示用户注册成功<br />
+	<em>-1:</em>用户名不合法<br />
+	<em>-2:</em>包含不允许注册的词语<br />
+	<em>-3:</em>用户名已经存在<br />
+	<em>-4:</em>Email 格式有误<br />
+	<em>-5:</em>Email 不允许注册<br />
+	<em>-6:</em>该 Email 已经被注册<br />
+	</td>
+	</tr>
+</tbody>
+</table>
+
+<br />
+本接口函数用于新用户的注册。用户名、密码、Email 为一个用户在 UCenter 的基本数据，提交后 UCenter 会按照注册设置和词语过滤的规则检测用户名和 Email 的格式是否正确合法，如果正确则返回注册后的用户 ID，否则返回相应的错误信息。
+
+<h6><a href="###" class="spread" onclick="collapse(this, 's1')">用户注册示例 (PHP)</a></h6>
+<div class="code" id="s1" style="display: none"><pre>
+$uid = uc_user_register($_POST['username'], $_POST['password'], $_POST['email']);
+if($uid <= 0) {
+	if($uid == -1) {
+		echo '用户名不合法';
+	} elseif($uid == -2) {
+		echo '包含要允许注册的词语';
+	} elseif($uid == -3) {
+		echo '用户名已经存在';
+	} elseif($uid == -4) {
+		echo 'Email 格式有误';
+	} elseif($uid == -5) {
+		echo 'Email 不允许注册';
+	} elseif($uid == -6) {
+		echo '该 Email 已经被注册';
+	} else {
+		echo '未定义';
+	}
+} else {
+	echo '注册成功';
+}
+</pre></div>
+
+</div>
+
+<a name="login"></a>
+<h3>用户登录</h3>
+
+<div class="submsg">
+<h4><i>array</i> uc_user_login(<i>string</i> username , <i>string</i> password [, <i>bool</i> isuid , <i>bool</i> checkques , <i>integer</i> questionid , <i>string</i> answer])</h4>
+
+<h5>函数参数</h5>
+<table border="0" cellspacing="0" cellpadding="0" class="msgtable">
+<thead>
+	<tr>
+	<th>参数</th>
+	<td>含义</td>
+	</tr>
+</thead>
+<tbody>
+	<tr>
+	<th><i>string</i> username</th>
+	<td>用户名 / 用户 ID / 用户 E-mail</td>
+	</tr>
+	<tr>
+	<th><i>string</i> password</th>
+	<td>密码</td>
+	</tr>
+	<tr>
+	<th><i>bool</i> isuid</th>
+	<td>
+	是否使用用户 ID登录<br />
+	<em>1:</em>使用用户 ID登录<br />
+	<em>2:</em>使用用户 E-mail登录<br />
+	<em>0:</em><strong>(默认值)</strong> 使用用户名登录<br />
+	</td>
+	</tr>
+	<tr>
+	<th><i>bool</i> checkques</th>
+	<td>
+	是否验证安装提问<br />
+	<em>1:</em>验证安全提问<br />
+	<em>0:</em><strong>(默认值)</strong> 不验证安全提问<br />
+	</td>
+	</tr>
+	<tr>
+	<th><i>integer</i> questionid</th>
+	<td>安全提问索引</td>
+	</tr>
+	<tr>
+	<th><i>string</i> answer</th>
+	<td>安全提问答案</td>
+	</tr>
+</tbody>
+</table>
+
+<h5>返回值</h5>
+<table border="0" cellspacing="0" cellpadding="0" class="msgtable">
+<thead>
+	<tr>
+	<th colspan="2">值</th>
+	<td>含义</td>
+	</tr>
+</thead>
+<tbody>
+	<tr>
+	<th rowspan="5"><i>array</i></th>
+	<th><i>integer</i> [0]</th>
+	<td>
+	<em>大于 0:</em>返回用户 ID，表示用户登录成功<br />
+	<em>-1:</em>用户不存在，或者被删除<br />
+	<em>-2:</em>密码错<br />
+	<em>-3:</em>安全提问错<br />
+	</td>
+	</tr>
+	<tr>
+	<th><i>string</i> [1]</th>
+	<td>用户名</td>
+	</tr>
+	<tr>
+	<th><i>string</i> [2]</th>
+	<td>密码</td>
+	</tr>
+	<tr>
+	<th><i>string</i> [3]</th>
+	<td>Email</td>
+	</tr>
+	<tr>
+	<th><i>bool</i> [4]</th>
+	<td>用户名是否重名</td>
+	</tr>
+</tbody>
+</table>
+
+<br />
+本接口函数用于用户的登录验证，用户名及密码正确无误则返回用户在 UCenter 的基本数据，否则返回相应的错误信息。如果应用程序是升级过来的，并且当前登录用户和已有用户重名，那么返回的数组中 [4] 的值将返回 1。
+
+<h6><a href="###" class="spread" onclick="collapse(this, 's2')">用户登录示例 (PHP)</a></h6>
+<div class="code" id="s2" style="display: none"><pre>
+list($uid, $username, $password, $email) = uc_user_login($_POST['username'], $_POST['password']);
+if($uid > 0) {
+	echo '登录成功';
+} elseif($uid == -1) {
+	echo '用户不存在,或者被删除';
+} elseif($uid == -2) {
+	echo '密码错';
+} else {
+	echo '未定义';
+}
+</pre></div>
+
+</div>
+
+<a name="getinfo"></a>
+<h3>获取用户数据</h3>
+
+<div class="submsg">
+<h4><i>array</i> uc_get_user(<i>string</i> username [, <i>bool</i> isuid])</h4>
+
+<h5>函数参数</h5>
+<table border="0" cellspacing="0" cellpadding="0" class="msgtable">
+<thead>
+	<tr>
+	<th>参数</th>
+	<td>含义</td>
+	</tr>
+</thead>
+<tbody>
+	<tr>
+	<th><i>string</i> username</th>
+	<td>用户名</td>
+	</tr>
+	<tr>
+	<th><i>bool</i> isuid</th>
+	<td>
+	是否使用用户 ID获取<br />
+	<em>1:</em>使用用户 ID获取<br />
+	<em>0:</em><strong>(默认值)</strong> 使用用户名获取<br />
+	</td>
+	</tr>
+</tbody>
+</table>
+
+<h5>返回值</h5>
+<table border="0" cellspacing="0" cellpadding="0" class="msgtable">
+<thead>
+	<tr>
+	<th colspan="2">值</th>
+	<td>含义</td>
+	</tr>
+</thead>
+<tbody>
+	<tr>
+	<th rowspan="4"><i>array</i></th>
+	<th><i>integer</i> [0]</th>
+	<td>用户 ID</td>
+	</tr>
+	<tr>
+	<th><i>string</i> [1]</th>
+	<td>用户名</td>
+	</tr>
+	<tr>
+	<th><i>string</i> [2]</th>
+	<td>Email</td>
+	</tr>
+</tbody>
+</table>
+
+<br />
+本接口函数用于获取用户在 UCenter 的基本数据，如用户不存在，返回值为 integer 的数值 0。
+
+<h6><a href="###" class="spread" onclick="collapse(this, 's3')">获取用户数据示例 (PHP)</a></h6>
+<div class="code" id="s3" style="display: none"><pre>
+if($data = uc_get_user($username)) {
+	list($uid, $username, $email) = $data;
+} else {
+	echo '用户不存在';
+}
+</pre></div>
+
+</div>
+
+<a name="edit"></a>
+<h3>更新用户资料</h3>
+
+<div class="submsg">
+<h4><i>integer</i> uc_user_edit(<i>string</i> username , <i>string</i> oldpw , <i>string</i> newpw , <i>string</i> email [, <i>bool</i> ignoreoldpw, <i>integer</i> questionid , <i>string</i> answer])</h4>
+
+<h5>函数参数</h5>
+<table border="0" cellspacing="0" cellpadding="0" class="msgtable">
+<thead>
+	<tr>
+	<th>参数</th>
+	<td>含义</td>
+	</tr>
+</thead>
+<tbody>
+	<tr>
+	<th><i>string</i> username</th>
+	<td>用户名</td>
+	</tr>
+	<tr>
+	<th><i>string</i> oldpw</th>
+	<td>旧密码</td>
+	</tr>
+	<tr>
+	<th><i>string</i> newpw</th>
+	<td>新密码，如不修改为空</td>
+	</tr>
+	<tr>
+	<th><i>string</i> email</th>
+	<td>Email，如不修改为空</td>
+	</tr>
+	<tr>
+	<th><i>bool</i> ignoreoldpw</th>
+	<td>
+	是否忽略旧密码<br />
+	<em>1:</em>忽略，更改资料不需要验证密码<br />
+	<em>0:</em><strong>(默认值)</strong> 不忽略，更改资料需要验证密码<br />
+	</td>
+	</tr>
+	<tr>
+	<th><i>integer</i> questionid</th>
+	<td>安全提问索引</td>
+	</tr>
+	<tr>
+	<th><i>string</i> answer</th>
+	<td>安全提问答案</td>
+	</tr>
+</tbody>
+</table>
+
+<h5>返回值</h5>
+<table border="0" cellspacing="0" cellpadding="0" class="msgtable">
+<thead>
+	<tr>
+	<th>值</th>
+	<td>含义</td>
+	</tr>
+</thead>
+<tbody>
+	<tr>
+	<th><i>integer</i></th>
+	<td>
+  	<em>1:</em>更新成功<br />
+  	<em>0:</em>没有做任何修改<br />
+  	<em>-1:</em>旧密码不正确<br />
+	<em>-4:</em>Email 格式有误<br />
+	<em>-5:</em>Email 不允许注册<br />
+	<em>-6:</em>该 Email 已经被注册<br />
+	<em>-7:</em>没有做任何修改<br />
+	<em>-8:</em>该用户受保护无权限更改<br />
+	</td>
+	</tr>
+</tbody>
+</table>
+
+<br />
+本接口函数用于更新用户资料。更新资料需验证用户的原密码是否正确，除非指定 ignoreoldpw 为 1。如果只修改 Email 不修改密码，可让 newpw 为空；同理如果只修改密码不修改 Email，可让 email 为空。
+
+<h6><a href="###" class="spread" onclick="collapse(this, 's4')">更新用户资料示例 (PHP)</a></h6>
+<div class="code" id="s4" style="display: none"><pre>
+$ucresult = uc_user_edit($_POST['username'], $_POST['oldpassword'], $_POST['newpassword'], $_POST['emailnew']);
+if($ucresult == -1) {
+	echo '旧密码不正确';
+} elseif($ucresult == -4) {
+	echo 'Email 格式有误';
+} elseif($ucresult == -5) {
+	echo 'Email 不允许注册';
+} elseif($ucresult == -6) {
+	echo '该 Email 已经被注册';
+}
+</pre></div>
+
+</div>
+
+<a name="delete"></a>
+<h3>删除用户</h3>
+
+<div class="submsg">
+<h4><i>integer</i> uc_user_delete(<i>integer/array</i> uid)</h4>
+
+<h5>函数参数</h5>
+<table border="0" cellspacing="0" cellpadding="0" class="msgtable">
+<thead>
+	<tr>
+	<th>参数</th>
+	<td>含义</td>
+	</tr>
+</thead>
+<tbody>
+	<tr>
+	<th><i>integer/array</i> uid</th>
+	<td>用户名</td>
+	</tr>
+</tbody>
+</table>
+
+<h5>返回值</h5>
+<table border="0" cellspacing="0" cellpadding="0" class="msgtable">
+<thead>
+	<tr>
+	<th>值</th>
+	<td>含义</td>
+	</tr>
+</thead>
+<tbody>
+	<tr>
+	<th><i>integer</i></th>
+	<td>
+  	<em>1:</em>成功<br />
+	<em>0:</em>失败<br />
+	</td>
+	</tr>
+</tbody>
+</table>
+</div>
+
+<a name="delete"></a>
+<h3>删除用户头像</h3>
+
+<div class="submsg">
+<h4><i>integer</i> uc_user_deleteavatar(<i>integer/array</i> uid)</h4>
+
+<h5>函数参数</h5>
+<table border="0" cellspacing="0" cellpadding="0" class="msgtable">
+<thead>
+	<tr>
+	<th>参数</th>
+	<td>含义</td>
+	</tr>
+</thead>
+<tbody>
+	<tr>
+	<th><i>integer/array</i> uid</th>
+	<td>用户名</td>
+	</tr>
+</tbody>
+</table>
+</div>
+
+<a name="synlogin"></a>
+<h3>同步登录</h3>
+
+<div class="submsg">
+<h4><i>string</i> uc_user_synlogin(<i>integer</i> uid)</h4>
+
+<h5>函数参数</h5>
+<table border="0" cellspacing="0" cellpadding="0" class="msgtable">
+<thead>
+	<tr>
+	<th>参数</th>
+	<td>含义</td>
+	</tr>
+</thead>
+<tbody>
+	<tr>
+	<th><i>integer</i> uid</th>
+	<td>用户 ID</td>
+	</tr>
+</tbody>
+</table>
+
+<h5>返回值</h5>
+<table border="0" cellspacing="0" cellpadding="0" class="msgtable">
+<thead>
+	<tr>
+	<th>值</th>
+	<td>含义</td>
+	</tr>
+</thead>
+<tbody>
+	<tr>
+	<th><i>string</i></th>
+	<td>同步登录的 HTML 代码</td>
+	</tr>
+</tbody>
+</table>
+
+<br />
+如果当前应用程序在 UCenter 中设置允许同步登录，那么本接口函数会通知其他设置了同步登录的应用程序登录，把返回的 HTML 输出在页面中即可完成对其它应用程序的通知。输出的 HTML 中包含执行远程的 javascript 脚本，请让页面在此脚本运行完毕后再进行跳转操作，否则可能会导致无法同步登录成功。同时要保证同步登录的正确有效，请保证其他应用程序的 Cookie 域和 Cookie 路径设置正确。
+
+<h6><a href="###" class="spread" onclick="collapse(this, 's5')">同步登录示例 (PHP)</a></h6>
+<div class="code" id="s5" style="display: none"><pre>
+list($uid, $username, $password, $email) = uc_user_login($_POST['username'], $_POST['password']);
+if($uid > 0) {
+	echo '登录成功';
+	echo uc_user_synlogin($uid);
+} elseif($uid == -1) {
+	echo '用户不存在,或者被删除';
+} elseif($uid == -2) {
+	echo '密码错';
+} else {
+	echo '未定义';
+}
+</pre></div>
+
+</div>
+
+<a name="synloout"></a>
+<h3>同步退出</h3>
+
+<div class="submsg">
+<h4><i>string</i> uc_user_synlogout()</h4>
+
+<h5>返回值</h5>
+<table border="0" cellspacing="0" cellpadding="0" class="msgtable">
+<thead>
+	<tr>
+	<th>值</th>
+	<td>含义</td>
+	</tr>
+</thead>
+<tbody>
+	<tr>
+	<th><i>string</i></th>
+	<td>同步退出的 HTML 代码</td>
+	</tr>
+</tbody>
+</table>
+
+<br />
+如果当前应用程序在 UCenter 中设置允许同步登录，那么本接口函数会通知其他设置了同步登录的应用程序退出登录，把返回的 HTML 输出在页面中即可完成其它应用程序的通知。输出的 HTML 中包含执行远程的 javascript 脚本，请让页面在此脚本运行完毕后再进行跳转操作，否则可能会导致无法同步退出登录。同时要保证同步退出登录的正确有效，请保证其他应用程序的 Cookie 域和 Cookie 路径设置正确。
+
+</div>
+
+<a name="checkemail"></a>
+<h3>检查 Email 地址</h3>
+
+<div class="submsg">
+<h4><i>integer</i> uc_user_checkemail(<i>string</i> email)</h4>
+
+<h5>函数参数</h5>
+<table border="0" cellspacing="0" cellpadding="0" class="msgtable">
+<thead>
+	<tr>
+	<th>参数</th>
+	<td>含义</td>
+	</tr>
+</thead>
+<tbody>
+	<tr>
+	<th><i>string</i> email</th>
+	<td>Email</td>
+	</tr>
+</tbody>
+</table>
+
+<h5>返回值</h5>
+<table border="0" cellspacing="0" cellpadding="0" class="msgtable">
+<thead>
+	<tr>
+	<th>值</th>
+	<td>含义</td>
+	</tr>
+</thead>
+<tbody>
+	<tr>
+	<th><i>integer</i></th>
+	<td>
+  	<em>1:</em>成功<br />
+	<em>-4:</em>Email 格式有误<br />
+	<em>-5:</em>Email 不允许注册<br />
+	<em>-6:</em>该 Email 已经被注册<br />
+	</td>
+	</tr>
+</tbody>
+</table>
+
+<br />
+本接口函数用于检查用户输入的 Email 的合法性。
+
+<h6><a href="###" class="spread" onclick="collapse(this, 's6')">检查 Email 示例 (PHP)</a></h6>
+<div class="code" id="s6" style="display: none"><pre>
+$ucresult = uc_user_checkemail($_GET['email']);
+if($ucresult > 0) {
+	echo 'Email 格式正确';
+} elseif($ucresult == -4) {
+	echo 'Email 格式有误';
+} elseif($ucresult == -5) {
+	echo 'Email 不允许注册';
+} elseif($ucresult == -6) {
+	echo '该 Email 已经被注册';
+}
+</pre></div>
+
+</div>
+
+<a name="checkname"></a>
+<h3>检查用户名</h3>
+
+<div class="submsg">
+<h4><i>integer</i> uc_user_checkname(<i>string</i> username)</h4>
+
+<h5>函数参数</h5>
+<table border="0" cellspacing="0" cellpadding="0" class="msgtable">
+<thead>
+	<tr>
+	<th>参数</th>
+	<td>含义</td>
+	</tr>
+</thead>
+<tbody>
+	<tr>
+	<th><i>string</i> username</th>
+	<td>用户名</td>
+	</tr>
+</tbody>
+</table>
+
+<h5>返回值</h5>
+<table border="0" cellspacing="0" cellpadding="0" class="msgtable">
+<thead>
+	<tr>
+	<th>值</th>
+	<td>含义</td>
+	</tr>
+</thead>
+<tbody>
+	<tr>
+	<th><i>integer</i></th>
+	<td>
+  	<em>1:</em>成功<br />
+	<em>-1:</em>用户名不合法<br />
+	<em>-2:</em>包含要允许注册的词语<br />
+	<em>-3:</em>用户名已经存在<br />
+	</td>
+	</tr>
+</tbody>
+</table>
+
+<br />
+本接口函数用于检查用户输入的用户名的合法性。
+
+<h6><a href="###" class="spread" onclick="collapse(this, 's7')">检查用户名示例 (PHP)</a></h6>
+<div class="code" id="s7" style="display: none"><pre>
+$ucresult = uc_user_checkname($_GET['email']);
+if($ucresult > 0) {
+	echo '用户名可用';
+} elseif($ucresult == -1) {
+	echo '用户名不合法';
+} elseif($ucresult == -2) {
+	echo '包含要允许注册的词语';
+} elseif($ucresult == -3) {
+	echo '用户名已经存在';
+}
+</pre></div>
+
+</div>
+
+<a name="addprotected"></a>
+<h3>添加保护用户</h3>
+
+<div class="submsg">
+<h4><i>integer</i> uc_user_addprotected(<i>string/array</i> username , <i>string</i> admin)</h4>
+
+<h5>函数参数</h5>
+<table border="0" cellspacing="0" cellpadding="0" class="msgtable">
+<thead>
+	<tr>
+	<th>参数</th>
+	<td>含义</td>
+	</tr>
+</thead>
+<tbody>
+	<tr>
+	<th><i>string/array</i> username</th>
+	<td>保护用户名</td>
+	</tr>
+	<tr>
+	<th><i>string</i> admin</th>
+	<td>操作的管理员</td>
+	</tr>
+</tbody>
+</table>
+
+<h5>返回值</h5>
+<table border="0" cellspacing="0" cellpadding="0" class="msgtable">
+<thead>
+	<tr>
+	<th>值</th>
+	<td>含义</td>
+	</tr>
+</thead>
+<tbody>
+	<tr>
+	<th><i>integer</i></th>
+	<td>
+  	<em>1:</em>成功<br />
+	<em>-1:</em>失败<br />
+	</td>
+	</tr>
+</tbody>
+</table>
+
+<br />
+本接口函数用于添加被保护的用户。
+</div>
+
+<a name="deleteprotected"></a>
+<h3>删除保护用户</h3>
+
+<div class="submsg">
+<h4><i>integer</i> uc_user_deleteprotected(<i>string/array</i> username)</h4>
+
+<h5>函数参数</h5>
+<table border="0" cellspacing="0" cellpadding="0" class="msgtable">
+<thead>
+	<tr>
+	<th>参数</th>
+	<td>含义</td>
+	</tr>
+</thead>
+<tbody>
+	<tr>
+	<th><i>string/array</i> username</th>
+	<td>保护用户名</td>
+	</tr>
+</tbody>
+</table>
+
+<h5>返回值</h5>
+<table border="0" cellspacing="0" cellpadding="0" class="msgtable">
+<thead>
+	<tr>
+	<th>值</th>
+	<td>含义</td>
+	</tr>
+</thead>
+<tbody>
+	<tr>
+	<th><i>integer</i></th>
+	<td>
+  	<em>1:</em>成功<br />
+	<em>-1:</em>失败<br />
+	</td>
+	</tr>
+</tbody>
+</table>
+
+<br />
+本接口函数用于删除被保护的用户。
+</div>
+
+<a name="deleteprotected"></a>
+<h3>得到受保护的用户名列表</h3>
+
+<div class="submsg">
+<h4><i>integer</i> uc_user_getprotected()</h4>
+
+<h5>返回值</h5>
+<table border="0" cellspacing="0" cellpadding="0" class="msgtable">
+<thead>
+	<tr>
+	<th>值</th>
+	<td>含义</td>
+	</tr>
+</thead>
+<tbody>
+	<tr>
+	<th><i>array</i></th>
+	<td>
+	受保护的用户数据
+	</td>
+	</tr>
+</tbody>
+</table>
+
+<br />
+本接口函数用于获得被保护的用户列表。
+</div>
+
+<a name="uc_user_merge"></a>
+<h3>把重名用户合并到 UCenter</h3>
+
+<div class="submsg">
+<h4><i>integer</i> uc_user_merge(<i>string/</i> oldusername , <i>string</i> newusername, <i>integer</i> uid, <i>string</i> password, <i>string</i> email)</h4>
+
+<h5>函数参数</h5>
+<table border="0" cellspacing="0" cellpadding="0" class="msgtable">
+<thead>
+	<tr>
+	<th>参数</th>
+	<td>含义</td>
+	</tr>
+</thead>
+<tbody>
+	<tr>
+	<th><i>string</i> oldusername</th>
+	<td>老用户名</td>
+	</tr>
+	<tr>
+	<th><i>string</i> newusername</th>
+	<td>新用户名</td>
+	</tr>
+	<tr>
+	<th><i>integer</i> uid</th>
+	<td>用户 ID</td>
+	</tr>
+	<tr>
+	<th><i>string</i> password</th>
+	<td>密码</td>
+	</tr>
+	<tr>
+	<th><i>string</i> email</th>
+	<td>电子邮件</td>
+	</tr>
+</tbody>
+</table>
+
+<h5>返回值</h5>
+<table border="0" cellspacing="0" cellpadding="0" class="msgtable">
+<thead>
+	<tr>
+	<th>值</th>
+	<td>含义</td>
+	</tr>
+</thead>
+<tbody>
+	<tr>
+	<th><i>integer</i></th>
+	<td>
+	<em>大于 0:</em>返回用户 ID，表示用户注册成功<br />
+	<em>-1:</em>用户名不合法<br />
+	<em>-2:</em>包含不允许注册的词语<br />
+	<em>-3:</em>用户名已经存在<br />
+	</td>
+	</tr>
+</tbody>
+</table>
+
+<br />
+本接口函数用于把重名的用户合并到 UCenter。
+
+<h5>用户的合并和用户重名的处理</h5>
+如果您的应用程序集成到 UCenter 时包含旧的用户数据，我们建议您可以采取以下范例的方式把您的用户导入到 UCenter。
+
+<h6><a href="###" class="spread" onclick="collapse(this, 's8')">用户合并示例 (PHP)</a></h6>
+<div class="code" id="s8" style="display: none"><pre>
+function getmaxuid() {
+	global $ucdb;
+	$query = $ucdb->query("SHOW CREATE TABLE ".UC_DBTABLEPRE."members");
+	$data = $ucdb->fetch_array($query);
+	$data = $data['Create Table'];
+	if(preg_match('/AUTO_INCREMENT=(\d+?)[\s|$]/i', $data, $a)) {
+		return $a[1] - 1;
+	} else {
+		return 0;
+	}
+}
+
+$maxuid = getmaxuid();
+
+$query = $db->query("SELECT * FROM {$tablepre}members");
+
+while($data = $db->fetch_array($query)) {
+	$salt = rand(100000, 999999);
+	$password = md5($data['password'].$salt);
+	$data['username'] = addslashes($data['username']);
+	$lastuid = $data['uid'] += $maxuid;
+	$queryuc = $ucdb->query("SELECT count(*) FROM ".UC_DBTABLEPRE."members WHERE username='$data[username]'");
+	$userexist = $ucdb->result($queryuc, 0);
+	if(!$userexist) {
+		$ucdb->query("INSERT LOW_PRIORITY INTO ".UC_DBTABLEPRE."members SET uid='$data[uid]', username='$data[username]', password='$password',
+			email='$data[email]', regip='$data[regip]', regdate='$data[regdate]', salt='$salt'", 'SILENT');
+		$ucdb->query("INSERT LOW_PRIORITY INTO ".UC_DBTABLEPRE."memberfields SET uid='$data[uid]'",'SILENT');
+	} else {
+		$ucdb->query("REPLACE INTO ".UC_DBTABLEPRE."mergemembers SET appid='".UC_APPID."', username='$data[username]'", 'SILENT');
+	}
+}
+
+$ucdb->query("ALTER TABLE ".UC_DBTABLEPRE."members AUTO_INCREMENT=".($lastuid + 1));
+</pre></div>
+本方式的基本流程是：首先，获取当前 UCenter 中的最大用户 ID 的值。然后，读取应用程序自己的用户表，判读用户名是否在 UCenter 重复。如果重复，把重名的用户名保存到 UCenter 的 mergemembers 表中，不合并这个用户。如果不重名，则按正常方式导入用户进行合并。当用户插入到 mergemembers 表后，用户在这个应用程序登录的时候，登录状态的返回数组中 [4] 的值将返回 1（<a href="#login">请参考上面关于 uc_user_login() 函数的说明</a>）。当登录状态返回重名状态后建议您在应用程序中判读用户合法性后进行更名的处理，调用本接口函数。
+
+<h6><a href="###" class="spread" onclick="collapse(this, 's9')">把重名用户合并到 UCenter 的示例 (PHP)</a></h6>
+<div class="code" id="s9" style="display: none"><pre>
+$uid = uc_user_merge($_GET['username'], $_GET['usernamenew'], $user['uid'], $_GET['password'], $user['email']);
+if($uid > 0) {
+	echo '用户名可用';
+} elseif($uid == -1) {
+	echo '用户名不合法';
+} elseif($uid == -2) {
+	echo '包含要允许注册的词语';
+} elseif($uid == -3) {
+	echo '用户名已经存在';
+}
+
+$db->query("UPDATE {$tablepre}members SET username='$_GET[usernamenew]' WHERE uid='$uid'");
+</pre></div>
+		
+</div>
+
+<a name="uc_user_merge"></a>
+<h3>移除重名用户记录</h3>
+
+<div class="submsg">
+<h4>uc_user_merge_remove(<i>string</i> username)</h4>
+
+<h5>函数参数</h5>
+<table border="0" cellspacing="0" cellpadding="0" class="msgtable">
+<thead>
+	<tr>
+	<th>参数</th>
+	<td>含义</td>
+	</tr>
+</thead>
+<tbody>
+	<tr>
+	<th><i>string</i> username</th>
+	<td>用户名</td>
+	</tr>
+</tbody>
+</table>
+
+<br />
+本接口函数用于移除重名用户记录中的指定记录，如果应用程序已处理完该重名用户，可以执行此接口函数。
+</div>
+
+<a name="deleteprotected"></a>
+<h3>获取指定应用的指定用户积分</h3>
+
+<div class="submsg">
+<h4><i>integer</i> uc_user_getcredit(<i>integer</i> appid, <i>integer</i> uid, <i>integer</i> credit)</h4>
+
+<h5>函数参数</h5>
+<table border="0" cellspacing="0" cellpadding="0" class="msgtable">
+<thead>
+	<tr>
+	<th>参数</th>
+	<td>含义</td>
+	</tr>
+</thead>
+<tbody>
+	<tr>
+	<th><i>integer</i> appid</th>
+	<td>
+	应用 ID
+	</td>
+	</tr>
+	<tr>
+	<th><i>integer</i> uid</th>
+	<td>
+	用户 ID
+	</td>
+	</tr>
+	<tr>
+	<th><i>integer</i> credit</th>
+	<td>
+	积分编号
+	</td>
+	</tr>
+</tbody>
+</table>
+
+<h5>返回值</h5>
+<table border="0" cellspacing="0" cellpadding="0" class="msgtable">
+<thead>
+	<tr>
+	<th>值</th>
+	<td>含义</td>
+	</tr>
+</thead>
+<tbody>
+	<tr>
+	<th><i>integer</i></th>
+	<td>
+	积分
+	</td>
+	</tr>
+</tbody>
+</table>
+
+<br />
+本接口函数用于获取指定应用的指定用户积分。
+</div>
+
+<script type="text/javascript" src="javascript/footer.js"></script>
+</body>
+</html>

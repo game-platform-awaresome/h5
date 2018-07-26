@@ -1,0 +1,84 @@
+/**
+*info:
+* 1、管理中心-开发者概述 user_developer.html
+*author:zhangting
+*date:2015.12.01 10:07
+*logo:
+**/
+.content{
+    background-color: transparent;
+    padding: 10px;
+    margin: 0;
+}
+.sections{
+    margin-bottom: 20px;
+    background-color: rgb(255, 255, 255);
+}
+.title{
+    padding: 0 20px;
+    border-bottom: 1px solid rgb(230, 230, 230);
+    font-size: 14px;
+    height: 48px;
+    line-height: 48px;
+}
+.title i{
+    margin-right: 5px;
+}
+.number_list{
+    overflow: hidden;
+}
+.number_list li{
+    float: left;
+    width: 25%;
+    text-align: center;
+    padding: 20px 0;
+}
+.number_list li strong{
+    display: block;
+    line-height: 60px;
+    font-size: 30px;
+    font-weight: 100;
+    color: rgb(0, 172, 130);
+    border-right: 1px solid rgb(239, 237, 237);
+}
+.number_list li strong:last-child{
+    border: 0;
+}
+.number_list li h4{
+    font-size: 14px;
+    line-height: 30px;
+    font-weight: 100;
+    border-right: 1px solid #EFEDED;
+}
+.number_list li h4:last-child{
+    border: 0;
+}
+.number_list li .orange{
+    color: #e5682b;
+}
+.nav_game{
+    height: auto;
+    overflow: hidden;
+    padding: 40px 60px;
+}
+.nav_game a{
+    padding: 8px;
+    float: left;
+    background-color: #f2f2f2;
+    color: rgb(85, 85, 85);
+    border: 1px solid #eaeaea;
+    border-radius: 4px;
+    margin: 0 20px;
+    font-size: 14px;
+}
+.nav_game .selected{
+    color: #FFFFFF;
+    background-color: #56a161;
+}
+.record{
+    padding: 20px 40px 60px;
+}
+.record img{
+    width: 100%;
+    height: auto;
+}

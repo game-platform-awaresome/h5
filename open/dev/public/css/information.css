@@ -1,0 +1,79 @@
+/**
+*info:×ÊÁÏ¿â
+*author:zhangting
+*date:2015.11.23 10:07
+*logo:
+**/
+.main{
+    background-color: #f2f2f2;
+    padding: 10px 0;
+    text-align: center;
+}
+.main .main_info{
+    width: 1080px;
+    margin: 0 auto;
+    text-align: left;
+    overflow: hidden;
+}
+.main_info aside,.main_info article{
+    background-color: #FFFFFF;
+    border-radius: 5px;
+}
+.main_info aside{
+    float: left;
+    width: 258px;
+    margin-right: 14px;
+    padding: 20px;
+    line-height: 40px;
+}
+.main_info h3{
+    display: block;
+    font-size: 18px;
+    border-bottom: 1px solid #e5e5e5;
+    cursor: pointer;
+    text-indent: 10px;
+}
+.main_info a{
+    display: none;
+    color: #000000;
+    font-size: 14px;
+    text-indent: 20px;
+}
+.main_info a:hover, .main_info a.selected{
+     color: #33b646;
+ }
+.main_article{
+    float: left;
+    width: 700px;
+    min-height: 400px;
+    padding: 60px 32px;
+    line-height: 35px;
+    font-size: 14px;
+}
+.main_article h2{
+    font-size: 24px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid #76777b;
+    margin-bottom: 20px;
+}
+.main_article h2 span{
+    float: right;
+    font-size: 14px;
+    font-weight: 100;
+}
+.main_article p{
+    white-space:normal;
+}
+.main_info a.show{
+    display: block;
+}
+.i_up{
+    width: 14px;
+    height: 14px;
+    background-position: -4px -231px;
+    margin-right: 5px;
+    top: -3px;
+}
+.i_down{
+    background-position: -22px -228px;
+}

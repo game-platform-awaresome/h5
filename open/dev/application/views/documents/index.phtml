@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+<meta charset="UTF-8">
+<title>资料库</title>
+<link rel="stylesheet" href="/css/base.css"/>
+<link rel="stylesheet" href="/css/information.css"/>
+</head>
+<body>
+    <div class="container">
+        <?php include $this->getScriptPath().'/header.phtml'; ?>
+        <figure class="top">
+        <?php foreach ($banner['ads'] as &$row) { ?>
+            <a href="<?=$row['url']?>"<?=$row['target']?>>
+                <img src="<?=$row['image']?>" alt="<?=$row['subject']?>" width="100%" height="auto"/>
+            </a>
+        <?php } ?>
+        </figure>
+        <section class="main">
+            <div class="main_info">
+                <aside id="catalog">
+                <?php foreach ($catalog as $tp=>&$row) { ?>
+                   <nav>
+                       <h3><i class="icons i_up"></i><?=$tp?></h3>
+                   <?php foreach ($row as &$tmp) { ?>
+                       <a href="/documents/details.html?id=<?=$tmp['article_id']?>"><?=$tmp['title']?></a>
+                   <?php } ?>
+                   </nav>
+               <?php } ?>
+                </aside>
+                <article class="main_article" id="details">
+                <?php if($first) { ?>
+                    <h2><?=$first['title']?><span class="fr"><?=date('Y/m/d', $first['up_time'])?></span></h2>
+                    <?=$first['content']?>
+                <?php } else { ?>
+                    <h2>抱歉</h2>
+                    <p>内容正在整理更新中...</p>
+                <?php } ?>
+                </article>
+            </div>
+        </section>
+        <?php include $this->getScriptPath().'/footer.phtml'; ?>
+    </div>
+<script src="/js/jquery-1.11.1.min.js"></script>
+<script>
+$('#top_nav a:eq(2)').addClass('selected');
+$(function(){
+    $("#catalog h3").click(function(){
+        $(this).find("i").toggleClass("i_down").end()
+            .nextAll("a").toggleClass("show");
+    });
+    $("#catalog h3").eq(<?=$index_1?>).trigger('click').siblings('a').eq(<?=$index_2?>).addClass('selected');
+
+    var cache = {};
+    $("#catalog a").click(function(event){
+    	event.preventDefault();
+    	var body = (window.opera) ? (document.compatMode == "CSS1Compat" ? $('html') : $('body')) : $('html,body');
+    	$("#catalog h3").find("i").removeClass("i_down").end()
+            .nextAll("a").removeClass("show");
+        $(this).siblings('h3').find("i").addClass("i_down").end()
+            .nextAll("a").addClass("show");
+    	$("#catalog a").removeClass('selected');
+    	var url = $(this).addClass('selected').attr('href');
+    	var mch = url.match(/id=(\d+)/);
+    	if( typeof cache[mch] != 'undefined' ) {
+    		body.animate({scrollTop:0}, 300);
+    		var h = $(cache[mch]).hide();
+        	$('#details').html(h);
+        	h.fadeIn('fast');
+        	return false;
+    	}
+    	$.post(url, '', function(html){
+    		body.animate({scrollTop:0}, 300);
+    		cache[mch] = html;
+        	var h = $(html).hide();
+        	$('#details').html(h);
+        	h.fadeIn('fast');
+    	}, 'html');
+        return false;
+    });
+});
+</script>
+<?php include $this->getScriptPath().'/namiyx_wx.phtml'; ?>
+</body>
+</html>

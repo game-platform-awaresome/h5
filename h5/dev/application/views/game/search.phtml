@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<meta name="keywords" content="H5 HTML5 H5游戏 HTML5游戏 小游戏 手机游戏 网页游戏 在线游戏 点击即玩 久乐游戏 久乐H5">
+<meta name="description" content="久乐游戏是一个行业领先的H5在线游戏平台，玩游戏不再苦苦的等待下载，点击即玩。">
+<title>与<?=$search?>相关的游戏 - 久乐H5游戏平台</title>
+<link rel="stylesheet" href="/public/styles/base.css"/>
+<link rel="stylesheet" href="/styles/ranking.css"/>
+</head>
+<body class="bg01">
+    <!--div.container 总外框  start-->
+    <div class="z_container">
+        <!--div.z_min 内容区域 statr-->
+        <div class="main">
+            <section class="top_fexed">
+                <header class="z_header">
+                    <a href="javascript:history.go(-1);"></a><span id="search_ttl"><?=$search?></span>
+                </header>
+                <div class="search">
+                    <input type="text" id="search_ipt" placeholder="请输入游戏名称、拼音或首字母缩写" autocomplete="on" class="left_input"/>
+                    <input type="submit" id="search_btn" class="search_icon" value=""/>
+                </div>
+            </section>
+
+            <!--div.game_list 游戏列表  start-->
+            <section class="game_list">
+                <div id="slider">
+                    <div class="slide_cont">
+                        <ul>
+                        <?php if($games) { ?>
+                            <?php include $this->getScriptPath().'/game/list.phtml'; ?>
+                        <?php } else { ?>
+                            <li>
+                                <h4 style="font-weight:normal; padding-top:34px; text-align:center">然而，什么都没有找到！</h4>
+                            </li>
+                        <?php } ?>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+            <!--div.game_list 游戏列表  end-->
+            <div class="footer_padding"></div>
+        </div>
+        <!--div.z_min 内容区域 end-->
+    </div>
+    <!--div.container 总外框  end-->
+<?php include $this->getScriptPath().'/footer.phtml'; ?>
+<script src="/public/scripts/jquery-1.11.1.min.js"></script>
+<script src="/public/scripts/jquery.mobile.min.js"></script>
+<script>
+$(".game_list").css({height:'auto'});
+$('#footer a:eq(2)').attr('id', 'footer_nav_active');
+$(function(){
+	var old_sch = '<?=$search?>';
+	$('#search_btn').on('tap', function(){
+		var v = $.trim($('#search_ipt').val());
+		v = v.replace(/[\'\"\?`~\!\$\%\^\*\(\)\[\]\{\}\-\+\\]+/, '');
+		$('#search_ipt').val(v);
+		if( v == '' ) {
+			alert('请输入游戏名称、拼音或关键字！');
+			$('#search_ipt').focus();
+			return false;
+		}
+		if( v == old_sch ) return false;
+		location.href = '/game/search.html?search='+ encodeURIComponent(v);
+	});
+});
+</script>
+</body>
+</html>

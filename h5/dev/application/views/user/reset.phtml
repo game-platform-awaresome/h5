@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"/>
+<title><?=$error?'错误一发':'重置密码'?> - 久乐游戏</title>
+<link rel="stylesheet" href="/public/styles/base.css"/>
+<link rel="stylesheet" href="/styles/user_password.css"/>
+</head>
+<body class="bg02">
+<!--div.container 总外框  start-->
+<div class="z_container">
+    <header class="z_header block_bg">
+        <a target="_top" href="/user/forget.html"></a><span><?=$error?'错误一发':'重置密码'?></span>
+    </header>
+
+    <!--div.z_min 内容区域 statr-->
+    <div class="z_main" data-role="conent">
+    <?php if($error) { ?>
+        <form class="user_form">
+            <div style="padding:20px;">
+                <span style="color:red; font-size:12px; font-weight:bold;"><?=$error?></span>
+            </div>
+            <a class="login_btn" href="/user/forget.html" target="_top">返回</a>
+            <div class="service">
+                <i class="i_qq"></i>客服QQ:<?=$qq_group?>
+            </div>
+        </form>
+    <?php } else { ?>
+        <form class="user_form">
+            <input class="text" type="password" placeholder="设置您的新密码" id="newpwd"/>
+            <input class="text" type="password" placeholder="再次输入新密码" id="re_pwd"/>
+            <a class="login_btn" id="confirm" href="javascript:void(0)">确认</a>
+            <div class="service">
+                <i class="i_qq"></i>客服QQ:<?=$qq_group?>
+            </div>
+        </form>
+    <?php } ?>
+        <div class="footer_padding"></div>
+    </div>
+    <!--div.z_min 内容区域 end-->
+</div>
+<!--div.container 总外框  end-->
+<?php include $this->getScriptPath().'/footer.phtml'; ?>
+<script src="/public/scripts/jquery-1.11.1.min.js"></script>
+<script src="/public/scripts/jquery.mobile.min.js"></script>
+<script>
+$('#footer a:eq(4)').attr('id', 'footer_nav_active');
+$(function(){
+	$('.user_form input').focus(function(){
+		$(this).css('color', '#FFF');
+		$('#footer').hide();
+	}).blur(function(){
+		$('#footer').show();
+		var v = $.trim($(this).val());
+		if( v.length > 0 ) {
+    		$(this).css("color","#FFF");
+    	} else {
+    		$(this).css("color","#3c555e");
+    	}
+	});
+
+	var loading = false;
+    $('#confirm').on('tap', function(){
+        if( loading ) return false;
+    	var v = $.trim($('#newpwd').val());
+        if( v.length < 6 || v.length > 16 ) {
+            alert("密码由6-16位字符组成！");
+            $('#newpwd').focus();
+            return false;
+        }
+        var r = $.trim($('#re_pwd').val());
+        if( v != r ) {
+        	alert("确认密码与新密码不符！");
+            $('#re_pwd').focus();
+            return false;
+        }
+        loading = true;
+        $.ajax({
+            url: '/user/ajaxreset.html',
+            type: 'POST',
+            dataType: 'json',
+            data: 'username=<?=$username?>&token=<?=$token?>&newpwd='+v+'&re_pwd='+r,
+            success: function(msg){
+            	loading = false;
+            	alert(msg.msg);
+            	if( msg.fwd != '' ) location.href = msg.fwd;
+            },
+            error: function(){
+                alert('网络连接失败，请重试！');
+            	loading = false;
+            }
+        });
+	});
+});
+</script>
+</body>
+</html>

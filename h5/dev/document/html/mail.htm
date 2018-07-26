@@ -1,0 +1,97 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>UCenter 接口开发手册 - 头像接口</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" href="images/style.css" type="text/css" media="all" />
+<meta content="Comsenz Inc." name="Copyright" />
+<script type="text/javascript" src="javascript/common.js"></script>
+</head>
+<body>
+<script type="text/javascript" src="javascript/header.js"></script>
+
+<h3>添加邮件到队列</h3>
+<div class="submsg">
+<h4><i>mixed</i> uc_mail_queue(<i>string</i>uids, <i>string</i>emails, <i>string</i>subject, <i>string</i>message[, <i>mail</i>frommail, <i>string</i>charset, <i>boolean</i>htmlon, <i>integer</i>level]);</h4>
+
+<h5>函数参数</h5>
+<table border="0" cellspacing="0" cellpadding="0" class="msgtable">
+<thead>
+	<tr>
+	<th>参数</th>
+	<td>含义</td>
+	</tr>
+</thead>
+<tbody>
+	<tr>
+	<th><i>string</i> uids</th>
+	<td>用户 ID 多个用逗号(,)隔开</td>
+	</tr>
+	<tr>
+	<th><i>string</i> emails</th>
+	<td>目标email，多个用逗号(,)隔开</td>
+	</tr>
+	<tr>
+	<th><i>string</i> subject</th>
+	<td>邮件标题</td>
+	</tr>
+	<tr>
+	<th><i>string</i> message</th>
+	<td>邮件内容</td>
+	</tr>
+	<tr>
+	<th><i>mail</i> frommail</th>
+	<td>发信人，可选参数，默认为空，uc后台设置的邮件来源作为发信人地址</td>
+	</tr>
+	<tr>
+	<th><i>string</i> charset</th>
+	<td>邮件字符集，可选参数，默认为gbk</td>
+	</tr>
+	<tr>
+	<th><i>boolean</i> htmlon</th>
+	<td>是否是html格式的邮件，可选参数，默认为FALSE，即文本邮件</td>
+	</tr>
+	<tr>
+	<th><i>integer</i> level</th>
+	<td>邮件级别，可选参数，默认为1，数字大的优先发送，取值为0的时候立即发送，邮件不入队列</td>
+	</tr>
+</tbody>
+</table>
+
+<h5>返回值</h5>
+<table border="0" cellspacing="0" cellpadding="0" class="msgtable">
+<thead>
+	<tr>
+	<th>值</th>
+	<td>含义</td>
+	</tr>
+</thead>
+<tbody>
+	<tr>
+	<th><i>mixed</i></th>
+	<td>
+		<em>false:</em>失败：进入队列失败，或者发送失败<br />
+		<em>integer:</em>成功：进入队列的邮件的id，当level为0，则返回1<br />
+	</td>
+	</tr>
+</tbody>
+</table>
+
+<br />
+本函数用来将邮件加入到邮件队列，或者直接发送邮件（当level为0时）
+
+<h6><a href="###" class="spread" onclick="collapse(this, 's1')">邮件队列使用示例 (PHP)</a></h6>
+<div class="code" id="s1" style="display: none"><pre>
+$res = uc_mail_queue($uid, '', $_POST['subject'], $_POST['message']);
+if(empty($res)) {
+	echo '加入邮件队列失败';
+} else {
+	echo '加入邮件队列成功';
+}
+</pre></div>
+
+</div>
+
+<script type="text/javascript" src="javascript/footer.js"></script>
+</body>
+</html>

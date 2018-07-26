@@ -1,0 +1,21 @@
+<?php foreach ($list as &$row) { ?>
+<li class="<?=($now>$row['open_time']) ? 'now' : 'reserve'?>">
+    <a href="/game/detail.html?game_id=<?=$row['game_id']?>" class="game_logo">
+        <img src="<?=$row['logo']?>" width="100%" height="auto"/>
+    </a>
+    <article class="information">
+        <h3><a><?=$row['game_name']?></a></h3>
+        <p><a><?=$row['server_name']?></a></p>
+    </article>
+    <time><?=($now>$row['open_time']) ? '现在' : date('H:i', $row['open_time'])?></time>
+  <?php if( $row['giftbag'] ) { ?>
+    <a class="i_gift" href="/game/giftbag.html?gift_id=<?=$row['giftbag']?>"></a>
+  <?php } ?>
+  <?php if($now > $row['open_time']) { ?>
+    <a class="btn_green2" href="/game/play.html?game_id=<?=$row['game_id']?>">开始玩</a>
+  <?php } else { ?>
+    <a class="btn_green2" href="/game/detail.html?game_id=<?=$row['game_id']?>">了解</a>
+  <?php } ?>
+    <hr class="linear">
+</li>
+<?php } ?>

@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"/>
+<title>个人资料 - 久乐游戏</title>
+<link rel="stylesheet" href="/public/styles/base.css"/>
+<link rel="stylesheet" href="/styles/user_info.css"/>
+</head>
+<body class="bg02">
+<!--div.container 总外框  start-->
+<div class="z_container" >
+    <header class="z_header block_bg">
+        <a target="_top" href="/user/index.html"></a><span>个人资料</span>
+    </header>
+
+    <!--div.z_min 内容区域 statr-->
+    <div class="z_main">
+        <ul class="user_lists">
+            <li class="links">
+                <a href="/user/avatar.html">
+                    <strong>个性头像：</strong>
+                    <figure class="user_img">
+                        <img src="<?=$user['avatar']?$user['avatar']:'/images/user_center/default_img.png'?>" width="100%" height="auto"/>
+                    </figure>
+                    <i class="i_more"></i>
+                </a>
+            </li>
+            <li>
+                <strong>昵 &nbsp; &nbsp; &nbsp; 称：</strong>
+                <input type="text" placeholder="还没有设置昵称哦~" id="nickname" maxlength="16" value="<?=$user['nickname']?>"/>
+            </li>
+            <li class="sex">
+                <strong>性 &nbsp; &nbsp; &nbsp; 别：</strong>
+                <span class="c_active">
+                    <i class="checkboxs"></i>
+                    <label>男</label>
+                </span>
+                <span>
+                    <i class="checkboxs"></i>
+                    <label>女</label>
+                </span>
+            </li>
+            <li>
+                <strong>个性签名：</strong>
+                <input type="text" placeholder="还没有个性签名哦~" id="signature" maxlength="32" value="<?=$user['signature']?>"/>
+            </li>
+            <li class="links">
+                <a href="/user/password.html" target="_top">
+                    <strong><span>修改密码</span>：</strong>
+                    <i class="i_more" ></i>
+                </a>
+            </li>
+        </ul>
+        <a class="login_btn" id="save">保存资料</a>
+        <div class="footer_padding"></div>
+    </div>
+    <!--div.z_min 内容区域 end-->
+</div>
+<!--div.container 总外框  end-->
+<?php include $this->getScriptPath().'/footer.phtml'; ?>
+<script src="/public/scripts/jquery-1.11.1.min.js"></script>
+<script src="/public/scripts/jquery.mobile.min.js"></script>
+<script>
+$('#footer a:eq(4)').attr('id', 'footer_nav_active');
+$(function(){
+	/**修改默认输入框失去焦点事件样式*/
+	$(".user_form input").on("focus",function(){
+		$(this).css("color","#fff");
+		$('#footer').hide();
+	});
+    $(".user_form input").on("blur",function(){
+    	var _t = $(this);
+        var v = $.trim(_t.val());
+        if(v != ""){
+            _t.css("color","#fff");
+        } else {
+        	_t.css("color","#3c555e");
+        }
+        $('#footer').show();
+    });
+
+    var data = {
+    	nickname: '',
+    	sex: '',
+    	signature: ''
+    };
+    var check = {
+	    nickname: '',
+	    sex: '',
+	    signature: ''
+    };
+    //平台昵称
+    $("#nickname").blur(function () {
+        var v = $.trim($(this).val());
+        data.nickname = v;
+        if( v == '' ) return ;
+        var len = 0;
+        for(var i=0; i<v.length; i++)
+        {
+        	len += (v.charCodeAt(i) > 127) ? 2 : 1;
+        }
+        if( len < 4 || len > 16 ) {
+            check.nickname = '昵称的长度为4-16位，中文算2位';
+            alert(check.nickname);
+            return ;
+        }
+        var reg = /^[\u4e00-\u9fa5a-z\d_]{4,16}$/i;
+        if (reg.test(v)) {
+        	check.nickname = '';
+        } else {
+        	check.nickname = "昵称可使用中文，英文字母、数字或下划线！";
+            alert(check.nickname);
+        }
+    });
+    //性别
+	$(".sex span").on("tap",function(){
+        $(this).addClass("c_active").siblings().removeClass("c_active");
+        if($(this).index() == 1){
+            data.sex = 1;
+        }else{
+        	data.sex = 2;
+        }
+    });
+    //个性签名
+	$("#signature").blur(function(){
+        var v = $.trim($(this).val());
+        data.signature = v;
+        if( v == '' ) return ;
+        if ( v.length < 33 ) {
+            check.signature = '';
+        } else {
+            check.signature = "个性签名长度至多32位！";
+            alert(check.signature);
+        }
+    });
+
+    var loading = false;
+    $('#save').on('tap', function(){
+        if( loading ) return false;
+        var nums = 0;
+        for(var o in data)
+        {
+            if( data[o] == '' ) continue;
+            if( check[o] != '' ) {
+                alert(check[o]);
+                return false;
+            }
+            nums++;
+        }
+        if( nums > 0 ) {
+            loading = true;
+            $.ajax({
+                url: '/user/edit.html',
+                type: 'POST',
+                dataType: 'json',
+                data: data,
+                success: function(msg){
+                	loading = false;
+                    alert(msg.msg);
+                    if( msg.fwd ) location.href = msg.fwd;
+                },
+                error: function(){
+                    loading = false;
+                    alert('网络连接失败！');
+                }
+            });
+        } else {
+            location.href = '/user/index.html';
+        }
+    });
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,184 @@
+/**
+*info:
+* 1、游戏管理-创建游戏 game_index.html
+*author:zhangting
+*date:2015.12.08 15:32
+*logo:
+**/
+.content{
+    background: rgba(0, 0, 0, 0);
+    padding: 0;
+}
+.user_title{
+    font-size: 16px;
+}
+.sections{
+    background-color: #fff;
+    padding: 40px;
+    margin-bottom: 10px;
+}
+.game_menu{
+    overflow: hidden;
+    margin: 20px 20px 40px;
+}
+.game_menu a{
+    float: left;
+    margin-right: 20px;
+}
+.game_menu a img{
+    display: block;
+    width: 100px;
+    height: 100px;
+    border: 0;
+}
+.game_menu article{
+    float: left;
+    line-height: 35px;
+    padding: 15px 0;
+    font-size: 14px;
+}
+.game_menu article p span{
+    color: #808080;
+}
+#step1{
+
+}
+#step1 li{
+    width: 134px;
+}
+#step1 li .number{
+    width: 14px;
+    height: 14px;
+    border: 8px solid #D9D7D7;
+}
+#step1 li.choose .number{
+    width: 44px;
+    height: 44px;
+    font-size: 28px;
+    line-height: 44px;
+    border: 0;
+}
+#step1 li .lines{
+    width: 53px;
+    height: 10px;
+    margin-top: 17px;
+}
+#step1 li.choose .number{
+    width: 44px;
+    height: 44px;
+}
+#step1 li h3{
+    font-size: 16px;
+    line-height: 20px;
+}
+#step1 li.choose h3{
+    line-height: 30px;
+}
+.bottom_tips{
+    text-align: right;
+    margin-bottom: 35px;
+    font-size: 14px;
+}
+
+#step1{
+
+}
+#step2 li{
+    width: 134px;
+}
+#step2 li .number{
+    width: 50px;
+    height: 50px;
+    background: #d9d7d7;
+    color: #FFF;
+    border: 0 none;
+    margin: 0;
+}
+#step2 .i_game{
+    top: 11px;
+    left: 1px;
+}
+#step2 li.choose>.number{
+    width: 50px;
+    height: 50px;
+    line-height: 50px;
+    font-size: 28px;
+    border: 0;
+    background-color: #56a161;
+}
+
+#step2 li>.lines{
+    width: 53px;
+    height: 10px;
+    margin-top: 17px;
+}
+#step2 li h3{
+    font-size: 16px;
+}
+#step2 li .number i{
+    display: block;
+    margin: 0 auto;
+}
+#step2 li .choose2 .number{
+    background-color: #56A161;
+    float: left;
+}
+.step_down{
+    width: 300px;
+    position: relative;
+    left: 252px;
+    top: -30px;
+}
+.step_down dt{
+    position: relative;
+    height: 88px;
+}
+.step_down dt label{
+    background-color: #fafafa;
+    color: #808080;
+    font-size: 16px;
+    float: left;
+    border-radius: 27px;
+    width: 178px;
+    height: 50px;
+    line-height: 50px;
+    text-indent: 0;
+}
+.step_down .lines{
+    width: 10px;
+    height: 40px;
+    background-color: #d9d7d7;
+    display: block;
+    position: relative;
+    left: 19px;
+    top: 2px;
+}
+.choose2 .lines{
+    background-color: #56a161;
+}
+.choose2 .number{
+    background-color: #56A161;
+}
+.step_down .choose2 label{
+    background-color: #548f5d;
+    color: #fff;
+}
+.number{
+    width: 50px;
+    height: 50px;
+    line-height: 50px;
+    font-size: 28px;
+    border: 0 none;
+    background-color: #d9d7d7;
+    display: inline-block;
+    border-radius: 30px;
+    text-align: center;
+    position: absolute;
+    z-index: 1000;
+    left: 0px;
+}
+.step_down .number{
+    float: left;
+    position: relative;
+}
+

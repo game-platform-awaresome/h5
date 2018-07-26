@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"/>
+<title>选择金额 - 久乐游戏</title>
+<link rel="stylesheet" href="/public/styles/base.css"/>
+<link rel="stylesheet" href="/styles/pay_edit.css"/>
+</head>
+<body class="bg01">
+<!--div.container 总外框  start-->
+<div class="z_container">
+    <header class="z_header">
+        <a target="_top" href="/pay/server.html"></a>选择金额
+    </header>
+
+    <!--div.z_min 内容区域 statr-->
+    <div class="z_main" data-role="conent">
+        <div class="block_bg your_money">
+            <span>当前余额：</span>
+            <b class="bold green"><?=$deposit*$parities?></b>
+            <span>平台币</span>
+            <span class="fr">(1RMB = <?=$parities?>平台币)</span>
+        </div>
+        <section class="block_bg edit">
+            <h3>
+                <span>充值金额：</span>
+            </h3>
+            <div>
+                <input type="text" name="money" placeholder="请选择或输入金额" maxlength="5"/>
+                <span>
+                    <i class="i_edit"></i>
+                </span>
+            </div>
+            <ul>
+                <li><span>1</span>元</li>
+                <li><span>50</span>元</li>
+                <li><span>100</span>元</li>
+                <li><span>500</span>元</li>
+            </ul>
+        </section>
+        <section class="block_bg choses">
+            <h3>充值方式：</h3>
+            <ul>
+                <li>
+                    <span data-type="iapppay" class="checkbox checkbox_active"><i></i></span>
+                    <span class="i_zfb i_iapppay"><i></i></span>
+                    <span>在线支付</span>
+                </li>
+                <li style="display:none">
+                    <span data-type="alipay" class="checkbox"><i></i></span>
+                    <span class="i_zfb"><i></i></span>
+                    <span>支付宝</span>
+                </li>
+                <?php if( strpos($_SERVER['HTTP_USER_AGENT'], 'MicroMessenger') ) { ?>
+                <li style="display:none">
+                    <span data-type="wxpay" class="checkbox"><i></i></span>
+                    <span class="i_weixin"><i></i></span>
+                    <span>微信</span>
+                </li>
+                <?php } ?>
+                <li id="use_deposit">
+                    <span data-type="deposit" class="checkbox"><i></i></span>
+                    <span>平台币支付</span>
+                </li>
+            </ul>
+        </section>
+        <div class="btn_cont">
+            <a id="next_step" class="btn_green" target="_top">确认充值</a>
+        </div>
+        <div class="footer_padding"></div>
+    </div>
+    <!--div.z_min 内容区域 end-->
+</div>
+<!--div.container 总外框  end-->
+<?php include $this->getScriptPath().'/footer.phtml'; ?>
+<script src="/public/scripts/jquery-1.11.1.min.js"></script>
+<script src="/public/scripts/jquery.mobile.min.js"></script>
+<script>
+$('#footer a:eq(4)').attr('id', 'footer_nav_active');
+$(function(){
+    var deposit = parseInt('<?=$deposit?>');
+
+    /**支付金额选择*/
+    $(".edit ul li").on("tap",function(){
+        var money = parseInt($(this).find("span").text());
+        $(".edit input").val(money);
+        $(this).addClass("m_active").siblings().removeClass("m_active");
+        (money <= deposit) ? $('#use_deposit').show() : $('#use_deposit').hide();
+    });
+
+    /**支付方式选择*/
+    $(".choses ul li").on("tap",function(){
+        $(this).find(".checkbox ").addClass("checkbox_active");
+        $(this).siblings().find(".checkbox").removeClass("checkbox_active");
+    });
+
+    /**验证输入框信息*/
+    $("input[name=money]").on("focus",function(){
+        $(".edit ul li").removeClass("m_active");
+        $(this).attr("placeholder","");
+    });
+    $('.i_edit').on('tap', function(){
+    	$("input[name=money]").focus();
+    });
+
+    $("input[name=money]").on("blur",function(){
+        var _t = $(this);
+        var v = parseInt(_t.val());
+        if( isNaN(v) || v < 0 ) {
+        	_t.val('');
+        	return false;
+        }
+        if( v > 60000 ) {
+            _t.val(60000);
+            return false;
+        }
+        /*
+        var reg = /^[1-9][0-9]{0,3}0$/  ; //验证非负整数的正则表达式
+        if(reg.test(v)){
+        	_t.val(v);
+        }else if(v == 0){
+            _t.attr("placeholder","请选择或输入金额");
+        }else{
+            alert("必须是数字形式,且为10的倍数！");
+            _t.val(v>10 ? (v - v%10) : 10);
+            _t.attr("placeholder","请选择或输入金额");
+        }
+        */
+        (v <= deposit) ? $('#use_deposit').show() : $('#use_deposit').hide();
+    });
+
+    $('#next_step').on('tap', function(){
+    	var mn = parseInt($("input[name=money]").val());
+        if( isNaN(mn) || mn < 1 ) {
+        	alert('最小充值金额为1元！');
+            return false;
+        }
+        if( mn > 60000 ) mn = 60000;
+        var tp = $('.checkbox_active:visible');
+        if( tp.length < 1 ) {
+            alert('请选择支付方式！');
+            return false;
+        }
+        location.href = '/pay/checkout.html?type='+ tp.attr('data-type') +'&money='+ mn;
+    });
+});
+</script>
+</body>
+</html>

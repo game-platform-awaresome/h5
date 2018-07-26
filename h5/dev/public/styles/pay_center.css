@@ -1,0 +1,536 @@
+/**
+*info:充值中心-选择游戏
+*author:zhangting
+*date:2015.09.14 09:56
+*logo:
+**/
+.z_main {
+  padding: 1.2%;
+  padding-top: 0;
+  color: #ffffff;
+}
+.infos {
+  height: auto;
+  position: relative;
+  clear: both;
+  overflow: hidden;
+  padding-top: 7px;
+}
+.save_game {
+  width: auto;
+  color: #FFF;
+}
+.save_game a {
+  display: block;
+  height: 15px;
+  width: 15px;
+  margin: 0 auto;
+}
+.save_game a img {
+  display: block;
+  margin: 0px auto;
+}
+.save_game a.lb_cont img {
+  position: relative;
+  top: 12%;
+}
+.save_game p {
+  line-height: 18px;
+  height: 18px;
+  font-size: 12px;
+}
+.ml_20 {
+  margin-left: 11%;
+}
+.game_banner {
+  margin-top: 5px;
+}
+.list_imgs {
+  overflow: auto;
+  width: auto;
+  padding-bottom: 5%;
+}
+.list_imgs ul {
+  /*position: absolute;*/
+  padding: 0px;
+}
+.list_imgs ul li {
+  float: left;
+  overflow: auto;
+}
+.list_imgs ul li a {
+  width: 47%;
+  display: inline-block;
+  float: left;
+  padding: 4% 2%;
+}
+.list_imgs ul li a img {
+  width: 100%;
+  height: auto;
+}
+.list_imgs ul li a:first-child {
+  padding-right: 1%;
+}
+.list_imgs ul li a:last-child {
+  padding-left: 1%;
+}
+.game_detail {
+  margin: 5px 0;
+}
+.game_detail_main article {
+  padding: 4%;
+}
+.game_detail_main {
+  position: relative;
+}
+.game_detail h2 {
+  height: 36px;
+  line-height: 36px;
+  text-indent: 1em;
+  font-weight: 100;
+  font-size: 14px;
+  border-bottom: 1px solid rgba(44, 79, 69, 0.8);
+  position: relative;
+  padding-left: 20px;
+}
+.game_detail h2 span {
+  display: inline-block;
+}
+.i_all {
+  display: inline-block;
+  width: 15px;
+  height: 15px;
+  background: url("../images/server_list/i_all.png") no-repeat top;
+  background-size: 100% 100%;
+  margin: 0 5px 0 0;
+  position: absolute;
+  top: 50%;
+  margin-top: -7px;
+  left: 13px;
+}
+.game_detail_main article p {
+  font-size: 12px;
+  line-height: 2em;
+  text-indent: 1.5em;
+  overflow: hidden;
+  color: #CCCCCC;
+}
+.game_detail p span {
+  float: left;
+  text-align: left;
+  text-indent: 0.5em;
+}
+.game_detail p span.title {
+  width: 100px;
+  text-align: right;
+}
+.margin_bottom {
+  margin-bottom: 20px;
+}
+.last_login {
+  padding: 9px 0;
+  font-size: 13px;
+  font-weight: 100;
+  border-bottom: 1px solid rgba(44, 79, 69, 0.8);
+}
+.last_login .logos {
+  display: inline-block;
+  width: 17px;
+  height: 12px;
+  margin: 0 5px 0 14px;
+  position: relative;
+  top: 2px;
+}
+.i_play {
+  width: 100%;
+  height: 100%;
+  background: url("../public/images/gamelogo.png") no-repeat top;
+  background-size: 100% 100%;
+}
+nav.servers {
+  width: 100%;
+  height: auto;
+  overflow: hidden;
+}
+nav.servers a {
+  display: inline-block;
+  width: 46%;
+  margin: 2%;
+  float: left;
+  color: #9da7b0;
+  background-color: rgba(255, 255, 255, 0.05);
+  /*background-color: #2b3d46;*/
+  font-size: 14px;
+  text-align: center;
+  padding: 10px 0;
+  position: relative;
+}
+.i_tj {
+  display: block;
+  width: 31px;
+  height: 32px;
+  background: url("../images/server_list/tj.png") no-repeat top;
+  background-size: 100% 100%;
+  position: absolute;
+  left: 0;
+  top: 0;
+}
+.red {
+  color: #d6572e;
+}
+.infos_main {
+  height: 50px;
+  padding: 14px;
+}
+.z_main .to_play {
+  height: auto;
+  margin-top: 10px;
+}
+.game_list_main {
+  height: 30px;
+  overflow: hidden;
+  padding: 14px;
+}
+.game_list .game_btn {
+  width: auto;
+  float: right;
+  height: 100%;
+}
+.game_btn .btn_blue {
+  padding: 0;
+  display: block;
+  height: 100%;
+  width: 75px;
+  border-radius: 2px;
+}
+.bottom_margin {
+  height: 15px;
+  width: 100%;
+}
+/**div.game_list ????б?*/
+.game_list ul {
+  padding: 0;
+}
+.game_list ul li {
+  height: auto;
+  padding-bottom: 2%;
+  position: relative;
+  clear: both;
+  overflow: hidden;
+  padding-top: 2%;
+}
+/**??????? ?±???**/
+.linear {
+  color: #565759;
+  width: 100%;
+  height: 2px;
+  position: absolute;
+  /*background: linear-gradient(to right, rgba(87,105,115,0), rgba(87,105,115,1));*/
+  background: url("../public/images/line_bg.png") no-repeat right;
+  background-size: 100% 1px;
+  bottom: 0;
+  border: 0;
+}
+.game_list .game_log {
+  width: 50px;
+  height: 50px;
+  text-align: center;
+  float: left;
+  margin-right: 14px;
+}
+.game_list .game_log a {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+.game_list .game_log img {
+  width: 50px;
+  height: 50px;
+}
+.game_list .game_info {
+  float: left;
+  width: 70%;
+  height: 100%;
+}
+.game_list .game_info h3 {
+  height: 20px;
+  line-height: 20px;
+  font-size: 15px;
+  font-weight: 100;
+}
+.game_list {
+  overflow: hidden;
+  height: auto;
+}
+.game_list .slide_cont {
+  width: auto;
+  position: relative;
+}
+.game_list .slide_cont ul {
+  float: left;
+  overflow: auto;
+}
+.game_list .game_info p {
+  height: 30px;
+  line-height: 30px;
+  font-weight: 100;
+  color: #FFF;
+  clear: both;
+  vertical-align: middle;
+}
+html body .ui-group-theme-a a:hover {
+  color: #FFFFFF;
+  opacity: 1;
+}
+.game_log .icon_cont {
+  position: absolute;
+  width: 40%;
+  height: auto;
+}
+nav.two {
+  width: auto;
+  height: 40px;
+  line-height: 40px;
+  padding: 10px;
+  margin: 0;
+}
+.two_cont {
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  overflow: hidden;
+}
+nav.two span {
+  float: left;
+  width: 33%;
+  height: 100%;
+  color: #29ba67;
+  background-color: rgba(255, 255, 255, 0.05);
+  font-size: 14px;
+  text-align: center;
+  padding: 0;
+  position: relative;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+nav.two a {
+  float: left;
+  width: 67%;
+  height: 100%;
+  background: rgba(33, 55, 44, 0.69);
+  padding: 0;
+  margin: 0;
+  color: #29ba67;
+}
+nav.three {
+  height: 26px;
+  line-height: 26px;
+  width: auto;
+  padding: 10px;
+}
+nav.three div {
+  float: left;
+  height: 100%;
+  width: 33.333%;
+  border: 1px solid rgba(255, 255, 255, 0);
+  box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  /* Firefox */
+  -webkit-box-sizing: border-box;
+  /* Safari */
+}
+nav.three div a {
+  height: 100%;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+}
+nav.three .active a {
+  background-color: #00ce7d;
+  color: #FFFFFF;
+}
+nav.four {
+  height: auto;
+  line-height: 26px;
+  width: auto;
+  padding: 1px 10px;
+  margin: 0;
+}
+.i_down {
+  display: inline-block;
+  width: 12px;
+  height: 9px;
+  background: url("../public/images/down.png") no-repeat center;
+  background-size: 100% 100%;
+}
+.i_up {
+  background: url("../public/images/up.png") no-repeat center;
+  background-size: 100% 100%;
+}
+nav.four div {
+  float: left;
+  height: 26px;
+  width: 25%;
+  border: 1px solid rgba(255, 255, 255, 0);
+  box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  /* Firefox */
+  -webkit-box-sizing: border-box;
+  /* Safari */
+}
+nav.four div a {
+  height: 100%;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+}
+nav.four div.active a {
+  background-color: #00ce7d;
+  color: #FFFFFF;
+}
+.nav_list {
+  padding: 10px 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+}
+.i_money {
+  width: 100%;
+  height: 100%;
+  background: url("../public/images/i_money.png") no-repeat top;
+  background-size: 100% 100%;
+  position: relative;
+  top: -1px;
+}
+.i_game2 {
+  display: inline-block;
+  width: 16px;
+  height: 13px;
+  background: url("../public/images/i_game2.png") no-repeat top;
+  background-size: 100% 100%;
+  margin: 0 5px 0 0;
+  position: absolute;
+  top: 50%;
+  margin-top: -7px;
+  left: 13px;
+}
+.i_game {
+  height: 11px;
+  background: url("../public/images/game.png") no-repeat top;
+  background-size: 100% 100%;
+  margin-top: -6px;
+}
+/**充值中心-选择服务器 css**/
+nav.thred {
+  height: auto;
+  width: auto;
+  padding: 1px 10px;
+  margin: 0;
+}
+nav.thred div {
+  float: left;
+  height: 36px;
+  line-height: 36px;
+  width: 33.333%;
+  border: 2px solid rgba(255, 255, 255, 0);
+  box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  /* Firefox */
+  -webkit-box-sizing: border-box;
+  /* Safari */
+}
+nav.thred div a {
+  height: 100%;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+nav.thred div.active a {
+  background-color: #00ce7d;
+  color: #FFFFFF;
+}
+.logos2 .i_game {
+  width: auto;
+  margin-top: 0;
+}
+.next_btn {
+  margin-top: 20px;
+}
+.next_btn a {
+  display: block;
+  width: 80%;
+  height: 45px;
+  line-height: 45px;
+  margin: 0 auto;
+  text-align: center;
+}
+/**充值中心首页 css**/
+.user_lists {
+  margin-top: 15px;
+  text-indent: 30px;
+}
+.user_lists a {
+  display: block;
+  height: 54px;
+  background-color: rgba(0, 0, 0, 0.2);
+  padding: 0 5%;
+  line-height: 54px;
+  font-size: 16px;
+  color: #bbbbbb;
+  margin-bottom: 1px;
+  position: relative;
+}
+.user_lists a:last-child {
+  border: 0;
+}
+.user_lists a i {
+  display: inline-block;
+  width: 24px;
+  height: 24px;
+  background-size: 100% auto;
+  position: absolute;
+  left: 5%;
+  top: 50%;
+  margin-top: -12px;
+  border-radius: 3px;
+}
+.user_lists a span.logo_right {
+  float: right;
+  margin-right: 10px;
+  width: 9px;
+  height: 15px;
+  background: url("../images/user_center/go.png") no-repeat center;
+  background-size: 100% 100%;
+  position: absolute;
+  right: 20px;
+  top: 50%;
+  margin-top: -8px;
+}
+.i_list1 {
+  background: url("../public/images/person.png") no-repeat center;
+}
+.i_list2 {
+  background: url("../public/images/i_money.png") no-repeat center;
+}
+.i_list3 {
+  background: url("../public/images/i_money2.png") no-repeat center;
+}
+.z_container .margint5 {
+  margin: 5px 0 0 0;
+}
+.z_container .margint1 {
+  margin: 1px 0 0 0;
+  padding: 8px 0;
+}
+.border0 {
+  border: 0;
+}
+.btn_green {
+  display: block;
+  width: 80%;
+  height: 45px;
+  line-height: 45px;
+  font-size: 22px;
+  text-align: center;
+  margin: 15px auto;
+}

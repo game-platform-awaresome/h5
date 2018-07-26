@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+<meta name="screen-orientation" content="portrait">
+<meta name="keywords" content="H5 HTML5 H5游戏 HTML5游戏 小游戏 手机游戏 网页游戏 在线游戏 点击即玩 久乐游戏 久乐H5">
+<meta name="description" content="久乐游戏是一个行业领先的H5在线游戏平台，玩游戏不再苦苦的等待下载，点击即玩。">
+<title>久乐游戏 - H5在线游戏平台点击即玩</title>
+<link rel="stylesheet" href="/public/styles/base.css"/>
+<link rel="stylesheet" href="/styles/index.css"/>
+</head>
+<body class="bg01">
+    <!--div.container 总外框  start-->
+    <div data-role="page" class="z_container">
+        <!--div.z_min 内容区域 statr-->
+        <div class="z_main" data-role="conent">
+            <div class="banner" id="banner_silider">
+                <ul>
+                <?php foreach ($banner['ads'] as &$row) { ?>
+                    <li>
+                        <a href="<?=$row['url']?>" class="line_01">
+                            <img src="<?=$row['image']?>" width="100%" height="auto"<?php if($row['subject']) echo " alt=\"{$row['subject']}\""; ?>/>
+                        </a>
+                    </li>
+                <?php } ?>
+                </ul>
+            </div>
+            <nav class="play_list">
+<!--                <i class="icons logo"></i>-->
+                <ul class="ui-grid-d" id="list_nav">
+                <?php $i = 0; foreach ($games as $type=>&$row) { ?>
+                    <li<?php echo $i==0 ? ' class="list_active"' : ''; ++$i; ?>><?=$type?></li>
+                <?php } ?>
+                </ul>
+            </nav>
+
+            <!--div.game_list 游戏列表  start-->
+            <section class="game_list" id="game_list">
+                <div class="slide_cont">
+                <?php $i = 1; foreach ($games as $type=>&$list) { ?>
+                    <!--ui#game_list_<?=$i?> <?=$type?>游戏列表  start-->
+                    <ul id="game_list_<?=$i?>">
+                    <?php foreach ($list as &$row) { ?>
+                        <li>
+                            <?php if($row['corner'] != 'normal') { ?>
+                            <i class="icons i_<?=$row['corner']?>"></i>
+                            <?php } ?>
+                            <section class="list_content">
+                                <div class="game_log relative">
+                                    <a target="_top" href="/game/detail.html?game_id=<?=$row['game_id']?>"><img src="<?=$row['logo']?>" width="100%" height="auto" alt="<?=$row['name']?>"></a>
+                                </div>
+                                <div class="game_info">
+                                    <h3>
+                                        <span><a target="_top" href="/game/detail.html?game_id=<?=$row['game_id']?>" title="<?=$row['name']?>" style="color:#fff;"><?=$row['name']?></a></span>
+                                    <?php if($row['label'] != 'normal') { ?>
+                                        <i class="icons <?=$row['label']?>"></i>
+                                    <?php } ?>
+                                    </h3>
+                                    <P>
+                                    <span class="start_list fl">
+                                        <?=$row['grade']?>
+                                    </span>
+                                        <span>人气：<?=$row['support']?></span>
+                                    </P>
+                                    <p><?=$row['in_short']?></p>
+                                </div>
+                                <?php if($row['giftbag']) { ?>
+                                <a href="/game/giftbag.html?gift_id=<?=$row['giftbag']?>" class="icons i_lb"></a>
+                                <?php } ?>
+                                <div class="game_btn">
+                                    <a target="_top" href="/game/play.html?game_id=<?=$row['game_id']?>" class="btn_blue">开始玩</a>
+                                </div>
+                            </section>
+                        </li>
+                        <?php } ?>
+                    </ul>
+                    <!--ui#game_list_<?=$i?> <?=$type?>游戏列表  end-->
+                <?php ++$i; } ?>
+                </div>
+            </section>
+            <!--div.game_list 游戏列表  end-->
+
+            <!--div.game_news 快速通道  statr-->
+            <section class="game_news">
+                <h2 class="title">
+                    <span class="title_name"> <i class="icons i_hand"></i>快速通道</span>
+                </h2>
+                <div class="block_bg recommend">
+                    <a href="/activity/index.html">
+                        <img src="/images/index/fast01.png" width="100%" height="auto" alt="活动中心" />
+                    </a>
+                    <a href="/activity/giftbag.html">
+                        <img src="/images/index/fast02.png" width="100%" height="auto" alt="礼包中心" />
+                    </a>
+                    <a href="<?=empty($user)?'/user/login.html?fwd=':''?>/pay/index.html">
+                        <img src="/images/index/fast03.png" width="100%" height="auto" alt="支付中心" />
+                    </a>
+                    <a href="javascript:void(0)">
+                        <img src="/images/index/fast04.png" width="100%" height="auto" alt="开服列表" />
+                    </a>
+                </div>
+            </section>
+            <!--div.game_news 快速通道  end-->
+
+            <!--figure.game_figure vip俱乐部  statr-->
+            <figure class="game_figure">
+            <?php foreach ($shortcut['ads'] as &$row) { ?>
+                <a href="<?=$row['url']?>">
+                    <img src="<?=$row['image']?>" width="100%" height="auto" alt="<?=$row['subject']?>"/>
+                </a>
+            <?php } ?>
+            </figure>
+            <!--figure.game_figure vip俱乐部  end-->
+
+            <!--section.game_news hot 火爆新游  statr-->
+            <section class="game_news">
+                <h2 class="title">
+                    <span class="title_name"> <i class="icons i_fire"></i>火爆新游</span>
+                    <a class="more" href="/game/center.html">更多 &gt;</a>
+                </h2>
+                <div class="scroll_cont">
+                    <nav class="block_bg nav_img">
+                    <?php foreach ($hotnew['ads'] as &$row) { ?>
+                        <a href="<?=$row['url']?>">
+                            <img src="<?=$row['image']?>" width="50" height="50" alt="<?=$row['subject']?>">
+                            <h4><?=$row['subject']?></h4>
+                        </a>
+                    <?php } ?>
+                    </nav>
+                </div>
+            </section>
+            <!--section.game_news 今日推荐  end-->
+
+            <!--section.game_news action 最新活动  statr-->
+            <section class="game_news action">
+                <h2 class="title">
+                    <span class="title_name"> <i class="icons i_action"></i>最新活动</span>
+                    <a class="more" href="javascript:void(0);">更多 &gt;</a>
+                </h2>
+            <?php foreach ($activity['ads'] as $row) { ?>
+                <div class="actions">
+                    <a href="<?=$row['url']?>">
+                        <img src="<?=$row['image']?>"<?=$row['subject']?" alt=\"{$row['subject']}\"":''?> style="width:100%">
+                    </a>
+                </div>
+            <?php } ?>
+            </section>
+            <!--section.game_news action 最新活动  end-->
+
+            <!--<div class="footer_zoom"></div>-->
+            <div class="footer_padding"></div>
+        </div>
+        <!--div.z_min 内容区域 end-->
+    </div>
+    <!--div.container 总外框  end-->
+<?php include $this->getScriptPath().'/footer.phtml'; ?>
+<script src="/public/scripts/jquery-1.11.1.min.js"></script>
+<script src="/public/scripts/jquery.mobile.min.js"></script>
+<script src="/jquery/swipe.js"></script>
+<script>
+$('#footer a:eq(0)').attr('id', 'footer_nav_active');
+$(function(){
+	var banner_slider = new Swipe(document.getElementById('banner_silider'), {
+	  startSlide: 0,
+	  speed: 400,
+	  auto: 3000,
+	  continuous: true
+	});
+	$('#banner_silider').css('height','auto');
+
+	var game_slider = new Swipe(document.getElementById('game_list'), {
+	  startSlide: 0,
+	  speed: 400,
+	  auto: false,
+	  callback: function(index, elem) {
+		  $('#list_nav li').removeClass('list_active').eq(index).addClass('list_active');
+	  }
+	});
+	$('#list_nav li').on('tap', function(){
+		game_slider.slide($(this).index(), 400);
+		return true;
+	});
+	$('.slide_cont ul').height($('.slide_cont').height());
+
+	function getWidth(){
+	    var childLen = $(".nav_img a").length;
+	    var childWidth = $(".nav_img a").outerWidth();
+	    var widowWidth = $(window).width(); //窗口宽度
+	    var allWidth = childLen * childWidth; //计算后总宽度
+	    /**宽度不能小于100%*/
+	    if(allWidth < widowWidth){
+	        $(".nav_img").width(widowWidth);
+	    }else{
+	        $(".nav_img").width(allWidth);
+	    }
+	}
+	getWidth();
+	window.onorientationchange=window.onresize=function(){
+        getWidth();
+    };
+});
+</script>
+</body>
+</html>

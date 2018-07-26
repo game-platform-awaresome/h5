@@ -1,0 +1,10 @@
+<?php foreach ($logs as &$row) { ?>
+<li>
+    <a target="_top" href="/user/payinfo.html?pay_id=<?=sprintf('%16.0f', $row['pay_id'])?>">
+        <span><?=$row['to_user']?></span>
+        <span><?=$row['game_id']?$row['game_name']:'平台币'?></span>
+        <span class="bold"><?=number_format($row['money'], 0)?>￥</span>
+        <span class="bold"><?=date('Y-m-d', $row['add_time'])?></span>
+    </a>
+</li>
+<?php } ?>

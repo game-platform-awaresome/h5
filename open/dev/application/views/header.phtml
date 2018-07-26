@@ -1,0 +1,38 @@
+<?php
+$fwd = isset($_SERVER['REQUEST_URI']) ? '?fwd='.urlencode($_SERVER['REQUEST_URI']) : '';
+if( !isset($dev) ) {
+    $m_dev = F_Model_Pdo::getInstance('Developer');
+    $dev = $m_dev->getLogin();
+    if( $dev ) {
+        $username = $m_dev->formatUsername($dev['username']);
+    }
+} else if( $dev ) {
+    $m_dev = F_Model_Pdo::getInstance('Developer');
+    $username = $m_dev->formatUsername($dev['username']);
+}
+?>
+<header>
+    <div class="header_main">
+        <a href="/" class="icons i_logo"></a>
+        <nav id="top_nav">
+            <a href="/">首页</a>
+            <a href="/developer/index.html">管理中心</a>
+            <a href="/documents/index.html">资料库</a>
+            <a href="/nami/contactus.html">联系我们</a>
+        </nav>
+        <aside>
+            <i class="icons i_person"></i>
+        <?php if($dev) { ?>
+            <a href="/developer/index.html"><?=$username?></a>
+            <span>|</span>
+            <a href="/developer/logout.html<?=$fwd?>">退出</a>
+        <?php } else { ?>
+            <a href="/developer/login.html<?=$fwd?>">登陆</a>
+            <span>|</span>
+            <a href="/developer/register.html<?=$fwd?>">注册</a>
+        <?php } ?>
+        </aside>
+    </div>
+    <hr class="line"/>
+</header>
+<?php unset($fwd); ?>

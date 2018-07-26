@@ -1,0 +1,274 @@
+<style>
+#ctt_tb caption{font-size:100%; font-weight:bold;}
+input.w120{width:120px !important}
+input.w30{width:30px !important}
+input.w240{width:240px !important}
+</style>
+<script type="text/javascript" src="/js/My97DatePicker/WdatePicker.js"></script>
+<div class="content-box">
+  <!-- Start Content Box -->
+  <div class="content-box-header">
+    <h3><?=$title?></h3>
+    <a class="go_back" href="javascript:history.go(-1);">返回上一页</a>
+    <div class="clear"></div>
+  </div>
+  <!-- End .content-box-header -->
+  <div class="content-box-content">
+    <div class="tab-content default-tab">
+      <form action="/admin/<?=$controller?>/update?<?=$query?>" method="post" enctype="multipart/form-data">
+      <input type="hidden" name="info[gift_id]" value="<?php echo isset($info) ? $info['gift_id'] : ''; ?>" />
+        <fieldset>
+        <!-- Set class to "column-left" or "column-right" on fieldsets to divide the form into columns -->
+        <p>
+          <label>礼包名称</label>
+          <input class="text-input small-input" maxlength="32" type="text" name="info[name]" value="<?php echo isset($info) ? $info['name'] : ''; ?>">
+        </p>
+        <p>
+          <label>所属游戏</label>
+          <span>游戏：</span>
+          <select id="game_id" name="info[game_id]">
+          <?php foreach ($games as $gm) { ?>
+            <option value="<?=$gm['game_id']?>"<?php if(isset($info) && $info['game_id'] == $gm['game_id']) echo ' selected="selected"'; ?>><?=$gm['name']?></option>
+          <?php } ?>
+          </select>
+          <span>区/服：</span>
+          <select id="server_id" name="info[server_id]"></select>
+          <input type="hidden" id="game_name" name="info[game_name]" value="<?php echo isset($info) ? $info['game_name'] : ''; ?>">
+          <input type="hidden" id="server_name" name="info[server_name]" value="<?php echo isset($info) ? $info['server_name'] : ''; ?>">
+        </p>
+        
+        <p>
+          <table id="ctt_tb" style="width:auto;">
+          <caption>礼包内容</caption>
+          <thead>
+            <tr>
+                <th>名称</th>
+                <th>数量</th>
+                <th>图标</th>
+                <th>删除</th>
+            </tr>
+          </thead>
+          <tbody>
+        <?php if(!empty($info['content'])) { foreach ($info['content'] as $i=>$row) { ?>
+            <tr id="ctt_<?=$i?>">
+                <td><input class="text-input small-input w120" type="text" name="content[<?=$i?>][name]" value="<?=$row['name']?>"></td>
+                <td><input class="text-input small-input w30" type="text" name="content[<?=$i?>][nums]" value="<?=$row['nums']?>"></td>
+                <td><input class="text-input small-input w240" type="text" name="content[<?=$i?>][logo]" value="<?=$row['logo']?>"></td>
+                <td><a href="javascript:void(0);"><img src="/admin/images/icons/cross.png"></a></td>
+            </tr>
+        <?php } } else { ?>
+            <tr id="ctt_0">
+                <td><input class="text-input small-input w120" type="text" name="content[0][name]"></td>
+                <td><input class="text-input small-input w30" type="text" name="content[0][nums]"></td>
+                <td><input class="text-input small-input w240" type="text" name="content[0][logo]"></td>
+                <td><a href="javascript:void(0);"><img src="/admin/images/icons/cross.png"></a></td>
+            </tr>
+        <?php } ?>
+          </tbody>
+          <tfoot><tr><td colspan="3">
+            <a href="javascript:void(0);"><img style="float:left;" src="/admin/images/icons/add.gif">&nbsp;添加</a>
+          </td></tr></tfoot>
+          </table>
+          <textarea id="logo_selecter" style="clear:both; width:80%px; height:60px;">图标请使用本编辑器上传或查找图标路径；不再使用的图片请手动删除；修改或删除此内容毫无影响！</textarea>
+        </p>
+        
+        <p>
+          <label>有效期开始时间<small>（留空则立即生效）</small></label>
+          <input class="text-input small-input" type="text" name="info[begin_time]" value="<?php echo isset($info) ? date('Y-m-d H:i:s', $info['begin_time']) : ''; ?>" onclick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss'})">
+        </p>
+        <p>
+          <label>有效期结束时间<small>（留空则永不过期）</small></label>
+          <input class="text-input small-input" type="text" name="info[end_time]" value="<?php echo isset($info) ? date('Y-m-d H:i:s', $info['end_time']) : ''; ?>" onclick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss'})">
+        </p>
+        
+        <p>
+          <label>如何领取</label>
+          <input class="text-input medium-input" maxlength="255" type="text" name="info[howget]" value="<?php echo isset($info) ? $info['howget'] : ''; ?>">
+        </p>
+        <p>
+          <label>礼包类型<small>（添加后不可更改）</small></label>
+          <select id="gift_type" name="info[type]">
+          <?php foreach ($types as $tk=>$tv) { ?>
+            <option value="<?=$tk?>"<?php if(isset($info) && $info['type'] == $tk) echo ' selected="selected"'; ?>><?=$tv?></option>
+          <?php } ?>
+          </select>&nbsp;<span id="type_desc"></span>
+        </p>
+        <p id="nums_p" style="display:none">
+          <label>礼包限量个数</label>
+          <select id="gift_nums">
+            <option value="10">10</option>
+            <option value="20">20</option>
+            <option value="30">30</option>
+            <option value="40">40</option>
+            <option value="50">50</option>
+            <option value="60">60</option>
+            <option value="70">70</option>
+            <option value="80">80</option>
+            <option value="90">90</option>
+            <option value="100">100</option>
+            <option value="200">200</option>
+            <option value="300">300</option>
+            <option value="400">400</option>
+            <option value="500">500</option>
+            <option value="600">600</option>
+            <option value="700">700</option>
+            <option value="800">800</option>
+            <option value="900">900</option>
+            <option value="1000">1000</option>
+            <option value="2000">2000</option>
+            <option value="3000">3000</option>
+            <option value="4000">4000</option>
+            <option value="5000">5000</option>
+            <option value="6000">6000</option>
+            <option value="7000">7000</option>
+            <option value="8000">8000</option>
+            <option value="9000">9000</option>
+          </select>
+          <input type="hidden" id="nums" name="info[nums]" value="0">
+        </p>
+    <?php if(empty($info) || $info['type'] == 'limited') { ?>
+        <p>
+          <label>导入游戏激活码<small style="color:red;">（此项被设置礼包自动成为限量礼包，可以追加导入新的激活码）</small></label>
+          <input type="file" name="cdkey_file">
+        </p>
+    <?php } ?>
+        <p>
+          <label>排序（升序， 0-65535）</label>
+          <input class="text-input small-input" maxlength="5" type="text" name="info[weight]" value="<?php echo isset($info) ? $info['weight'] : '0'; ?>">
+        </p>
+        <p>
+          <input class="button" type="submit" value="提交" />
+        </p>
+        </fieldset>
+        <div class="clear"></div>
+        <!-- End .clear -->
+      </form>
+    </div>
+    <!-- End #tab2 -->
+  </div>
+  <!-- End .content-box-content -->
+</div>
+<!-- End .content-box -->
+<div class="clear"></div>
+
+<script type="text/javascript" charset="utf-8" src="/ue/ueditor.config.js"></script>
+<script type="text/javascript" charset="utf-8" src="/ue/ueditor.all.min.js"> </script>
+<script type="text/javascript" charset="utf-8" src="/ue/lang/zh-cn/zh-cn.js"></script>
+<script>
+var editor = UE.getEditor('logo_selecter');
+
+$(function(){
+	var type = '<?=isset($info['type']) ? $info['type'] : ''?>';
+	var nums = '<?=isset($info['nums']) ? $info['nums'] : ''?>';
+	var desc = <?=$desc?>;
+	if( type != '' ) {
+		$('#gift_type').val(type).prop('disabled', 'disabled');
+		$('#type_desc').html(desc[type]);
+	}
+	if( nums != '' ) {
+		$('#gift_nums').val(nums).prop('disabled', 'disabled');
+	}
+	$('#gift_type').change(function(){
+		var v = $(this).val();
+		if( v == 'limited' ) {
+			$('#nums_p').show();
+			$('#nums').val($('#gift_nums').val());
+		} else {
+			$('#nums_p').hide();
+			$('#nums').val('0');
+		}
+		$('#type_desc').html(desc[v]);
+	});
+	$('#gift_nums').change(function(){
+		$('#nums').val($(this).val());
+	});
+	$('#gift_type').trigger('change');
+
+    var servers = {};
+	var server_id = parseInt('<?php echo isset($info['server_id']) ? $info['server_id'] : ''; ?>');
+    var func = function(game_id){
+    	var html = '';
+    	if( typeof servers[game_id] == 'undefined' ) {
+        	$.getJSON('/admin/giftbag/server?game_id='+game_id, function(data){
+            	html += '<option value="">--请选择区/服--</option>';
+        		var selected;
+        		for(var key in data)
+            	{
+                	if( server_id == data[key]['server_id'] ) {
+                    	selected = ' selected="selected"';
+                    } else {
+                    	selected = '';
+                    }
+            		html += '<option value="'+ data[key]['server_id'] + '"'+ selected +'>'+ data[key]['name'] + '</option>';
+            	}
+        		servers[game_id] = html;
+        		$('#server_id').html(html);
+            	$('#game_name').val($('#game_id option:selected').text());
+            	if( $('#server_id').val() == '' ) {
+            		$('#server_name').val('');
+            	} else {
+            		$('#server_name').val($('#server_id option:selected').text());
+            	}
+        	});
+        } else {
+            html = servers[game_id];
+            $('#server_id').html(html);
+        	$('#game_name').val($('#game_id option:selected').text());
+        	if( $('#server_id').val() == '' ) {
+        		$('#server_name').val('');
+        	} else {
+        		$('#server_name').val($('#server_id option:selected').text());
+        	}
+        }
+    };
+    func($('#game_id').val());
+    
+    $('#game_id').change(function(){
+    	func($('#game_id').val());
+    });
+    $('#server_id').change(function(){
+        if( $(this).val() != '' ) {
+     	    $('#server_name').val($('#server_id option:selected').text());
+        } else {
+        	$('#server_name').val('');
+        }
+    });
+
+    var item = '<tr id="ctt_0">\
+        <td><input class="text-input small-input w120" type="text" name="content[0][name]"></td>\
+        <td><input class="text-input small-input w30" type="text" name="content[0][nums]"></td>\
+        <td><input class="text-input small-input w240" type="text" name="content[0][logo]"></td>\
+        <td><a href="javascript:void(0);"><img src="/admin/images/icons/cross.png"></a></td>\
+    </tr>';
+    $('#ctt_tb tfoot a').click(function(){
+        var last = $('#ctt_tb tbody tr:last');
+        var empty = true;
+        last.find('input').each(function(){
+            if( $.trim($(this).val()) != '' ) {
+                empty = false;
+            }
+        });
+        if( empty ) return false;
+        var index = parseInt(last.attr('id').replace(/ctt_/, ''));
+        ++index;
+        var tmp = item.replace(/ctt_0/, 'ctt_'+index);
+        tmp = tmp.replace(/\[0\]/g, '['+index+']');
+        tmp = $(tmp).hide();
+        $('#ctt_tb tbody').append(tmp);
+        tmp.slideDown();
+        $('#ctt_tb tbody tr').removeClass('alt-row').filter(':nth-child(odd)').addClass('alt-row');
+    });
+    $('#ctt_tb tbody').on('click', 'a', function(){
+        var tr = $(this).parent().parent();
+        console.log(tr.attr('id'));
+        if( $('#ctt_tb tbody tr').length <= 1 ) {
+            return false;
+        }
+        tr.slideUp(function(){
+            tr.remove();
+            $('#ctt_tb tbody tr').removeClass('alt-row').filter(':nth-child(odd)').addClass('alt-row');
+        });
+        return false;
+    });
+});
+</script>

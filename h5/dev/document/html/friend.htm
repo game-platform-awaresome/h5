@@ -1,0 +1,269 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>UCenter 接口开发手册 - 好友接口</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" href="images/style.css" type="text/css" media="all" />
+<meta content="Comsenz Inc." name="Copyright" />
+<script type="text/javascript" src="javascript/common.js"></script>
+</head>
+<body>
+<script type="text/javascript" src="javascript/header.js"></script>
+
+<a name="add"></a>
+<h3>添加好友</h3>
+
+<div class="submsg">
+<h4><i>bool</i> uc_friend_add(<i>integer</i> uid , <i>integer</i> friendid [, <i>string</i> comment])</h4>
+
+<h5>函数参数</h5>
+<table border="0" cellspacing="0" cellpadding="0" class="msgtable">
+<thead>
+	<tr>
+	<th>参数</th>
+	<td>含义</td>
+	</tr>
+</thead>
+<tbody>
+	<tr>
+	<th><i>integer</i> uid</th>
+	<td>用户 ID</td>
+	</tr>
+	<tr>
+	<th><i>integer</i> friendid</th>
+	<td>好友用户 ID</td>
+	</tr>
+	<tr>
+	<th><i>string</i> comment</th>
+	<td>备注，可为空</td>
+	</tr>
+</tbody>
+</table>
+
+<h5>返回值</h5>
+<table border="0" cellspacing="0" cellpadding="0" class="msgtable">
+<thead>
+	<tr>
+	<th>值</th>
+	<td>含义</td>
+	</tr>
+</thead>
+<tbody>
+	<tr>
+	<th><i>bool</i></th>
+	<td>
+	<em>1:</em>成功<br />
+	<em>0:</em>失败<br />
+	</td>
+	</tr>
+</tbody>
+</table>
+
+<br />
+本函数接口用于把 friendid 添加为 uid 的好友。
+<h6><a href="###" class="spread" onclick="collapse(this, 's1')">添加好友示例 (PHP)</a></h6>
+<div class="code" id="s1" style="display: none"><pre>
+$friendid = uc_get_user($_POST['friend']);
+if(uc_friend_add($uid, $friendid[0])) {
+	echo '添加完成';
+}
+</pre></div>
+
+</div>
+
+<a name="delete"></a>
+<h3>删除好友</h3>
+
+<div class="submsg">
+<h4><i>integer</i> uc_friend_delete(<i>integer</i> uid , <i>array</i> friendids)</h4>
+
+<h5>函数参数</h5>
+<table border="0" cellspacing="0" cellpadding="0" class="msgtable">
+<thead>
+	<tr>
+	<th>参数</th>
+	<td>含义</td>
+	</tr>
+</thead>
+<tbody>
+	<tr>
+	<th><i>integer</i> uid</th>
+	<td>用户 ID</td>
+	</tr>
+	<tr>
+	<th><i>array</i> friendids</th>
+	<td>好友用户 ID 数组</td>
+	</tr>
+</tbody>
+</table>
+
+<h5>返回值</h5>
+<table border="0" cellspacing="0" cellpadding="0" class="msgtable">
+<thead>
+	<tr>
+	<th>值</th>
+	<td>含义</td>
+	</tr>
+</thead>
+<tbody>
+	<tr>
+	<th><i>integer</i></th>
+	<td>被删除的好友数</td>
+	</td>
+	</tr>
+</tbody>
+</table>
+
+<br />
+本函数接口用于删除指定用户的好友。friendids 参数是一个自由 Key 数组类型，如“ array(1, 2, 3, 4, 5 ...) ”，数组的每一个值均代为好友用户 ID。
+<h6><a href="###" class="spread" onclick="collapse(this, 's2')">删除好友示例 (PHP)</a></h6>
+<div class="code" id="s2" style="display: none"><pre>
+$if(!empty($_POST['delete']) && is_array($_POST['delete'])) {
+	$num = uc_friend_delete($uid, $_POST['delete']);
+	echo "删除了 $num 个好友";
+}
+</pre></div>
+
+</div>
+
+<a name="totoalnum"></a>
+<h3>获取好友总数</h3>
+
+<div class="submsg">
+<h4><i>integer</i> uc_friend_totalnum(<i>integer</i> uid [, <i>integer</i> direction])</h4>
+
+<h5>函数参数</h5>
+<table border="0" cellspacing="0" cellpadding="0" class="msgtable">
+<thead>
+	<tr>
+	<th>参数</th>
+	<td>含义</td>
+	</tr>
+</thead>
+<tbody>
+	<tr>
+	<th><i>integer</i> uid</th>
+	<td>用户 ID</td>
+	</tr>
+	<tr>
+	<th><i>integer</i> direction</th>
+	<td>
+	<em>0:</em><strong>(默认值)</strong> 指定用户的全部好友<br />
+	<em>1:</em>正向，指定用户添加的好友，但没被对方添加<br />
+	<em>2:</em>反向，指定用户被哪些用户添加为好友，但没被对方添加<br />
+	<em>3:</em>双向，互相添加为好友<br />
+	</td>
+	</tr>
+</tbody>
+</table>
+
+<h5>返回值</h5>
+<table border="0" cellspacing="0" cellpadding="0" class="msgtable">
+<thead>
+	<tr>
+	<th>值</th>
+	<td>含义</td>
+	</tr>
+</thead>
+<tbody>
+	<tr>
+	<th><i>integer</i></th>
+	<td>好友数目</td>
+	</tr>
+</tbody>
+</table>
+
+<br />
+本接口函数用于返回指定用户的好友数。
+<h6><a href="###" class="spread" onclick="collapse(this, 's3')">返回好友数示例 (PHP)</a></h6>
+<div class="code" id="s3" style="display: none"><pre>
+$num = uc_friend_totalnum($uid);
+echo "您有 $num 个好友";
+</pre></div>
+
+</div>
+
+<a name="ls"></a>
+<h3>获取好友列表</h3>
+
+<div class="submsg">
+<h4><i>array</i> uc_friend_ls(<i>integer</i> uid [, <i>integer</i> page , <i>integer</i> pagesize , <i>integer</i>totalnum , <i>integer</i> direction])</h4>
+
+<h5>函数参数</h5>
+<table border="0" cellspacing="0" cellpadding="0" class="msgtable">
+<thead>
+	<tr>
+	<th>参数</th>
+	<td>含义</td>
+	</tr>
+</thead>
+<tbody>
+	<tr>
+	<th><i>integer</i> uid</th>
+	<td>用户 ID</td>
+	</tr>
+	<tr>
+	<th><i>integer</i> page</th>
+	<td>当前页编号，默认值 1</td>
+	</tr>
+	<tr>
+	<th><i>integer</i> pagesize</th>
+	<td>每页最大条目数，默认值 10</td>
+	</tr>
+	<tr>
+	<th><i>integer</i> totalnum</th>
+	<td>好友总数，默认值 10</td>
+	</tr>
+	<tr>
+	<th><i>integer</i> direction</th>
+	<td>
+	<em>0:</em><strong>(默认值)</strong> 指定用户的全部好友<br />
+	<em>1:</em>正向，指定用户添加的好友，但没被对方添加<br />
+	<em>2:</em>反向，指定用户被哪些用户添加为好友（粉丝）<br />
+	<em>3:</em>双向，互相添加为好友<br />
+	</td>
+	</tr>
+</tbody>
+</table>
+
+<h5>返回值</h5>
+<table border="0" cellspacing="0" cellpadding="0" class="msgtable">
+<thead>
+	<tr>
+	<th>值</th>
+	<td>含义</td>
+	</tr>
+</thead>
+<tbody>
+	<tr>
+	<th><i>array</i></th>
+	<td>好友列表数据，其中单条好友数组结构请参看<a href="friend.htm#table1">附表</a></td>
+	</tr>
+</tbody>
+</table>
+</div>
+
+<div class="line"></div>
+
+<a name="table1"></a>
+<h3>附表：单条好友数组结构</h3>
+
+<div class="submsg">
+<table border="0" cellspacing="0" cellpadding="0" class="msgtable">
+	<tbody>
+	<tr><th style="width:150px"><i>integer</i> ['uid']</th><td>用户 ID</td></tr>
+	<tr><th style="width:150px"><i>integer</i> ['friendid']</th><td>好友用户 ID</td></tr>
+	<tr><th style="width:150px"><i>integer</i> ['direction']</th><td>
+	<em>0:</em><strong>(默认值)</strong> 指定用户的全部好友<br />
+	<em>1:</em>正向，指定用户添加的好友，但没被对方添加<br />
+	<em>2:</em>反向，指定用户被哪些用户添加为好友（粉丝）<br />
+	<em>3:</em>双向，互相添加为好友<br />
+	</td></tr>
+	<tr><th style="width:150px"><i>string</i> ['username']</th><td>好友用户名</td></tr>
+</tbody>
+</table>
+</div>
+
+<script type="text/javascript" src="javascript/footer.js"></script>
+</body>
+</html>

@@ -1,0 +1,7 @@
+<?php if($article) { ?>
+    <h2><?=$article['title']?><span class="fr"><?=date('Y/m/d', $article['up_time'])?></span></h2>
+    <pre><?=$article['content']?></pre>
+<?php } else { ?>
+    <h2>抱歉</h2>
+    <pre>没有找到相关的文档资料！</pre>
+<?php } ?>

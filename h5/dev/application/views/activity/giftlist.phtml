@@ -1,0 +1,24 @@
+<?php foreach ($list as $i=>&$row) { ?>
+<li>
+    <a id="gift_<?=$row['gift_id']?>" target="_top" href="/game/giftbag.html?gift_id=<?=$row['gift_id']?>" class="fl game_logo" >
+        <img src="<?=$row['logo']?>" alt="<?=$row['game_name']?>" width="50" height="auto"/>
+    </a>
+    <article class="fl information">
+        <h3><a><?=$row['game_name']?></a></h3>
+        <h4><a><?=$row['name']?></a></h4>
+        <p><a>库存：  <span class="yellow"><?=$row['store']?></span></a> </p>
+    </article>
+    <div class="fr">
+        <a class="btn_green2<?=($pn == 1 && $i < 2)?' btn_yellow':''?>">领取</a>
+    </div>
+    <hr class="linear">
+</li>
+<?php } ?>
+<?php if($gap) { foreach ($gap['ads'] as &$row) { ?>
+<li class="banner">
+    <a target="_top" href="<?=$row['url']?>">
+        <img src="<?=$row['image']?>" width="100%" height="auto"<?=$row['subject']?" alt=\"{$row['subject']}\"":''?>/>
+    </a>
+    <hr class="linear">
+</li>
+<?php } } ?>

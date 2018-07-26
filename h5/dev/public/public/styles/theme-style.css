@@ -1,0 +1,98 @@
+/**slider css  start-----------------------------*/
+.callbacks {
+  position: relative;
+  list-style: none;
+  overflow: hidden;
+  width: 100%;
+  padding: 0;
+  margin: 0;
+}
+.callbacks li {
+  position: absolute;
+  width: 100%;
+  left: 0;
+  top: 0;
+}
+.callbacks img {
+  position: relative;
+  z-index: 1;
+  height: auto;
+  border: 0;
+}
+.callbacks .caption {
+  display: block;
+  position: absolute;
+  z-index: 2;
+  font-size: 20px;
+  text-shadow: none;
+  color: #fff;
+  left: 0;
+  right: 0;
+  padding: 10px 20px;
+  margin: 0;
+  max-width: none;
+  top: 10%;
+  text-align: center;
+}
+.callbacks_nav {
+  position: absolute;
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+  top: 52%;
+  left: 0;
+  opacity: 0.7;
+  z-index: 3;
+  text-indent: -9999px;
+  overflow: hidden;
+  text-decoration: none;
+  height: 61px;
+  width: 55px;
+  /*background: transparent url("../images/themes.png") no-repeat left top;*/
+  margin-top: -65px;
+}
+.callbacks_nav:active {
+  opacity: 1.0;
+}
+.callbacks_nav.next {
+  left: auto;
+  background-position: right top;
+  right: 0;
+}
+.callbacks_tabs {
+  list-style: none;
+  position: absolute;
+  bottom: 2%;
+  z-index: 999;
+  left: 37%;
+}
+.callbacks_tabs li {
+  display: inline-block;
+}
+@media screen and (max-width: 600px) {
+  .callbacks_nav {
+    top: 47%;
+  }
+}
+/*----*/
+.callbacks_tabs a {
+  visibility: hidden;
+}
+.callbacks_tabs a:after {
+  content: "\f111";
+  font-size: 0;
+  font-family: FontAwesome;
+  visibility: visible;
+  display: block;
+  height: 13px;
+  width: 13px;
+  display: inline-block;
+  background: #FFFFFF;
+  border-radius: 30px;
+  -webkit-border-radius: 30px;
+  -moz-border-radius: 30px;
+  -o-border-radius: 30px;
+  -ms-border-radius: 30px;
+}
+.callbacks_here a:after {
+  background: #29ba67;
+}
+/**slider css  end-----------------------------*/

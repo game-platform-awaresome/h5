@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=no">
+<title>正跳转到支付页面...</title>
+</head>
+<body>
+<form action="/api/type.html" method="post" target="_top">
+<input type="hidden" name="subject" value="<?=$subject?>">
+<input type="hidden" name="deposit" value="<?=$deposit?>">
+<input type="hidden" name="return" value="<?=$return?>">
+<?php foreach ($pay as $k=>$v) { ?>
+<input type="hidden" name="pay[<?=$k?>]" value="<?=$v?>">
+<?php } ?>
+</form>
+<script>
+document.forms[0].submit();
+</script>
+</body>
+</html>

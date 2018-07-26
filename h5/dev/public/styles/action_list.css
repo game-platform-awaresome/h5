@@ -1,0 +1,192 @@
+/**
+*info:活动中心-活动列表 action_list.html styles
+*author:zhangting
+*date:2015.10.13 09:56
+*logo:
+**/
+/**变量 variables**/
+/**颜色*/
+/**混合 Mixins**/
+/**display:box**/
+/**box-flex 需要传参：伸缩值，默认为1**/
+/**box-sizing: border_box 盒子边框模型*/
+/**box_align 默认为center*/
+/**黑色透明背景*/
+/**深蓝色透明背景**/
+/**圆角的兼容函数*/
+.main {
+  margin: 5px;
+}
+.actions {
+  width: 100%;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  background-color: rgba(0, 0, 0, 0.2);
+  padding: 20px 10px;
+}
+.actions header {
+  width: 100%;
+  padding: 0 5px;
+  -webkit-box-sizing: border-box;
+  -o-box-sizing: border-box;
+  -ms-box-sizing: border-box;
+  box-sizing: border-box;
+  overflow: hidden;
+}
+.actions header a {
+  float: left;
+  width: 50%;
+  height: auto;
+  position: relative;
+}
+.actions header a img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border: 0;
+}
+.actions header a:first-child {
+  width: 67%;
+  padding-right: 3px;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+}
+.actions header a:last-child {
+  width: 33%;
+}
+.actions .action_nav {
+  overflow: hidden;
+}
+.actions .action_nav a {
+  float: left;
+  width: 33.333%;
+  height: auto;
+  padding: 5px;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  line-height: 37px;
+  background-color: rgba(0, 0, 0, 0.1);
+  background-clip: content-box;
+  color: #fff;
+  text-align: center;
+  font-size: 14px;
+}
+.actions .action_nav a.selected {
+  background-color: #2dbd6b;
+}
+.actions .open {
+  display: -webkit-box;
+  display: -moz-box;
+  display: box;
+  padding: 10px 5px;
+  cursor: pointer;
+  width: 100%;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+}
+.actions .open .line {
+  display: block;
+  width: 45%;
+  border-top: 1px solid rgba(255, 255, 255, 0.2);
+  -moz-box-flex: 2;
+  -webkit-box-flex: 2;
+  box-flex: 2;
+}
+.actions .open .i_down {
+  margin: 0px 5px;
+  top: -5px;
+  width: 25px;
+  height: 15px;
+}
+.action_info {
+  padding: 10px;
+  background-color: rgba(0, 0, 0, 0.2);
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  margin-top: 12px;
+}
+.action_info .con_border {
+  border: 1px solid rgba(255, 255, 255, 0.21);
+  /* Safari 5.1 - 6.0 */
+  /* Opera 11.1 - 12.0 */
+  /* Firefox 3.6 - 15 */
+  background: -webkit-gradient(linear, left top, right bottom, from(rgba(255, 255, 255, 0)), to(#475A56));
+  background: linear-gradient(to bottom right, rgba(255, 255, 255, 0), #475A56);
+  /* 标准的语法 */
+}
+.action_info figure {
+  background-color: rgba(255, 255, 255, 0.08);
+  padding: 10px;
+  overflow: hidden;
+}
+.action_info figure a {
+  float: left;
+  width: 114px;
+  height: auto;
+  padding: 3px;
+  background-color: rgba(255, 255, 255, 0.29);
+  border-radius: 2px;
+  margin-right: 10px;
+}
+.action_info figure a img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: 2px;
+}
+.action_info figure figcaption {
+  float: left;
+  line-height: 21px;
+  font-size: 10px;
+}
+.action_info figure figcaption h3 {
+  font-weight: 300;
+}
+.action_info .describe {
+  line-height: 26px;
+  padding: 0 10px;
+}
+.action_info .info_footer {
+  background-color: rgba(255, 255, 255, 0.11);
+  font-size: 11px;
+  height: 40px;
+  line-height: 40px;
+  padding: 0 10px;
+  margin-bottom: 10px;
+}
+.action_info .info_footer mark {
+  background-color: rgba(0, 0, 0, 0.3);
+  color: #ffffff;
+  text-align: center;
+  padding: 0px 2px;
+  margin: 0px 2px;
+}
+.action_info .info_footer button {
+  width: 72px;
+  font-size: 14px;
+  float: right;
+  height: 28px;
+  line-height: 26px;
+  margin-top: 6px;
+}
+.i_gold {
+  display: inline-block;
+  width: 19px;
+  height: 19px;
+  background: url("../images/action_center/i_gold.png") no-repeat center;
+  background-size: 100% auto;
+  position: relative;
+  top: 3px;
+}
+.btn_blue2 {
+  width: 62px;
+  padding: 0;
+  height: 20px;
+  font-size: 12px;
+  font-weight: 100;
+  border: 0;
+  font-family: inherit;
+  background-color: #2a8eff;
+  color: #fff;
+  border-radius: 3px;
+}

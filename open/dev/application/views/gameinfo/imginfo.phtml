@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+<meta charset="UTF-8">
+<title>图片素材 - 游戏管理 久乐游戏开发者平台</title>
+<link rel="stylesheet" href="/css/base.css"/>
+<link rel="stylesheet" href="/css/game_images.css"/>
+<link rel="stylesheet" href="/js/dxj-alert/dxj-alert.css"/>
+<style>
+.ul_imgs li{position:relative}
+.ul_up li{position:relative; text-align:center}
+input.file{border:none; cursor:pointer; height:37px; margin-left:-40px; margin-top:-53px; filter:alpha(opacity=0); opacity:0; overflow:hidden; position:absolute; width:80px; z-index:1}
+</style>
+</head>
+<body class="user">
+    <div class="container">
+        <?php include $this->getScriptPath().'/header.phtml'; ?>
+        <div class="main2">
+            <div class="center">
+                <?php include $this->getScriptPath().'/info_menu.phtml'; ?>
+                <section class="content">
+                <form method="post" enctype="multipart/form-data">
+                    <header class="user_title">
+                        <nav>
+                            <a href="/gameininfo/index.html?game_id=<?=$game_id?>">游戏总览</a>
+                            <span class="gt"> &gt; </span>
+                            <strong>图片素材</strong>
+                        </nav>
+                    </header>
+                    <h2 class="section_title">游戏LOGO<span class="red"> （游戏图标ICON 尺寸为100*100 文件大小&lt;20KB) </span></h2>
+                    <ul class="ul_up">
+                        <li>
+                            <img src="<?=$logo?$logo:'/images/logo-dft.jpg'?>" style="height:100px; width:100px"/>
+                            <button class="btn_white">上传图标</button>
+                            <input type="file" class="file" id="logo" name="logo">
+                            <span id="logo_fn"></span>
+                        </li>
+                    </ul>
+                    <hr class="split_line" />
+
+                    <h2 class="section_title">游戏截图<span class="red"> （图片尺寸为 291*459   文件大小&lt;80KB ) </span></h2>
+                    <ul class="ul_imgs">
+                    <?php for($i=1; $i<5; $i++) { ?>
+                        <li>
+                            <img src="<?=empty($screenshots[$i])?'/images/ss-dft.jpg':$screenshots[$i]?>" style="height:236px; width:150px"/>
+                            <button class="btn_white">上传图片</button>
+                            <input type="file" class="file" id="ss<?=$i?>" name="ss[]">
+                            <span id="ss<?=$i?>_fn"></span>
+                        </li>
+                    <?php } ?>
+                    </ul>
+                    <div class="text_center">
+                        <input type="submit" class="btn_green2" value="保存信息"/>
+                    </div>
+                </form>
+                </section>
+            </div>
+        </div>
+        <?php include $this->getScriptPath().'/footer.phtml'; ?>
+    </div>
+<script src="/js/jquery-1.11.1.min.js"></script>
+<script src="/js/dxj-alert/dxj-alert.js"></script>
+<script>
+<?php include $this->getScriptPath().'/info_base.js'; ?>
+$(function(){
+	$('input[type="file"]').on('change', function(){
+		if( this.files.length < 1 ) return false;
+		var t = this.files[0].type;
+		var id = this.id;
+		var fn = $('#'+id+'_fn');
+		if( t != 'image/jpeg' && t != 'image/png' && t != 'image/gif' ) {
+			dxjalert('请选择PNG、JPG或GIF格式的图片！', 'error');
+			this.value = '';
+			this.files = [];
+			fn.html('');
+			return false;
+		}
+		if( this.value ) {
+			if( (this.id == 'logo' && this.files[0].size > 20*1024) || (this.id != 'logo' && this.files[0].size > 80*1024) ) {
+    			dxjalert('图片太大了，请注意提示的图片大小限制！', 'error');
+    			this.value = '';
+    			this.files = [];
+    			fn.html('');
+    			return false;
+			}
+		}
+		fn.html(this.value);
+		if( typeof FileReader == 'function' ) {
+    		var reader = new FileReader();
+    		reader.onload = function(e) {
+    			$('#'+id).prev().prev().attr('src', e.target.result);
+    		}
+    		reader.readAsDataURL(this.files[0]);
+		}
+		return true;
+	});
+});
+</script>
+</body>
+</html>

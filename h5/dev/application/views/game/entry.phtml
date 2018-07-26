@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><meta charset="UTF-8">
+<meta name="generator" content="namiyx.dxj">
+<meta content="yes" name="apple-touch-fullscreen"><meta content="yes" name="full-screen">
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=no"/>
+<title><?=$game_name?> - 久乐游戏</title>
+<style>
+html,body,iframe,object{margin:0; padding:0;}
+iframe,object{height:100%; height:100vh; width:100%; overflow:hidden; position:relative;}
+.namiyx{background-color:#000; width:100%; height:100vh; position:absolute; left:0; top:0; z-index:2;}
+.namiyx img{width:202px; height:48px; position:absolute; left:50%; top:50%; margin:-24px auto auto -99px;}
+</style>
+</head>
+<body>
+<div class="namiyx"><img src="/public/images/namiyx.jpg"/></div>
+<script src="/public/scripts/jquery-1.11.1.min.js"></script>
+<script src="/public/scripts/jquery.mobile.min.js"></script>
+<script>
+(function(){
+	var h = $(window).height(),
+	w = $(window).width(),
+	lt = '<?=$load_type?>',
+	url = '<?=$url?>';
+	if(lt == 'iframe') {
+		var obj = '<iframe src="'+url+'" scrolling="no" frameborder="0" style="height:'+h+'px; width:'+w+'px;" marginheight="0" marginwidth="0"></iframe>';
+	} else {
+	    var obj = '<object data="'+url+'" type="text/html" border="0" style="height:'+h+'px; width:'+w+'px;"></object>';
+	}
+	document.write(obj);
+	$(window).on("orientationchange", function(){
+		$('iframe, object').css({height: $(window).height(), width: $(window).width()});
+	});
+	setTimeout(function(){
+		$('.namiyx').fadeOut();
+	}, 2000);
+})();
+</script>
+<div style="width:0;height:0;overflow:hidden;"><script src="http://s95.cnzz.com/z_stat.php?id=1256660450&web_id=1256660450"></script></div>
+</body>
+</html>

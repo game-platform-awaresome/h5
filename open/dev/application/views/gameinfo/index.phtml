@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+<meta charset="UTF-8">
+<title><?=$game_name?> - 游戏总览 久乐游戏开发者平台</title>
+<link rel="stylesheet" href="/css/base.css"/>
+<link rel="stylesheet" href="/css/game_index.css"/>
+</head>
+<body class="user">
+<div class="container">
+    <?php include $this->getScriptPath().'/header.phtml'; ?>
+    <div class="main2">
+        <div class="center">
+            <?php include $this->getScriptPath().'/info_menu.phtml'; ?>
+            <div class="content">
+                <section class="sections">
+                    <header class="user_title">游戏申请进度</header>
+                    <figure class="game_menu">
+                    <?php if( $logo ) { ?>
+                        <a>
+                            <img src="<?=$logo?>" width="100" height="100" alt="<?=$game_name?>"/>
+                        </a>
+                    <?php } ?>
+                        <article>
+                            <p>
+                                <label>游戏ID:</label>
+                                <span><?=$game_id?></span>
+                            </p>
+                            <p>
+                                <label>游戏KEY:</label>
+                                <span><?=$sign_key?></span>
+                            </p>
+                        </article>
+                    </figure>
+
+                    <div class="step_cont">
+                        <ul class="step" id="step1">
+                            <li class="choose">
+                                <span class="number"> <i>1</i> </span>
+                                <i class="lines lines_right"></i>
+                                <h3>创建游戏</h3>
+                            </li>
+                            <li<?=($status >= 3) ? ' class="choose"' : ''?>>
+                                <i class="lines lines_left"></i>
+                                <span class="number"> <i>2</i> </span>
+                                <i class="lines lines_right"></i>
+                                <h3>完善资料</h3>
+                            </li>
+                            <li<?=($status >= 4) ? ' class="choose"' : ''?>>
+                                <i class="lines lines_left"></i>
+                                <span class="number"> <i>3</i> </span>
+                                <i class="lines lines_right"></i>
+                                <h3>提交审核</h3>
+                            </li>
+                            <li<?=($status >= 5) ? ' class="choose"' : ''?>>
+                                <i class="lines lines_left"></i>
+                                <span class="number"> <i>4</i> </span>
+                                <i class="lines lines_right"></i>
+                                <h3><?=($status == 5) ? '审核未通过' : '审核通过'?></h3>
+                            </li>
+                            <li<?=($status >= 9) ? ' class="choose"' : ''?>>
+                                <i class="lines lines_left"></i>
+                                <span class="number"><i>5</i></span>
+                                <h3>上线运营</h3>
+                            </li>
+                        </ul>
+                    </div>
+                    <?php if($status < 3) { ?>
+                    <p class="bottom_tips">
+                        <span class="grey">温馨提示：您的游戏信息还未完成，您还需要：</span>
+                    <?php
+                        switch ($status)
+                        {
+                            case 0: $url = '/gameinfo/editinfo.html'; break;
+                            case 1: $url = '/gameinfo/imginfo.html'; break;
+                            case 2: $url = '/gameinfo/editapi.html'; break;
+                        }
+                    ?>
+                        <a href="<?=$url?>?game_id=<?=$game_id?>" class="green">完善游戏信息</a>
+                    </p>
+                    <?php } ?>
+                </section>
+
+                <section class="sections"<?=$status == 9 ? ' id="container" style="height:400px"' : ''?>>
+                <?php if($status != 9) { ?>
+                    <header class="user_title">游戏接入步骤</header>
+                    <div class="step_cont">
+                        <ul class="step" id="step2">
+                            <li class="choose">
+                                <h3>创建游戏</h3>
+                                <span class="number"> <i class="icons i_game3"></i> </span>
+                                <i class="lines lines_right"></i>
+                            </li>
+                            <li class="choose">
+                                <h3>完善资料</h3>
+                                <i class="lines lines_left"></i>
+                                <span class="number"> <i class="icons i_edit3"></i> </span>
+                                <i class="lines lines_right"></i>
+                            </li>
+                            <li<?=($status >= 4) ? ' class="choose"' : ''?>>
+                                <h3>提交审核</h3>
+                                <i class="lines lines_left"></i>
+                                <span class="number"> <i class="icons i_commit"></i> </span>
+                                <i class="lines lines_right"></i>
+                            </li>
+                            <li<?=($status >= 5) ? ' class="choose"' : ''?>>
+                                <h3><?=($status==5)?'审核未通过':'审核通过'?></h3>
+                                <i class="lines lines_left"></i>
+                                <span class="number"> <i class="icons  i_wait"></i> </span>
+                                <i class="lines lines_right"></i>
+                            </li>
+                            <li<?=($status >= 9) ? ' class="choose"' : ''?>>
+                                <h3>上线运营</h3>
+                                <i class="lines lines_left"></i>
+                                <span class="number"><i class="icons i_online2"></i></span>
+                            </li>
+                        </ul>
+                        <dl class="step_down">
+                            <dt<?=($status >= 1) ? ' class="choose2"' : ''?>>
+                                <i class="lines lines_up"></i>
+                                <label>
+                                    <span class="number"> <i class="icons i_info"></i> </span>
+                                    <a<?=($status < 1) ? " href=\"/gameinfo/editinfo.html?game_id={$game_id}\"" : ''?>>完善游戏信息</a>
+                                </label>
+                            </dt>
+                            <dt<?=($status >= 2) ? ' class="choose2"' : ''?>>
+                                <i class="lines lines_down"></i>
+                                <label>
+                                    <span class="number"> <i class="icons i_imgs2"></i> </span>
+                                    <a<?=($status < 2) ? " href=\"/gameinfo/imginfo.html?game_id={$game_id}\"" : ''?>>上传图标素材</a>
+                                </label>
+                            </dt>
+                            <dt<?=($status >= 3) ? ' class="choose2"' : ''?>>
+                                <i class="lines lines_down"></i>
+                                <label>
+                                    <span class="number"> <i class="icons i_join2"></i> </span>
+                                    <a<?=($status < 3) ? " href=\"/gameinfo/editapi.html?game_id={$game_id}\"" : ''?>>完善API对接</a>
+                                </label>
+                            </dt>
+                        </dl>
+                    </div>
+                <?php } ?>
+                </section>
+            </div>
+        </div>
+    </div>
+    <?php include $this->getScriptPath().'/footer.phtml'; ?>
+</div>
+<script src="/js/jquery-1.11.1.min.js"></script>
+<?php if($status == 9) { ?>
+<script src="/js/Highcharts/highcharts.js"></script>
+<?php } ?>
+<script>
+<?php include $this->getScriptPath().'/info_base.js'; ?>
+<?php if($status == 9) { ?>
+$(function(){
+    $('#container').highcharts({
+        title: {
+            text: '最近一月走势',
+            x: -20
+        },
+        subtitle: {
+            text: '最近一月的充值流水及活跃用户走势',
+            x: -20
+        },
+        xAxis: {
+            categories: [<?php $comma = ''; foreach ($stats as $row) { echo "{$comma}'{$row['ymd']}'"; $comma = ','; } ?>]
+        },
+        yAxis: {
+            title: {
+                text: '金额或人数'
+            },
+            plotLines: [{
+                value: 0,
+                width: 1,
+                color: '#808080'
+            }]
+        },
+        legend: {
+            layout: 'vertical',
+            align: 'right',
+            verticalAlign: 'middle',
+            borderWidth: 0
+        },
+        series: [{
+            name: '充值流水',
+            data: [<?php $comma = ''; foreach ($stats as $row) { echo "{$comma}{$row['recharge_money']}"; $comma = ','; } ?>]
+        }, {
+            name: '充值用户数',
+            data: [<?php $comma = ''; foreach ($stats as $row) { echo "{$comma}{$row['recharge_people']}"; $comma = ','; } ?>]
+        }, {
+            name: '活跃用户数',
+            data: [<?php $comma = ''; foreach ($stats as $row) { echo "{$comma}{$row['signon_people']}"; $comma = ','; } ?>]
+        }]
+    });
+});
+<?php } ?>
+</script>
+</body>
+</html>

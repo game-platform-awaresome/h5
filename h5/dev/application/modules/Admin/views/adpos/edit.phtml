@@ -1,0 +1,78 @@
+    <div class="content-box">
+      <!-- Start Content Box -->
+      <div class="content-box-header">
+        <h3><?=$title?></h3>
+        <a class="go_back" href="javascript:history.go(-1);">返回上一页</a>
+        <div class="clear"></div>
+      </div>
+      <!-- End .content-box-header -->
+      <div class="content-box-content">
+        <div class="tab-content default-tab">
+          <form action="/admin/<?=$controller?>/update?<?=$query?>" method="post" enctype="multipart/form-data">
+          <input type="hidden" name="info[pos_id]" value="<?php echo isset($info) ? $info['pos_id'] : ''; ?>" />
+            <fieldset>
+            <!-- Set class to "column-left" or "column-right" on fieldsets to divide the form into columns -->
+            <p>
+              <label>广告位名称</label>
+              <input class="text-input small-input" type="text" name="info[name]" value="<?php echo isset($info) ? $info['name'] : ''; ?>" />
+            </p>
+            <p>
+              <label>程序调用代码</label>
+              <input class="text-input small-input" type="text" name="info[pos_code]" value="<?php echo isset($info) ? $info['pos_code'] : ''; ?>" />
+            </p>
+            <p>
+              <label>广告位置预览</label>
+              <input type="file" name="preview">&nbsp;
+              <?php if(isset($info) && $info['preview']) echo "<a class=\"lightbox\" href=\"{$info['preview']}\"><img style=\"max-height:120px;\" src=\"{$info['preview']}\"></a>"; ?>
+            </p>
+            
+            <p id="ad_width">
+              <label>宽度（图片广告可用）</label>
+              <input class="text-input small-input" type="text" name="info[width]" value="<?php echo isset($info) ? $info['width'] : ''; ?>" />
+            </p>
+            <p id="ad_height">
+              <label>高度（图片广告可用）</label>
+              <input class="text-input small-input" type="text" name="info[height]" value="<?php echo isset($info) ? $info['height'] : ''; ?>" />
+            </p>
+            
+            <p>
+              <label>默认广告图片</label>
+              <input type="file" name="image">&nbsp;
+              <?php if(isset($info) && $info['image']) echo "<a class=\"lightbox\" href=\"{$info['image']}\"><img style=\"max-height:120px;\" src=\"{$info['image']}\"></a>"; ?>
+            </p>
+            <p>
+              <label>默认广告标题</label>
+              <input class="text-input medium-input" type="text" name="info[subject]" value="<?php echo isset($info) ? $info['subject'] : ''; ?>" />
+            </p>
+            
+            <p>
+              <label>默认广告链接</label>
+              <input class="text-input medium-input" type="text" name="info[url]" value="<?php echo isset($info) ? $info['url'] : ''; ?>" />
+            </p>
+            <p>
+              <label>是否可申请</label>
+              <select name="info[can_apply]">
+              <?php foreach (array('0'=>'否','1'=>'是') as $lk=>$lv) { ?>
+                <option value="<?=$lk?>"<?php if(isset($info) && $info['can_apply'] == $lk) echo ' selected="selected"'; ?>><?=$lv?></option>
+              <?php } ?>
+              </select>
+            </p>
+            <p>
+              <label>显示顺序<small>（升序，最大255）</small></label>
+              <input class="text-input small-input" type="text" name="info[display]" value="<?php echo isset($info) ? $info['display'] : '0'; ?>" />
+            </p>
+            <p>
+              <input class="button" type="submit" value="提交" />
+            </p>
+            </fieldset>
+            <div class="clear"></div>
+            <!-- End .clear -->
+          </form>
+        </div>
+        <!-- End #tab2 -->
+      </div>
+      <!-- End .content-box-content -->
+    </div>
+    <!-- End .content-box -->
+
+    <div class="clear"></div>
