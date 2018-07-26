@@ -38,7 +38,7 @@ class GameController extends Yaf_Controller_Abstract
         //快捷通道下方
         $assign['shortcut'] = $m_adpos->getByCode('game_shortcut_banner', 1);
         //火爆新游
-        $assign['hotnew'] = $m_adpos->getByCode('game_index_hotnew', 8);
+        $assign['hotnew'] = $m_adpos->getByCode('game_index_hotnew', 10);
         //最新活动
         $assign['activity'] = $m_adpos->getByCode('game_index_activity', 2, false);
         

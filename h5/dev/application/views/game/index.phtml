@@ -119,14 +119,24 @@
                     <span class="title_name"> <i class="icons i_fire"></i>火爆新游</span>
                     <a class="more" href="/game/center.html">更多 &gt;</a>
                 </h2>
-                <div class="scroll_cont">
-                    <nav class="block_bg nav_img">
-                    <?php foreach ($hotnew['ads'] as &$row) { ?>
-                        <a href="<?=$row['url']?>">
-                            <img src="<?=$row['image']?>" width="50" height="50" alt="<?=$row['subject']?>">
-                            <h4><?=$row['subject']?></h4>
-                        </a>
-                    <?php } ?>
+<!--                <div class="scroll_cont">-->
+<!--                    <nav class="block_bg nav_img">-->
+<!--                    --><?php //foreach ($hotnew['ads'] as &$row) { ?>
+<!--                        <a href="--><?//=$row['url']?><!--">-->
+<!--                            <img src="--><?//=$row['image']?><!--" width="50" height="50" alt="--><?//=$row['subject']?><!--">-->
+<!--                            <h4>--><?//=$row['subject']?><!--</h4>-->
+<!--                        </a>-->
+<!--                    --><?php //} ?>
+<!--                    </nav>-->
+<!--                </div>-->
+                <div >
+                    <nav class="types_nav">
+                        <?php foreach ($hotnew['ads'] as &$row) { ?>
+                            <a href="<?=$row['url']?>" style="float: left;width: 20%;text-align: center">
+                                <img src="<?=$row['image']?>" width="80%" height="auto" alt="<?=$row['subject']?>">
+                                <h4><?=$row['subject']?></h4>
+                            </a>
+                        <?php } ?>
                     </nav>
                 </div>
             </section>
@@ -136,7 +146,7 @@
             <section class="game_news action">
                 <h2 class="title">
                     <span class="title_name"> <i class="icons i_action"></i>最新活动</span>
-                    <a class="more" href="javascript:void(0);">更多 &gt;</a>
+                    <a class="more" href="/activity/index">更多 &gt;</a>
                 </h2>
             <?php foreach ($activity['ads'] as $row) { ?>
                 <div class="actions">
