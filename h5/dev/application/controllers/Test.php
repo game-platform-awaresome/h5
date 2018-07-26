@@ -21,5 +21,12 @@ class TestController extends Yaf_Controller_Abstract
         var_dump($info2);
         die;
     }
+    public function test2Action(){
+        $channel=new TgchannelModel();
+        var_dump($channel->fetchAll());
+        $article=new ArticleModel();
+        $articles=$article->fetchAll();
+        die;
+    }
 
 }

@@ -2,13 +2,13 @@
 
 class TgstatisticsModel extends F_Model_Pdo
 {
-	protected $_table = 'statistics';
+	protected $_table = 'tg_statistics';
 	protected $_primary = 'stat_id';
 	
-	public function __construct()
-	{
-//	    parent::__construct('h5_tg');
-	}
+//	public function __construct()
+//	{
+////	    parent::__construct('h5_tg');
+//	}
 	
 	public function getTableLabel()
 	{
@@ -18,7 +18,10 @@ class TgstatisticsModel extends F_Model_Pdo
 	public function getFieldsLabel()
 	{
 	    return array(
-	        'ymd' => '统计日期',
+	        'ymd' => function(&$row){
+                if( empty($row) ) return '统计日期';
+                return date('Y-m-d H:i:s', $row['ymd']);
+            },
 	        'channel' => function(&$row){
 	            if(empty($row)) return '推广渠道';
 	            $model = F_Model_Pdo::getInstance('Tgchannel');

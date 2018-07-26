@@ -89,24 +89,24 @@ class IndexController extends Yaf_Controller_Abstract
 	
 	public function rightAction()
 	{
-//		Yaf_Registry::set('layout', 1);
-//
+		Yaf_Registry::set('layout', 1);
+
 		if( empty($this->a_info) ) {
 			return false;
 		}
 
-//		$mem = new Memcache();
-//		$mem->addServer('127.0.0.1');
-//		$stat = $mem->getStats();
-//		$stat['used_percent'] = floor(($stat['bytes'] / $stat['limit_maxbytes']) * 100).'%';
-//		if( $stat['bytes'] > 1048576 ) {
-//		    $stat['bytes'] = round($stat['bytes'] / 1048576).'M';
-//		} elseif( $stat['bytes'] > 1024 ) {
-//		    $stat['bytes'] = round($stat['bytes'] / 1024).'K';
-//		} else {
-//		    $stat['bytes'] .= 'B';
-//		}
-//		$stat['limit_maxbytes'] = ($stat['limit_maxbytes'] / 1048576).'M';
-//		$this->getView()->assign('stat', $stat);
+		$mem = new Memcache();
+		$mem->addServer('127.0.0.1');
+		$stat = $mem->getStats();
+		$stat['used_percent'] = floor(($stat['bytes'] / $stat['limit_maxbytes']) * 100).'%';
+		if( $stat['bytes'] > 1048576 ) {
+		    $stat['bytes'] = round($stat['bytes'] / 1048576).'M';
+		} elseif( $stat['bytes'] > 1024 ) {
+		    $stat['bytes'] = round($stat['bytes'] / 1024).'K';
+		} else {
+		    $stat['bytes'] .= 'B';
+		}
+		$stat['limit_maxbytes'] = ($stat['limit_maxbytes'] / 1048576).'M';
+		$this->getView()->assign('stat', $stat);
 	}
 }

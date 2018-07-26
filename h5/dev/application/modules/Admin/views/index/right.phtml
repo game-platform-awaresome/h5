@@ -19,7 +19,7 @@
       <!-- End .content-box-header -->
       <div class="content-box-content">
         <div class="tab-content default-tab">
-<!--          <h4>--><?//=number_format($stat['curr_items'], 0)?><!--</h4>-->
+          <h4><?=number_format($stat['curr_items'], 0)?></h4>
         </div>
         <!-- End #tab3 -->
       </div>
@@ -34,9 +34,9 @@
       <!-- End .content-box-header -->
       <div class="content-box-content">
         <div class="tab-content default-tab">
-<!--          <p>已使用：--><?//=$stat['bytes']?><!--</p>-->
-<!--          <p>总&nbsp;&nbsp;&nbsp;计：--><?//=$stat['limit_maxbytes']?><!--</p>-->
-<!--          <p>使用率：--><?//=$stat['used_percent']?><!--</p>-->
+          <p>已使用：<?=$stat['bytes']?></p>
+          <p>总&nbsp;&nbsp;&nbsp;计：<?=$stat['limit_maxbytes']?></p>
+          <p>使用率：<?=$stat['used_percent']?></p>
         </div>
         <!-- End #tab3 -->
       </div>
