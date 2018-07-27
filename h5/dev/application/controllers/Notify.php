@@ -119,7 +119,7 @@ class NotifyController extends Yaf_Controller_Abstract
     /**
      * 金猪
      */
-    public function pigpay(){
+    public function pigpayAction(){
         $class = new Pay_Pigpay_Mobile();
         $rs = $class->notify();
         if( $rs == false ) {
