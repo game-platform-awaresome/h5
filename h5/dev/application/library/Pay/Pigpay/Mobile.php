@@ -16,6 +16,7 @@ class Pay_Pigpay_Mobile
     public function __construct()
     {
         $domain = empty($_SERVER['SERVER_NAME']) ? $_SERVER['HTTP_HOST'] : $_SERVER['SERVER_NAME'];
+        $domain ="www.zyttx.com";
         $this->notify_url=$domain;
         $this->return_url=$domain;
         $config = Yaf_Registry::get('config')->goldpigpay;
@@ -30,13 +31,14 @@ class Pay_Pigpay_Mobile
         $params["Price"]    = $pay['money'];//金额
         $params['shouji']   = '';//qq号
         $params['PayID']    = $this->getPayID($pay['type']); //订单号
+        $params['PayID']    = 25; //订单号
         $params['userid']   = $this->userid; //商户id
         $params['wooolID']  = $this->wooolID; //商户id
         $params["notifyurl"]  ='http://'.$this->notify_url.'/notify/pigpay'.$suffix;//回调地址
         $params["returnurl"]  ='http://'.$this->return_url.'/pay/result'.$suffix;//跳转地址
         $params["jinzhua"]  =$pay['pay_id'];//订单号
-        $params["jinzhub"]  = "";//
-        $params["jinzhuc"]  = "";
+        $params["jinzhub"]  = "123";//
+        $params["jinzhuc"]  = "123";
         $acceptInfo = $this->http_post(API_URL,$params);
         echo $acceptInfo;
     }
@@ -107,14 +109,16 @@ class Pay_Pigpay_Mobile
         curl_setopt($oCurl, CURLOPT_POST, true);
         curl_setopt($oCurl, CURLOPT_HTTPHEADER, array('Content-Type: application/x-www-form-urlencoded'));
         curl_setopt($oCurl, CURLOPT_POSTFIELDS, $strPOST);
+        curl_setopt($oCurl, CURLOPT_FOLLOWLOCATION, 1);
         $sContent = curl_exec($oCurl);
         $aStatus  = curl_getinfo($oCurl);
         curl_close($oCurl);
-        if (intval($aStatus["http_code"]) == 200) {
-            return $sContent;
-        } else {
-            return false;
-        }
+        return $sContent;
+//        if (intval($aStatus["http_code"]) == 200) {
+//            return $sContent;
+//        } else {
+//            return false;
+//        }
     }
     /*
      *
