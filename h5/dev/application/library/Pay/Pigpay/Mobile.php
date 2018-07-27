@@ -105,6 +105,7 @@ class Pay_Pigpay_Mobile
         curl_setopt($oCurl, CURLOPT_URL, $url);
         curl_setopt($oCurl, CURLOPT_RETURNTRANSFER, 1);
         curl_setopt($oCurl, CURLOPT_POST, true);
+        curl_setopt($oCurl, CURLOPT_HTTPHEADER, array('Content-Type: application/x-www-form-urlencoded'));
         curl_setopt($oCurl, CURLOPT_POSTFIELDS, $strPOST);
         $sContent = curl_exec($oCurl);
         $aStatus  = curl_getinfo($oCurl);
