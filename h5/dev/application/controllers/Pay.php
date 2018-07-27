@@ -108,7 +108,25 @@ class PayController extends Yaf_Controller_Abstract
 	    $conf = Yaf_Application::app()->getConfig();
 	    $this->getView()->assign(array('parities'=>$conf->application->parities, 'pay'=>$this->pay));
 	}
-	
+
+    /**
+     * 支付
+     */
+	public function depositPostAction(){
+        $req = $this->getRequest();
+        $arr = $req->getParams();
+        var_dump($arr);
+        $request=$this->getRequest();
+        if($request->method=='POST'){
+            //请求参数
+            $name= $this->getRequest()->getPost("money");
+            $params=$this->getRequest()->getParams();
+            return $params;
+        }else{
+            throw new Exception('非法请求');
+        }
+        return false;
+    }
 	//选择要充值的游戏
 	public function gameAction()
 	{

@@ -15,7 +15,7 @@
     </header>
 
     <!--div.z_min 内容区域 statr-->
-    <div class="z_main" data-role="conent">
+    <form class="z_main" data-role="conent" method="post" action="/Pay/depositPost">
         <h3 class="block_bg your_money" style="position:relative">
             <span>充入账号：</span>
             <b class="bold green"><?=$pay['to_user']?></b>
@@ -41,33 +41,31 @@
                 <li><span>500</span>元</li>
             </ul>
         </section>
-        <section class="block_bg choses" style="display:none">
+        <section class="block_bg choses">
             <h3>充值方式：</h3>
             <ul>
+<!--                <li>-->
+<!--                    <span data-type="iapppay" class="checkbox checkbox_active"><i></i></span>-->
+<!--                    <span class="i_zfb"><i></i></span>-->
+<!--                    <span>在线支付</span>-->
+<!--                </li>-->
                 <li>
-                    <span data-type="iapppay" class="checkbox checkbox_active"><i></i></span>
-                    <span class="i_zfb"><i></i></span>
-                    <span>在线支付</span>
-                </li>
-                <li>
-                    <span data-type="alipay" class="checkbox"><i></i></span>
+                    <input type="radio" name="pay_type" value="alipay" data-type="alipay" class="checkbox" checked/>
                     <span class="i_zfb"><i></i></span>
                     <span>支付宝</span>
                 </li>
-                <?php if( strpos($_SERVER['HTTP_USER_AGENT'], 'MicroMessenger') ) { ?>
                 <li>
-                    <span data-type="wxpay" class="checkbox"><i></i></span>
+                    <input type="radio" name="pay_type" value="wxpay" data-type="wxpay" class="checkbox"/>
                     <span class="i_weixin"><i></i></span>
                     <span>微信</span>
                 </li>
-                <?php } ?>
             </ul>
         </section>
         <div class="btn_cont">
-            <a id="next_step" class="btn_green" target="_top">确认充值</a>
+            <button id="next_step" class="btn_green" target="_top" style="width: 80%">确认充值</button>
         </div>
         <div class="footer_padding"></div>
-    </div>
+    </form>
     <!--div.z_min 内容区域 end-->
 </div>
 <!--div.container 总外框  end-->
@@ -133,21 +131,24 @@ $(function(){
         */
     });
 
-    $('#next_step').on('tap', function(){
+    $('#next_step').on('click', function(){
     	var mn = parseInt($("input[name=money]").val());
         if( isNaN(mn) || mn < 1 ) {
         	alert('最小充值金额为1元！');
             return false;
         }
         if( mn > 60000 ) mn = 60000;
+        var data=$('.z_main').serialize();
+        // alert(data);
+        // return false;
         /*var tp = $('.checkbox_active:visible');
         if( tp.length < 1 ) {
             alert('请选择支付方式！');
             return false;
         }
         tp = tp.attr('data-type');*/
-        var tp = 'iapppay';
-        location.href = '/pay/checkout.html?type='+ tp +'&money='+ mn;
+        // var tp = 'iapppay';
+        // location.href = '/pay/checkout.html?type='+ tp +'&money='+ mn;
     });
 });
 </script>
