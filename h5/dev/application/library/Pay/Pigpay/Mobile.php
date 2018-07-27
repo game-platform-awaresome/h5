@@ -31,7 +31,6 @@ class Pay_Pigpay_Mobile
         $params["Price"]    = $pay['money'];//金额
         $params['shouji']   = '';//qq号
         $params['PayID']    = $this->getPayID($pay['type']); //订单号
-        $params['PayID']    = 25; //订单号
         $params['userid']   = $this->userid; //商户id
         $params['wooolID']  = $this->wooolID; //商户id
         $params["notifyurl"]  ='http://'.$this->notify_url.'/notify/pigpay'.$suffix;//回调地址
@@ -173,9 +172,9 @@ class Pay_Pigpay_Mobile
             //移动端
             switch ($type){
                 case 'alipay':
-                    return 25;
+                    return 26;
                 case 'wxpay':
-                    return 16;
+                    return 29;
                 default:
                     throw new Exception('未知的支付方式');
             }
