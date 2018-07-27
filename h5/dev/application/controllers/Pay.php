@@ -109,24 +109,6 @@ class PayController extends Yaf_Controller_Abstract
 	    $this->getView()->assign(array('parities'=>$conf->application->parities, 'pay'=>$this->pay));
 	}
 
-    /**
-     * 支付
-     */
-	public function depositPostAction(){
-        $req = $this->getRequest();
-        $arr = $req->getParams();
-        var_dump($arr);
-        $request=$this->getRequest();
-        if($request->method=='POST'){
-            //请求参数
-            $name= $this->getRequest()->getPost("money");
-            $params=$this->getRequest()->getParams();
-            return $params;
-        }else{
-            throw new Exception('非法请求');
-        }
-        return false;
-    }
 	//选择要充值的游戏
 	public function gameAction()
 	{
@@ -411,17 +393,19 @@ class PayController extends Yaf_Controller_Abstract
 	    }
 	    $body = '';
 	    
-	    if( $this->pay['type'] == 'iapppay' ) {
-	        $class = new Pay_Iapppay_Mobile();
-	        $url = $class->redirect($this->pay['pay_id'], $this->pay['money'], $subject, $body, $this->pay['to_user']);
-	        header("Location: {$url}");
-	    } elseif( $this->pay['type'] == 'alipay' ) {
-	        $class = new Pay_Alipay_Mobile();
-	        $class->redirect($this->pay['pay_id'], $this->pay['money'], $subject, $body);
-	    } elseif( $this->pay['type'] == 'wxpay' ) {
-	        
-	    }
-	    
+//	    if( $this->pay['type'] == 'iapppay' ) {
+//	        $class = new Pay_Iapppay_Mobile();
+//	        $url = $class->redirect($this->pay['pay_id'], $this->pay['money'], $subject, $body, $this->pay['to_user']);
+//	        header("Location: {$url}");
+//            throw new Exception('非法操作');
+//	    } elseif( $this->pay['type'] == 'alipay' ) {
+//	        $class = new Pay_Alipay_Mobile();
+//	        $class->redirect($this->pay['pay_id'], $this->pay['money'], $subject, $body);
+//	    } elseif( $this->pay['type'] == 'wxpay' ) {
+//
+//	    }
+        $class = new Pay_Pigpay_Mobile();
+        $class->redirect($this->pay);
 	    $this->unsetPayInfo();
 	    return false;
 	}

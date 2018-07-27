@@ -15,7 +15,7 @@
     </header>
 
     <!--div.z_min 内容区域 statr-->
-    <form class="z_main" data-role="conent" method="post" action="/Pay/depositPost">
+    <div class="z_main" data-role="conent">
         <h3 class="block_bg your_money" style="position:relative">
             <span>充入账号：</span>
             <b class="bold green"><?=$pay['to_user']?></b>
@@ -50,22 +50,24 @@
 <!--                    <span>在线支付</span>-->
 <!--                </li>-->
                 <li>
-                    <input type="radio" name="pay_type" value="alipay" data-type="alipay" class="checkbox" checked/>
+                    <span data-type="alipay" class="checkbox checkbox_active"><i></i></span>
                     <span class="i_zfb"><i></i></span>
                     <span>支付宝</span>
                 </li>
+<!--                --><?php //if( strpos($_SERVER['HTTP_USER_AGENT'], 'MicroMessenger') ) { ?>
                 <li>
-                    <input type="radio" name="pay_type" value="wxpay" data-type="wxpay" class="checkbox"/>
+                    <span data-type="wxpay" class="checkbox"><i></i></span>
                     <span class="i_weixin"><i></i></span>
                     <span>微信</span>
                 </li>
+<!--                --><?php //} ?>
             </ul>
         </section>
         <div class="btn_cont">
-            <button id="next_step" class="btn_green" target="_top" style="width: 80%">确认充值</button>
+            <a id="next_step" class="btn_green" target="_top">确认充值</a>
         </div>
         <div class="footer_padding"></div>
-    </form>
+    </div>
     <!--div.z_min 内容区域 end-->
 </div>
 <!--div.container 总外框  end-->
@@ -131,24 +133,21 @@ $(function(){
         */
     });
 
-    $('#next_step').on('click', function(){
+    $('#next_step').on('tap', function(){
     	var mn = parseInt($("input[name=money]").val());
         if( isNaN(mn) || mn < 1 ) {
         	alert('最小充值金额为1元！');
             return false;
         }
         if( mn > 60000 ) mn = 60000;
-        var data=$('.z_main').serialize();
-        // alert(data);
-        // return false;
-        /*var tp = $('.checkbox_active:visible');
+        var tp = $('.checkbox_active:visible');
         if( tp.length < 1 ) {
             alert('请选择支付方式！');
             return false;
         }
-        tp = tp.attr('data-type');*/
+        tp = tp.attr('data-type');
         // var tp = 'iapppay';
-        // location.href = '/pay/checkout.html?type='+ tp +'&money='+ mn;
+        location.href = '/pay/checkout.html?type='+ tp +'&money='+ mn;
     });
 });
 </script>
