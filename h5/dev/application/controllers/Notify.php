@@ -115,4 +115,16 @@ class NotifyController extends Yaf_Controller_Abstract
         
         $this->deal($rs['pay_id'], $rs['trade_no'], $rs['pay_type']);
     }
+
+    /**
+     * 金猪
+     */
+    public function pigpay(){
+        $class = new Pay_Pigpay_Mobile();
+        $rs = $class->notify();
+        if( $rs == false ) {
+            exit('fail');
+        }
+        $this->deal($rs['pay_id'], $rs['trade_no'], $rs['pay_type']);
+    }
 }
