@@ -251,16 +251,20 @@ class PayController extends Yaf_Controller_Abstract
 	        $this->pay['add_time'] = $time;
 	        $rs = $this->m_pay->insert($this->pay, false);
 	        if( ! $rs ) {
-	            //$log = new F_Helper_Log();
-	            //$log->debug(var_export($this->pay,true)."\r\n");
-	            //$log->debug($this->m_pay->error()."\r\n");
+//	            $log = new F_Helper_Log();
+//	            $log->debug(var_export($this->pay,true)."\r\n");
+//	            $log->debug($this->m_pay->error()."\r\n");
 //	            $this->forward('pay', 'result', array('status'=>'failed', 'message'=>'订单生成失败，请重试！', 'pay'=>$this->pay));
 //	            $this->setPayInfo(array('pay_id'=>$this->m_pay->createPayId()));
                 $this->unsetPayInfo();
-                echo json_encode(['code'=>1,'message'=>'订单生成失败，请重试！'],true);
-	        }
-	    }
-	    
+                echo json_encode(['code'=>1,'message'=>'订单生成失败，请重试！','info'=>false],true);
+	        }else{
+	            $pay=$this->pay;
+	            $pay_id=$pay['pay_id'];
+                echo json_encode (['code'=>0,'message'=>'订单生成功！','info'=>$pay_id]);
+            }
+            $this->unsetPayInfo();
+        }
 	    /*if( $this->pay['game_id'] && $this->pay['type'] == 'deposit' ) {
 	        $this->pay['type'] = 'iapppay';
 	    }*/
@@ -413,8 +417,8 @@ class PayController extends Yaf_Controller_Abstract
 //	    }
 //        $class = new Pay_Pigpay_Mobile();
 //        $class->redirect($this->pay);
-	    $this->unsetPayInfo();
-        echo json_encode (['code'=>0,'message'=>'订单生成功！','info'=>$this->pay_id]);
+//	    $this->unsetPayInfo();
+//        echo json_encode (['code'=>0,'message'=>'订单生成功！','info'=>$this->pay['']]);
     }
 	
 	//前台返回

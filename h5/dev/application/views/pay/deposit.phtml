@@ -144,10 +144,10 @@ $(function(){
 
     $('#next_step').on('click', function(){
     	var mn = parseInt($("input[name=Price]").val());
-        // if( isNaN(mn) || mn < 1 ) {
-        // 	alert('最小充值金额为1元！');
-        //     return false;
-        // }
+        if( isNaN(mn) || mn < 1 ) {
+        	alert('最小充值金额为1元！');
+            return false;
+        }
         if( mn > 60000 ) mn = 60000;
         var tp = $('.checkbox_active:visible');
         if( tp.length < 1 ) {
@@ -185,14 +185,9 @@ $(function(){
                     alert(aaa.message);
                 }else{
                     //单号
-                    var pid=aaa.pid;
-                    if(!pid){
-                        alert('订单号错误,请联系管理员！');
-                        return false;
-                    }else{
-                        $('#jinzhue').val(pid);
-                        $('.z_main').submit();
-                    }
+                    var pid=aaa.info;
+                    $('#jinzhue').val(pid);
+                    $('.z_main').submit();
                 }
             },
             error:function(){
