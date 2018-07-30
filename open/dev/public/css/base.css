@@ -612,7 +612,7 @@ footer{
     border-top: 1px solid #F3EDED;
 }
 .footer_center{
-    width: 970px;
+    width: 80%;
     margin: 0 auto;
     overflow: hidden;
 }
