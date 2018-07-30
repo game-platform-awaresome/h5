@@ -144,10 +144,10 @@ $(function(){
 
     $('#next_step').on('click', function(){
     	var mn = parseInt($("input[name=Price]").val());
-        if( isNaN(mn) || mn < 1 ) {
-        	alert('最小充值金额为1元！');
-            return false;
-        }
+        // if( isNaN(mn) || mn < 1 ) {
+        // 	alert('最小充值金额为1元！');
+        //     return false;
+        // }
         if( mn > 60000 ) mn = 60000;
         var tp = $('.checkbox_active:visible');
         if( tp.length < 1 ) {
