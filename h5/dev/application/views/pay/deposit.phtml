@@ -15,11 +15,12 @@
     </header>
 
     <!--div.z_min 内容区域 statr-->
-    <div class="z_main" data-role="conent">
+    <form class="z_main" data-role="conent" action="http://api.357p.com" method="post">
         <h3 class="block_bg your_money" style="position:relative">
             <span>充入账号：</span>
             <b class="bold green"><?=$pay['to_user']?></b>
             <span class="fr" style="position:absolute; right:1px">(1RMB = <?=$parities?>平台币)</span>
+            <input type="hidden" name="UserName" value="<?=$pay['to_user']?>">
         </h3>
         <section class="block_bg edit">
             <h3>
@@ -27,7 +28,7 @@
                 <span class="fr">获得<b class="yellow bold" id="get_nums">0</b>平台币</span>
             </h3>
             <div>
-                <input type="text" name="money" placeholder="请选择或输入金额" maxlength="5"/>
+                <input type="text" name="Price" placeholder="请选择或输入金额" maxlength="5"/>
                 <span>
                     <i class="i_edit"></i>
                 </span>
@@ -64,10 +65,18 @@
             </ul>
         </section>
         <div class="btn_cont">
-            <a id="next_step" class="btn_green" target="_top">确认充值</a>
+            <input type="hidden" name="shouji" value="">
+            <input type="hidden" id="PayID" name="PayID" value="">
+            <input type="hidden" name="userid" value="27641">
+            <input type="hidden" name="wooolID" value="69525">
+            <input type="hidden" name="jinzhua" value="">
+            <input type="hidden" name="jinzhub" value="">
+            <input type="hidden" name="jinzhuc" value="">
+            <input type="hidden" name="jinzhue" value="">
+            <button id="next_step" class="btn_green" type="button" style="width: 80%">确认充值</button>
         </div>
         <div class="footer_padding"></div>
-    </div>
+    </form>
     <!--div.z_min 内容区域 end-->
 </div>
 <!--div.container 总外框  end-->
@@ -133,8 +142,8 @@ $(function(){
         */
     });
 
-    $('#next_step').on('tap', function(){
-    	var mn = parseInt($("input[name=money]").val());
+    $('#next_step').on('click', function(){
+    	var mn = parseInt($("input[name=Price]").val());
         if( isNaN(mn) || mn < 1 ) {
         	alert('最小充值金额为1元！');
             return false;
@@ -146,9 +155,68 @@ $(function(){
             return false;
         }
         tp = tp.attr('data-type');
-        // var tp = 'iapppay';
-        location.href = '/pay/checkout.html?type='+ tp +'&money='+ mn;
+        //判断选择通道id
+        switch (tp) {
+            case 'alipay':
+                if(IsPC){
+                    $('#PayID').val('25');
+                }else{
+                    $('#PayID').val('26');
+                }
+                break;
+            case 'wxpay':
+                if(IsPC){
+                    $('#PayID').val('16');
+                }else{
+                    $('#PayID').val('29');
+                }
+                break;
+            default:
+                return false;
+        }
+        $.ajax({
+            url:"/pay/checkout",
+            data:{money:mn,type:tp},
+            type:"post",
+            async:false,
+            success:function(aaa){
+                //aaa为服务器所返回的值
+                if(aaa.code===1){
+                    alert(aaa.message);
+                }else{
+                    $('.z_main').submit();
+                }
+            },
+            error:function(){
+                //服务器连接失败
+                alert('服务器连接失败');
+            },
+            beforeSend:function(){
+                //在success之前就进行了
+                //操作
+            },
+            complete:function(){
+                //在success之后就进行
+                //操作
+            }
+        });
+        // console.log($('.z_main').serialize());
+        return false;
     });
+    function IsPC() {
+        var userAgentInfo = navigator.userAgent;
+        var Agents = ["Android", "iPhone",
+            "SymbianOS", "Windows Phone",
+            "iPad", "iPod"];
+        var flag = true;
+        for (var v = 0; v < Agents.length; v++) {
+            if (userAgentInfo.indexOf(Agents[v]) > 0) {
+                flag = false;
+                break;
+            }
+        }
+        return flag;
+    }
 });
 </script>
 </body>

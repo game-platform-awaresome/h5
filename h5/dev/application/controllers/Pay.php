@@ -72,6 +72,12 @@ class PayController extends Yaf_Controller_Abstract
             $this->redirect('/user/login.html?fwd='.$fwd);
             return false;
         }
+        /**
+         * 如果是Ajax请求, 则关闭HTML输出
+         */
+        if ($this->getRequest()->isXmlHttpRequest()) {
+            Yaf_Dispatcher::getInstance()->disableView();
+        }
         $this->m_pay = new PayModel();
         
         $this->initPayInfo();
@@ -248,9 +254,10 @@ class PayController extends Yaf_Controller_Abstract
 	            //$log = new F_Helper_Log();
 	            //$log->debug(var_export($this->pay,true)."\r\n");
 	            //$log->debug($this->m_pay->error()."\r\n");
-	            $this->forward('pay', 'result', array('status'=>'failed', 'message'=>'订单生成失败，请重试！', 'pay'=>$this->pay));
-	            $this->setPayInfo(array('pay_id'=>$this->m_pay->createPayId()));
-	            return false;
+//	            $this->forward('pay', 'result', array('status'=>'failed', 'message'=>'订单生成失败，请重试！', 'pay'=>$this->pay));
+//	            $this->setPayInfo(array('pay_id'=>$this->m_pay->createPayId()));
+                $this->unsetPayInfo();
+                echo json_encode(['code'=>1,'message'=>'订单生成失败，请重试！'],true);
 	        }
 	    }
 	    
@@ -259,139 +266,139 @@ class PayController extends Yaf_Controller_Abstract
 	    }*/
 	    
 	    //平台币支付
-	    if( $this->pay['type'] == 'deposit' ) {
-	        $user = $this->m_user->fetch("user_id='{$this->pay['user_id']}'", 'money');
-	        $deposit = $user['money'];
-	        if( $deposit < $this->pay['money'] ) {
-	            $this->forward('pay', 'result', array('status'=>'failed', 'message'=>'平台币不足，无法完成充值！', 'pay'=>$this->pay));
-	            return false;
-	        }
-	        
-	        $up_arr = array(
-	            'deposit' => $deposit - $this->pay['money'],
-	            'pay_time' => $time,
-	        );
-	        
-	        //事务处理
-	        $pdo = $this->m_pay->getPdo();
-	        $pdo->beginTransaction();
-	        $rs1 = $this->m_user->changeMoney($this->pay['user_id'], -$this->pay['money']);
-	        $rs2 = $this->m_pay->update($up_arr, "pay_id='{$this->pay['pay_id']}'");
-	        if( $rs1 && $rs2 ) {
-	            $pdo->commit();
-	        } else {
-	            $pdo->rollBack();
-	        }
-	        
-	        if( $rs1 && $rs2 ) {
-	            //充值到游戏
-	            if( $this->pay['server_id'] ) {
-	                $m_server = new ServerModel();
-	                $server = $m_server->fetch("server_id='{$this->pay['server_id']}'", 'login_url,recharge_url,sign_key,load_type');
-	                $login_url = $server['login_url'];
-	                $recharge_url = $server['recharge_url'];
-	                $sign_key = $server['sign_key'];
-	                $load_type = $server['load_type'];
-	            } else {
-	                $m_game = new GameModel();
-	                $game = $m_game->fetch("game_id='{$this->pay['game_id']}'", 'login_url,recharge_url,sign_key,load_type');
-	                $login_url = $game['login_url'];
-	                $recharge_url = $game['recharge_url'];
-	                $sign_key = $game['sign_key'];
-	                $load_type = $game['load_type'];
-	            }
-	            
-	            //白鹭不支持平台发起的充值，但在游戏中发起的充值可以使用平台币来支付
-	            if( $this->pay['channel'] == 'egret' && $this->pay['cp_return'] ) {
-	                $egret = new Game_Channel_Egret();
-	                $rs = $egret->notify($recharge_url, $sign_key, $this->pay);
-	            } else {
-	                $rs = Game_Recharge::notify($recharge_url, $sign_key, $this->pay);
-	            }
-	            
-	            if( $rs == '' ) {
-	                $this->m_pay->update(array('finish_time'=>$time), "pay_id='{$this->pay['pay_id']}'");
-	                
-	                $status = 'success';
-	                $message = '您的充值已成功到账！';
-	            } else {
-	                $status = 'failed';
-	                $message = $rs;
-	            }
-	            
-	            if( $this->pay['cp_return'] == 1 ) {
-	                $url = Game_Login::redirect($this->pay['to_uid'], $this->pay['to_user'], $this->pay['game_id'], $this->pay['server_id'], $login_url, $sign_key);
-	                $this->forward('game', 'entry', array('game_name'=>$this->pay['game_name'], 'url'=>$url, 'load_type'=>$load_type));
-	                return false;
-	            } elseif( $this->pay['cp_return'] ) {
-	                //跳回白鹭游戏
-	                if( $this->pay['channel'] == 'egret' ) {
-	                    $this->forward('game', 'entry', array('game_name'=>$this->pay['game_name'], 'url'=>$this->pay['cp_return'], 'load_type'=>$load_type));
-	                    return false;
-	                }
-	                $url = $this->pay['cp_return'];
-	                $game_name = $this->pay['game_name'];
-	                unset($this->pay['cp_return'], $this->pay['channel']);
-	                unset($this->pay['game_name'], $this->pay['server_name']);
-	                unset($this->pay['deposit'], $this->pay['type']);
-	                
-	                $comma = '';
-	                if( strpos($url, '?') !== false ) {
-	                    $url = trim($url, '&');
-	                    $comma = '&';
-	                } else {
-	                    $comma = '?';
-	                }
-	                
-	                $this->pay['time'] = time();
-	                ksort($this->pay);
-	                $this->pay['sign'] = md5(implode('', $this->pay).$sign_key);
-	                
-	                $this->pay['username'] = urlencode($this->pay['username']);
-	                $this->pay['to_user'] = urlencode($this->pay['to_user']);
-	                $query = '';
-	                foreach ($this->pay as $k=>$v)
-	                {
-	                    $url .= "{$comma}{$k}={$v}";
-	                    $comma = '&';
-	                }
-	                
-	                $this->forward('game', 'entry', array('game_name'=>$game_name, 'url'=>$url, 'load_type'=>$load_type));
-	                return false;
-	            }
-	            
-	            $this->forward('pay', 'result', array('status'=>$status, 'message'=>$message, 'pay'=>$this->pay));
-	        } else {
-	            if( $this->pay['cp_return'] ) {
-	                if( $this->pay['server_id'] ) {
-	                    $m_server = new ServerModel();
-	                    $server = $m_server->fetch("server_id='{$this->pay['server_id']}'", 'load_type');
-	                    $load_type = $server['load_type'];
-	                } else {
-	                    $m_game = new GameModel();
-	                    $game = $m_game->fetch("game_id='{$this->pay['game_id']}'", 'load_type');
-	                    $load_type = $game['load_type'];
-	                }
-	                $this->forward('game', 'entry', array('game_name'=>$this->pay['game_name'], 'url'=>$this->pay['cp_return'], 'load_type'=>$load_type));
-	            } else {
-	                $this->forward('pay', 'result', array('status'=>'failed', 'message'=>'充值失败，请重试！', 'pay'=>$this->pay));
-	            }
-	        }
-	        $this->unsetPayInfo();
-	        return false;
-	    }
+//	    if( $this->pay['type'] == 'deposit' ) {
+//	        $user = $this->m_user->fetch("user_id='{$this->pay['user_id']}'", 'money');
+//	        $deposit = $user['money'];
+//	        if( $deposit < $this->pay['money'] ) {
+//	            $this->forward('pay', 'result', array('status'=>'failed', 'message'=>'平台币不足，无法完成充值！', 'pay'=>$this->pay));
+//	            return false;
+//	        }
+//
+//	        $up_arr = array(
+//	            'deposit' => $deposit - $this->pay['money'],
+//	            'pay_time' => $time,
+//	        );
+//
+//	        //事务处理
+//	        $pdo = $this->m_pay->getPdo();
+//	        $pdo->beginTransaction();
+//	        $rs1 = $this->m_user->changeMoney($this->pay['user_id'], -$this->pay['money']);
+//	        $rs2 = $this->m_pay->update($up_arr, "pay_id='{$this->pay['pay_id']}'");
+//	        if( $rs1 && $rs2 ) {
+//	            $pdo->commit();
+//	        } else {
+//	            $pdo->rollBack();
+//	        }
+//
+//	        if( $rs1 && $rs2 ) {
+//	            //充值到游戏
+//	            if( $this->pay['server_id'] ) {
+//	                $m_server = new ServerModel();
+//	                $server = $m_server->fetch("server_id='{$this->pay['server_id']}'", 'login_url,recharge_url,sign_key,load_type');
+//	                $login_url = $server['login_url'];
+//	                $recharge_url = $server['recharge_url'];
+//	                $sign_key = $server['sign_key'];
+//	                $load_type = $server['load_type'];
+//	            } else {
+//	                $m_game = new GameModel();
+//	                $game = $m_game->fetch("game_id='{$this->pay['game_id']}'", 'login_url,recharge_url,sign_key,load_type');
+//	                $login_url = $game['login_url'];
+//	                $recharge_url = $game['recharge_url'];
+//	                $sign_key = $game['sign_key'];
+//	                $load_type = $game['load_type'];
+//	            }
+//
+//	            //白鹭不支持平台发起的充值，但在游戏中发起的充值可以使用平台币来支付
+//	            if( $this->pay['channel'] == 'egret' && $this->pay['cp_return'] ) {
+//	                $egret = new Game_Channel_Egret();
+//	                $rs = $egret->notify($recharge_url, $sign_key, $this->pay);
+//	            } else {
+//	                $rs = Game_Recharge::notify($recharge_url, $sign_key, $this->pay);
+//	            }
+//
+//	            if( $rs == '' ) {
+//	                $this->m_pay->update(array('finish_time'=>$time), "pay_id='{$this->pay['pay_id']}'");
+//
+//	                $status = 'success';
+//	                $message = '您的充值已成功到账！';
+//	            } else {
+//	                $status = 'failed';
+//	                $message = $rs;
+//	            }
+//
+//	            if( $this->pay['cp_return'] == 1 ) {
+//	                $url = Game_Login::redirect($this->pay['to_uid'], $this->pay['to_user'], $this->pay['game_id'], $this->pay['server_id'], $login_url, $sign_key);
+//	                $this->forward('game', 'entry', array('game_name'=>$this->pay['game_name'], 'url'=>$url, 'load_type'=>$load_type));
+//	                return false;
+//	            } elseif( $this->pay['cp_return'] ) {
+//	                //跳回白鹭游戏
+//	                if( $this->pay['channel'] == 'egret' ) {
+//	                    $this->forward('game', 'entry', array('game_name'=>$this->pay['game_name'], 'url'=>$this->pay['cp_return'], 'load_type'=>$load_type));
+//	                    return false;
+//	                }
+//	                $url = $this->pay['cp_return'];
+//	                $game_name = $this->pay['game_name'];
+//	                unset($this->pay['cp_return'], $this->pay['channel']);
+//	                unset($this->pay['game_name'], $this->pay['server_name']);
+//	                unset($this->pay['deposit'], $this->pay['type']);
+//
+//	                $comma = '';
+//	                if( strpos($url, '?') !== false ) {
+//	                    $url = trim($url, '&');
+//	                    $comma = '&';
+//	                } else {
+//	                    $comma = '?';
+//	                }
+//
+//	                $this->pay['time'] = time();
+//	                ksort($this->pay);
+//	                $this->pay['sign'] = md5(implode('', $this->pay).$sign_key);
+//
+//	                $this->pay['username'] = urlencode($this->pay['username']);
+//	                $this->pay['to_user'] = urlencode($this->pay['to_user']);
+//	                $query = '';
+//	                foreach ($this->pay as $k=>$v)
+//	                {
+//	                    $url .= "{$comma}{$k}={$v}";
+//	                    $comma = '&';
+//	                }
+//
+//	                $this->forward('game', 'entry', array('game_name'=>$game_name, 'url'=>$url, 'load_type'=>$load_type));
+//	                return false;
+//	            }
+//
+//	            $this->forward('pay', 'result', array('status'=>$status, 'message'=>$message, 'pay'=>$this->pay));
+//	        } else {
+//	            if( $this->pay['cp_return'] ) {
+//	                if( $this->pay['server_id'] ) {
+//	                    $m_server = new ServerModel();
+//	                    $server = $m_server->fetch("server_id='{$this->pay['server_id']}'", 'load_type');
+//	                    $load_type = $server['load_type'];
+//	                } else {
+//	                    $m_game = new GameModel();
+//	                    $game = $m_game->fetch("game_id='{$this->pay['game_id']}'", 'load_type');
+//	                    $load_type = $game['load_type'];
+//	                }
+//	                $this->forward('game', 'entry', array('game_name'=>$this->pay['game_name'], 'url'=>$this->pay['cp_return'], 'load_type'=>$load_type));
+//	            } else {
+//	                $this->forward('pay', 'result', array('status'=>'failed', 'message'=>'充值失败，请重试！', 'pay'=>$this->pay));
+//	            }
+//	        }
+//	        $this->unsetPayInfo();
+//	        return false;
+//	    }
 	    
-	    $conf = Yaf_Application::app()->getConfig();
-	    if( $this->pay['game_id'] == 0 ) {
-    	    $subject = "充值到《{$conf['application']['sitename']}》";
-	    } else {
-	        if( $this->pay['server_id'] ) {
-	            $subject = "充值到《{$this->pay['game_name']}，{$this->pay['server_name']}》 - {$conf['application']['sitename']}";
-	        } else {
-	            $subject = "充值到《{$this->pay['game_name']}》 - {$conf['application']['sitename']}";
-	        }
-	    }
-	    $body = '';
+//	    $conf = Yaf_Application::app()->getConfig();
+//	    if( $this->pay['game_id'] == 0 ) {
+//    	    $subject = "充值到《{$conf['application']['sitename']}》";
+//	    } else {
+//	        if( $this->pay['server_id'] ) {
+//	            $subject = "充值到《{$this->pay['game_name']}，{$this->pay['server_name']}》 - {$conf['application']['sitename']}";
+//	        } else {
+//	            $subject = "充值到《{$this->pay['game_name']}》 - {$conf['application']['sitename']}";
+//	        }
+//	    }
+//	    $body = '';
 	    
 //	    if( $this->pay['type'] == 'iapppay' ) {
 //	        $class = new Pay_Iapppay_Mobile();
@@ -404,11 +411,11 @@ class PayController extends Yaf_Controller_Abstract
 //	    } elseif( $this->pay['type'] == 'wxpay' ) {
 //
 //	    }
-        $class = new Pay_Pigpay_Mobile();
-        $class->redirect($this->pay);
+//        $class = new Pay_Pigpay_Mobile();
+//        $class->redirect($this->pay);
 	    $this->unsetPayInfo();
-	    return false;
-	}
+        echo json_encode (['code'=>0,'message'=>'订单生成功！']);
+    }
 	
 	//前台返回
 	public function resultAction()
