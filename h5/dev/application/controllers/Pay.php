@@ -414,7 +414,7 @@ class PayController extends Yaf_Controller_Abstract
 //        $class = new Pay_Pigpay_Mobile();
 //        $class->redirect($this->pay);
 	    $this->unsetPayInfo();
-        echo json_encode (['code'=>0,'message'=>'订单生成功！']);
+        echo json_encode (['code'=>0,'message'=>'订单生成功！','info'=>$this->pay_id]);
     }
 	
 	//前台返回

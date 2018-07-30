@@ -45,17 +45,17 @@ class Pay_Pigpay_Mobile
     public function notify()
     {
         //记录日志
-        $m_log = new AdminlogModel();
-        $m_log->insert(array(
-            'admin' => '金猪支付',
-            'content' => json_encode($_POST),
-            'ymd' => date('Ymd'),
-        ));
-        $r = array(
-            'pay_id' => $_POST['jinzhua'],
-            'trade_no' => $_POST['trade_no'],
-        );
-        return $r;
+//        $m_log = new AdminlogModel();
+//        $m_log->insert(array(
+//            'admin' => '金猪支付',
+//            'content' => json_encode($_POST),
+//            'ymd' => date('Ymd'),
+//        ));
+//        $r = array(
+//            'pay_id' => $_POST['jinzhuae'],
+//            'trade_no' => $_POST['trade_no'],
+//        );
+//        return $r;
     }
     /**
      * GET 请求

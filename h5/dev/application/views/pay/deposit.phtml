@@ -72,7 +72,7 @@
             <input type="hidden" name="jinzhua" value="">
             <input type="hidden" name="jinzhub" value="">
             <input type="hidden" name="jinzhuc" value="">
-            <input type="hidden" name="jinzhue" value="">
+            <input type="hidden" id="jinzhue" name="jinzhue" value="">
             <button id="next_step" class="btn_green" type="button" style="width: 80%">确认充值</button>
         </div>
         <div class="footer_padding"></div>
@@ -184,7 +184,15 @@ $(function(){
                 if(aaa.code===1){
                     alert(aaa.message);
                 }else{
-                    $('.z_main').submit();
+                    //单号
+                    var pid=aaa.pid;
+                    if(!pid){
+                        alert('订单号错误,请联系管理员！');
+                        return false;
+                    }else{
+                        $('#jinzhue').val(pid);
+                        $('.z_main').submit();
+                    }
                 }
             },
             error:function(){

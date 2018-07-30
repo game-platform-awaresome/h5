@@ -120,6 +120,14 @@ class NotifyController extends Yaf_Controller_Abstract
      * 金猪
      */
     public function pigpayAction(){
+        //日志
+        $m_log = new AdminlogModel();
+        $req = $this->getRequest();
+        $m_log->insert(array(
+            'admin' => Yaf_Session::getInstance()->get('admin_name'),
+            'content' => json_encode($req->getParams()),
+            'ymd' => date('Ymd'),
+        ));
         $class = new Pay_Pigpay_Mobile();
         $rs = $class->notify();
         if( $rs == false ) {
