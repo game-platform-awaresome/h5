@@ -158,14 +158,14 @@ $(function(){
         //判断选择通道id
         switch (tp) {
             case 'alipay':
-                if(IsPC){
+                if(IsPC()){
                     $('#PayID').val('25');
                 }else{
                     $('#PayID').val('26');
                 }
                 break;
             case 'wxpay':
-                if(IsPC){
+                if(IsPC()){
                     $('#PayID').val('16');
                 }else{
                     $('#PayID').val('29');
