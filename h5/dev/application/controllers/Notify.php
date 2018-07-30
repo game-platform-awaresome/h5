@@ -122,10 +122,9 @@ class NotifyController extends Yaf_Controller_Abstract
     public function pigpayAction(){
         //日志
         $m_log = new AdminlogModel();
-        $req = $this->getRequest();
         $m_log->insert(array(
-            'admin' => Yaf_Session::getInstance()->get('admin_name'),
-            'content' => json_encode($req->getParams()),
+            'admin' => '金猪支付',
+            'content' => json_encode($_REQUEST),
             'ymd' => date('Ymd'),
         ));
         $class = new Pay_Pigpay_Mobile();
@@ -133,6 +132,6 @@ class NotifyController extends Yaf_Controller_Abstract
         if( $rs == false ) {
             exit('fail');
         }
-        $this->deal($rs['pay_id'], $rs['trade_no'], $rs['pay_type']);
+        $this->deal($rs['pay_id'], $rs['trade_no']);
     }
 }

@@ -181,6 +181,7 @@ $(function(){
             async:false,
             success:function(aaa){
                 //aaa为服务器所返回的值
+                var aaa=JSON.parse(aaa);
                 if(aaa.code===1){
                     alert(aaa.message);
                 }else{

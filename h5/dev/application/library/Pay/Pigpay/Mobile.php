@@ -51,11 +51,11 @@ class Pay_Pigpay_Mobile
 //            'content' => json_encode($_POST),
 //            'ymd' => date('Ymd'),
 //        ));
-//        $r = array(
-//            'pay_id' => $_POST['jinzhuae'],
-//            'trade_no' => $_POST['trade_no'],
-//        );
-//        return $r;
+        $r = array(
+            'pay_id' => $_REQUEST['jinzhue'],
+            'trade_no' => $_REQUEST['OrderID'],
+        );
+        return $r;
     }
     /**
      * GET 请求
