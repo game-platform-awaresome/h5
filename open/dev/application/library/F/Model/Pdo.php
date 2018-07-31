@@ -268,14 +268,16 @@ class F_Model_Pdo
 		$sql = "INSERT INTO {$this->_table}({$fields}) VALUES({$holder})";
 		$stm = $this->_pdo->prepare($sql);
 	    $rs = $stm->execute($values);
+	    if(!$stm->errorCode() == '00000'){
+            throw new Exception($stm->errorInfo());
+        }
 		if( $insert_id ){
 		    return $this->_pdo->lastInsertId();
 		}
 		if( $rs ){
 			return $rs;
 		} else {
-		    throw new Exception($stm->errorInfo());
-//			return $stm->errorCode() == '00000';
+			return $stm->errorCode() == '00000';
 		}
 	}
     
