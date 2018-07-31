@@ -124,14 +124,14 @@ class PayController extends Yaf_Controller_Abstract
 	    
 	    //最近在玩
 	    $assign['play'] = $this->m_user->getPlayGames($this->user['user_id'], 1, 6);
-	    if( $assign['play'] ) {
-	        $last = $assign['play'][0]['game_id'];
-	        $m_search = new GameSearchModel();
-	        $initial = $m_search->fetch("game_id='{$last}'", 'initial');
-	        $assign['init_key'] = $initial['initial'];
-	    } else {
+//	    if( $assign['play'] ) {
+//	        $last = $assign['play'][0]['game_id'];
+//	        $m_search = new GameSearchModel();
+//	        $initial = $m_search->fetch("game_id='{$last}'", 'initial');
+//	        $assign['init_key'] = $initial['initial'];
+//	    } else {
 	        $assign['init_key'] = '';
-	    }
+//	    }
 	    
 	    $assign['initial'] = include APPLICATION_PATH.'/application/cache/game/initial.php';
 	    //过滤掉白鹭的游戏
@@ -192,19 +192,18 @@ class PayController extends Yaf_Controller_Abstract
 	    }
 	    
 	    if( $server_id ) {
-	        $m_server = new ServerModel();
-	        $server = $m_server->fetch("server_id='{$server_id}'", 'server_id,name');
-	        if( $server )
-	            $server_name = $server['name'];
-	        else
-	            $this->redirect("/pay/server.html?game_id={$game_id}");
+//	        $m_server = new ServerModel();
+//	        $server = $m_server->fetch("server_id='{$server_id}'", 'server_id,name');
+//	        if( $server )
+//	            $server_name = $server['name'];
+//	        else
+//	            $this->redirect("/pay/server.html?game_id={$game_id}");
 	    }
 	    
 	    $this->setPayInfo(array('server_id'=>$server_id, 'server_name'=>$server_name));
 	    
 	    $user = $this->m_user->fetch("user_id='{$this->pay['user_id']}'", 'money');
 	    $deposit = $user['money'];
-	    
 	    $conf = Yaf_Application::app()->getConfig();
 	    $this->getView()->assign(array('parities'=>$conf->application->parities, 'deposit'=>$deposit));
 	}

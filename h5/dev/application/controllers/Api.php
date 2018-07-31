@@ -99,12 +99,22 @@ class ApiController extends Yaf_Controller_Abstract
 //            }
 //        }
         
-        $pig_pay = new Pay_Pigpay_Mobile();
-        $url = $pig_pay->redirect($arr['pay_id'], $arr['money'], $subject, $body, $arr['username']);
+//        $pig_pay = new Pay_Pigpay_Mobile();
+//        $url = $pig_pay->redirect($arr['pay_id'], $arr['money'], $subject, $body, $arr['username']);
 //        $pay_pigpay_mobile=
-        $url='http://www.baidu.com';
-        $this->getView()->assign('url', $url);
+//        var_dump($arr);
+//        die;
+        $pay['to_user']=$arr['to_uid'];
+        $pay['user_id']=$arr['user_id'];
+        $pay['money']=$arr['money'];
+        $pay['cp_order']=$arr['cp_order'];
+        $pay['cp_return']=$arr['cp_return'];
+        $pay['extra']=$arr['extra'];
+        $this->getView()->assign('pay', $pay);
+        $conf = Yaf_Application::app()->getConfig();
+        $this->getView()->assign(array('parities'=>$conf->application->parities));
 
+//          $this->redirect("/pay/numstype.html?server_id={$arr['server_id']}&game_id={$arr['game_id']}&money={$arr['money']}&cp_order={$arr['cp_order']}&cp_return={$arr['cp_return']}");
     }
     
     //跳转到顶层框架

@@ -98,8 +98,8 @@ class TestController extends Yaf_Controller_Abstract
                 $pay_url.="{$comma}{$k}={$v}";
                 $comma='&';
             }
-//            $this->redirect($pay_url);
-            var_dump($pay_url);
+            $this->redirect($pay_url);
+//            var_dump($pay_url);
 //            exit($pay_url);
         }
 
