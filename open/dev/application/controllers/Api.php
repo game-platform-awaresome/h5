@@ -37,15 +37,15 @@ class ApiController extends Yaf_Controller_Abstract
             exit('<b style="color:red">Time error.</b>');
         }
         
-        if( $arr['server_id'] ) {
-            $m_server = new ServerModel();
-            $server = $m_server->fetch("server_id='{$arr['server_id']}'", 'name,game_name,login_url,recharge_url,sign_key');
-            $server_name = $server['name'];
-            $game_name = $server['game_name'];
-            $login_url = $server['login_url'];
-            $recharge_url = $server['recharge_url'];
-            $sign_key = $server['sign_key'];
-        } else {
+//        if( $arr['server_id'] ) {
+//            $m_server = new ServerModel();
+//            $server = $m_server->fetch("server_id='{$arr['server_id']}'", 'name,game_name,login_url,recharge_url,sign_key');
+//            $server_name = $server['name'];
+//            $game_name = $server['game_name'];
+//            $login_url = $server['login_url'];
+//            $recharge_url = $server['recharge_url'];
+//            $sign_key = $server['sign_key'];
+//        } else {
             $m_game = new GameModel();
             $game = $m_game->fetch("game_id='{$arr['game_id']}'", 'name,login_url,recharge_url,sign_key');
             $server_name = '';
@@ -53,7 +53,7 @@ class ApiController extends Yaf_Controller_Abstract
             $login_url = $game['login_url'];
             $recharge_url = $game['recharge_url'];
             $sign_key = $game['sign_key'];
-        }
+//        }
         
         ksort($arr);
         $md5 = md5(implode('', $arr).$sign_key);
