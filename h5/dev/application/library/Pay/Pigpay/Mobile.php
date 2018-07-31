@@ -38,6 +38,7 @@ class Pay_Pigpay_Mobile
         $params["jinzhua"]  =$pay['pay_id'];//订单号
         $params["jinzhub"]  = "123";//
         $params["jinzhuc"]  = "123";
+        $params["jinzhue"]  = "123";
         $acceptInfo = $this->http_post(API_URL,$params);
         echo $acceptInfo;
     }

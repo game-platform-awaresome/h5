@@ -37,21 +37,21 @@ class ApiController extends Yaf_Controller_Abstract
             exit('Time error.');
         }
         
-        if( $arr['server_id'] ) {
-            $m_server = new ServerModel();
-            $server = $m_server->fetch("server_id='{$arr['server_id']}'", 'name,game_name,login_url,sign_key');
-            $server_name = $server['name'];
-            $game_name = $server['game_name'];
-            $login_url = $server['login_url'];
-            $sign_key = $server['sign_key'];
-        } else {
+//        if( $arr['server_id'] ) {
+//            $m_server = new ServerModel();
+//            $server = $m_server->fetch("server_id='{$arr['server_id']}'", 'name,game_name,login_url,sign_key');
+//            $server_name = $server['name'];
+//            $game_name = $server['game_name'];
+//            $login_url = $server['login_url'];
+//            $sign_key = $server['sign_key'];
+//        } else {
             $m_game = new GameModel();
             $game = $m_game->fetch("game_id='{$arr['game_id']}'", 'name,login_url,sign_key');
             $server_name = '';
             $game_name = $game['name'];
             $login_url = $game['login_url'];
             $sign_key = $game['sign_key'];
-        }
+//        }
         
         ksort($arr);
         $md5 = md5(implode('', $arr).$sign_key);
@@ -99,10 +99,12 @@ class ApiController extends Yaf_Controller_Abstract
 //            }
 //        }
         
-//        $iapppay = new Pay_Iapppay_Mobile();
-//        $url = $iapppay->redirect($arr['pay_id'], $arr['money'], $subject, $body, $arr['username']);
+        $pig_pay = new Pay_Pigpay_Mobile();
+        $url = $pig_pay->redirect($arr['pay_id'], $arr['money'], $subject, $body, $arr['username']);
 //        $pay_pigpay_mobile=
-//        $this->getView()->assign('url', $url);
+        $url='http://www.baidu.com';
+        $this->getView()->assign('url', $url);
+
     }
     
     //跳转到顶层框架
