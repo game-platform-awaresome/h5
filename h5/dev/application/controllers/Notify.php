@@ -61,23 +61,23 @@ class NotifyController extends Yaf_Controller_Abstract
         
         //充值到游戏
         if( $pay['server_id'] ) {
-            $m_server = new ServerModel();
-            $server = $m_server->fetch("server_id='{$pay['server_id']}'", 'recharge_url,sign_key');
-            $recharge_url = $server['recharge_url'];
-            $sign_key = $server['sign_key'];
-        } else {
+//            $m_server = new ServerModel();
+//            $server = $m_server->fetch("server_id='{$pay['server_id']}'", 'recharge_url,sign_key');
+//            $recharge_url = $server['recharge_url'];
+//            $sign_key = $server['sign_key'];
+//        } else {
             $m_game = new GameModel();
             $game = $m_game->fetch("game_id='{$pay['game_id']}'", 'recharge_url,sign_key');
             $recharge_url = $game['recharge_url'];
             $sign_key = $game['sign_key'];
         }
         
-        if( $pay['channel'] == 'egret' ) {
-            $egret = new Game_Channel_Egret();
-            $rs = $egret->notify($recharge_url, $sign_key, $pay);
-        } else {
+//        if( $pay['channel'] == 'egret' ) {
+//            $egret = new Game_Channel_Egret();
+//            $rs = $egret->notify($recharge_url, $sign_key, $pay);
+//        } else {
             $rs = Game_Recharge::notify($recharge_url, $sign_key, $pay);
-        }
+//        }
         
         if( $rs == '' ) {
             $m_pay->update(array('finish_time'=>$time), $conds);
