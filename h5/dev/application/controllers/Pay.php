@@ -72,12 +72,6 @@ class PayController extends Yaf_Controller_Abstract
             $this->redirect('/user/login.html?fwd='.$fwd);
             return false;
         }
-        /**
-         * 如果是Ajax请求, 则关闭HTML输出
-         */
-        if ($this->getRequest()->isXmlHttpRequest()) {
-            Yaf_Dispatcher::getInstance()->disableView();
-        }
         $this->m_pay = new PayModel();
         
         $this->initPayInfo();
@@ -218,6 +212,7 @@ class PayController extends Yaf_Controller_Abstract
 	//跳转到第三方支付网站
 	public function checkoutAction()
 	{
+        Yaf_Dispatcher::getInstance()->disableView();
 	    $req = $this->getRequest();
 	    $money = $req->get('money', 0);
 	    $type = $req->get('type', '');
@@ -264,6 +259,8 @@ class PayController extends Yaf_Controller_Abstract
                 echo json_encode (['code'=>0,'message'=>'订单生成功！','info'=>$pay_id]);
             }
             $this->unsetPayInfo();
+        }else{
+            echo json_encode (['code'=>0,'message'=>'订单生成功！','info'=>$this->pay_id]);
         }
 	    /*if( $this->pay['game_id'] && $this->pay['type'] == 'deposit' ) {
 	        $this->pay['type'] = 'iapppay';

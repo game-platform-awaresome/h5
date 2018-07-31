@@ -552,7 +552,7 @@ class UserController extends Yaf_Controller_Abstract
 	    }
 	    
 	    $m_pay = new PayModel();
-	    $logs = $m_pay->fetchAll("user_id='{$this->user['user_id']}'", $pn, $limit, 'pay_id,to_user,game_id,game_name,money,add_time', 'add_time DESC');
+	    $logs = $m_pay->fetchAll("user_id='{$this->user['user_id']}' and pay_time > 0", $pn, $limit, 'pay_id,to_user,game_id,game_name,money,add_time', 'add_time DESC');
 	    
 	    $this->getView()->assign('logs', $logs);
 	}

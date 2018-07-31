@@ -8,8 +8,8 @@ class PayModel extends F_Model_Pdo
 	public $_types = array(
 	    'alipay' => '支付宝',
 	    'wxpay' => '微信',
-	    'iapppay' => '爱贝',
-	    'deposit' => '平台币',
+//	    'iapppay' => '爱贝',
+//	    'deposit' => '平台币',
 	);
 	
 	public function getTableLabel()
