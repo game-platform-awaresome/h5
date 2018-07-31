@@ -273,9 +273,9 @@ class F_Model_Pdo
 		}
 		if( $rs ){
 			return $rs;
-		}
-		else {
-			return $stm->errorCode() == '00000';
+		} else {
+		    throw new Exception($stm->errorInfo());
+//			return $stm->errorCode() == '00000';
 		}
 	}
     
