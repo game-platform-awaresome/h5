@@ -90,18 +90,19 @@ class ApiController extends Yaf_Controller_Abstract
             return false;
         }
         
-        if( empty($subject) ) {
-            $conf = Yaf_Application::app()->getConfig();
-            if( $arr['server_id'] ) {
-                $subject = "充值到《{$arr['game_name']}，{$arr['server_name']}》 - {$conf['application']['sitename']}";
-            } else {
-                $subject = "充值到《{$arr['game_name']}》 - {$conf['application']['sitename']}";
-            }
-        }
+//        if( empty($subject) ) {
+//            $conf = Yaf_Application::app()->getConfig();
+//            if( $arr['server_id'] ) {
+//                $subject = "充值到《{$arr['game_name']}，{$arr['server_name']}》 - {$conf['application']['sitename']}";
+//            } else {
+//                $subject = "充值到《{$arr['game_name']}》 - {$conf['application']['sitename']}";
+//            }
+//        }
         
-        $iapppay = new Pay_Iapppay_Mobile();
-        $url = $iapppay->redirect($arr['pay_id'], $arr['money'], $subject, $body, $arr['username']);
-        $this->getView()->assign('url', $url);
+//        $iapppay = new Pay_Iapppay_Mobile();
+//        $url = $iapppay->redirect($arr['pay_id'], $arr['money'], $subject, $body, $arr['username']);
+//        $pay_pigpay_mobile=
+//        $this->getView()->assign('url', $url);
     }
     
     //跳转到顶层框架
