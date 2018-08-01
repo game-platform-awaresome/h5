@@ -162,18 +162,23 @@ class ApiController extends Yaf_Controller_Abstract
 //            'pay_id' => $_REQUEST['jinzhue'],
 //            'trade_no' => $_REQUEST['OrderID'],
 //            'pay_type' => $_REQUEST['jinzhuc'],
+            //开启事务
+            $pdo = $m_user->getPdo();
+            $pdo->beginTransaction();
             //减扣平台币
             $m_user = new UsersModel();
             $now_money=(int)($user['money']-$arr['money']);
-            $m_user->update(array('money'=>$now_money),"user_id='{$user_id}'");
+            $rs1=$m_user->update(array('money'=>$now_money),"user_id='{$user_id}'");
 //            $this->forward('notify', 'pigpay',$params);
             $trade_no= date('YmdHis').rand(1,9999);
             $url = 'http://'.$_SERVER['SERVER_NAME']."/notify/pigpay?jinzhue={$params['jinzhue']}&jinzhuc={$params['jinzhuc']}&OrderID={$trade_no}";
             $curl = new F_Helper_Curl();
             $rs = $curl->request($url);
-            if($rs=='success'){
+            if($rs1 && $rs=='success'){
+                $pdo->commit();
                 echo json_encode(['code'=>0,'message'=>$return]);
             }else{
+                $pdo->rollBack();
                 echo json_encode(['code'=>1,'message'=>'发货失败']);
             }
             return false;
