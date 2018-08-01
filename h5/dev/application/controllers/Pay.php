@@ -459,19 +459,19 @@ class PayController extends Yaf_Controller_Abstract
             return false;
 	    }
 	    if( isset($pay) && $pay['cp_return'] ) {
-	        if( $pay['server_id'] ) {
-	            $m_server = new ServerModel();
-	            $server = $m_server->fetch("server_id='{$pay['server_id']}'", 'login_url,sign_key,load_type');
-	            $login_url = $server['login_url'];
-	            $sign_key = $server['sign_key'];
-	            $load_type = $server['load_type'];
-	        } else {
+//	        if( $pay['server_id'] ) {
+//	            $m_server = new ServerModel();
+//	            $server = $m_server->fetch("server_id='{$pay['server_id']}'", 'login_url,sign_key,load_type');
+//	            $login_url = $server['login_url'];
+//	            $sign_key = $server['sign_key'];
+//	            $load_type = $server['load_type'];
+//	        } else {
 	            $m_game = new GameModel();
 	            $game = $m_game->fetch("game_id='{$pay['game_id']}'", 'login_url,sign_key,load_type');
 	            $login_url = $game['login_url'];
 	            $sign_key = $game['sign_key'];
 	            $load_type = $game['load_type'];
-	        }
+//	        }
 	        
 	        if( $pay['cp_return'] == 1 ) {
 	            $url = Game_Login::redirect($pay['user_id'], $pay['username'], $pay['game_id'], $pay['server_id'], $login_url, $sign_key);
