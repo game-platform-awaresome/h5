@@ -168,10 +168,10 @@ class ApiController extends Yaf_Controller_Abstract
             $m_user->update(array('money'=>$now_money),"user_id='{$user_id}'");
 //            $this->forward('notify', 'pigpay',$params);
             $trade_no= date('YmdHis').rand(1,9999);
-            $url = 'http://'.$_SERVER['SERVER_NAME']."/notify/pigpay?jinzhue={$params['jinzhue']}&jinzhuc={$params['jinzhuc']}&trade_no={$trade_no}";
+            $url = 'http://'.$_SERVER['SERVER_NAME']."/notify/pigpay?jinzhue={$params['jinzhue']}&jinzhuc={$params['jinzhuc']}&OrderID={$trade_no}";
             $curl = new F_Helper_Curl();
             $rs = $curl->request($url);
-            if($rs){
+            if($rs=='success'){
                 echo json_encode(['code'=>0,'message'=>$return]);
             }else{
                 echo json_encode(['code'=>1,'message'=>'发货失败']);
