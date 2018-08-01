@@ -79,16 +79,16 @@ class ApiController extends Yaf_Controller_Abstract
         }
         
         //判断用户是否有足够的平台币
-        $m_user = new UsersModel();
-        $user = $m_user->fetch("user_id='{$user_id}'", 'money');
-        if( $user && $user['money'] >= $arr['money'] ) {
-            $return = $arr['cp_return'];
-            if( $return == '1' ) {
-                $return = Game_Login::redirect($user_id, $arr['username'], $arr['game_id'], $arr['server_id'], $login_url, $sign_key);
-            }
-            $this->forward('api', 'gotop', array('pay'=>$arr, 'subject'=>$subject, 'deposit'=>$user['money'], 'return'=>$return));
-            return false;
-        }
+//        $m_user = new UsersModel();
+//        $user = $m_user->fetch("user_id='{$user_id}'", 'money');
+//        if( $user && $user['money'] >= $arr['money'] ) {
+//            $return = $arr['cp_return'];
+//            if( $return == '1' ) {
+//                $return = Game_Login::redirect($user_id, $arr['username'], $arr['game_id'], $arr['server_id'], $login_url, $sign_key);
+//            }
+//            $this->forward('api', 'gotop', array('pay'=>$arr, 'subject'=>$subject, 'deposit'=>$user['money'], 'return'=>$return));
+//            return false;
+//        }
         
 //        if( empty($subject) ) {
 //            $conf = Yaf_Application::app()->getConfig();
