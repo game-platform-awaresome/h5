@@ -56,7 +56,9 @@ class Game_Recharge
         
         $curl = new F_Helper_Curl();
         $ret = $curl->request($url);
-        
+        //记录日志
+        $adminlog=new AdminlogModel();
+        $adminlog->insert(['admin'=>'支付通知','content'=>$url,'ymd'=>date('Ymd'),'op_time'=>date('Y-m-d H;i;s')]);
         if( trim($ret) == 'success' ) {
             return '';
         } else {

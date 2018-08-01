@@ -100,7 +100,6 @@ class NotifyController extends Yaf_Controller_Abstract
         if( $rs['status'] == 'failed' ) {
             exit('success');
         }
-        
         $this->deal($rs['pay_id'], $rs['trade_no']);
     }
     
