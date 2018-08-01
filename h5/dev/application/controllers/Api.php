@@ -121,6 +121,58 @@ class ApiController extends Yaf_Controller_Abstract
 
 //          $this->redirect("/pay/numstype.html?server_id={$arr['server_id']}&game_id={$arr['game_id']}&money={$arr['money']}&cp_order={$arr['cp_order']}&cp_return={$arr['cp_return']}");
     }
+
+    /**
+     * 通过平台币充值
+     */
+    public function payByDepositAction(){
+        Yaf_Dispatcher::getInstance()->disableView();
+        $params=$_REQUEST;
+        $user_id=$params['user_id'];
+        $pay_id=$params['jinzhue'];
+        //查询订单
+        $conds = "pay_id='{$pay_id}'";
+        $m_pay = new PayModel();
+        $pay = $m_pay->fetch($conds);
+        if( (int)$pay['finish_time'] > 0 ) {
+            exit('请勿重复提交!');
+            return false;
+        }
+        $arr=array(
+            'money'=>$pay['money'],
+            'username'=>$pay['username'],
+            'game_id'=>$pay['game_id'],
+            'server_id'=>$pay['server_id'],
+            'cp_return'=> $pay['cp_return'] ?$pay['cp_return']: '1'
+        );
+        //游戏信息
+        $m_game = new GameModel();
+        $game = $m_game->fetch("game_id='{$arr['game_id']}'", 'name,login_url,sign_key');
+        $server_name = '';
+        $game_name = $game['name'];
+        $login_url = $game['login_url'];
+        $sign_key = $game['sign_key'];
+        $m_user = new UsersModel();
+        $user = $m_user->fetch("user_id='{$user_id}'", 'money');
+        if( $user && $user['money'] >= $arr['money'] ) {
+            $return = $arr['cp_return'];
+            if( $return == '1' ) {
+                $return = Game_Login::redirect($user_id, $arr['username'], $arr['game_id'], $arr['server_id'], $login_url, $sign_key);
+            }
+//            'pay_id' => $_REQUEST['jinzhue'],
+//            'trade_no' => $_REQUEST['OrderID'],
+//            'pay_type' => $_REQUEST['jinzhuc'],
+            //减扣平台币
+            $m_user = new UsersModel();
+            $now_money=(int)($user['money']-$arr['money']);
+            $m_user->update(array('money'=>$now_money),"user_id='{$user_id}'");
+            $this->forward('notify', 'pigpay',$params);
+            return false;
+        }else{
+            exit('平台币不足，请充值!');
+            return false;
+        }
+    }
     
     //跳转到顶层框架
     public function gotopAction()

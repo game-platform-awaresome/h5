@@ -103,4 +103,12 @@ class TestController extends Yaf_Controller_Abstract
 //            exit($pay_url);
         }
 
+    /**
+     * 支付成功
+     */
+        function  payReturnAction(){
+            echo 'success';
+            exit;
+        }
+
 }

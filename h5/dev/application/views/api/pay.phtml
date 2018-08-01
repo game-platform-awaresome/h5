@@ -20,25 +20,25 @@
             <span>充入账号：</span>
             <b class="bold green"><?=$pay['to_user']?></b>
 <!--            <span class="fr" style="position:absolute; right:1px">(1RMB = --><?//=$parities?><!--平台币)</span>-->
-            <input type="hidden" name="UserName" value="<?=$pay['to_user']?>">
+            <input type="hidden" name="user_id" value="<?=$pay['user_id']?>">
         </h3>
         <h3 class="block_bg your_money" style="position:relative">
             <span>充入游戏：</span>
             <b class="bold green"><?=$pay['game_name']?></b>
             <!--            <span class="fr" style="position:absolute; right:1px">(1RMB = --><?//=$parities?><!--平台币)</span>-->
-            <input type="hidden" name="UserName" value="<?=$pay['game_name']?>">
+            <input type="hidden" name="game_name" value="<?=$pay['game_name']?>">
         </h3>
         <h3 class="block_bg your_money" style="position:relative">
             <span>商品标题：</span>
             <b class="bold green"><?=$pay['subject']?></b>
             <!--            <span class="fr" style="position:absolute; right:1px">(1RMB = --><?//=$parities?><!--平台币)</span>-->
-            <input type="hidden" name="UserName" value="<?=$pay['subject']?>">
+            <input type="hidden" name="subject" value="<?=$pay['subject']?>">
         </h3>
         <h3 class="block_bg your_money" style="position:relative">
             <span>商品描述：</span>
             <b class="bold green"><?=$pay['body']?></b>
             <!--            <span class="fr" style="position:absolute; right:1px">(1RMB = --><?//=$parities?><!--平台币)</span>-->
-            <input type="hidden" name="UserName" value="<?=$pay['body']?>">
+            <input type="hidden" name="body" value="<?=$pay['body']?>">
         </h3>
         <h3 class="block_bg your_money" style="position:relative">
             <span>充值金额：</span>
@@ -64,6 +64,11 @@
                     <span data-type="wxpay" class="checkbox"><i></i></span>
                     <span class="i_weixin"><i></i></span>
                     <span>微信</span>
+                </li>
+                <li>
+                    <span data-type="deposit" class="checkbox"><i></i></span>
+                    <span class="i_ptb"><i></i></span>
+                    <span>平台币</span>
                 </li>
                 <!--                --><?php //} ?>
             </ul>
@@ -159,6 +164,7 @@
                 return false;
             }
             tp = tp.attr('data-type');
+            $('#jinzhuc').val(tp);
             //判断选择通道id
             switch (tp) {
                 case 'alipay':
@@ -167,6 +173,7 @@
                     }else{
                         $('#PayID').val('26');
                     }
+                    $('.z_main').submit();
                     break;
                 case 'wxpay':
                     if(IsPC()){
@@ -174,12 +181,35 @@
                     }else{
                         $('#PayID').val('29');
                     }
+                    $('.z_main').submit();
+                    break;
+                case 'deposit':
+                    $.ajax({
+                        url:"/api/payByDeposit",
+                        data:$('.z_main').serialize(),
+                        type:"post",
+                        async:false,
+                        success:function(aaa){
+                            //aaa为服务器所返回的值
+                                alert(aaa);
+                        },
+                        error:function(){
+                            //服务器连接失败
+                            alert('服务器连接失败');
+                        },
+                        beforeSend:function(){
+                            //在success之前就进行了
+                            //操作
+                        },
+                        complete:function(){
+                            //在success之后就进行
+                            //操作
+                        }
+                    });
                     break;
                 default:
                     return false;
             }
-            $('#jinzhuc').val(tp);
-            $('.z_main').submit();
             // console.log($('.z_main').serialize());
             return false;
         });

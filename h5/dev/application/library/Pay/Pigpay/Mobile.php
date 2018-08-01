@@ -54,7 +54,7 @@ class Pay_Pigpay_Mobile
 //        ));
         $r = array(
             'pay_id' => $_REQUEST['jinzhue'],
-            'trade_no' => $_REQUEST['OrderID'],
+            'trade_no' => date('YmdHis').rand(1,9999),
             'pay_type' => $_REQUEST['jinzhuc'],
         );
         return $r;

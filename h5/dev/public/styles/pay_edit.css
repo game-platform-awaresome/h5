@@ -191,6 +191,21 @@
 .choses ul li .i_iapppay i {
   background-image: url("../images/pay/alipay-48.png");
 }
+.choses ul li .i_ptb {
+  width: 21px;
+  height: 45px;
+}
+.choses ul li .i_ptb i {
+  display: block;
+  width: 21px;
+  height: 21px;
+  background: url("../images/pay/ptb.png") no-repeat center;
+  background-size: 100% auto;
+  position: absolute;
+  left: 0;
+  top: 50%;
+  margin-top: -10px;
+}
 .btn_cont {
   text-align: center;
   margin: 20px 0;
