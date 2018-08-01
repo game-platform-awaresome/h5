@@ -55,6 +55,7 @@ class Pay_Pigpay_Mobile
         $r = array(
             'pay_id' => $_REQUEST['jinzhue'],
             'trade_no' => $_REQUEST['OrderID'],
+            'pay_type' => $_REQUEST['jinzhuc'],
         );
         return $r;
     }

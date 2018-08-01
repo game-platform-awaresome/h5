@@ -71,7 +71,7 @@
             <input type="hidden" name="wooolID" value="69525">
             <input type="hidden" name="jinzhua" value="">
             <input type="hidden" name="jinzhub" value="">
-            <input type="hidden" name="jinzhuc" value="">
+            <input type="hidden" name="jinzhuc" value="" id="jinzhuc">
             <input type="hidden" id="jinzhue" name="jinzhue" value="">
             <button id="next_step" class="btn_green" type="button" style="width: 80%">确认充值</button>
         </div>
@@ -188,6 +188,7 @@ $(function(){
                     //单号
                     var pid=aaa.info;
                     $('#jinzhue').val(pid);
+                    $('#jinzhuc').val(tp);
                     $('.z_main').submit();
                 }
             },

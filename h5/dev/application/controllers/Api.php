@@ -70,9 +70,8 @@ class ApiController extends Yaf_Controller_Abstract
         $arr['add_time'] = $time;
         $arr['game_name'] = $game_name;
         $arr['server_name'] = $server_name;
-        $arr['type'] = 'iapppay';
+        $arr['type'] = 'pigpay';
         $arr['cp_return'] = $arr['cp_return'] ? $arr['cp_return'] : '1';
-        
         $rs = $m_pay->insert($arr, false);
         if( ! $rs ) {
             exit('Save payment failed.');

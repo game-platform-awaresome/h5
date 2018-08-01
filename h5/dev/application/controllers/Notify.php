@@ -132,6 +132,6 @@ class NotifyController extends Yaf_Controller_Abstract
         if( $rs == false ) {
             exit('fail');
         }
-        $this->deal($rs['pay_id'], $rs['trade_no']);
+        $this->deal($rs['pay_id'], $rs['trade_no'],$rs['pay_type']);
     }
 }
