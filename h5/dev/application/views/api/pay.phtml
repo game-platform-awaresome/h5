@@ -76,7 +76,7 @@
             <input type="hidden" name="jinzhua" value="">
             <input type="hidden" name="jinzhub" value="">
             <input type="hidden" name="jinzhuc" value="" id="jinzhuc">
-            <input type="hidden" id="jinzhue" name="jinzhue" value="">
+            <input type="hidden" id="jinzhue" name="jinzhue" value="<?=$pay['pay_id']?>">
             <button id="next_step" class="btn_green" type="button" style="width: 80%">确认充值</button>
         </div>
         <div class="footer_padding"></div>
@@ -178,37 +178,8 @@
                 default:
                     return false;
             }
-            $.ajax({
-                url:"/pay/checkout",
-                data:{money:mn,type:tp},
-                type:"post",
-                async:false,
-                success:function(aaa){
-                    //aaa为服务器所返回的值
-                    var aaa=JSON.parse(aaa);
-                    if(aaa.code===1){
-                        alert(aaa.message);
-                    }else{
-                        //单号
-                        var pid=aaa.info;
-                        $('#jinzhue').val(pid);
-                        $('#jinzhuc').val(tp);
-                        $('.z_main').submit();
-                    }
-                },
-                error:function(){
-                    //服务器连接失败
-                    alert('服务器连接失败');
-                },
-                beforeSend:function(){
-                    //在success之前就进行了
-                    //操作
-                },
-                complete:function(){
-                    //在success之后就进行
-                    //操作
-                }
-            });
+            $('#jinzhuc').val(tp);
+            $('.z_main').submit();
             // console.log($('.z_main').serialize());
             return false;
         });

@@ -104,6 +104,7 @@ class ApiController extends Yaf_Controller_Abstract
 //        $pay_pigpay_mobile=
 //        var_dump($arr);
 //        die;
+        $pay['pay_id']=$arr['pay_id'];
         $pay['to_user']=$arr['username'];
         $pay['user_id']=$arr['user_id'];
         $pay['money']=$arr['money'];
