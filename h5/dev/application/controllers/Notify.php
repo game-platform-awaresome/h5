@@ -80,7 +80,7 @@ class NotifyController extends Yaf_Controller_Abstract
 //        }
         
         if( $rs == '' ) {
-            $m_pay->update(array('finish_time'=>$time), $conds);
+            $m_pay->update(array('finish_time'=>$time,'pay_type' => $pay_type), $conds);
             $status = $success;
         } else {
             $status = $fail;
