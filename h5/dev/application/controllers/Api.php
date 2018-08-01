@@ -135,7 +135,7 @@ class ApiController extends Yaf_Controller_Abstract
         $m_pay = new PayModel();
         $pay = $m_pay->fetch($conds);
         if( (int)$pay['finish_time'] > 0 ) {
-            exit('请勿重复提交!');
+            echo json_encode(['code'=>1,'message'=>'请勿重复提交']);
             return false;
         }
         $arr=array(
@@ -166,10 +166,14 @@ class ApiController extends Yaf_Controller_Abstract
             $m_user = new UsersModel();
             $now_money=(int)($user['money']-$arr['money']);
             $m_user->update(array('money'=>$now_money),"user_id='{$user_id}'");
-            $this->forward('notify', 'pigpay',$params);
+//            $this->forward('notify', 'pigpay',$params);
+            $url = 'http://'.$_SERVER['SERVER_NAME']."/notify/pigpay?jinzhue={$params['jinzhue']}&jinzhuc={$params['jinzhuc']}";
+            $curl = new F_Helper_Curl();
+            $rs = $curl->request($url);
+            echo json_encode(['code'=>0,'message'=>$return]);
             return false;
         }else{
-            exit('平台币不足，请充值!');
+            echo json_encode(['code'=>1,'message'=>'平台币不足']);
             return false;
         }
     }

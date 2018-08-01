@@ -191,7 +191,13 @@
                         async:false,
                         success:function(aaa){
                             //aaa为服务器所返回的值
-                                alert(aaa);
+                            var aaa=JSON.parse(aaa);
+                            if(aaa.code===1){
+                                alert(aaa.message);
+                            }else{
+                                alert('支付成功!');
+                                window.location.href=aaa.message;
+                            }
                         },
                         error:function(){
                             //服务器连接失败
