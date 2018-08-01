@@ -108,6 +108,7 @@ class TestController extends Yaf_Controller_Abstract
      */
         function  payReturnAction(){
 //            echo 'fails';
+            var_dump($_REQUEST);
             echo 'success';
             exit;
         }

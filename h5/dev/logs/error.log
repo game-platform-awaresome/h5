@@ -139,3 +139,93 @@ Recharge Notify:
 http://www.h5.com/test/payReturn?cp_order=20180801154514235&game_id=6&money=2&pay_id=5331097465130679&server_id=0&time=1533109756&to_uid=25&to_user=liuqi2&user_id=25&username=liuqi2&sign=dc4e61683ced8ac11ca86130b719f6ee
 fails
 
+Recharge Notify:
+http://www.h5.com/test/payReturn?cp_order=201808011632235724&game_id=6&money=2&pay_id=5331123433888991&server_id=0&time=1533112356&to_uid=25&to_user=liuqi2&user_id=25&username=liuqi2&sign=3fb535d054c5527fac4dd85fc2605821
+<pre class='xdebug-var-dump' dir='ltr'>
+<small>D:\php\PHPTutorial\WWW\h5\code\h5\dev\application\controllers\Test.php:111:</small>
+<b>array</b> <i>(size=11)</i>
+  'cp_order' <font color='#888a85'>=&gt;</font> <small>string</small> <font color='#cc0000'>'201808011632235724'</font> <i>(length=18)</i>
+  'game_id' <font color='#888a85'>=&gt;</font> <small>string</small> <font color='#cc0000'>'6'</font> <i>(length=1)</i>
+  'money' <font color='#888a85'>=&gt;</font> <small>string</small> <font color='#cc0000'>'2'</font> <i>(length=1)</i>
+  'pay_id' <font color='#888a85'>=&gt;</font> <small>string</small> <font color='#cc0000'>'5331123433888991'</font> <i>(length=16)</i>
+  'server_id' <font color='#888a85'>=&gt;</font> <small>string</small> <font color='#cc0000'>'0'</font> <i>(length=1)</i>
+  'time' <font color='#888a85'>=&gt;</font> <small>string</small> <font color='#cc0000'>'1533112356'</font> <i>(length=10)</i>
+  'to_uid' <font color='#888a85'>=&gt;</font> <small>string</small> <font color='#cc0000'>'25'</font> <i>(length=2)</i>
+  'to_user' <font color='#888a85'>=&gt;</font> <small>string</small> <font color='#cc0000'>'liuqi2'</font> <i>(length=6)</i>
+  'user_id' <font color='#888a85'>=&gt;</font> <small>string</small> <font color='#cc0000'>'25'</font> <i>(length=2)</i>
+  'username' <font color='#888a85'>=&gt;</font> <small>string</small> <font color='#cc0000'>'liuqi2'</font> <i>(length=6)</i>
+  'sign' <font color='#888a85'>=&gt;</font> <small>string</small> <font color='#cc0000'>'3fb535d054c5527fac4dd85fc2605821'</font> <i>(length=32)</i>
+</pre>success
+
+Recharge Notify:
+http://www.h5.com/test/payReturn?cp_order=201808011632443019&game_id=6&money=2&pay_id=5331123648008610&server_id=0&time=1533112366&to_uid=25&to_user=liuqi2&user_id=25&username=liuqi2&sign=cd9c6897eabf142fd778fb44ab9526ab
+<pre class='xdebug-var-dump' dir='ltr'>
+<small>D:\php\PHPTutorial\WWW\h5\code\h5\dev\application\controllers\Test.php:111:</small>
+<b>array</b> <i>(size=11)</i>
+  'cp_order' <font color='#888a85'>=&gt;</font> <small>string</small> <font color='#cc0000'>'201808011632443019'</font> <i>(length=18)</i>
+  'game_id' <font color='#888a85'>=&gt;</font> <small>string</small> <font color='#cc0000'>'6'</font> <i>(length=1)</i>
+  'money' <font color='#888a85'>=&gt;</font> <small>string</small> <font color='#cc0000'>'2'</font> <i>(length=1)</i>
+  'pay_id' <font color='#888a85'>=&gt;</font> <small>string</small> <font color='#cc0000'>'5331123648008610'</font> <i>(length=16)</i>
+  'server_id' <font color='#888a85'>=&gt;</font> <small>string</small> <font color='#cc0000'>'0'</font> <i>(length=1)</i>
+  'time' <font color='#888a85'>=&gt;</font> <small>string</small> <font color='#cc0000'>'1533112366'</font> <i>(length=10)</i>
+  'to_uid' <font color='#888a85'>=&gt;</font> <small>string</small> <font color='#cc0000'>'25'</font> <i>(length=2)</i>
+  'to_user' <font color='#888a85'>=&gt;</font> <small>string</small> <font color='#cc0000'>'liuqi2'</font> <i>(length=6)</i>
+  'user_id' <font color='#888a85'>=&gt;</font> <small>string</small> <font color='#cc0000'>'25'</font> <i>(length=2)</i>
+  'username' <font color='#888a85'>=&gt;</font> <small>string</small> <font color='#cc0000'>'liuqi2'</font> <i>(length=6)</i>
+  'sign' <font color='#888a85'>=&gt;</font> <small>string</small> <font color='#cc0000'>'cd9c6897eabf142fd778fb44ab9526ab'</font> <i>(length=32)</i>
+</pre>success
+
+Recharge Notify:
+http://www.h5.com/test/payReturn?cp_order=201808011632443019&game_id=6&money=2&pay_id=5331123648008610&server_id=0&time=1533112373&to_uid=25&to_user=liuqi2&user_id=25&username=liuqi2&sign=9ac381951ba21c56b0f53618b53b3a6e
+<pre class='xdebug-var-dump' dir='ltr'>
+<small>D:\php\PHPTutorial\WWW\h5\code\h5\dev\application\controllers\Test.php:111:</small>
+<b>array</b> <i>(size=11)</i>
+  'cp_order' <font color='#888a85'>=&gt;</font> <small>string</small> <font color='#cc0000'>'201808011632443019'</font> <i>(length=18)</i>
+  'game_id' <font color='#888a85'>=&gt;</font> <small>string</small> <font color='#cc0000'>'6'</font> <i>(length=1)</i>
+  'money' <font color='#888a85'>=&gt;</font> <small>string</small> <font color='#cc0000'>'2'</font> <i>(length=1)</i>
+  'pay_id' <font color='#888a85'>=&gt;</font> <small>string</small> <font color='#cc0000'>'5331123648008610'</font> <i>(length=16)</i>
+  'server_id' <font color='#888a85'>=&gt;</font> <small>string</small> <font color='#cc0000'>'0'</font> <i>(length=1)</i>
+  'time' <font color='#888a85'>=&gt;</font> <small>string</small> <font color='#cc0000'>'1533112373'</font> <i>(length=10)</i>
+  'to_uid' <font color='#888a85'>=&gt;</font> <small>string</small> <font color='#cc0000'>'25'</font> <i>(length=2)</i>
+  'to_user' <font color='#888a85'>=&gt;</font> <small>string</small> <font color='#cc0000'>'liuqi2'</font> <i>(length=6)</i>
+  'user_id' <font color='#888a85'>=&gt;</font> <small>string</small> <font color='#cc0000'>'25'</font> <i>(length=2)</i>
+  'username' <font color='#888a85'>=&gt;</font> <small>string</small> <font color='#cc0000'>'liuqi2'</font> <i>(length=6)</i>
+  'sign' <font color='#888a85'>=&gt;</font> <small>string</small> <font color='#cc0000'>'9ac381951ba21c56b0f53618b53b3a6e'</font> <i>(length=32)</i>
+</pre>success
+
+Recharge Notify:
+http://www.h5.com/test/payReturn?cp_order=201808011641271154&game_id=6&money=2&pay_id=5331128871388786&server_id=0&time=1533112889&to_uid=25&to_user=liuqi2&user_id=25&username=liuqi2&sign=2d7591dcee998725ff8f134a45203c2d
+<pre class='xdebug-var-dump' dir='ltr'>
+<small>D:\php\PHPTutorial\WWW\h5\code\h5\dev\application\controllers\Test.php:111:</small>
+<b>array</b> <i>(size=11)</i>
+  'cp_order' <font color='#888a85'>=&gt;</font> <small>string</small> <font color='#cc0000'>'201808011641271154'</font> <i>(length=18)</i>
+  'game_id' <font color='#888a85'>=&gt;</font> <small>string</small> <font color='#cc0000'>'6'</font> <i>(length=1)</i>
+  'money' <font color='#888a85'>=&gt;</font> <small>string</small> <font color='#cc0000'>'2'</font> <i>(length=1)</i>
+  'pay_id' <font color='#888a85'>=&gt;</font> <small>string</small> <font color='#cc0000'>'5331128871388786'</font> <i>(length=16)</i>
+  'server_id' <font color='#888a85'>=&gt;</font> <small>string</small> <font color='#cc0000'>'0'</font> <i>(length=1)</i>
+  'time' <font color='#888a85'>=&gt;</font> <small>string</small> <font color='#cc0000'>'1533112889'</font> <i>(length=10)</i>
+  'to_uid' <font color='#888a85'>=&gt;</font> <small>string</small> <font color='#cc0000'>'25'</font> <i>(length=2)</i>
+  'to_user' <font color='#888a85'>=&gt;</font> <small>string</small> <font color='#cc0000'>'liuqi2'</font> <i>(length=6)</i>
+  'user_id' <font color='#888a85'>=&gt;</font> <small>string</small> <font color='#cc0000'>'25'</font> <i>(length=2)</i>
+  'username' <font color='#888a85'>=&gt;</font> <small>string</small> <font color='#cc0000'>'liuqi2'</font> <i>(length=6)</i>
+  'sign' <font color='#888a85'>=&gt;</font> <small>string</small> <font color='#cc0000'>'2d7591dcee998725ff8f134a45203c2d'</font> <i>(length=32)</i>
+</pre>success
+
+Recharge Notify:
+http://www.h5.com/test/payReturn?cp_order=201808011641271154&game_id=6&money=2&pay_id=5331128871388786&server_id=0&time=1533112892&to_uid=25&to_user=liuqi2&user_id=25&username=liuqi2&sign=3ee52bc2e03d337cc9ccb427cc5c51c7
+<pre class='xdebug-var-dump' dir='ltr'>
+<small>D:\php\PHPTutorial\WWW\h5\code\h5\dev\application\controllers\Test.php:111:</small>
+<b>array</b> <i>(size=11)</i>
+  'cp_order' <font color='#888a85'>=&gt;</font> <small>string</small> <font color='#cc0000'>'201808011641271154'</font> <i>(length=18)</i>
+  'game_id' <font color='#888a85'>=&gt;</font> <small>string</small> <font color='#cc0000'>'6'</font> <i>(length=1)</i>
+  'money' <font color='#888a85'>=&gt;</font> <small>string</small> <font color='#cc0000'>'2'</font> <i>(length=1)</i>
+  'pay_id' <font color='#888a85'>=&gt;</font> <small>string</small> <font color='#cc0000'>'5331128871388786'</font> <i>(length=16)</i>
+  'server_id' <font color='#888a85'>=&gt;</font> <small>string</small> <font color='#cc0000'>'0'</font> <i>(length=1)</i>
+  'time' <font color='#888a85'>=&gt;</font> <small>string</small> <font color='#cc0000'>'1533112892'</font> <i>(length=10)</i>
+  'to_uid' <font color='#888a85'>=&gt;</font> <small>string</small> <font color='#cc0000'>'25'</font> <i>(length=2)</i>
+  'to_user' <font color='#888a85'>=&gt;</font> <small>string</small> <font color='#cc0000'>'liuqi2'</font> <i>(length=6)</i>
+  'user_id' <font color='#888a85'>=&gt;</font> <small>string</small> <font color='#cc0000'>'25'</font> <i>(length=2)</i>
+  'username' <font color='#888a85'>=&gt;</font> <small>string</small> <font color='#cc0000'>'liuqi2'</font> <i>(length=6)</i>
+  'sign' <font color='#888a85'>=&gt;</font> <small>string</small> <font color='#cc0000'>'3ee52bc2e03d337cc9ccb427cc5c51c7'</font> <i>(length=32)</i>
+</pre>success
+
