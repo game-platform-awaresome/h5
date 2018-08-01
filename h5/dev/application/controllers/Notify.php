@@ -60,7 +60,7 @@ class NotifyController extends Yaf_Controller_Abstract
         }
         
         //充值到游戏
-        if( $pay['server_id'] ) {
+        //if( $pay['server_id'] ) {
 //            $m_server = new ServerModel();
 //            $server = $m_server->fetch("server_id='{$pay['server_id']}'", 'recharge_url,sign_key');
 //            $recharge_url = $server['recharge_url'];
@@ -70,7 +70,7 @@ class NotifyController extends Yaf_Controller_Abstract
             $game = $m_game->fetch("game_id='{$pay['game_id']}'", 'recharge_url,sign_key');
             $recharge_url = $game['recharge_url'];
             $sign_key = $game['sign_key'];
-        }
+        //}
         
 //        if( $pay['channel'] == 'egret' ) {
 //            $egret = new Game_Channel_Egret();
