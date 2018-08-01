@@ -19,8 +19,26 @@
         <h3 class="block_bg your_money" style="position:relative">
             <span>充入账号：</span>
             <b class="bold green"><?=$pay['to_user']?></b>
-            <span class="fr" style="position:absolute; right:1px">(1RMB = <?=$parities?>平台币)</span>
+<!--            <span class="fr" style="position:absolute; right:1px">(1RMB = --><?//=$parities?><!--平台币)</span>-->
             <input type="hidden" name="UserName" value="<?=$pay['to_user']?>">
+        </h3>
+        <h3 class="block_bg your_money" style="position:relative">
+            <span>充入游戏：</span>
+            <b class="bold green"><?=$pay['game_name']?></b>
+            <!--            <span class="fr" style="position:absolute; right:1px">(1RMB = --><?//=$parities?><!--平台币)</span>-->
+            <input type="hidden" name="UserName" value="<?=$pay['game_name']?>">
+        </h3>
+        <h3 class="block_bg your_money" style="position:relative">
+            <span>商品标题：</span>
+            <b class="bold green"><?=$pay['subject']?></b>
+            <!--            <span class="fr" style="position:absolute; right:1px">(1RMB = --><?//=$parities?><!--平台币)</span>-->
+            <input type="hidden" name="UserName" value="<?=$pay['subject']?>">
+        </h3>
+        <h3 class="block_bg your_money" style="position:relative">
+            <span>商品描述：</span>
+            <b class="bold green"><?=$pay['body']?></b>
+            <!--            <span class="fr" style="position:absolute; right:1px">(1RMB = --><?//=$parities?><!--平台币)</span>-->
+            <input type="hidden" name="UserName" value="<?=$pay['body']?>">
         </h3>
         <section class="block_bg edit">
             <h3>

@@ -60,6 +60,7 @@ class ApiController extends Yaf_Controller_Abstract
         }
         $subject = $arr['subject'];
         $body = $arr['body'];
+        $subject = $arr['subject'];
         unset($arr['subject'], $arr['body'], $arr['time']);
         
         $m_pay = new PayModel();
@@ -103,12 +104,16 @@ class ApiController extends Yaf_Controller_Abstract
 //        $pay_pigpay_mobile=
 //        var_dump($arr);
 //        die;
-        $pay['to_user']=$arr['to_uid'];
+        $pay['to_user']=$arr['username'];
         $pay['user_id']=$arr['user_id'];
         $pay['money']=$arr['money'];
         $pay['cp_order']=$arr['cp_order'];
         $pay['cp_return']=$arr['cp_return'];
         $pay['extra']=$arr['extra'];
+        $pay['game_name']=$arr['game_name'];
+        $pay['server_name']=$arr['server_name'];
+        $pay['subject']=$subject?$subject:$arr['game_name'].'游戏充值';
+        $pay['body']=$body?$body:'元宝';
         $this->getView()->assign('pay', $pay);
         $conf = Yaf_Application::app()->getConfig();
         $this->getView()->assign(array('parities'=>$conf->application->parities));
