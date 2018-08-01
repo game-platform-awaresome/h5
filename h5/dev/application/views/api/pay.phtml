@@ -40,29 +40,15 @@
             <!--            <span class="fr" style="position:absolute; right:1px">(1RMB = --><?//=$parities?><!--平台币)</span>-->
             <input type="hidden" name="UserName" value="<?=$pay['body']?>">
         </h3>
-        <section class="block_bg edit">
-            <h3>
-                <span>充值金额：</span>
-<!--                <span class="fr">获得<b class="yellow bold" id="get_nums">0</b>平台币</span>-->
-            </h3>
-            <div>
-                <input type="text" name="Price" value="<?=$pay['money']?>" placeholder="请选择或输入金额" maxlength="5" readonly/>
-                <span>
-                    <i class="i_edit"></i>
-                </span>
-            </div>
-<!--            <ul>-->
-<!--                <li><span>1</span>元</li>-->
-<!--                <li><span>20</span>元</li>-->
-<!--                <li><span>50</span>元</li>-->
-<!--                <li><span>100</span>元</li>-->
-<!--                <li><span>200</span>元</li>-->
-<!--                <li><span>500</span>元</li>-->
-<!--            </ul>-->
-        </section>
-        <section class="block_bg choses">
-            <h3>充值方式：</h3>
-            <ul>
+        <h3 class="block_bg your_money" style="position:relative">
+            <span>充值金额：</span>
+            <b class="bold green"><?=$pay['money']?>元</b>
+            <!--            <span class="fr" style="position:absolute; right:1px">(1RMB = --><?//=$parities?><!--平台币)</span>-->
+            <input type="hidden" name="Price" value="<?=$pay['money']?>">
+        </h3>
+        <section class="block_bg choses" >
+<!--            <h3>充值方式：</h3>-->
+            <ul style="width:80%;margin: 0 auto;">
                 <!--                <li>-->
                 <!--                    <span data-type="iapppay" class="checkbox checkbox_active"><i></i></span>-->
                 <!--                    <span class="i_zfb"><i></i></span>-->
