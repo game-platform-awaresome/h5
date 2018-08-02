@@ -63,18 +63,17 @@ class Pay_Pigpay_Mobile
     public function result()
     {
         $pay=new PayModel();
-        $pay_info=$pay->fetch(['pay_id'=>$_GET['orderId']]);
-
-//        if( isset($pay_info['pay_time']) && $pay_info['pay_time']>0) {
+        $pay_info=$pay->fetch(['pay_id'=>$_GET['jinzhue']]);
+        if( isset($pay_info['pay_time']) && $pay_info['pay_time']>0) {
             return array(
                 'pay_id' => $pay_info['pay_id'],
                 'trade_no' => $pay_info['trade_no'],
                 'money' => $pay_info['money'],
                 'result' => true,
             );
-//        } else {
-//            return false;
-//        }
+        } else {
+            return false;
+        }
     }
     /**
      * GET 请求
