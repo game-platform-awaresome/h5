@@ -89,7 +89,8 @@ $(function(){
 
     /**自定义  银行卡验证*/
     $.validator.addMethod("isBank",function(value,element){
-        var reg = /^(?:\d{12}|\d{16}|\d{18,21})$/;
+        // var reg = /^(?:\d{12}|\d{16}|\d{18,21})$/;
+        var reg = /^(?:\d{12}|\d{16}|\d{6,21})$/;
         return this.optional(element) || (reg.test(value));
     });
 
