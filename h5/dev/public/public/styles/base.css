@@ -395,6 +395,12 @@ button {
 /**通用样式**/
 /**����Ԫ��--������ʽ ���� ���� ����**/
 /**����ͼƬ css�̶�����*/
+.bg00 {
+  background: url("../images/body.jpg") no-repeat top;
+  background-size: 100% 100%;
+  background-attachment: fixed;
+  top: 0;
+}
 .bg01 {
   background: url("../images/bg03.jpg") no-repeat top;
   background-size: 600px 100%;
@@ -627,6 +633,11 @@ button {
 }
 #footer_nav_active .i_ft05 {
   background-position: -85px -124px;
+}
+.qrcode_image{
+  position: absolute;
+  right: 20%;
+  top:40%;
 }
 /**小部件样式**/
 /**

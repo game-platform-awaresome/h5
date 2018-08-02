@@ -23,5 +23,25 @@
         </a>
     </nav>
 </footer>
-<!--footer 底部  end-->
-<!--<div style="width:0;height:0;overflow:hidden;"><script src="http://s95.cnzz.com/z_stat.php?id=1256660450&web_id=1256660450"></script></div>-->
+<div id="qrcode" class="qrcode_image"/>
+<!--二维码-->
+<script src="/public/scripts/jquery-1.11.1.min.js"></script>
+<script src="/public/scripts/jquery.qrcode.min.js"></script>
+
+<!--<div class="qrcode_image">-->
+<!--        <img src="/qrcode/game.html?addr=--><?//="http://".$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI']?><!--">-->
+<!--</div>-->
+<?php
+        //第一次缓存链接
+        $addr="http://".$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'];
+        $session=Yaf_Session::getInstance();
+        if($session->has('url')){
+	        $addr=$session->get('url');
+        }else {
+            $session->set('url',$addr);
+        }
+?>
+<script>
+    $('#qrcode').qrcode("<?=$addr?>");
+</script>
+

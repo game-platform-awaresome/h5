@@ -112,5 +112,8 @@ class TestController extends Yaf_Controller_Abstract
             echo 'success';
             exit;
         }
+        function qrcodeAction(){
+
+        }
 
 }
