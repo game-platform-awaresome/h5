@@ -268,14 +268,14 @@ class DeveloperController extends Yaf_Controller_Abstract
 	        if( $data['type'] == 'company' ) {
 	            $data['com_short'] = $req->getPost('com_short', '');
 	            $data['company'] = $req->getPost('company', '');
-	            $data['org_code'] = $req->getPost('org_code', '');
+//	            $data['org_code'] = $req->getPost('org_code', '');
 	            $data['license'] = $req->getPost('license', '');
 	            $data['tel'] = $req->getPost('tel', '');
 	            
 	            $data['com_short'] && $data['com_short'] = preg_replace('/[\'\"\\\]+/', '', mb_substr($data['com_short'], 0, 6));
 	            $data['company'] && $data['company'] = preg_replace('/[\'\"\\\]+/', '', mb_substr($data['company'], 0, 32));
-	            $data['org_code'] && $data['org_code'] = preg_replace('/[^a-zA-Z\d\-]+/', '', substr($data['org_code'], 0, 10));
-	            $data['license'] && $data['license'] = preg_replace('/\D+/', '', substr($data['license'], 0, 15));
+//	            $data['org_code'] && $data['org_code'] = preg_replace('/[^a-zA-Z\d\-]+/', '', substr($data['org_code'], 0, 10));
+	            $data['license'] && $data['license'] = preg_replace('/[^a-zA-Z\d\-]+/', '', substr($data['license'], 0, 18));
 	            $data['tel'] && $data['tel'] = preg_replace('/[^\d\-\s]+/', '', substr($data['tel'], 0, 13));
 	        }
 	        

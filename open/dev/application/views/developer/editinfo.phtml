@@ -40,15 +40,15 @@
                         </label>
                         <input type="text" id="company" name="company" value="<?=$dev['company']?>" class="widen"/>
                     </div>
+<!--                    <div class="company_list"--><?//=$display?><!-->
+<!--                        <label>-->
+<!--                            <span class="red">*</span> 组织机构代码-->
+<!--                        </label>-->
+<!--                        <input type="text" placeholder="" id="org_code" name="org_code" value="--><?//=$dev['org_code']?><!--"/>-->
+<!--                    </div>-->
                     <div class="company_list"<?=$display?>>
                         <label>
-                            <span class="red">*</span> 组织机构代码
-                        </label>
-                        <input type="text" placeholder="" id="org_code" name="org_code" value="<?=$dev['org_code']?>"/>
-                    </div>
-                    <div class="company_list"<?=$display?>>
-                        <label>
-                            <span class="red">*</span> 营业执照注册号
+                            <span class="red">*</span> 统一社会信用代码
                         </label>
                         <input type="text" placeholder="" id="license" name="license" value="<?=$dev['license']?>"/>
                     </div>
@@ -182,8 +182,7 @@ $(function(){
             },
             license: {
                 required: true,
-                number: true,
-                rangelength:[15,15]
+                rangelength:[18,18]
             },
             province: {
             	required: true
@@ -233,9 +232,8 @@ $(function(){
                 rangelength: "组织机构代码为10个字符"
             },
             license: {
-                required: "请输入营业执照注册号",
-                number: "必须为数字",
-                rangelength: "营业执照注册号为15个数字"
+                required: "请输入统一社会信用代码",
+                rangelength: "统一社会信用代码为18个字符"
             },
             province: {
             	required: "必选"
