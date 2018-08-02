@@ -63,7 +63,7 @@ class Pay_Pigpay_Mobile
     public function result()
     {
         $pay=new PayModel();
-        $pay_info=$pay->fetch(['trade_no'=>$_GET['orderId']]);
+        $pay_info=$pay->fetch(['pay_id'=>$_GET['orderId']]);
 
         if( isset($pay_info['pay_time']) && $pay_info['pay_time']>0) {
             return array(
