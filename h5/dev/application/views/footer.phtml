@@ -23,8 +23,9 @@
         </a>
     </nav>
 </footer>
-<div id="qrcode" class="qrcode_image">
-
+<div class="qrcode_image">
+    <div id="qrcode" ></div>
+    <span>扫码进入 《乐游游戏》 手机版</span>
 </div>
 <!--二维码-->
 <script src="/public/scripts/jquery-1.11.1.min.js"></script>
@@ -48,6 +49,8 @@
         text:"<?=$addr?>",
         width: 200, //宽度
         height:200, //高度
+        background: "#ffffff",
+        correctLevel    : 0,//纠错等级
     });
 </script>
 

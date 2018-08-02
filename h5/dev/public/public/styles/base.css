@@ -638,6 +638,8 @@ button {
   position: fixed;
   right:10%;
   top:40%;
+  /*background: #FFFFFF;*/
+  padding: 1px;
 }
 @media screen and (max-width: 600px) {
   .qrcode_image{
