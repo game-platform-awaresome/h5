@@ -9,7 +9,7 @@ a span p {
 }
 .user_info {
   overflow: hidden;
-  margin-top: 15px;
+  /*margin-top: 15px;*/
   padding: 10px 5%;
 }
 .user_img {
@@ -58,7 +58,7 @@ a span p {
   /*margin-right: 0;*/
 }
 .user_lists {
-  margin-top: 15px;
+  /*margin-top: 15px;*/
   text-indent: 30px;
 }
 .user_lists a {
