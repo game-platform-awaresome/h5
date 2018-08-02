@@ -441,6 +441,9 @@ class PayController extends Yaf_Controller_Abstract
             $class = new Pay_Pigpay_Mobile();
             $rs = $class->result();
         }
+        //记录日志
+        $adminlog=new AdminlogModel();
+        $adminlog->insert(['admin'=>'充值通知回调页面','content'=>json_encode($_REQUEST),'ymd'=>date('Ymd'),'op_time'=>date('Y-m-d H;i;s')]);
 	    //处理来自游戏的直充，直充需要返回到之前的地址
 	    if( $rs ) {
 	        $pay = $this->m_pay->fetch("pay_id='{$rs['pay_id']}'", 'pay_id,user_id,username,to_uid,to_user,game_id,server_id,game_name,money,cp_order,cp_return,channel,extra');
