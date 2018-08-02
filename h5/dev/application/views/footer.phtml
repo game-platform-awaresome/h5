@@ -23,7 +23,9 @@
         </a>
     </nav>
 </footer>
-<div id="qrcode" class="qrcode_image"/>
+<div id="qrcode" class="qrcode_image">
+
+</div>
 <!--二维码-->
 <script src="/public/scripts/jquery-1.11.1.min.js"></script>
 <script src="/public/scripts/jquery.qrcode.min.js"></script>
@@ -42,6 +44,10 @@
         }
 ?>
 <script>
-    $('#qrcode').qrcode("<?=$addr?>");
+    $('#qrcode').qrcode({
+        text:"<?=$addr?>",
+        width: 200, //宽度
+        height:200, //高度
+    });
 </script>
 

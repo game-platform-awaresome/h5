@@ -635,9 +635,14 @@ button {
   background-position: -85px -124px;
 }
 .qrcode_image{
-  position: absolute;
-  right: 20%;
+  position: fixed;
+  right:10%;
   top:40%;
+}
+@media screen and (max-width: 600px) {
+  .qrcode_image{
+    display: none;
+  }
 }
 /**小部件样式**/
 /**
