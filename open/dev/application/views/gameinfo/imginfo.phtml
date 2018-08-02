@@ -27,7 +27,7 @@ input.file{border:none; cursor:pointer; height:37px; margin-left:-40px; margin-t
                             <strong>图片素材</strong>
                         </nav>
                     </header>
-                    <h2 class="section_title">游戏LOGO<span class="red"> （游戏图标ICON 尺寸为100*100 文件大小&lt;20KB) </span></h2>
+                    <h2 class="section_title">游戏LOGO<span class="red"> （游戏图标ICON 尺寸为100*100 文件大小&lt;30KB) </span></h2>
                     <ul class="ul_up">
                         <li>
                             <img src="<?=$logo?$logo:'/images/logo-dft.jpg'?>" style="height:100px; width:100px"/>
@@ -38,7 +38,7 @@ input.file{border:none; cursor:pointer; height:37px; margin-left:-40px; margin-t
                     </ul>
                     <hr class="split_line" />
 
-                    <h2 class="section_title">游戏截图<span class="red"> （图片尺寸为 291*459   文件大小&lt;80KB ) </span></h2>
+                    <h2 class="section_title">游戏截图<span class="red"> （图片尺寸为 291*459   文件大小&lt;120KB ) </span></h2>
                     <ul class="ul_imgs">
                     <?php for($i=1; $i<5; $i++) { ?>
                         <li>
@@ -76,7 +76,7 @@ $(function(){
 			return false;
 		}
 		if( this.value ) {
-			if( (this.id == 'logo' && this.files[0].size > 20*1024) || (this.id != 'logo' && this.files[0].size > 80*1024) ) {
+			if( (this.id == 'logo' && this.files[0].size > 30*1024) || (this.id != 'logo' && this.files[0].size > 120*1024) ) {
     			dxjalert('图片太大了，请注意提示的图片大小限制！', 'error');
     			this.value = '';
     			this.files = [];
