@@ -5,8 +5,8 @@
  */
 function clear()
 {
-    //清除未支付订单，半月以前
-    $time = strtotime('-15 days');
+    //清除未支付订单，1天以前
+    $time = strtotime('-1 days');
     $m_pay = new PayModel();
     $m_pay->delete("pay_time=0 AND finish_time=0 AND add_time<{$time}");
     
