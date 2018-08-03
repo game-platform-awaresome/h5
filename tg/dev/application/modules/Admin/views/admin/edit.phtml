@@ -1,0 +1,44 @@
+    <div class="content-box">
+      <!-- Start Content Box -->
+      <div class="content-box-header">
+        <h3><?=$title?></h3>
+        <a class="go_back" href="javascript:history.go(-1);">返回上一页</a>
+        <div class="clear"></div>
+      </div>
+      <!-- End .content-box-header -->
+      <div class="content-box-content">
+        <div class="tab-content default-tab">
+          <form action="/admin/admin/update" method="post">
+          <input type="hidden" name="info[admin_id]" value="<?php echo isset($info) ? $info['admin_id'] : ''; ?>" />
+            <fieldset>
+        <!-- Set class to "column-left" or "column-right" on fieldsets to divide the form into columns -->
+            <p>
+                <label>渠道名称</label>
+                <input class="text-input small-input" type="text" id="uname" name="info[nickname]" value="<?php echo isset($info) ? $info['nickname'] : ''; ?>" />
+                <br />
+            </p>
+            <p>
+              <label>登录账号</label>
+              <input class="text-input small-input" type="text" id="uname" name="info[username]" value="<?php echo isset($info) ? $info['username'] : ''; ?>" />
+              <br />
+            </p>
+              <p>
+              <label>用户密码</label>
+              <input class="text-input small-input" type="password" id="upass" name="info[password]" value="" />
+              <br />
+            </p>
+                <input type="hidden" name="status" value="super">
+              <input class="button" type="submit" value="提交" />
+            </p>
+            </fieldset>
+            <div class="clear"></div>
+            <!-- End .clear -->
+          </form>
+        </div>
+        <!-- End #tab2 -->
+      </div>
+      <!-- End .content-box-content -->
+    </div>
+    <!-- End .content-box -->
+
+    <div class="clear"></div>

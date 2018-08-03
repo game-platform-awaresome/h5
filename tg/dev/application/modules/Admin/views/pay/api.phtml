@@ -1,0 +1,37 @@
+<div class="content-box">
+  <div class="content-box-header">
+    <h3>充值接口</h3>
+    <a class="go_back" href="javascript:history.go(-1);">返回上一页</a>
+  </div>
+  <!-- End .content-box-header -->
+  <div class="content-box-content">
+    <div class="tab-content default-tab">
+      <h4>1、充值地址</h4>
+      <p>游戏接收平台充值信息的API接口地址</p>
+      <h4>2、字符编码</h4>
+      <p>UTF-8</p>
+      <h4>3、HTTP GET参数</h4>
+      <ul>
+        <li>user_id 支付者用户ID，INT型，唯一</li>
+        <li>username 支付者用户名，32位字符串，唯一</li>
+        <li>to_uid 到账的用户ID，INT型，唯一</li>
+        <li>to_user 到账的用户名，32位字符串，唯一</li>
+        <li>pay_id 充值ID，BIGINT型（可以处理为string型），唯一</li>
+        <li>money 充值金额，INT型，单位人民币元</li>
+        <li>time 充值时间，INT型，UNIX时间戳</li>
+        <li>sign 校验码，32位字符串</li>
+      </ul>
+      <h4>4、校验码（sign）的生成规则</h4>
+      <p>将HTTP GET参数（sign除外）按键名排序（ksort）组成一个字符串，再加上通信密钥，取这个字符串的md5值，即为校验码sign。</p>
+      <p>如：sign = md5("1username1to_user4444555566667777");</p>
+      <h4>5、避免多次充值</h4>
+      <p>每一笔充值均有一个唯一的ID标记，即pay_id，每一个pay_id只能成功充值一次，之后的通知不做处理，立即返回成功即可。</p>
+      <h4>6、接口返回</h4>
+      <p>成功返回：success</p>
+      <p>失败返回：失败的说明信息</p>
+    </div>
+    <!-- End #tab3 -->
+  </div>
+  <!-- End .content-box-content -->
+</div>
+<!-- End .content-box -->

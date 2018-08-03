@@ -1,0 +1,41 @@
+    <div class="content-box">
+      <!-- Start Content Box -->
+      <div class="content-box-header">
+        <h3><?=$title?></h3>
+        <a class="go_back" href="javascript:history.go(-1);">返回上一页</a>
+        <div class="clear"></div>
+      </div>
+      <!-- End .content-box-header -->
+      <div class="content-box-content">
+        <div class="tab-content default-tab">
+          <form action="/admin/<?=$controller?>/update?<?=$query?>" method="post" enctype="multipart/form-data">
+          <input type="hidden" name="info[<?=$primary?>]" value="<?php echo isset($info) ? $info[$primary] : ''; ?>" />
+            <fieldset>
+            <!-- Set class to "column-left" or "column-right" on fieldsets to divide the form into columns -->
+            <p>
+              <label>用户名</label>
+              <span><?=$info['username']?></span>
+            </p>
+            <p>
+              <label>电子邮箱</label>
+              <input class="text-input small-input" type="text" name="info[email]" value="<?=$info['email']?>">
+            </p>
+            <p>
+              <label>账户余额</label>
+              <input class="text-input small-input" type="text" name="info[money]" value="<?=$info['money']?>">
+            </p>
+            <p>
+              <input class="button" type="submit" value="提交" />
+            </p>
+            </fieldset>
+            <div class="clear"></div>
+            <!-- End .clear -->
+          </form>
+        </div>
+        <!-- End #tab2 -->
+      </div>
+      <!-- End .content-box-content -->
+    </div>
+    <!-- End .content-box -->
+
+    <div class="clear"></div>

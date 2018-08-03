@@ -1,0 +1,144 @@
+    <div class="content-box">
+      <!-- Start Content Box -->
+      <div class="content-box-header">
+        <h3><?=$title?></h3>
+        <a class="go_back" href="javascript:history.go(-1);">返回上一页</a>
+        <div class="clear"></div>
+      </div>
+      <!-- End .content-box-header -->
+      <div class="content-box-content">
+        <div class="tab-content default-tab">
+          <form action="/admin/<?=$controller?>/update?<?=$query?>" method="post" enctype="multipart/form-data">
+          <input type="hidden" name="info[server_id]" value="<?php echo isset($info) ? $info['server_id'] : ''; ?>" />
+            <fieldset>
+            <!-- Set class to "column-left" or "column-right" on fieldsets to divide the form into columns -->
+            <p>
+              <label>区/服名称</label>
+              <input class="text-input small-input" type="text" name="info[name]" value="<?php echo isset($info) ? $info['name'] : ''; ?>" />
+            </p>
+            <p>
+              <label>所属游戏</label>
+              <span>类型：</span>
+              <select id="game_type">
+              <?php foreach ($types as $tp) { ?>
+                <option value="<?=$tp?>"><?=$tp?></option>
+              <?php } ?>
+              </select>
+              <span>游戏：</span>
+              <select id="game_id" name="info[game_id]"></select>
+              <input type="hidden" id="game_name" name="info[game_name]" value="<?php echo isset($info) ? $info['game_name'] : ''; ?>">
+            </p>
+            
+            <p>
+              <label>角标</label>
+              <select name="info[corner]">
+              <?php foreach ($corner as $lk=>$lv) { ?>
+                <option value="<?=$lk?>"<?php if(isset($info) && $info['corner'] == $lk) echo ' selected="selected"'; ?>><?=$lv?></option>
+              <?php } ?>
+              </select>
+            </p>
+            <p>
+              <label>后标</label>
+              <select name="info[label]">
+              <?php foreach ($labels as $lk=>$lv) { ?>
+                <option value="<?=$lk?>"<?php if(isset($info) && $info['label'] == $lk) echo ' selected="selected"'; ?>><?=$lv?></option>
+              <?php } ?>
+              </select>
+            </p>
+            <p>
+              <label>排序（降序， 0-65535）</label>
+              <input class="text-input small-input" type="text" name="info[weight]" value="<?php echo isset($info) ? $info['weight'] : '0'; ?>" />
+            </p>
+            
+            <p>
+              <label>登录地址</label>
+              <input class="text-input medium-input" type="text" name="info[login_url]" value="<?php echo isset($info) ? $info['login_url'] : ''; ?>" />
+            </p>
+            <p>
+              <label>充值地址</label>
+              <input class="text-input medium-input" type="text" name="info[recharge_url]" value="<?php echo isset($info) ? $info['recharge_url'] : ''; ?>" />
+            </p>
+            <p>
+              <label>通信密钥</label>
+              <input class="text-input medium-input" type="text" name="info[sign_key]" value="<?php echo isset($info) ? $info['sign_key'] : ''; ?>" />
+            </p>
+            
+            <p>
+              <label>是否可见</label>
+              <select name="info[visible]">
+              <?php foreach (array('1'=>'是','0'=>'否') as $lk=>$lv) { ?>
+                <option value="<?=$lk?>"<?php if(isset($info) && $info['visible'] == $lk) echo ' selected="selected"'; ?>><?=$lv?></option>
+              <?php } ?>
+              </select>
+            </p>
+            <p>
+              <label>合作渠道</label>
+              <select name="info[channel]">
+              <?php foreach ($channels as $k=>$v) { ?>
+                <option value="<?=$k?>"<?php if(isset($info) && $info['channel'] == $k) echo ' selected="selected"'; ?>><?=$v?></option>
+              <?php } ?>
+              </select>
+              <span style="color:red">&nbsp;提示：</span>
+              <span>如果设置了合作渠道，需要将渠道的区/服ID与久乐的区/服ID做映射。</span>
+            </p>
+            <p>
+              <label>游戏加载方式</label>
+              <select name="info[load_type]">
+              <?php foreach ($load_types as $k=>$v) { ?>
+                <option value="<?=$k?>"<?php if(isset($info) && $info['load_type'] == $k) echo ' selected="selected"'; ?>><?=$v?></option>
+              <?php } ?>
+              </select>
+            </p>
+            <p>
+              <input class="button" type="submit" value="提交" />
+            </p>
+            </fieldset>
+            <div class="clear"></div>
+            <!-- End .clear -->
+          </form>
+        </div>
+        <!-- End #tab2 -->
+      </div>
+      <!-- End .content-box-content -->
+    </div>
+    <!-- End .content-box -->
+
+    <div class="clear"></div>
+
+<script>
+$(function(){
+	var games = <?=$games?>;
+	var type = '<?=$game_type?>';
+	var game_id = '<?=$game_id?>';
+
+	$('#game_type').val(type);
+    var func = function(type, game_id){
+    	var html = '';
+    	var selected;
+    	for(var key in games[type])
+    	{
+        	if( game_id == key ) {
+            	selected = ' selected="selected"';
+            } else {
+            	selected = '';
+            }
+    		html += '<option value="'+ key + '"'+ selected +'>'+ games[type][key] + '</option>';
+    	}
+    	$('#game_id').html(html);
+    	$('#game_name').val($('#game_id option:selected').text());
+    };
+    func(type, game_id);
+
+    $('#game_id').change(function(){
+        $('#game_name').val($('#game_id option:selected').text());
+    });
+    $('#game_type').change(function(){
+        var tp = $(this).val();
+        var id = game_id;
+        if( tp != type ) {
+            id = 0;
+        }
+        func(tp, id);
+    });
+});
+</script>
