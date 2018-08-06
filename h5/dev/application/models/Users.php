@@ -428,8 +428,8 @@ class UsersModel extends F_Model_Pdo
 	 */
 	public function edit($username, $oldpw, $newpw, $mobile= '', $email = '', $ignore = false)
 	{
-	    require_once APPLICATION_PATH.'/config.inc.php';
-	    require_once APPLICATION_PATH.'/uc_client/client.php';
+//	    require_once APPLICATION_PATH.'/config.inc.php';
+//	    require_once APPLICATION_PATH.'/uc_client/client.php';
 	    
 	    $rs = uc_user_edit($username, $oldpw, $newpw, $email, $ignore);
 	    
@@ -521,7 +521,7 @@ class UsersModel extends F_Model_Pdo
 	 */
 	public function checkEmail($email)
 	{
-	    require APPLICATION_PATH.'/config.inc.php';
+//	    require APPLICATION_PATH.'/config.inc.php';
 //	    require APPLICATION_PATH.'/uc_client/client.php';
 //
 //	    $rs = uc_user_checkemail($email);
@@ -610,8 +610,8 @@ class UsersModel extends F_Model_Pdo
 	    $s = Yaf_Session::getInstance();
 	    $uid = $s->get('user_id');
 	    
-	    require APPLICATION_PATH.'/config.inc.php';
-	    require APPLICATION_PATH.'/uc_client/client.php';
+//	    require APPLICATION_PATH.'/config.inc.php';
+//	    require APPLICATION_PATH.'/uc_client/client.php';
 	    return uc_friend_totalnum($uid, $direct);
 	}
 	
@@ -629,8 +629,8 @@ class UsersModel extends F_Model_Pdo
 	    $s = Yaf_Session::getInstance();
 	    $uid = $s->get('user_id');
 	    
-	    require APPLICATION_PATH.'/config.inc.php';
-	    require APPLICATION_PATH.'/uc_client/client.php';
+//	    require APPLICATION_PATH.'/config.inc.php';
+//	    require APPLICATION_PATH.'/uc_client/client.php';
 	    return uc_friend_ls($uid, $page, $pagesize, $total, $direct);
 	}
 	
@@ -644,8 +644,8 @@ class UsersModel extends F_Model_Pdo
 	{
 	    $s = Yaf_Session::getInstance();
 	    $uid = $s->get('user_id');
-	    require APPLICATION_PATH.'/config.inc.php';
-	    require APPLICATION_PATH.'/uc_client/client.php';
+//	    require APPLICATION_PATH.'/config.inc.php';
+//	    require APPLICATION_PATH.'/uc_client/client.php';
 	    return uc_friend_add($uid, $fid);
 	}
 	
@@ -659,8 +659,8 @@ class UsersModel extends F_Model_Pdo
 	{
 	    $s = Yaf_Session::getInstance();
 	    $uid = $s->get('user_id');
-	    require APPLICATION_PATH.'/config.inc.php';
-	    require APPLICATION_PATH.'/uc_client/client.php';
+//	    require APPLICATION_PATH.'/config.inc.php';
+//	    require APPLICATION_PATH.'/uc_client/client.php';
 	    return uc_friend_delete($uid, $fid);
 	}
 	

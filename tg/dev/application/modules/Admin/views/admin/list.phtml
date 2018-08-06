@@ -1,2 +1,4 @@
 <?php echo $html; ?>
+<?php if($_SESSION['cps_type']!=3):?>
 <input type="button" value="添加渠道" onclick="location.href='/admin/admin/edit?pn=<?=$pn?>';" class="button">
+<?php endif;?>

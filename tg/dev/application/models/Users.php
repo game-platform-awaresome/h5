@@ -98,7 +98,7 @@ class UsersModel extends F_Model_Pdo
 		$username = preg_replace('/[\'\"\\\]+/', '', $username);
 		$time = time();
 
-		require_once APPLICATION_PATH . '/config.inc.php';
+//		require_once APPLICATION_PATH . '/config.inc.php';
 //		require_once APPLICATION_PATH.'/uc_client/client.php';
 		
 //		list($u_id, $u_name, $u_pass, $u_email) = uc_user_login($username, $password, $isuid);
@@ -171,8 +171,8 @@ class UsersModel extends F_Model_Pdo
 	 */
 	public function oAuthLogin($app, $info)
     {
-        require_once APPLICATION_PATH . '/config.inc.php';
-        require_once APPLICATION_PATH . '/uc_client/client.php';
+//        require_once APPLICATION_PATH . '/config.inc.php';
+//        require_once APPLICATION_PATH . '/uc_client/client.php';
         $time = time();
         
         $user = $this->fetch("app='{$app}' AND openid='{$info['openid']}'", 'user_id,username,nickname,`password`,email,expires,login_times,tg_channel');
@@ -377,7 +377,7 @@ class UsersModel extends F_Model_Pdo
 	        return '确认密码与密码不符。';
 	    }
 	    
-	    require_once APPLICATION_PATH . '/config.inc.php';
+//	    require_once APPLICATION_PATH . '/config.inc.php';
 //	    require_once APPLICATION_PATH.'/uc_client/client.php';
 	    
 //	    $uid = uc_user_register($username, $password, $email);
@@ -431,8 +431,8 @@ class UsersModel extends F_Model_Pdo
 	 */
 	public function edit($username, $oldpw, $newpw, $mobile= '', $email = '', $ignore = false)
 	{
-	    require_once APPLICATION_PATH . '/config.inc.php';
-	    require_once APPLICATION_PATH . '/uc_client/client.php';
+//	    require_once APPLICATION_PATH . '/config.inc.php';
+//	    require_once APPLICATION_PATH . '/uc_client/client.php';
 	    
 	    $rs = uc_user_edit($username, $oldpw, $newpw, $email, $ignore);
 	    
@@ -524,7 +524,7 @@ class UsersModel extends F_Model_Pdo
 	 */
 	public function checkEmail($email)
 	{
-	    require APPLICATION_PATH . '/config.inc.php';
+//	    require APPLICATION_PATH . '/config.inc.php';
 //	    require APPLICATION_PATH.'/uc_client/client.php';
 //
 //	    $rs = uc_user_checkemail($email);
@@ -613,8 +613,8 @@ class UsersModel extends F_Model_Pdo
 	    $s = Yaf_Session::getInstance();
 	    $uid = $s->get('user_id');
 	    
-	    require APPLICATION_PATH . '/config.inc.php';
-	    require APPLICATION_PATH . '/uc_client/client.php';
+//	    require APPLICATION_PATH . '/config.inc.php';
+//	    require APPLICATION_PATH . '/uc_client/client.php';
 	    return uc_friend_totalnum($uid, $direct);
 	}
 	
@@ -631,9 +631,9 @@ class UsersModel extends F_Model_Pdo
 	{
 	    $s = Yaf_Session::getInstance();
 	    $uid = $s->get('user_id');
-	    
-	    require APPLICATION_PATH . '/config.inc.php';
-	    require APPLICATION_PATH . '/uc_client/client.php';
+//
+//	    require APPLICATION_PATH . '/config.inc.php';
+//	    require APPLICATION_PATH . '/uc_client/client.php';
 	    return uc_friend_ls($uid, $page, $pagesize, $total, $direct);
 	}
 	
@@ -647,8 +647,8 @@ class UsersModel extends F_Model_Pdo
 	{
 	    $s = Yaf_Session::getInstance();
 	    $uid = $s->get('user_id');
-	    require APPLICATION_PATH . '/config.inc.php';
-	    require APPLICATION_PATH . '/uc_client/client.php';
+//	    require APPLICATION_PATH . '/config.inc.php';
+//	    require APPLICATION_PATH . '/uc_client/client.php';
 	    return uc_friend_add($uid, $fid);
 	}
 	
@@ -662,8 +662,8 @@ class UsersModel extends F_Model_Pdo
 	{
 	    $s = Yaf_Session::getInstance();
 	    $uid = $s->get('user_id');
-	    require APPLICATION_PATH . '/config.inc.php';
-	    require APPLICATION_PATH . '/uc_client/client.php';
+//	    require APPLICATION_PATH . '/config.inc.php';
+//	    require APPLICATION_PATH . '/uc_client/client.php';
 	    return uc_friend_delete($uid, $fid);
 	}
 	

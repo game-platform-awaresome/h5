@@ -17,20 +17,35 @@ class AdminModel extends F_Model_Pdo
 	
 	public function getFieldsLabel()
 	{
-	    $this->_tmp_m_g = F_Model_Pdo::getInstance('Admingroup');
+//	    $this->_tmp_m_g = F_Model_Pdo::getInstance('Admingroup');
+//        渠道ID  渠道帐号 盒子名字  分成比例  最后登录时间 最后登录IP 添加时间 状态  添加人  操作
 		return array(
 			'admin_id' => '渠道ID',
+			'username' => '渠道帐号',
+            'nickname' => '真实姓名',
+            'pay_number' => '支付宝',
 			'username' => '渠道账号',
-			'nickname' => '渠道名称',
-		    'add_by' => '添加人',
-			'add_ip' => '添加IP',
-		    'add_time' => '添加时间',
-		    'parent_id' => '上级渠道',
-            'parent_id' => function(&$row){
-                if( empty($row) ) return '上级渠道';
-                $parent_name=$this->fetch(['admin_id'=>$row['parent_id']],'nickname');
-                return $parent_name['nickname']??'无';
-            },
+			'boxname' => '盒子名字',
+			'divide_into' => '分成比例',
+			'last_login_time' => '最后登录时间',
+			'last_login_ip' => '最后登录IP',
+            'add_time' => '添加时间',
+            'status' => function(&$row){
+		        if( empty($row) ) return '状态';
+		        switch ($row['status'])
+		        {
+		            case 'super': return '正常';
+//		            case 'normal': return '普通管理员';
+		            case 'disabled': return '被禁用';
+		        }
+		    },
+            'add_by' => '添加人',
+//            'parent_id' => '上级渠道',
+//            'parent_id' => function(&$row){
+//                if( empty($row) ) return '上级渠道';
+//                $parent_name=$this->fetch(['admin_id'=>$row['parent_id']],'nickname');
+//                return $parent_name['nickname']??'无';
+//            },
 //		    'status' => function(&$row){
 //		        if( empty($row) ) return '账号类型';
 //		        switch ($row['status'])
@@ -48,6 +63,7 @@ class AdminModel extends F_Model_Pdo
 //		        $this->_tmp_group[$row['group_id']] = $tmp['name'];
 //		        return $tmp['name'];
 //		    },
+            'add_ip' => '添加IP',
 		);
 	}
 //    public function getFieldsPadding()
@@ -89,7 +105,6 @@ class AdminModel extends F_Model_Pdo
 		if( $user['status'] == 'disabled' ){
 			return '你没有访问权限。';
 		}
-        $tg_channel=$user['admin_id'];
         $admin=new AdminModel();
         $channel_ids=$admin->fetchAll(['parent_id'=>$user['admin_id']],1,20000,'admin_id');
         foreach ($channel_ids as $k=>$v){
@@ -103,7 +118,8 @@ class AdminModel extends F_Model_Pdo
 		$s->set('admin_group', $user['group_id']);
 		$s->set('channel_ids', $channel_ids);//渠道
         $s->set('channel_ids_condition','('.implode(',',$channel_ids).')');
-
+        $s->set('cps_type',$user['cps_type']);
+        $this->update(array('last_login_time'=>date("Y-m-d H:i:s"), 'last_login_ip'=>$_SERVER['REMOTE_ADDR']), "admin_id='{$user['admin_id']}'");
 		if( $remember ) {
 			$time = time() + 864000;
 			$info = "{$user['admin_id']}\t{$user['username']}\t{$user['status']}\t{$user['group_id']}\t{$time}";

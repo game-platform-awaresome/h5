@@ -95,10 +95,11 @@ class GameModel extends F_Model_Pdo
 		        if( empty($row) ) return '直充';
 		        return $row['prepay'] ? '是' : '-';
 		    },
-		    'channel' => function(&$row){
-		        if( empty($row) ) return '合作渠道';
-		        return $this->_channels[$row['channel']];
-		    },
+            'divide_into' =>'分成比例',
+//		    'channel' => function(&$row){
+//		        if( empty($row) ) return '合作渠道';
+//		        return $this->_channels[$row['channel']];
+//		    },
 		);
 	}
 	
