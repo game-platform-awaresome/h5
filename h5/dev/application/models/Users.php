@@ -374,7 +374,7 @@ class UsersModel extends F_Model_Pdo
 	        return '确认密码与密码不符。';
 	    }
 	    
-	    require_once APPLICATION_PATH.'/config.inc.php';
+//	    require_once APPLICATION_PATH.'/config.inc.php';
 //	    require_once APPLICATION_PATH.'/uc_client/client.php';
 	    
 //	    $uid = uc_user_register($username, $password, $email);
