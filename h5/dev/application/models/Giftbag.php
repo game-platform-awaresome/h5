@@ -146,7 +146,7 @@ class GiftbagModel extends F_Model_Pdo
 	        }
 	    }
 	    
-	    if( $gift['type'] == 'limited' ) {
+//	    if( $gift['type'] == 'limited' ) {
 	        $stm = $pdo->query("SELECT cdkey FROM giftbag_cdkey WHERE gift_id='{$gid}' AND user_id=0 LIMIT 1");
 	        $tmp = $stm->fetch(PDO::FETCH_ASSOC);
 	        if( empty($tmp) ) {
@@ -154,30 +154,34 @@ class GiftbagModel extends F_Model_Pdo
 	        }
 	        
 	        $cdkey = $tmp['cdkey'];
-	        $rs = $pdo->exec("UPDATE giftbag_cdkey SET user_id='{$uid}',get_time='{$time}' WHERE cdkey='{$cdkey}'");
+	        if($gift['type']=='infinity'){
+                $rs=1;
+            }else{
+                $rs = $pdo->exec("UPDATE giftbag_cdkey SET user_id='{$uid}',get_time='{$time}' WHERE cdkey='{$cdkey}'");
+            }
 	        if( $rs != 1 ) {
 	            return '激活码领取失败，请重试！';
 	        }
 	        
 	        $pdo->exec("UPDATE giftbag SET used=used+1 WHERE gift_id='{$gid}'");
 	        $pdo->exec("INSERT INTO user_cdkey(user_id,gift_id,gift_name,cdkey,get_time) VALUES($uid,$gid,'{$gift['name']}','{$cdkey}',$time)");
-	    } else {
-	        $m_cdkey = new GiftbagcdkeyModel();
-	        $cdkey = $m_cdkey->createCdkey();
-	        
-	        $rs = $m_cdkey->insert(array(
-	            'cdkey' => $cdkey,
-	            'gift_id' => $gid,
-	            'user_id' => $uid,
-	            'get_time' => $time,
-	        ), false);
-	        if( ! $rs ) {
-	            return '激活码领取失败，请重试！';
-	        }
-	        
-	        $pdo->exec("UPDATE giftbag SET nums=nums+1,used=used+1 WHERE gift_id='{$gid}'");
-	        $pdo->exec("INSERT INTO user_cdkey(user_id,gift_id,gift_name,cdkey,get_time) VALUES($uid,$gid,'{$gift['name']}','{$cdkey}',$time)");
-	    }
+//	    } else {
+//	        $m_cdkey = new GiftbagcdkeyModel();
+//	        $cdkey = $m_cdkey->createCdkey();
+//
+//	        $rs = $m_cdkey->insert(array(
+//	            'cdkey' => $cdkey,
+//	            'gift_id' => $gid,
+//	            'user_id' => $uid,
+//	            'get_time' => $time,
+//	        ), false);
+//	        if( ! $rs ) {
+//	            return '激活码领取失败，请重试！';
+//	        }
+//
+//	        $pdo->exec("UPDATE giftbag SET nums=nums+1,used=used+1 WHERE gift_id='{$gid}'");
+//	        $pdo->exec("INSERT INTO user_cdkey(user_id,gift_id,gift_name,cdkey,get_time) VALUES($uid,$gid,'{$gift['name']}','{$cdkey}',$time)");
+//	    }
 	    
 	    return '';
 	}
