@@ -1,0 +1,123 @@
+/**
+*info:个人中心 登录后页面 user-center.html
+*author:zhangting
+*date:2015.09.23 09:56
+*logo:修改日志
+**/
+a span p {
+  font-weight: 100;
+}
+.user_info {
+  overflow: hidden;
+  /*margin-top: 15px;*/
+  padding: 10px 5%;
+}
+.user_img {
+  margin: 0;
+  width: 60px;
+  height: 60px;
+  border: 2px solid #495048;
+  border-radius: 40px;
+}
+.user_img a {
+  display: block;
+}
+.user_img img {
+  border-radius: 30px;
+  height: 60px;
+  width: 60px;
+}
+.information {
+  padding: 0;
+  margin-left: 10%;
+}
+.information li {
+  height: 21px;
+  line-height: 21px;
+}
+.nav_info {
+  height: 43px;
+  line-height: 43px;
+}
+.nav_info a {
+  float: left;
+  width: 33.333%;
+  text-align: center;
+  color: #bbbbbb;
+  position: relative;
+}
+.split_line {
+  display: inline-block;
+  height: 100%;
+  width: 1px;
+  position: absolute;
+  right: 0;
+  background-color: rgba(255, 255, 255, 0.1);
+}
+.nav_info a:last-child {
+  /*margin-right: 0;*/
+}
+.user_lists {
+  /*margin-top: 15px;*/
+  text-indent: 30px;
+}
+.user_lists a {
+  display: block;
+  height: 54px;
+  padding: 0 5%;
+  line-height: 54px;
+  font-size: 16px;
+  color: #bbbbbb;
+  margin-bottom: 1px;
+  position: relative;
+}
+.user_lists a:last-child {
+  border: 0;
+}
+.user_lists a i {
+  position: absolute;
+  left: 5%;
+  top: 50%;
+  margin-top: -12px;
+  border-radius: 3px;
+}
+.user_lists a .i_go {
+  float: right;
+  margin-right: 10px;
+  position: absolute;
+  right: 20px;
+  top: 50%;
+  margin-top: -8px;
+}
+.no_login {
+  margin-top: 15px;
+}
+.img_cont {
+  padding: 5px 0;
+}
+.img_cont figure {
+  float: none;
+  margin: 0 auto;
+}
+.tip_word {
+  height: 30px;
+  line-height: 30px;
+  text-align: center;
+  font-size: 13px;
+  font-weight: 100;
+  overflow: hidden;
+  white-space: nowrap;
+  color: #bbbbbb;
+  text-overflow: ellipsis;
+}
+.btn_cont {
+  text-align: center;
+  padding: 10px 0;
+}
+.urls {
+  font-weight: bold;
+}
+.btn_green {
+  display: block;
+  margin: 0 auto;
+}

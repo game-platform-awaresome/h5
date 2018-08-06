@@ -1,0 +1,231 @@
+array (
+  'pay_id' => '5329357361967147',
+  'user_id' => '25',
+  'username' => 'liuqi2',
+  'to_uid' => '25',
+  'to_user' => 'liuqi2',
+  'game_id' => 0,
+  'game_name' => '',
+  'server_id' => 0,
+  'server_name' => '',
+  'money' => '1',
+  'deposit' => 0,
+  'type' => 'alipay',
+  'cp_order' => '',
+  'tg_channel' => '0',
+  'trade_no' => '',
+  'add_time' => 1532936194,
+)
+
+array (
+  'pay_id' => '5329361948719589',
+  'user_id' => '25',
+  'username' => 'liuqi2',
+  'to_uid' => '25',
+  'to_user' => 'liuqi2',
+  'game_id' => 0,
+  'game_name' => '',
+  'server_id' => 0,
+  'server_name' => '',
+  'money' => '1',
+  'deposit' => 0,
+  'type' => 'alipay',
+  'cp_order' => '',
+  'tg_channel' => '0',
+  'trade_no' => '',
+  'add_time' => 1532936392,
+)
+
+array (
+  'pay_id' => '5329363920241764',
+  'user_id' => '25',
+  'username' => 'liuqi2',
+  'to_uid' => '25',
+  'to_user' => 'liuqi2',
+  'game_id' => 0,
+  'game_name' => '',
+  'server_id' => 0,
+  'server_name' => '',
+  'money' => '1',
+  'deposit' => 0,
+  'type' => 'alipay',
+  'cp_order' => '',
+  'tg_channel' => '0',
+  'trade_no' => '',
+  'add_time' => 1532936607,
+)
+
+Recharge Notify:
+http://www.h5.com/test/payReturn?cp_order=201808011538006729&game_id=6&money=2&pay_id=5331091161812603&server_id=0&time=1533109118&to_uid=25&to_user=liuqi2&user_id=25&username=liuqi2&sign=98baffca5b7ca4c8038102503b6e3797
+success<br />
+<font size='1'><table class='xdebug-error xe-catchable-fatal-error' dir='ltr' border='1' cellspacing='0' cellpadding='1'>
+<tr><th align='left' bgcolor='#f57900' colspan="5"><span style='background-color: #cc0000; color: #fce94f; font-size: x-large;'>( ! )</span> Catchable fatal error: Yaf_View_Simple::render(): Failed opening template D:\php\PHPTutorial\WWW\h5\code\h5\dev/application\views\test\payreturn.phtml: No such file or directory in D:\php\PHPTutorial\WWW\h5\code\h5\dev\public\index.php on line <i>7</i></th></tr>
+<tr><th align='left' bgcolor='#e9b96e' colspan='5'>Call Stack</th></tr>
+<tr><th align='center' bgcolor='#eeeeec'>#</th><th align='left' bgcolor='#eeeeec'>Time</th><th align='left' bgcolor='#eeeeec'>Memory</th><th align='left' bgcolor='#eeeeec'>Function</th><th align='left' bgcolor='#eeeeec'>Location</th></tr>
+<tr><td bgcolor='#eeeeec' align='center'>1</td><td bgcolor='#eeeeec' align='center'>0.0011</td><td bgcolor='#eeeeec' align='right'>386944</td><td bgcolor='#eeeeec'>{main}(  )</td><td title='D:\php\PHPTutorial\WWW\h5\code\h5\dev\public\index.php' bgcolor='#eeeeec'>...\index.php<b>:</b>0</td></tr>
+<tr><td bgcolor='#eeeeec' align='center'>2</td><td bgcolor='#eeeeec' align='center'>0.0049</td><td bgcolor='#eeeeec' align='right'>426416</td><td bgcolor='#eeeeec'><a href='http://www.php.net/Yaf-Application.run' target='_new'>run</a>
+(  )</td><td title='D:\php\PHPTutorial\WWW\h5\code\h5\dev\public\index.php' bgcolor='#eeeeec'>...\index.php<b>:</b>7</td></tr>
+<tr><td bgcolor='#eeeeec' align='center'>3</td><td bgcolor='#eeeeec' align='center'>0.0064</td><td bgcolor='#eeeeec' align='right'>445104</td><td bgcolor='#eeeeec'><a href='http://www.php.net/TestController.render' target='_new'>render</a>
+( <span><font color='#cc0000'>string(9)</font></span> )</td><td title='D:\php\PHPTutorial\WWW\h5\code\h5\dev\public\index.php' bgcolor='#eeeeec'>...\index.php<b>:</b>7</td></tr>
+<tr><td bgcolor='#eeeeec' align='center'>4</td><td bgcolor='#eeeeec' align='center'>0.0064</td><td bgcolor='#eeeeec' align='right'>445360</td><td bgcolor='#eeeeec'><a href='http://www.php.net/Yaf-View-Simple.render' target='_new'>render</a>
+( <span><font color='#cc0000'>string(20)</font></span> )</td><td title='D:\php\PHPTutorial\WWW\h5\code\h5\dev\public\index.php' bgcolor='#eeeeec'>...\index.php<b>:</b>7</td></tr>
+</table></font>
+
+
+Recharge Notify:
+http://www.h5.com/test/payReturn?cp_order=201808011538432153&game_id=6&money=2&pay_id=5331091239413304&server_id=0&time=1533109134&to_uid=25&to_user=liuqi2&user_id=25&username=liuqi2&sign=a02e5a9b12e31d02dddb07befc309610
+success<br />
+<font size='1'><table class='xdebug-error xe-catchable-fatal-error' dir='ltr' border='1' cellspacing='0' cellpadding='1'>
+<tr><th align='left' bgcolor='#f57900' colspan="5"><span style='background-color: #cc0000; color: #fce94f; font-size: x-large;'>( ! )</span> Catchable fatal error: Yaf_View_Simple::render(): Failed opening template D:\php\PHPTutorial\WWW\h5\code\h5\dev/application\views\test\payreturn.phtml: No such file or directory in D:\php\PHPTutorial\WWW\h5\code\h5\dev\public\index.php on line <i>7</i></th></tr>
+<tr><th align='left' bgcolor='#e9b96e' colspan='5'>Call Stack</th></tr>
+<tr><th align='center' bgcolor='#eeeeec'>#</th><th align='left' bgcolor='#eeeeec'>Time</th><th align='left' bgcolor='#eeeeec'>Memory</th><th align='left' bgcolor='#eeeeec'>Function</th><th align='left' bgcolor='#eeeeec'>Location</th></tr>
+<tr><td bgcolor='#eeeeec' align='center'>1</td><td bgcolor='#eeeeec' align='center'>0.0012</td><td bgcolor='#eeeeec' align='right'>386944</td><td bgcolor='#eeeeec'>{main}(  )</td><td title='D:\php\PHPTutorial\WWW\h5\code\h5\dev\public\index.php' bgcolor='#eeeeec'>...\index.php<b>:</b>0</td></tr>
+<tr><td bgcolor='#eeeeec' align='center'>2</td><td bgcolor='#eeeeec' align='center'>0.0082</td><td bgcolor='#eeeeec' align='right'>426416</td><td bgcolor='#eeeeec'><a href='http://www.php.net/Yaf-Application.run' target='_new'>run</a>
+(  )</td><td title='D:\php\PHPTutorial\WWW\h5\code\h5\dev\public\index.php' bgcolor='#eeeeec'>...\index.php<b>:</b>7</td></tr>
+<tr><td bgcolor='#eeeeec' align='center'>3</td><td bgcolor='#eeeeec' align='center'>0.0098</td><td bgcolor='#eeeeec' align='right'>445104</td><td bgcolor='#eeeeec'><a href='http://www.php.net/TestController.render' target='_new'>render</a>
+( <span><font color='#cc0000'>string(9)</font></span> )</td><td title='D:\php\PHPTutorial\WWW\h5\code\h5\dev\public\index.php' bgcolor='#eeeeec'>...\index.php<b>:</b>7</td></tr>
+<tr><td bgcolor='#eeeeec' align='center'>4</td><td bgcolor='#eeeeec' align='center'>0.0099</td><td bgcolor='#eeeeec' align='right'>445360</td><td bgcolor='#eeeeec'><a href='http://www.php.net/Yaf-View-Simple.render' target='_new'>render</a>
+( <span><font color='#cc0000'>string(20)</font></span> )</td><td title='D:\php\PHPTutorial\WWW\h5\code\h5\dev\public\index.php' bgcolor='#eeeeec'>...\index.php<b>:</b>7</td></tr>
+</table></font>
+
+
+Recharge Notify:
+http://www.h5.com/test/payReturn?cp_order=201808011540426561&game_id=6&money=2&pay_id=5331092424040439&server_id=0&time=1533109271&to_uid=25&to_user=liuqi2&user_id=25&username=liuqi2&sign=ccde5cfe17397fb0fab6f190067d56ec
+success<br />
+<font size='1'><table class='xdebug-error xe-catchable-fatal-error' dir='ltr' border='1' cellspacing='0' cellpadding='1'>
+<tr><th align='left' bgcolor='#f57900' colspan="5"><span style='background-color: #cc0000; color: #fce94f; font-size: x-large;'>( ! )</span> Catchable fatal error: Yaf_View_Simple::render(): Failed opening template D:\php\PHPTutorial\WWW\h5\code\h5\dev/application\views\test\payreturn.phtml: No such file or directory in D:\php\PHPTutorial\WWW\h5\code\h5\dev\public\index.php on line <i>7</i></th></tr>
+<tr><th align='left' bgcolor='#e9b96e' colspan='5'>Call Stack</th></tr>
+<tr><th align='center' bgcolor='#eeeeec'>#</th><th align='left' bgcolor='#eeeeec'>Time</th><th align='left' bgcolor='#eeeeec'>Memory</th><th align='left' bgcolor='#eeeeec'>Function</th><th align='left' bgcolor='#eeeeec'>Location</th></tr>
+<tr><td bgcolor='#eeeeec' align='center'>1</td><td bgcolor='#eeeeec' align='center'>0.0020</td><td bgcolor='#eeeeec' align='right'>386944</td><td bgcolor='#eeeeec'>{main}(  )</td><td title='D:\php\PHPTutorial\WWW\h5\code\h5\dev\public\index.php' bgcolor='#eeeeec'>...\index.php<b>:</b>0</td></tr>
+<tr><td bgcolor='#eeeeec' align='center'>2</td><td bgcolor='#eeeeec' align='center'>0.0104</td><td bgcolor='#eeeeec' align='right'>426416</td><td bgcolor='#eeeeec'><a href='http://www.php.net/Yaf-Application.run' target='_new'>run</a>
+(  )</td><td title='D:\php\PHPTutorial\WWW\h5\code\h5\dev\public\index.php' bgcolor='#eeeeec'>...\index.php<b>:</b>7</td></tr>
+<tr><td bgcolor='#eeeeec' align='center'>3</td><td bgcolor='#eeeeec' align='center'>0.0134</td><td bgcolor='#eeeeec' align='right'>445104</td><td bgcolor='#eeeeec'><a href='http://www.php.net/TestController.render' target='_new'>render</a>
+( <span><font color='#cc0000'>string(9)</font></span> )</td><td title='D:\php\PHPTutorial\WWW\h5\code\h5\dev\public\index.php' bgcolor='#eeeeec'>...\index.php<b>:</b>7</td></tr>
+<tr><td bgcolor='#eeeeec' align='center'>4</td><td bgcolor='#eeeeec' align='center'>0.0134</td><td bgcolor='#eeeeec' align='right'>445360</td><td bgcolor='#eeeeec'><a href='http://www.php.net/Yaf-View-Simple.render' target='_new'>render</a>
+( <span><font color='#cc0000'>string(20)</font></span> )</td><td title='D:\php\PHPTutorial\WWW\h5\code\h5\dev\public\index.php' bgcolor='#eeeeec'>...\index.php<b>:</b>7</td></tr>
+</table></font>
+
+
+Recharge Notify:
+http://www.h5.com/test/payReturn?cp_order=201808011540426561&game_id=6&money=2&pay_id=5331093103138701&server_id=0&time=1533109313&to_uid=25&to_user=liuqi2&user_id=25&username=liuqi2&sign=7ae1176e0951f5df636223be6e6f9757
+success<br />
+<font size='1'><table class='xdebug-error xe-catchable-fatal-error' dir='ltr' border='1' cellspacing='0' cellpadding='1'>
+<tr><th align='left' bgcolor='#f57900' colspan="5"><span style='background-color: #cc0000; color: #fce94f; font-size: x-large;'>( ! )</span> Catchable fatal error: Yaf_View_Simple::render(): Failed opening template D:\php\PHPTutorial\WWW\h5\code\h5\dev/application\views\test\payreturn.phtml: No such file or directory in D:\php\PHPTutorial\WWW\h5\code\h5\dev\public\index.php on line <i>7</i></th></tr>
+<tr><th align='left' bgcolor='#e9b96e' colspan='5'>Call Stack</th></tr>
+<tr><th align='center' bgcolor='#eeeeec'>#</th><th align='left' bgcolor='#eeeeec'>Time</th><th align='left' bgcolor='#eeeeec'>Memory</th><th align='left' bgcolor='#eeeeec'>Function</th><th align='left' bgcolor='#eeeeec'>Location</th></tr>
+<tr><td bgcolor='#eeeeec' align='center'>1</td><td bgcolor='#eeeeec' align='center'>0.0011</td><td bgcolor='#eeeeec' align='right'>386944</td><td bgcolor='#eeeeec'>{main}(  )</td><td title='D:\php\PHPTutorial\WWW\h5\code\h5\dev\public\index.php' bgcolor='#eeeeec'>...\index.php<b>:</b>0</td></tr>
+<tr><td bgcolor='#eeeeec' align='center'>2</td><td bgcolor='#eeeeec' align='center'>0.0049</td><td bgcolor='#eeeeec' align='right'>426416</td><td bgcolor='#eeeeec'><a href='http://www.php.net/Yaf-Application.run' target='_new'>run</a>
+(  )</td><td title='D:\php\PHPTutorial\WWW\h5\code\h5\dev\public\index.php' bgcolor='#eeeeec'>...\index.php<b>:</b>7</td></tr>
+<tr><td bgcolor='#eeeeec' align='center'>3</td><td bgcolor='#eeeeec' align='center'>0.0071</td><td bgcolor='#eeeeec' align='right'>445104</td><td bgcolor='#eeeeec'><a href='http://www.php.net/TestController.render' target='_new'>render</a>
+( <span><font color='#cc0000'>string(9)</font></span> )</td><td title='D:\php\PHPTutorial\WWW\h5\code\h5\dev\public\index.php' bgcolor='#eeeeec'>...\index.php<b>:</b>7</td></tr>
+<tr><td bgcolor='#eeeeec' align='center'>4</td><td bgcolor='#eeeeec' align='center'>0.0072</td><td bgcolor='#eeeeec' align='right'>445360</td><td bgcolor='#eeeeec'><a href='http://www.php.net/Yaf-View-Simple.render' target='_new'>render</a>
+( <span><font color='#cc0000'>string(20)</font></span> )</td><td title='D:\php\PHPTutorial\WWW\h5\code\h5\dev\public\index.php' bgcolor='#eeeeec'>...\index.php<b>:</b>7</td></tr>
+</table></font>
+
+
+Recharge Notify:
+http://www.h5.com/test/payReturn?cp_order=201808011542546998&game_id=6&money=2&pay_id=5331093744252594&server_id=0&time=1533109377&to_uid=25&to_user=liuqi2&user_id=25&username=liuqi2&sign=1d219eb3b7ed04dc73ba3bea8eeb35e8
+fails
+
+Recharge Notify:
+http://www.h5.com/test/payReturn?cp_order=20180801154514235&game_id=6&money=2&pay_id=5331095143159632&server_id=0&time=1533109516&to_uid=25&to_user=liuqi2&user_id=25&username=liuqi2&sign=413a24215e7c30f5370997cbbc325a44
+fails
+
+Recharge Notify:
+http://www.h5.com/test/payReturn?cp_order=20180801154514235&game_id=6&money=2&pay_id=5331097465130679&server_id=0&time=1533109749&to_uid=25&to_user=liuqi2&user_id=25&username=liuqi2&sign=4ebd6ac2afb78b84a5e67e50fc96c8e8
+fails
+
+Recharge Notify:
+http://www.h5.com/test/payReturn?cp_order=20180801154514235&game_id=6&money=2&pay_id=5331097465130679&server_id=0&time=1533109756&to_uid=25&to_user=liuqi2&user_id=25&username=liuqi2&sign=dc4e61683ced8ac11ca86130b719f6ee
+fails
+
+Recharge Notify:
+http://www.h5.com/test/payReturn?cp_order=201808011632235724&game_id=6&money=2&pay_id=5331123433888991&server_id=0&time=1533112356&to_uid=25&to_user=liuqi2&user_id=25&username=liuqi2&sign=3fb535d054c5527fac4dd85fc2605821
+<pre class='xdebug-var-dump' dir='ltr'>
+<small>D:\php\PHPTutorial\WWW\h5\code\h5\dev\application\controllers\Test.php:111:</small>
+<b>array</b> <i>(size=11)</i>
+  'cp_order' <font color='#888a85'>=&gt;</font> <small>string</small> <font color='#cc0000'>'201808011632235724'</font> <i>(length=18)</i>
+  'game_id' <font color='#888a85'>=&gt;</font> <small>string</small> <font color='#cc0000'>'6'</font> <i>(length=1)</i>
+  'money' <font color='#888a85'>=&gt;</font> <small>string</small> <font color='#cc0000'>'2'</font> <i>(length=1)</i>
+  'pay_id' <font color='#888a85'>=&gt;</font> <small>string</small> <font color='#cc0000'>'5331123433888991'</font> <i>(length=16)</i>
+  'server_id' <font color='#888a85'>=&gt;</font> <small>string</small> <font color='#cc0000'>'0'</font> <i>(length=1)</i>
+  'time' <font color='#888a85'>=&gt;</font> <small>string</small> <font color='#cc0000'>'1533112356'</font> <i>(length=10)</i>
+  'to_uid' <font color='#888a85'>=&gt;</font> <small>string</small> <font color='#cc0000'>'25'</font> <i>(length=2)</i>
+  'to_user' <font color='#888a85'>=&gt;</font> <small>string</small> <font color='#cc0000'>'liuqi2'</font> <i>(length=6)</i>
+  'user_id' <font color='#888a85'>=&gt;</font> <small>string</small> <font color='#cc0000'>'25'</font> <i>(length=2)</i>
+  'username' <font color='#888a85'>=&gt;</font> <small>string</small> <font color='#cc0000'>'liuqi2'</font> <i>(length=6)</i>
+  'sign' <font color='#888a85'>=&gt;</font> <small>string</small> <font color='#cc0000'>'3fb535d054c5527fac4dd85fc2605821'</font> <i>(length=32)</i>
+</pre>success
+
+Recharge Notify:
+http://www.h5.com/test/payReturn?cp_order=201808011632443019&game_id=6&money=2&pay_id=5331123648008610&server_id=0&time=1533112366&to_uid=25&to_user=liuqi2&user_id=25&username=liuqi2&sign=cd9c6897eabf142fd778fb44ab9526ab
+<pre class='xdebug-var-dump' dir='ltr'>
+<small>D:\php\PHPTutorial\WWW\h5\code\h5\dev\application\controllers\Test.php:111:</small>
+<b>array</b> <i>(size=11)</i>
+  'cp_order' <font color='#888a85'>=&gt;</font> <small>string</small> <font color='#cc0000'>'201808011632443019'</font> <i>(length=18)</i>
+  'game_id' <font color='#888a85'>=&gt;</font> <small>string</small> <font color='#cc0000'>'6'</font> <i>(length=1)</i>
+  'money' <font color='#888a85'>=&gt;</font> <small>string</small> <font color='#cc0000'>'2'</font> <i>(length=1)</i>
+  'pay_id' <font color='#888a85'>=&gt;</font> <small>string</small> <font color='#cc0000'>'5331123648008610'</font> <i>(length=16)</i>
+  'server_id' <font color='#888a85'>=&gt;</font> <small>string</small> <font color='#cc0000'>'0'</font> <i>(length=1)</i>
+  'time' <font color='#888a85'>=&gt;</font> <small>string</small> <font color='#cc0000'>'1533112366'</font> <i>(length=10)</i>
+  'to_uid' <font color='#888a85'>=&gt;</font> <small>string</small> <font color='#cc0000'>'25'</font> <i>(length=2)</i>
+  'to_user' <font color='#888a85'>=&gt;</font> <small>string</small> <font color='#cc0000'>'liuqi2'</font> <i>(length=6)</i>
+  'user_id' <font color='#888a85'>=&gt;</font> <small>string</small> <font color='#cc0000'>'25'</font> <i>(length=2)</i>
+  'username' <font color='#888a85'>=&gt;</font> <small>string</small> <font color='#cc0000'>'liuqi2'</font> <i>(length=6)</i>
+  'sign' <font color='#888a85'>=&gt;</font> <small>string</small> <font color='#cc0000'>'cd9c6897eabf142fd778fb44ab9526ab'</font> <i>(length=32)</i>
+</pre>success
+
+Recharge Notify:
+http://www.h5.com/test/payReturn?cp_order=201808011632443019&game_id=6&money=2&pay_id=5331123648008610&server_id=0&time=1533112373&to_uid=25&to_user=liuqi2&user_id=25&username=liuqi2&sign=9ac381951ba21c56b0f53618b53b3a6e
+<pre class='xdebug-var-dump' dir='ltr'>
+<small>D:\php\PHPTutorial\WWW\h5\code\h5\dev\application\controllers\Test.php:111:</small>
+<b>array</b> <i>(size=11)</i>
+  'cp_order' <font color='#888a85'>=&gt;</font> <small>string</small> <font color='#cc0000'>'201808011632443019'</font> <i>(length=18)</i>
+  'game_id' <font color='#888a85'>=&gt;</font> <small>string</small> <font color='#cc0000'>'6'</font> <i>(length=1)</i>
+  'money' <font color='#888a85'>=&gt;</font> <small>string</small> <font color='#cc0000'>'2'</font> <i>(length=1)</i>
+  'pay_id' <font color='#888a85'>=&gt;</font> <small>string</small> <font color='#cc0000'>'5331123648008610'</font> <i>(length=16)</i>
+  'server_id' <font color='#888a85'>=&gt;</font> <small>string</small> <font color='#cc0000'>'0'</font> <i>(length=1)</i>
+  'time' <font color='#888a85'>=&gt;</font> <small>string</small> <font color='#cc0000'>'1533112373'</font> <i>(length=10)</i>
+  'to_uid' <font color='#888a85'>=&gt;</font> <small>string</small> <font color='#cc0000'>'25'</font> <i>(length=2)</i>
+  'to_user' <font color='#888a85'>=&gt;</font> <small>string</small> <font color='#cc0000'>'liuqi2'</font> <i>(length=6)</i>
+  'user_id' <font color='#888a85'>=&gt;</font> <small>string</small> <font color='#cc0000'>'25'</font> <i>(length=2)</i>
+  'username' <font color='#888a85'>=&gt;</font> <small>string</small> <font color='#cc0000'>'liuqi2'</font> <i>(length=6)</i>
+  'sign' <font color='#888a85'>=&gt;</font> <small>string</small> <font color='#cc0000'>'9ac381951ba21c56b0f53618b53b3a6e'</font> <i>(length=32)</i>
+</pre>success
+
+Recharge Notify:
+http://www.h5.com/test/payReturn?cp_order=201808011641271154&game_id=6&money=2&pay_id=5331128871388786&server_id=0&time=1533112889&to_uid=25&to_user=liuqi2&user_id=25&username=liuqi2&sign=2d7591dcee998725ff8f134a45203c2d
+<pre class='xdebug-var-dump' dir='ltr'>
+<small>D:\php\PHPTutorial\WWW\h5\code\h5\dev\application\controllers\Test.php:111:</small>
+<b>array</b> <i>(size=11)</i>
+  'cp_order' <font color='#888a85'>=&gt;</font> <small>string</small> <font color='#cc0000'>'201808011641271154'</font> <i>(length=18)</i>
+  'game_id' <font color='#888a85'>=&gt;</font> <small>string</small> <font color='#cc0000'>'6'</font> <i>(length=1)</i>
+  'money' <font color='#888a85'>=&gt;</font> <small>string</small> <font color='#cc0000'>'2'</font> <i>(length=1)</i>
+  'pay_id' <font color='#888a85'>=&gt;</font> <small>string</small> <font color='#cc0000'>'5331128871388786'</font> <i>(length=16)</i>
+  'server_id' <font color='#888a85'>=&gt;</font> <small>string</small> <font color='#cc0000'>'0'</font> <i>(length=1)</i>
+  'time' <font color='#888a85'>=&gt;</font> <small>string</small> <font color='#cc0000'>'1533112889'</font> <i>(length=10)</i>
+  'to_uid' <font color='#888a85'>=&gt;</font> <small>string</small> <font color='#cc0000'>'25'</font> <i>(length=2)</i>
+  'to_user' <font color='#888a85'>=&gt;</font> <small>string</small> <font color='#cc0000'>'liuqi2'</font> <i>(length=6)</i>
+  'user_id' <font color='#888a85'>=&gt;</font> <small>string</small> <font color='#cc0000'>'25'</font> <i>(length=2)</i>
+  'username' <font color='#888a85'>=&gt;</font> <small>string</small> <font color='#cc0000'>'liuqi2'</font> <i>(length=6)</i>
+  'sign' <font color='#888a85'>=&gt;</font> <small>string</small> <font color='#cc0000'>'2d7591dcee998725ff8f134a45203c2d'</font> <i>(length=32)</i>
+</pre>success
+
+Recharge Notify:
+http://www.h5.com/test/payReturn?cp_order=201808011641271154&game_id=6&money=2&pay_id=5331128871388786&server_id=0&time=1533112892&to_uid=25&to_user=liuqi2&user_id=25&username=liuqi2&sign=3ee52bc2e03d337cc9ccb427cc5c51c7
+<pre class='xdebug-var-dump' dir='ltr'>
+<small>D:\php\PHPTutorial\WWW\h5\code\h5\dev\application\controllers\Test.php:111:</small>
+<b>array</b> <i>(size=11)</i>
+  'cp_order' <font color='#888a85'>=&gt;</font> <small>string</small> <font color='#cc0000'>'201808011641271154'</font> <i>(length=18)</i>
+  'game_id' <font color='#888a85'>=&gt;</font> <small>string</small> <font color='#cc0000'>'6'</font> <i>(length=1)</i>
+  'money' <font color='#888a85'>=&gt;</font> <small>string</small> <font color='#cc0000'>'2'</font> <i>(length=1)</i>
+  'pay_id' <font color='#888a85'>=&gt;</font> <small>string</small> <font color='#cc0000'>'5331128871388786'</font> <i>(length=16)</i>
+  'server_id' <font color='#888a85'>=&gt;</font> <small>string</small> <font color='#cc0000'>'0'</font> <i>(length=1)</i>
+  'time' <font color='#888a85'>=&gt;</font> <small>string</small> <font color='#cc0000'>'1533112892'</font> <i>(length=10)</i>
+  'to_uid' <font color='#888a85'>=&gt;</font> <small>string</small> <font color='#cc0000'>'25'</font> <i>(length=2)</i>
+  'to_user' <font color='#888a85'>=&gt;</font> <small>string</small> <font color='#cc0000'>'liuqi2'</font> <i>(length=6)</i>
+  'user_id' <font color='#888a85'>=&gt;</font> <small>string</small> <font color='#cc0000'>'25'</font> <i>(length=2)</i>
+  'username' <font color='#888a85'>=&gt;</font> <small>string</small> <font color='#cc0000'>'liuqi2'</font> <i>(length=6)</i>
+  'sign' <font color='#888a85'>=&gt;</font> <small>string</small> <font color='#cc0000'>'3ee52bc2e03d337cc9ccb427cc5c51c7'</font> <i>(length=32)</i>
+</pre>success
+

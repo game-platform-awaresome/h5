@@ -1,0 +1,51 @@
+/**
+*info:账号安全
+*author:zhangting
+*date:2015.10.14 10.14
+*logo:
+**/
+/**函数*/
+/**变量 variables**/
+/**颜色*/
+/**混合 Mixins**/
+/**display:box**/
+/**box-flex 需要传参：伸缩值，默认为1**/
+/**box-sizing: border_box 盒子边框模型*/
+/**box_align 默认为center*/
+/**黑色透明背景*/
+/**深蓝色透明背景**/
+/**圆角的兼容函数*/
+.classify {
+  padding: 2%;
+}
+.classify h3 {
+  position: relative;
+  text-indent: 37px;
+  height: 36px;
+  line-height: 36px;
+  margin-bottom: 1px;
+  font-weight: 100;
+}
+.nav_classify {
+  padding: 5px 5px 1px 5px;
+  overflow: hidden;
+}
+.nav_classify > a {
+  float: left;
+  width: 33.3333%;
+  height: auto;
+  padding: 1px;
+  -webkit-box-sizing: border-box;
+  -o-box-sizing: border-box;
+  -ms-box-sizing: border-box;
+  box-sizing: border-box;
+}
+.classify > nav:last-child {
+  padding-top: 0;
+  padding-bottom: 4px;
+}
+.nav_classify > a img {
+  display: block;
+  width: 100%;
+  height: auto;
+}

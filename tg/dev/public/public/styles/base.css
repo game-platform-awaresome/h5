@@ -1,0 +1,835 @@
+/**
+*info:基类样式
+*author:zhangting
+*date:2015.09.11 14:56
+*logo:文件修改日志
+**/
+/**导入重置样式*/
+/**
+*info:基类重置样式
+*author:zhangting
+*date:2015.11.04 14:56
+*logo:文件修改日志
+**/
+html,
+body,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+hr,
+p,
+figure,
+ul,
+li,
+blockquote,
+dl,
+dt,
+dd,
+ul,
+ol,
+li,
+pre,
+form,
+fieldset,
+legend,
+button,
+input,
+span,
+label,
+em,
+strong,
+b,
+textarea,
+th,
+td,
+div {
+  margin: 0;
+  padding: 0;
+}
+body {
+  font-family: "Microsoft YaHei", 'STHeitiSC-Light', 'SimSun', "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 12px;
+  background-color: #152332;
+}
+html,
+body {
+  height: 100%;
+}
+body,footer{
+  max-width:600px;
+  margin: 0 auto !important;
+  -moz-box-sizing: border-box;
+}
+
+/**去掉手机默认按钮样式*/
+a,
+input[type="text"],
+input[type="button"],
+input[type="reset"],
+input[type="submit"],
+input[type="search"],
+input[type="submit"],
+button,
+li,
+i {
+  -webkit-appearance: none;
+  /**去掉iPhone、iPad的默认按钮样式*/
+  -moz-appearance: none;
+  appearance: none;
+  -webkit-tap-highlight-color: rgba(255, 0, 0, 0);
+  /* 1.去除android a/button/input标签被点击时产生的边框 2.去除ios a标签被点击时产生的半透明灰色背景 */
+}
+/**去掉手机默认按钮交互样式*/
+a:active,
+input[type=text] {
+  outline: none;
+  -webkit-tap-highlight-color: rgba(255, 0, 0, 0);
+}
+table {
+  border: 0;
+  margin: 0;
+  border-collapse: collapse;
+}
+table th,
+table td {
+  padding: 0;
+}
+ol,
+ul,
+li {
+  list-style: none;
+}
+img {
+  border: 0 ;
+}
+textarea,
+input,
+button {
+  outline: none;
+  resize: none;
+}
+a {
+  color: #fcfcfc;
+  cursor: pointer;
+  text-decoration: none;
+}
+a:link {
+  color: #FFFFFF;
+}
+/* 未访问的链接 */
+a:visited {
+  color: #FFFFFF;
+}
+/* 已访问的链接 */
+a:hover {
+  color: #FFFFFF;
+  cursor: pointer;
+  text-decoration: none;
+}
+/* 鼠标移动到链接上 */
+a:active {
+  color: #FFFFFF;
+}
+em {
+  font-style: normal;
+}
+label,
+button {
+  cursor: pointer;
+}
+:focus {
+  outline: none;
+}
+/**小图标样式**/
+/**
+*info:基类-icons小图标样式
+*author:zhangting
+*date:2015.11.04 14:56
+*logo:文件修改日志
+**/
+.icons {
+  display: inline-block;
+  width: 15px;
+  height: 15px;
+  background: url("../images/icons.png") no-repeat center;
+  position: relative;
+  background-size: 150px 200px;
+}
+.i_sort {
+  background-position: -4px -5px;
+}
+.i_news {
+  background-position: -60px -5px;
+}
+.i_activity {
+  background-position: -108px -5px;
+}
+.i_play {
+  background-position: -161px -5px;
+  width: 49px;
+}
+.i_my {
+  background-position: -234px -5px;
+}
+.i_sort_active {
+  background-position: -4px -51px;
+}
+.i_news_active {
+  background-position: -50px -51px;
+}
+.i_activity_active {
+  background-position: -108px -51px;
+}
+.i_play_active {
+  background-position: -161px -51px;
+}
+.i_my_active {
+  background-position: -234px -51px;
+}
+.i_game {
+  display: inline-block;
+  width: 17px;
+  height: 12px;
+  background: url("../images/game.png") no-repeat center;
+  background-size: 100% 100%;
+  margin-right: 5px;
+}
+.i_game2 {
+  display: inline-block;
+  width: 16px;
+  height: 13px;
+  background: url("../images/i_game2.png") no-repeat top;
+  background-size: 100% 100%;
+  margin: 0 5px 0 0;
+  position: absolute;
+  top: 50%;
+  margin-top: -7px;
+  left: 13px;
+}
+.i_down {
+  display: inline-block;
+  width: 12px;
+  height: 9px;
+  background: url("../images/down.png") no-repeat center;
+  background-size: 100% 100%;
+}
+.i_up {
+  background: url("../images/up.png") no-repeat center;
+  background-size: 100% 100%;
+}
+/**返利icon*/
+.i_rebate {
+  background-position: 0 -145px;
+}
+/**活动icon*/
+.i_activity {
+  background-position: -35px -145px;
+}
+/**优惠icon*/
+.i_promotion {
+  background-position: -67px -145px;
+}
+/**折扣icon*/
+.i_discount {
+  background-position: -100px -145px;
+}
+/**礼包icon*/
+.i_lb {
+  width: 24px;
+  height: 29px;
+  background-position: -126px -72px;
+  top: 15px;
+}
+.i_hand {
+  float: left;
+  width: 12px;
+  height: 18px;
+  margin-right: 4px;
+  background-position: -60px -2px;
+  top: 12px;
+}
+/**黄色星星*/
+.i_start1 {
+  width: 10px;
+  height: 10px;
+  background-position: -2px -2px;
+}
+/**灰色星星*/
+.i_start2 {
+  width: 10px;
+  height: 10px;
+  background-position: -14px -2px;
+}
+/**热门按钮红色*/
+.i_action1 {
+  width: 40px;
+  height: 17px;
+  background-position: 0 -50px;
+  position: absolute;
+  top: 6px;
+  right: 3px;
+}
+/**进行中 蓝色按钮*/
+.i_action2 {
+  width: 40px;
+  height: 17px;
+  background-position: -40px -50px;
+  position: absolute;
+  top: 6px;
+  right: 3px;
+}
+/**火把*/
+.i_fire {
+  width: 12px;
+  height: 14px;
+  background-position: -44px -2px;
+  top: 3px;
+  margin-right: 5px;
+}
+/**活动礼包白色*/
+.i_action {
+  background-position: -135px -20px;
+  height: 14px;
+  width: 14px;
+  top: 2px;
+  margin-right: 5px;
+}
+/**闹钟 绿色*/
+.i_clock {
+  width: 17px;
+  height: 20px;
+  background-position: -133px -52px;
+  top: 5px;
+}
+/**new按钮*/
+.new {
+  width: 19px;
+  height: 9px;
+  background-position: -21px -36px;
+}
+/**hot按钮*/
+.hot {
+  width: 19px;
+  height: 9px;
+  background-position: -1px -36px;
+}
+/**用户*/
+.i_porstion {
+  width: 10px;
+  height: 10px;
+  background-position: -94px -22px;
+}
+/**平台币*/
+.i_gold {
+  width: 10px;
+  height: 10px;
+  background-position: -108px -22px;
+}
+/**积分*/
+.i_jf {
+  width: 11px;
+  height: 11px;
+  background-position: -121px -22px;
+  left: -1px;
+}
+/**icons2 按钮样式**/
+.icon {
+  display: inline-block;
+  width: 24px;
+  height: 24px;
+  background: url("../images/icons2.png") no-repeat;
+  position: relative;
+  background-size: 125px 50px;
+}
+/**icons2  最近在玩**/
+.i_list1 {
+  background-position: 0 0;
+}
+/**icons2  我的收藏**/
+.i_list2 {
+  background-position: -24px 0;
+}
+/**icons2  充值中心**/
+.i_list3 {
+  background-position: -50px 0;
+}
+/**icons2  游戏大厅**/
+.i_list4 {
+  background-position: -74px 0;
+}
+/**icons2  我的积分**/
+.i_list5 {
+  background-position: -99px 0;
+}
+.i_list6 {
+  display: inline-block;
+  width: 24px;
+  height: 24px;
+  background: url("../images/i-list7.png") no-repeat center;
+  background-size: 100% auto;
+}
+/**icons2  右箭头*/
+.i_go {
+  width: 9px;
+  height: 15px;
+  background-position: -1px -28px;
+}
+.i_news {
+  width: 13px;
+  height: 13px;
+  background-position: -133px -108px;
+  margin: 10px 10px 0;
+  float: left;
+}
+.i_save {
+  width: 16px;
+  height: 19px;
+  background-position: -109px -125px;
+  top: 8px;
+  float: left;
+  left: 27px;
+}
+/**通用样式**/
+/**����Ԫ��--������ʽ ���� ���� ����**/
+/**����ͼƬ css�̶�����*/
+.bg00 {
+  background: url("../images/body.jpg") no-repeat top;
+  background-size: 100% 100%;
+  background-attachment: fixed;
+  top: 0;
+}
+.bg01 {
+  background: url("../images/bg03.jpg") no-repeat top;
+  background-size: 600px 100%;
+  background-attachment: fixed;
+  top: 0;
+}
+/**�������ı��� �̶�����**/
+.bg02 {
+  background: url("../images/bg02.png") no-repeat top;
+  background-size: 600px 100%;
+  background-attachment: fixed;
+  top: 0;
+}
+.relative {
+  position: relative;
+}
+.inline_block {
+  display: inline-block;
+}
+/**��ɫ͸����20%**/
+.bg_block {
+  background-color: #000;
+  opacity: 0.2;
+  display: block;
+  position: absolute;
+  width: 100%;
+}
+.fl {
+  float: left;
+}
+.fr {
+  float: right;
+}
+.relative {
+  position: relative;
+}
+.none {
+  display: none;
+}
+/**��ɫ͸������*/
+.block_bg {
+  background-color: rgba(0, 0, 0, 0.2);
+}
+/**导入布局样式*/
+/**
+*info:基类-页面布局通用样式
+*author:zhangting
+*date:2015.11.04 14:56
+*logo:文件修改日志
+**/
+.z_container {
+  color: #ffffff;
+}
+.wrapper {
+  color: #ffffff;
+}
+.main {
+  min-height: 300px;
+}
+.z_container .ui-bar-inherit {
+  background-color: #1f252d;
+  padding: 10px 0;
+}
+/**
+*info:基类-头部样式
+*author:zhangting
+*date:2015.11.04 14:56
+*logo:文件修改日志
+**/
+.z_container .header {
+  height: 82px;
+  border: 0;
+  width: 100%;
+}
+.z_container .header h1 {
+  color: #bbbbbb;
+  line-height: 82px;
+  padding: 0;
+  font-size: 30px;
+  font-weight: 100;
+}
+.center_header {
+  width: 100%;
+  height: 40px;
+  line-height: 40px;
+  text-align: center;
+  font-size: 16px;
+  position: relative;
+}
+.center_header a {
+  display: inline-block;
+  width: 23px;
+  height: 100%;
+  background: none;
+  border: 0;
+  text-shadow: 0 0;
+  -webkit-box-shadow: 0px 1px 3px rgba(0, 0, 0, 0);
+          box-shadow: 0px 1px 3px rgba(0, 0, 0, 0);
+  left: 5%;
+  position: relative;
+  float: left;
+}
+.sup_number {
+  background-color: #e0592b;
+  color: #FFFFFF;
+  padding: 1px 7px;
+  border-radius: 8px;
+  font-size: 10px;
+}
+/**header 通用样式**/
+.z_header {
+  width: 100%;
+  height: 40px;
+  line-height: 40px;
+  text-align: center;
+  font-size: 16px;
+  position: relative;
+  background-image: url("../images/lines.png");
+  background-repeat: no-repeat;
+  background-position: bottom;
+  background-size: 100% 1px;
+  background-color: rgba(0, 0, 0, 0.2);
+  color: #ffffff;
+}
+.z_header a {
+  display: inline-block;
+  width: 22px;
+  height: 15px;
+  background-image: url("../images/i_back.png");
+  background-repeat: no-repeat;
+  background-size: 100% auto;
+  background-color: rgba(0, 0, 0, 0);
+  position: absolute;
+  top: 50%;
+  margin-top: -7px;
+  left: 20px;
+  border: 0;
+  text-shadow: 0 0;
+  -webkit-box-shadow: 0 1px 3px rgba(0, 0, 0, 0);
+          box-shadow: 0 1px 3px rgba(0, 0, 0, 0);
+}
+/**
+*info:基类-页脚样式
+*author:zhangting
+*date:2015.11.04 14:56
+*logo:文件修改日志
+**/
+.z_footer {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  border: 0 none;
+  background-color: #1F252D;
+  padding: 5px 0;
+  height: 44px;
+  z-index: 1000;
+}
+.z_footer nav {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+.z_footer nav a {
+  padding: 5px;
+  display: inline-block;
+}
+.z_footer nav a i {
+  display: block;
+  width: 20px;
+  height: 20px;
+  margin: 2px auto;
+}
+.z_footer nav a:nth-child(3) i {
+  width: 25px;
+}
+.z_footer nav a {
+  width: 20%;
+  padding: 0;
+  float: left;
+}
+.z_footer nav a span {
+  display: block;
+  text-align: center;
+  font-weight: 100;
+  text-shadow: 0 0;
+  color: #9DA7B0;
+  font-size: 12px;
+  height: 15px;
+  line-height: 15px;
+}
+.z_footer nav a.active span {
+  color: #29ba67;
+}
+#footer_nav_active span {
+  color: #2abd72;
+}
+#footer_nav_active .i_play {
+  background-position: -161px -51px;
+}
+.footer_zoom {
+  width: 100%;
+  height: 45px;
+}
+.i_ft01 {
+  background-position: 0 -103px;
+}
+.i_ft02 {
+  background-position: -20px -103px;
+}
+.i_ft03 {
+  background-position: -40px -103px;
+}
+.i_ft04 {
+  background-position: -66px -103px;
+}
+.i_ft05 {
+  background-position: -85px -103px;
+}
+#footer_nav_active .i_ft01 {
+  background-position: 0 -124px;
+}
+#footer_nav_active .i_ft02 {
+  background-position: -20px -124px;
+}
+#footer_nav_active .i_ft03 {
+  background-position: -40px -124px;
+}
+#footer_nav_active .i_ft04 {
+  background-position: -66px -124px;
+}
+#footer_nav_active .i_ft05 {
+  background-position: -85px -124px;
+}
+.qrcode_image{
+  position: fixed;
+  right:10%;
+  top:40%;
+  /*background: #FFFFFF;*/
+  padding: 1px;
+}
+@media screen and (max-width: 600px) {
+  .qrcode_image{
+    display: none;
+  }
+}
+/**小部件样式**/
+/**
+*info:基类-小部件
+*author:zhangting
+*date:2015.11.04 14:56
+*logo:文件修改日志
+**/
+.btn_blue {
+  background: #2270bf;
+  border: 1px solid #3085ee;
+  border-radius: 5px;
+  padding: 0 3em;
+  height: 3em;
+  color: #ffffff;
+  font-size: 1.5em;
+  font-weight: bold;
+  position: relative;
+  white-space: nowrap;
+  cursor: pointer;
+}
+.btn_green {
+  width: 98px;
+  height: 35px;
+  line-height: 35px;
+  background: #00ce7d;
+  border: 0;
+  color: #ffffff;
+  font-size: 16px;
+  font-family: "Microsoft YaHei";
+  border-radius: 3px;
+  text-align: center;
+}
+/**绿色边框 无底色 按钮*/
+.btn_green2 {
+  color: #27a05d;
+  border: 1px solid #27a05d;
+  border-radius: 3px;
+  padding: 3px 5px;
+}
+.btn_green2:link {
+  color: #27a05d;
+}
+.btn_green2:visited {
+  color: #27a05d;
+}
+/**分割线*/
+.linear {
+  color: #565759;
+  width: 100%;
+  height: 2px;
+  position: absolute;
+  /*background: linear-gradient(to right, rgba(87,105,115,0), rgba(87,105,115,1));*/
+  background: url("../images/line_bg.png") no-repeat right;
+  background-size: 100% 1px;
+  bottom: 0;
+  border: 0;
+  left: 0;
+}
+/** 底部边框线 渐变背景图*/
+.border_line {
+  background-image: url("../images/lines.png");
+  background-repeat: no-repeat;
+  background-position: bottom;
+  background-size: 100% 1px;
+}
+/**实线 蓝色和绿色*/
+.line_01 {
+  background: url("../images/line_01.png") no-repeat bottom;
+  background-size: 100% 1px;
+}
+/**灰色 底部 渐变线条*/
+.line_02 {
+  background: url("../images/line_bg.png") no-repeat bottom;
+  background-size: 100% auto;
+}
+/**文字样式*/
+/**
+*info:基类-文字样式
+*author:zhangting
+*date:2015.11.04 14:56
+*logo:文件修改日志
+**/
+/**文字 绿色*/
+.green {
+  color: #29ba67;
+}
+.yellow {
+  color: #e3d15b;
+}
+.blue {
+  color: #22b9bf;
+}
+.f14 {
+  font-size: 14px;
+}
+.f16 {
+  font-size: 16px;
+}
+.f18 {
+  font-size: 18px;
+}
+.f20 {
+  font-size: 20px;
+}
+.footer_padding {
+  height: 54px;
+}
+.bold {
+  font-weight: 300;
+}
+/**插件样式*/
+/**
+*info:基类-插件样式
+*author:zhangting
+*date:2015.11.04 14:56
+*logo:文件修改日志
+**/
+.ui-page-theme-a a:hover,
+html .ui-bar-a a:hover,
+html .ui-body-a a:hover,
+html body .ui-group-theme-a a:hover {
+  color: #2ABD72;
+}
+/**消除jquery mobile page 白色背景**/
+.ui-overlay-a,
+.ui-page-theme-a,
+.ui-page-theme-a .ui-panel-wrapper {
+  background: none;
+}
+.ui-mobile,
+.ui-mobile body {
+  background-color: #152332;
+  display: block;
+  height: 100%;
+}
+.ui-overlay-a,
+.ui-page-theme-a,
+.ui-page-theme-a .ui-panel-wrapper {
+  text-shadow: 0 0;
+}
+.ui-loader {
+  display: none !important;
+}
+.swipe {
+  overflow: hidden;
+  /*visibility:hidden; */
+  position: relative;
+}
+.swipe-wrap {
+  overflow: hidden;
+  position: relative;
+}
+.swipe-wrap > div,
+.swipe-wrap > ul,
+.swipe-wrap > li {
+  float: left;
+  width: 100%;
+  position: relative;
+}
+#loading,
+.loading {
+  display: block;
+  height: 40px;
+  padding: 5px 12px;
+}
+#loading img,
+.loading img {
+  float: left;
+  margin-left: 5px;
+  height: 40px;
+  width: 40px;
+}
+#loading span,
+.loading span {
+  line-height: 40px;
+  margin-left: 19px;
+}
+#loading label,
+.loading label {
+  color: #ccc;
+  display: block;
+  height: 40px;
+  line-height: 40px;
+  width: 100%;
+  text-align: center;
+}
+

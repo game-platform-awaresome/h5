@@ -1,0 +1,226 @@
+/**
+*info:充值记录-编辑页面 pay_edit.html
+*author:zhangting
+*date:2015.10.9 10:30
+*logo:
+**/
+.z_main {
+  margin: 5px;
+}
+.your_money {
+  height: 36px;
+  line-height: 36px;
+  margin: 7px 0 3px 0;
+  padding: 0 15px;
+}
+.your_money span.fr {
+  color: #BBBBBB;
+}
+.edit h3 {
+  height: 36px;
+  line-height: 36px;
+  padding: 0 15px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+.edit h3 .fr {
+  color: #BBBBBB;
+}
+.edit > div {
+  display: box;
+  display: -moz-box;
+  display: -webkit-box;
+  height: 41px;
+  line-height: 41px;
+  background-color: rgba(0, 0, 0, 0.5);
+  margin: 5px 0 3px 0;
+  overflow: hidden;
+  padding: 0 5px;
+  background-clip: content-box;
+}
+.edit > div .ui-input-text {
+  border-right: 1px solid rgba(255, 255, 255, 0.1);
+  box-flex: 5;
+  -webkit-box-flex: 5;
+  -moz-box-flex: 5;
+}
+.edit > div input {
+  display: block;
+  width: 100%;
+  height: 40px;
+  background: none;
+  border: 0;
+  color: #FFFFFF;
+  font-size: 16px;
+  text-align: center;
+}
+.edit > div span {
+  display: block;
+  width: 41px;
+  height: 100%;
+  position: relative;
+}
+.edit > div span i {
+  display: block;
+  width: 13px;
+  height: 14px;
+  background: url("../public/images/i_edit.png") no-repeat center;
+  background-size: 100% auto;
+  position: absolute;
+  top: 50%;
+  margin-top: -7px;
+  left: 50%;
+  margin-left: -6px;
+}
+.edit ul {
+  overflow: hidden;
+}
+.edit ul li {
+  float: left;
+  width: 50%;
+  height: 50px;
+  line-height: 40px;
+  padding: 2px 5px;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  background-color: rgba(0, 0, 0, 0.36);
+  background-clip: content-box;
+  text-align: center;
+  font-size: 16px;
+  cursor: pointer;
+}
+.edit ul li span {
+  font-weight: 500;
+}
+.edit ul li.m_active {
+  background-color: #00ce7d;
+}
+.choses {
+  margin: 5px 0;
+}
+.choses h3 {
+  height: 36px;
+  line-height: 36px;
+  padding: 0 15px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+.choses ul {
+  display: box;
+  display: -moz-box;
+  display: -webkit-box;
+  padding-left: 15px;
+  font-size: 18px;
+  height: 45px;
+  line-height: 45px;
+}
+.choses ul li {
+  cursor: pointer;
+}
+.choses ul li:nth-child(1) {
+  box-fex: 3;
+  -moz-box-flex: 3;
+  -webkit-box-flex: 3;
+  margin-right: 10px;
+}
+.choses ul li:nth-child(2) {
+  box-fex: 3;
+  -moz-box-flex: 3;
+  -webkit-box-flex: 3;
+  margin-right: 10px;
+}
+.choses ul li:nth-child(3) {
+  box-fex: 2;
+  -moz-box-flex: 2;
+  -webkit-box-flex: 2;
+}
+.choses ul li span {
+  float: left;
+  position: relative;
+  text-indent: 5px;
+}
+.choses ul li .checkbox {
+  width: 20px;
+  height: 45px;
+  position: relative;
+  cursor: pointer;
+}
+.choses ul li .checkbox i {
+  display: block;
+  width: 10px;
+  height: 10px;
+  background: #FFFFFF;
+  border: 3px solid #ffffff;
+  border-radius: 10px;
+  position: absolute;
+  top: 50%;
+  left: 0;
+  margin-top: -8px;
+}
+.choses ul li .checkbox_active i {
+  background: #29ba67 none repeat scroll 0% 0%;
+}
+.choses ul li .i_weixin {
+  width: 21px;
+  height: 45px;
+}
+.choses ul li .i_weixin i {
+  display: block;
+  width: 21px;
+  height: 21px;
+  background: url("../images/login/weixin.png") no-repeat center;
+  background-size: 100% auto;
+  position: absolute;
+  left: 0;
+  top: 50%;
+  margin-top: -10px;
+}
+.choses ul li .i_zfb {
+  width: 21px;
+  height: 45px;
+}
+.choses ul li .i_zfb i {
+  display: block;
+  width: 21px;
+  height: 21px;
+  background: url("../images/login/i_zfb.png") no-repeat center;
+  background-size: 100% auto;
+  position: absolute;
+  left: 0;
+  top: 50%;
+  margin-top: -10px;
+}
+.choses ul li .i_iapppay i {
+  background-image: url("../images/pay/alipay-48.png");
+}
+.choses ul li .i_ptb {
+  width: 21px;
+  height: 45px;
+}
+.choses ul li .i_ptb i {
+  display: block;
+  width: 21px;
+  height: 21px;
+  background: url("../images/pay/ptb.png") no-repeat center;
+  background-size: 100% auto;
+  position: absolute;
+  left: 0;
+  top: 50%;
+  margin-top: -10px;
+}
+.btn_cont {
+  text-align: center;
+  margin: 20px 0;
+}
+.btn_cont a {
+  display: block;
+  width: 80%;
+  height: 45px;
+  line-height: 45px;
+  letter-spacing: 7px;
+  font-size: 22px;
+  margin: 0 auto;
+}
+.btn_cont a:hover,
+.btn_cont a:active {
+  color: #FFFFFF;
+  background: #13B173;
+}

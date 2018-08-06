@@ -1,0 +1,110 @@
+/**
+*info:游戏大厅 game_center.html styles
+*author:zhangting
+*date:2015.10.14 10.14
+*logo:
+**/
+/**函数*/
+/**变量 variables**/
+/**颜色*/
+/**混合 Mixins**/
+/**display:box**/
+/**box-flex 需要传参：伸缩值，默认为1**/
+/**box-sizing: border_box 盒子边框模型*/
+/**box_align 默认为center*/
+/**黑色透明背景*/
+/**深蓝色透明背景**/
+/**圆角的兼容函数*/
+.classify {
+  padding: 2%;
+}
+.classify h3 {
+  position: relative;
+  text-indent: 37px;
+  height: 36px;
+  line-height: 36px;
+  margin-bottom: 1px;
+}
+.nav_classify {
+  padding: 5px;
+  overflow: hidden;
+}
+.nav_classify > a {
+  float: left;
+  width: 25%;
+  height: auto;
+  padding: 1px;
+  -webkit-box-sizing: border-box;
+  -o-box-sizing: border-box;
+  -ms-box-sizing: border-box;
+  box-sizing: border-box;
+}
+.nav_classify > a:first-child {
+  width: 50%;
+}
+.nav_classify > a img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+.types_nav {
+  background-color: rgba(0, 0, 0, 0.2);
+  padding: 5px;
+  overflow: hidden;
+}
+.types_nav div {
+  float: left;
+  width: 33.333%;
+  height: auto;
+  -webkit-box-sizing: border-box;
+  -o-box-sizing: border-box;
+  -ms-box-sizing: border-box;
+  box-sizing: border-box;
+  padding: 1px;
+}
+.types_nav div a {
+  display: -webkit-box;
+  display: -moz-box;
+  display: box;
+  overflow: hidden;
+  padding: 10px 5px;
+  border: 1px solid #263235;
+  border-radius: 3px;
+  background: rgba(255, 255, 255, 0.05);
+  -moz-box-align: center;
+  -webkit-box-align: center;
+  box-align: center;
+}
+.types_nav div a i {
+  display: block;
+  width: 32%;
+}
+.types_nav div a i img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: 5px;
+}
+.types_nav div a span {
+  display: block;
+  height: 16px;
+  line-height: 16px;
+  text-align: center;
+  font-size: 12px;
+  font-weight: 300;
+  -moz-box-flex: 5;
+  -webkit-box-flex: 5;
+  box-flex: 5;
+}
+.i_types {
+  display: inline-block;
+  width: 15px;
+  height: 15px;
+  background: url("../images/game_center/i_types.png") no-repeat top;
+  background-size: 100% 100%;
+  margin: 0 5px 0 0;
+  position: absolute;
+  top: 50%;
+  margin-top: -7px;
+  left: 13px;
+}

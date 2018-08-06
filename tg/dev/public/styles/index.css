@@ -1,0 +1,497 @@
+/**
+*info:首页
+*author:zhangting
+*date:2015.11.06 09:56
+*logo:修改日志
+2015.11.06第四次修改
+**/
+/**函数*/
+/**变量 variables**/
+/**颜色*/
+/**混合 Mixins**/
+/**display:box**/
+/**box-flex 需要传参：伸缩值，默认为1**/
+/**box-sizing: border_box 盒子边框模型*/
+/**box_align 默认为center*/
+/**黑色透明背景*/
+/**深蓝色透明背景**/
+/**圆角的兼容函数*/
+/**游戏列表样式*/
+/**函数*/
+/**游戏列表*/
+.game_list {
+  overflow: hidden;
+}
+.game_list .slide_cont {
+  width: auto;
+  height: auto;
+  position: relative;
+  overflow: hidden;
+}
+.game_list .slide_cont ul {
+  padding: 0;
+  float: left;
+  overflow: auto;
+  width: 100%;
+  position: relative;
+}
+.game_list ul li {
+  height: auto;
+  position: relative;
+  clear: both;
+  overflow: hidden;
+  -webkit-border-image: url("../public/images/line_bg.png") 30 30 stretch;
+       -o-border-image: url("../public/images/line_bg.png") 30 30 stretch;
+          border-image: url("../public/images/line_bg.png") 30 30 stretch;
+  border-width: 1px;
+  border-top: 0;
+  border-right: 0;
+  border-left: 0;
+}
+.game_list ul li .list_content {
+  width: 100%;
+  height: auto;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  padding: 5px 10px;
+  overflow: hidden;
+}
+.game_list ul li > i {
+  width: 31px;
+  height: 33px;
+  position: absolute;
+  z-index: 10;
+}
+.game_list .game_log {
+  width: 50px;
+  height: 50px;
+  padding: 5px 5px 5px 0;
+  text-align: center;
+  float: left;
+}
+.game_list .game_log a {
+  display: block;
+  width: 50px;
+  height: 50px;
+  padding-left: 0;
+}
+.game_log a img {
+  width: 100%;
+  height: auto;
+  border-radius: 7px;
+}
+.game_list .game_info {
+  margin: 3px 5px 0 5px;
+  float: left;
+  width: 44%;
+}
+.game_list .game_info p {
+  opacity: 0.8;
+  clear: both;
+  vertical-align: middle;
+  height: 16px;
+  line-height: 16px;
+  font-size: 10px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  color: #BBBBBB;
+  font-weight: 300;
+}
+.game_list .game_info p span img {
+  width: 10px;
+  height: 10px;
+}
+img.grade-star {
+  width: 10px;
+  height: 10px;
+}
+.game_list .game_info p span:last-child {
+  float: left;
+  font-size: 10px;
+  margin-left: 3px;
+}
+.game_list .game_info span.start_list {
+  float: left;
+}
+.game_list .game_info h3 {
+  height: 18px;
+  line-height: 18px;
+}
+.game_list .game_info h3 span {
+  float: left;
+  color: #FFF;
+  font-weight: 300;
+  font-size: 14px;
+  margin-right: 3px;
+}
+.game_list .game_lb {
+  width: 8%;
+  height: 60px;
+  float: left;
+  position: relative;
+}
+.game_list .game_lb a {
+  display: block;
+  width: 24px;
+  height: 25px;
+  position: absolute;
+  top: 50%;
+  margin-top: -15.5px;
+  left: 50%;
+  margin-left: -12px;
+}
+.game_list .game_btn {
+  float: right;
+  height: 60px;
+  position: relative;
+  width: 65px;
+}
+.game_list .game_btn a.btn_blue {
+  width: 63px;
+  height: 34px;
+  line-height: 34px;
+  font-size: 11px;
+  padding: 0;
+  position: absolute;
+  top: 50%;
+  right: 0;
+  margin-top: -18px;
+  display: block;
+  color: #ffffff;
+  font-weight: 100;
+  text-align: center;
+  border-radius: 3px;
+}
+.game_list .game_btn a:hover {
+  background-color: #0e4379;
+  border-color: #1b5baa;
+}
+.icon_cont {
+  width: 34px;
+  position: absolute;
+  z-index: 10;
+}
+.banner {
+  width: 100%;
+  height: 142px;
+  overflow: hidden;
+  border-top: 1px solid #00365a;
+}
+.banner ul {
+  display: block;
+  padding: 0;
+  width: auto;
+  height: auto;
+  overflow: hidden;
+  position: relative;
+  clear: both;
+}
+.banner ul li {
+  float: left;
+  position: relative;
+}
+.banner ul li a {
+  display: block;
+  width: 100%;
+  height: auto;
+  overflow: auto;
+  padding-bottom: 1px;
+}
+.banner ul li a img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+.line_blue {
+  height: 1px;
+  width: 100%;
+}
+.line_blue hr {
+  height: 100%;
+  width: 50%;
+  float: left;
+  border: 0;
+  border-bottom: 1px solid #ffffff;
+}
+.line_blue hr.left_blue {
+  border-bottom-color: #4083b0;
+}
+.line_blue hr.right_green {
+  border-bottom-color: #549747;
+}
+.play_list {
+  display: -webkit-box;
+  display: -moz-box;
+  display: box;
+  width: 100%;
+  height: 44px;
+  line-height: 44px;
+  padding: 0 3px 0 10px;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  background-color: rgba(0, 0, 0, 0.2);
+  -moz-box-align: center;
+  -webkit-box-align: center;
+  box-align: center;
+}
+.logo {
+  float: left;
+  width: 95px;
+  height: 22px;
+  background-position: -2px -76px;
+  top: 4px;
+}
+.play_list ul {
+  position: relative;
+  float: left;
+  height: 100%;
+  -moz-box-flex: 3;
+  -webkit-box-flex: 3;
+  box-flex: 3;
+}
+.play_list ul li {
+  float: left;
+  width: 20%;
+  height: 100%;
+  color: #FFF;
+  font-size: 14px;
+  text-align: center;
+  cursor: pointer;
+}
+.play_list ul li.list_active {
+  color: #2abd72;
+  background: url("../images/index/index_09.png") no-repeat bottom;
+  background-size: 80% 6px;
+}
+.game_news {
+  margin-top: 5px;
+}
+.title {
+  display: block;
+  width: 100%;
+  -webkit-box-sizing: border-box;
+  -o-box-sizing: border-box;
+  -ms-box-sizing: border-box;
+  box-sizing: border-box;
+  height: 42px;
+  background: url("../images/index/index2_bg.png") no-repeat center;
+  background-size: 100% auto;
+  overflow: hidden;
+  font-weight: 100;
+  padding: 0 8px;
+  margin-bottom: 1px;
+}
+.title_name {
+  line-height: 42px;
+  font-size: 14px;
+  float: left;
+  font-weight: bold;
+}
+.more {
+  float: right;
+  line-height: 50px;
+  font-size: 12px;
+}
+.yellow {
+  color: #ed961a;
+}
+.height_min {
+  height: 30px;
+  margin-top: 12px;
+  -moz-box-flex: 3;
+  -webkit-box-flex: 3;
+  box-flex: 3;
+  position: relative;
+}
+.recommend {
+  height: 100%;
+  padding: 5px;
+  overflow: hidden;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+}
+.recommend a {
+  width: 50%;
+  height: auto;
+  padding: 2px;
+  float: left;
+  -webkit-box-sizing: border-box;
+  -o-box-sizing: border-box;
+  -ms-box-sizing: border-box;
+  box-sizing: border-box;
+}
+.recommend a img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+#slider {
+  width: 100%;
+  overflow: hidden;
+}
+.swipe {
+  overflow: hidden;
+  visibility: hidden;
+  position: relative;
+}
+.swipe-wrap {
+  overflow: hidden;
+  position: relative;
+}
+.swipe-wrap .wrap {
+  float: left;
+  width: 100%;
+  position: relative;
+}
+.recommend figure article p {
+  background: rgba(0, 0, 0, 0.2);
+  text-align: center;
+  display: inline-block;
+  width: 90%;
+  padding: 3px;
+  font-size: 10px;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  margin: 0 auto;
+}
+.game_figure {
+  padding: 5px;
+}
+.game_figure a {
+  display: block;
+}
+.game_figure a img {
+  width: 100%;
+  height: auto;
+  border-radius: 5px;
+}
+.scroll_cont {
+  width: 100%;
+  height: 110px;
+  overflow: hidden;
+  position: relative;
+  overflow-x: scroll;
+  overflow-y: hidden;
+}
+.nav_img {
+  width: 100%;
+  padding: 10px 0;
+  height: 80px;
+  position: absolute;
+}
+.nav_img a {
+  float: left;
+  width: 50px;
+  padding: 5px 10px;
+  text-align: center;
+}
+.nav_img a img {
+  display: block;
+  width: 50px;
+  height: 50px;
+  border-radius: 7px;
+}
+.nav_img a h4 {
+  height: 30px;
+  line-height: 30px;
+  font-weight: 300;
+  overflow: hidden;
+}
+.btn_green2 {
+  color: #27a05d;
+  border: 1px solid #27a05d;
+  border-radius: 3px;
+  padding: 3px 5px;
+}
+.btn_green2:visited {
+  color: #27a05d;
+}
+.btn_green2:link {
+  color: #27a05d;
+}
+.actions {
+  padding: 8px;
+  margin-bottom: 5px;
+  background-color: rgba(0, 0, 0, 0.2);
+}
+.actions_main {
+  padding: 5px;
+  background-color: rgba(255, 255, 255, 0.05);
+}
+.actions_main figure {
+  height: 80px;
+  overflow: hidden;
+}
+.actions_main figcaption {
+  float: left;
+  width: 62%;
+  padding: 10px 0 0 10px;
+  height: 60px;
+}
+.actions_main figcaption h3 {
+  width: 100%;
+  height: 20px;
+  line-height: 20px;
+  font-weight: bold;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+.actions_main figcaption p {
+  text-indent: 2em;
+  line-height: 17px;
+  margin-top: 7px;
+  height: 34px;
+  overflow: hidden;
+}
+.img_con {
+  width: 96px;
+  height: 100%;
+  float: left;
+  position: relative;
+}
+.img_con img {
+  width: 100%;
+  height: auto;
+  border-radius: 3px;
+}
+.tips {
+  overflow: hidden;
+  height: 32px;
+  line-height: 32px;
+  margin: 20px 0 10px 0;
+}
+.tips time {
+  color: #2abd72;
+  font-weight: 300;
+  background-color: #192a36;
+  border-radius: 2px;
+  margin-left: 5px;
+  padding: 0 3px;
+  height: 18px;
+  line-height: 18px;
+  position: relative;
+  top: 7px;
+}
+.tips .btn_blue {
+  width: 67px;
+  padding: 0;
+  height: 30px;
+  line-height: 30px;
+  font-size: 12px;
+  text-align: center;
+  font-weight: 300;
+  border-radius: 3px;
+  margin-right: 5px;
+}
+.game_list {
+  margin-top: 5px;
+}
+.top {
+  top: 0;
+}
+.game_list ul li:first-child {
+  border-top-width: 1px;
+}

@@ -1,0 +1,617 @@
+/**
+*info:首页
+*author:zhangting
+*date:2015.09.14 09:56
+*logo:修改日志
+**/
+.z_header {
+  border: 0;
+}
+.banner {
+  width: 100%;
+  height: 142px;
+  overflow: hidden;
+  border-top: 1px solid #00365a;
+}
+.banner ul {
+  display: block;
+  padding: 0;
+  width: auto;
+  height: auto;
+  overflow: hidden;
+  position: relative;
+  clear: both;
+}
+.banner ul li {
+  float: left;
+  position: relative;
+}
+.banner ul li a {
+  display: block;
+  width: 100%;
+  height: auto;
+  overflow: auto;
+  padding-bottom: 1px;
+}
+.banner ul li a img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+.line_blue {
+  height: 1px;
+  width: 100%;
+}
+.line_blue hr {
+  height: 100%;
+  width: 50%;
+  float: left;
+  border: 0;
+  border-bottom: 1px solid #ffffff;
+}
+.line_blue hr.left_blue {
+  border-bottom-color: #4083b0;
+}
+.line_blue hr.right_green {
+  border-bottom-color: #549747;
+}
+.play_list {
+  display: box;
+  display: -moz-box;
+  display: -webkit-box;
+  width: 100%;
+  height: 44px;
+  line-height: 44px;
+  padding: 0 3px 0 10px;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+}
+.logo {
+  float: left;
+  width: 113px;
+  height: 100%;
+  position: relative;
+  background: url("../images/index/index_06.png") no-repeat center;
+  background-size: 100% auto;
+}
+.play_list ul {
+  position: relative;
+  float: left;
+  height: 100%;
+  box-flex: 3;
+  -moz-box-flex: 3;
+  -webkit-box-flex: 3;
+}
+.play_list ul li {
+  float: left;
+  width: 20%;
+  height: 100%;
+  color: #FFF;
+  font-size: 14px;
+  text-align: center;
+  cursor: pointer;
+}
+.play_list ul li.list_active {
+  color: #2abd72;
+  background: url("../images/index/index_09.png") no-repeat bottom;
+  background-size: 80% 6px;
+}
+.center {
+  position: relative;
+  clear: both;
+  height: 32px;
+  line-height: 32px;
+}
+.center .center_left {
+  float: left;
+  color: #ffffff;
+  font-size: 1.7em;
+  height: 100%;
+  position: relative;
+}
+.center .center_left img {
+  margin-left: 10%;
+}
+.center div.btn_list {
+  height: 30px;
+  text-align: center;
+  position: relative;
+}
+.center div.btn_list ul {
+  position: absolute;
+  top: 50%;
+  margin-top: -4px;
+  padding: 0;
+  overflow: hidden;
+  width: auto;
+  height: auto;
+  display: inline-block;
+  left: 50%;
+  margin-left: -35px;
+}
+.center div.btn_list li {
+  display: inline-block;
+  float: left;
+  background: #AEAEAE;
+  width: 8px;
+  height: 8px;
+  border-radius: 5px;
+  margin: 0 3px;
+}
+.center ul li.btn_active {
+  background: #2ABD72;
+}
+.color_a3a3a3 {
+  color: #a3a3a3;
+}
+.color_646464 {
+  color: #A79E9E;
+}
+.center .center_right {
+  height: 100%;
+  line-height: 5vh;
+  float: right;
+}
+.center .center_right span {
+  font-size: 1.0em;
+  margin-right: 5%;
+  display: inline-block;
+  height: 100%;
+  line-height: 30px;
+  float: right;
+}
+.center .ui-block-a {
+  width: 30%;
+}
+.center .ui-block-b {
+  width: 30%;
+}
+.center .ui-block-c {
+  width: 30%;
+  overflow: hidden;
+}
+.center_main {
+  overflow: hidden;
+}
+.center_main .tabs {
+  width: 33.333%;
+  overflow: hidden;
+  float: left;
+  height: 100%;
+  font-weight: 100;
+  line-height: 30px;
+  font-size: 14px;
+}
+.playing {
+  height: auto;
+  position: relative;
+}
+.playing nav {
+  display: block;
+  height: auto;
+  padding: 10px 2%;
+  overflow: hidden;
+}
+.z_main .playing div.tablist {
+  width: 20%;
+}
+.playing a {
+  display: block;
+  width: 50px;
+  height: 50px;
+  margin: 0 auto;
+}
+.playing a img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: 7px;
+}
+.playing a span.playing_more {
+  display: block;
+  border: 2px solid #757F84;
+  border-radius: 5px;
+  color: #757F84;
+  font-size: 2em;
+  font-weight: 100;
+  text-align: center;
+  line-height: 16vw;
+  vertical-align: middle;
+}
+.icon_index {
+  background: url("../images/index/icon_index.png") no-repeat center;
+  position: relative;
+  width: 19px;
+  height: 19px;
+  display: inline-block;
+  background-size: 100% auto;
+}
+.start1 {
+  background-position: -7px -5px;
+  top: 6px;
+}
+.start2 {
+  background-position: -34px -5px;
+  top: 6px;
+}
+.i_game {
+  float: left;
+  width: 18px;
+  height: 30px;
+  background: url("../images/index/game_icon.png") no-repeat center;
+  background-size: 94% auto;
+  margin: 0 3px 0 12px;
+}
+/*��Ϸ��Ѷ**/
+.game_news {
+  margin-top: 10px;
+}
+.game_news h2 {
+  height: 42px;
+  background: url("../images/index/index2_bg.png") no-repeat center;
+  background-size: 100% auto;
+  overflow: hidden;
+  font-weight: 100;
+  padding: 0 8px;
+  margin-bottom: 1px;
+}
+.game_news h2 div {
+  float: left;
+  width: 33.333%;
+  height: 100%;
+  position: relative;
+}
+.game_news .title {
+  line-height: 42px;
+  font-size: 14px;
+}
+.yellow {
+  color: #ed961a;
+}
+.game_news .height_min,
+.game_news .more_con {
+  height: 30px;
+  margin-top: 12px;
+}
+.game_news .more_con {
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  line-height: 30px;
+  float: right;
+}
+.game_news .more {
+  font-size: 12px;
+  color: #626a6e;
+  float: right;
+}
+.dot_list {
+  position: absolute;
+  top: 50%;
+  margin-top: -4px;
+  padding: 0;
+  overflow: hidden;
+  width: auto;
+  height: auto;
+  display: inline-block;
+  left: 50%;
+  margin-left: -35px;
+}
+.dot_list li {
+  display: inline-block;
+  float: left;
+  background: #AEAEAE none repeat scroll 0 0;
+  width: 8px;
+  height: 8px;
+  border-radius: 5px;
+  margin: 0 3px;
+}
+.dot_list .btn_active {
+  background: #2ABD72;
+}
+.i_hand {
+  display: inline-block;
+  width: 18px;
+  height: 15px;
+  background: url("../images/index/index2_09.png") no-repeat center;
+  background-size: 100% auto;
+  margin-right: 4px;
+}
+.recommend {
+  float: left;
+  height: 100%;
+  padding: 5px;
+  overflow: hidden;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+}
+.recommend a {
+  width: 50%;
+  float: left;
+  background: rgba(255, 255, 255, 0.05);
+  background-clip: content-box;
+  padding: 5px;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+}
+.recommend h3 {
+  font-size: 14px;
+  font-weight: 100;
+  height: 26px;
+  line-height: 26px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  text-indent: 10px;
+  margin-bottom: 5px;
+  position: relative;
+}
+.i_free {
+  display: inline-block;
+  width: 40px;
+  height: 15px;
+  background: url("../images/index/index2_13.png") no-repeat center;
+  background-size: 100% auto;
+  position: absolute;
+  right: 0;
+  top: 50%;
+  margin-top: -7px;
+}
+.i_time {
+  background-image: url("../images/index/index2_15.png");
+}
+.recommend figure {
+  display: box;
+  display: -webkit-box;
+  display: -moz-box;
+}
+.recommend figure > div {
+  padding: 5px 10px;
+}
+.recommend figure img {
+  width: 50px;
+  height: 50px;
+  border-radius: 7px;
+}
+.recommend figure article {
+  display: block;
+  -webkit-box-flex: 3;
+  -moz-box-flex: 3;
+  -ms-box-flex: 3;
+  box-flex: 3;
+  color: #bbb;
+  padding: 5px 5px 5px 0;
+  overflow: hidden;
+}
+.recommend figure article h4 {
+  font-size: 12px;
+}
+.recommend figure article div {
+  height: 16px;
+  line-height: 16px;
+}
+#slider {
+  width: 100%;
+  overflow: hidden;
+}
+.swipe {
+  overflow: hidden;
+  visibility: hidden;
+  position: relative;
+}
+.swipe-wrap {
+  overflow: hidden;
+  position: relative;
+}
+.swipe-wrap .wrap {
+  float: left;
+  width: 100%;
+  position: relative;
+}
+.i_start {
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+  background: url("../images/index/index_34.png") no-repeat center;
+  background-size: 100% auto;
+}
+.i_start2 {
+  background-image: url("../images/index/index_36.png");
+}
+.recommend figure article p {
+  background: rgba(0, 0, 0, 0.2);
+  text-align: center;
+  display: inline-block;
+  width: 90%;
+  padding: 3px;
+  font-size: 10px;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  margin: 0 auto;
+}
+.game_figure {
+  display: box;
+  display: -webkit-box;
+  display: -moz-box;
+  padding: 5px;
+}
+.game_figure a {
+  display: block;
+  width: 50%;
+  padding: 3px;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+}
+.game_figure a img {
+  border-radius: 8px;
+}
+.nav_img {
+  display: box;
+  display: -webkit-box;
+  display: -moz-box;
+  padding: 5px;
+}
+.nav_img a {
+  display: block;
+  padding: 5px;
+  width: 20%;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  text-align: center;
+}
+.nav_img a img {
+  border-radius: 7px;
+}
+.img_info {
+  padding: 12px;
+  margin-bottom: 1px;
+}
+.img_info > a {
+  display: block;
+}
+.action {
+  margin-bottom: 10px;
+}
+.action_menu {
+  overflow: hidden;
+  display: box;
+  display: -webkit-box;
+  display: -moz-box;
+  position: relative;
+}
+.action_menu article {
+  -webkit-box-flex: 3;
+  -moz-box-flex: 3;
+  -ms-box-flex: 3;
+  box-flex: 3;
+}
+.action_menu article h4,
+.action_menu article h5 {
+  height: 20px;
+  line-height: 20px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font-weight: 300;
+}
+.action_menu article h5 {
+  color: #BBBBBB;
+  font-size: 10px;
+}
+.action_menu > div {
+  position: relative;
+  width: 70px;
+}
+.action_menu div a {
+  position: relative;
+  top: 10px;
+  float: right;
+}
+.btn_green2 {
+  color: #27a05d;
+  border: 1px solid #27a05d;
+  border-radius: 3px;
+  padding: 3px 5px;
+}
+.btn_green2:visited {
+  color: #27a05d;
+}
+.btn_green2:link {
+  color: #27a05d;
+}
+.i_fire {
+  background-image: url("../images/index/index2_27.png");
+  background-size: 100% auto;
+  height: 18px;
+  width: 10px;
+  position: relative;
+  top: 3px;
+}
+.i_action {
+  background-image: url("../public/images/i_lb.png");
+  background-size: 100% auto;
+  height: 13px;
+  width: 13px;
+  position: relative;
+  top: 1px;
+}
+/**需要删减的-----------------------------------------------------**/
+.nowrap {
+  height: 24px;
+}
+.forum {
+  margin-bottom: 20px;
+}
+.news_page2 > a {
+  float: right;
+  width: 25%;
+  height: 100%;
+}
+.news_page2 > a img {
+  height: 36px;
+  width: 36px;
+  position: relative;
+  top: 50%;
+  left: 50%;
+  margin: -18px 0 0 -18px;
+}
+.forum .news_page2 p {
+  height: 2em;
+  float: none;
+  width: 96%;
+  font-size: 11px;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  text-indent: 5px;
+}
+html body .ui-group-theme-a a:hover {
+  color: #FFFFFF;
+  opacity: 1;
+}
+.i_fl {
+  background-position: -2px -38px;
+  width: 61px;
+  height: 65px;
+  background-size: 100% auto;
+}
+.i_hd {
+  background-position: -2px -38px;
+  width: 61px;
+  height: 65px;
+  background-size: 100% auto;
+}
+/**news.html styles 游戏资讯页面css*/
+.news .game_news {
+  margin: 1.5%;
+}
+.news .title_word {
+  font-size: 1.2em;
+}
+.news .i_zx {
+  display: inline-block;
+  width: 16px;
+  height: 16px;
+  background: url("../images/index/index_47.png") no-repeat center;
+  background-size: 100% auto;
+  position: absolute;
+  top: 50%;
+  left: 10px;
+  margin-top: -8px;
+}
+.news .info_table {
+  position: relative;
+  text-indent: 33px;
+  font-size: 14px;
+}
+.news .title1 p {
+  white-space: nowrap;
+  line-height: 48px;
+  text-overflow: ellipsis;
+  text-indent: 0;
+}
+.news .play_list ul li {
+  width: 25%;
+}
+.news .play_list ul {
+  padding: 0 7% 0 4%;
+}
+/**需要删减的-----------------------------------------------------**/

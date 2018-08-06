@@ -1,0 +1,145 @@
+/**
+*info:活动中心 action_center.html styles
+*author:zhangting
+*date:2015.09.24 09:56
+*logo:
+**/
+figure,
+ul {
+  margin: 0;
+  padding: 0;
+}
+.z_container .sign {
+  height: 36px;
+  line-height: 36px;
+  margin: 15px 0px 5px;
+  visibility: visible;
+  position: relative;
+  text-indent: 18px;
+  padding: 0 5px;
+}
+.i_detepicker {
+  display: inline-block;
+  width: 13px;
+  height: 13px;
+  background: url("../images/action_center/action_03.png") no-repeat center;
+  background-size: 100% 100%;
+  position: absolute;
+  top: 50%;
+  left: 5px;
+  margin-top: -6px;
+}
+/**日历样式调整*/
+#datepicker {
+  padding: 5px;
+}
+.ui-corner-all {
+  display: block;
+  border: 0px none;
+  border-radius: 0px;
+  padding: 0px;
+  width: 100%;
+}
+.ui-datepicker .ui-datepicker-header {
+  display: none;
+}
+.ui-widget-content {
+  background: none;
+  color: #FFFFFF;
+}
+.ui-state-default,
+.ui-widget-content .ui-state-default {
+  background: rgba(0, 0, 0, 0.2);
+  color: #FFFFFF;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  padding: 7px 0;
+  text-align: center;
+}
+.ui-datepicker th {
+  background-color: #293639;
+  border-right: 1px solid rgba(255, 255, 255, 0.1);
+}
+.ui-datepicker th:last-child {
+  border: 0;
+}
+.ui-state-default,
+.ui-widget-content .ui-state-default {
+  background: #2b3e44;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  font-weight: 100;
+}
+.ui-widget-content .ui-datepicker-today .ui-state-highlight {
+  background-color: #29ba67;
+  background-image: none;
+  color: #ffffff;
+}
+.ui-widget-content .ui-state-active {
+  background-color: #468a6c;
+  color: rgba(255, 255, 255, 0);
+  background-image: url("../images/action_center/i_select.png");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 50% 50%;
+}
+.ui-state-disabled,
+.ui-widget-content .ui-state-disabled,
+.ui-widget-header .ui-state-disabled {
+  background-color: #1f3b45;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+.sign a {
+  color: #626a6e;
+  width: auto;
+}
+.titles {
+  height: 36px;
+  line-height: 36px;
+  font-weight: 100;
+  font-size: 14px;
+  margin: 5px 0 1px 0;
+}
+.titles span:first-child {
+  margin: 0 10px;
+}
+.gift_list {
+  overflow: hidden;
+}
+.gift_list li {
+  height: 50px;
+  padding: 10px 0;
+  overflow: hidden;
+  background-color: rgba(0, 0, 0, 0.2);
+  margin-bottom: 1px;
+}
+.gift_list li span {
+  display: inline-block;
+  height: 100%;
+  float: left;
+  text-align: center;
+  font-size: 17px;
+  line-height: 25px;
+  padding: 0 2%;
+  width: 15%;
+}
+.gift_list li nav {
+  display: inline-block;
+  width: 60%;
+  float: left;
+}
+.gift_list li nav a {
+  float: left;
+  width: 33.333%;
+}
+.gift_list li nav a img {
+  display: block;
+  margin: 0 auto;
+  border-radius: 5px;
+}
+.gift_list li button {
+  width: 20%;
+  font-size: 14px;
+  float: left;
+  padding: 0;
+  height: 35px;
+  margin-top: 7px;
+}

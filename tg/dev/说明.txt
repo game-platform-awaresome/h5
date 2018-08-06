@@ -1,0 +1,80 @@
+﻿1、配置一个网站指向 /public/ 目录；需要启用rewrite模块；
+	conf/httpd.conf 文件中搜索 mod_rewrite ，将行首的#号去掉；
+
+2、PHP需要启用curl、mcrypt、mbstring、yaf扩展；PHP建议使用5.4版本，最低要求5.3版本；
+	curl、mcrypt、mbstring扩展 在 php.ini 中去掉 ;extension=php_curl.dll 前面的分号即可；
+	yaf扩展需要将 php_yaf-2.2.9-x86-5.4.x-zts-nodebug.dll 拷贝到 PHP 的 ext 目录下，然后在php.ini 文件中加入一行代码：extension=php_yaf-2.2.9-x86-5.4.x-zts-nodebug.dll
+	
+	安装包中带有2个yaf PHP 5.4的版本，如果PHP版本不是5.4系列，请到 http://code.google.com/p/yafphp/downloads/list 下载对应的扩展包；
+	nginx, iis, lighttpd, apache prefork模式，需要使用带 nts 的版本，其他情况请用带 zts 的版本；
+	
+	./configure --enable-fpm --with-fpm-user=www --with-fpm-group=www --with-openssl --with-pcre-regex --with-curl --with-gd --with-freetype-dir --with-jpeg-dir --enable-gd-native-ttf --enable-mbstring --with-mcrypt --with-mhash --with-mysql --with-mysqli --with-pdo-mysql --enable-mysqlnd --enable-zip --with-zlib
+
+3、导入SQL文件 h5.sql，会自动创建一个名为 h5 的数据库；
+
+4、修改 /conf/application.ini 中的数据库配置项；
+	db.h5.dsn = "mysql:host=192.168.3.222;port=3306;dbname=h5"
+	db.h5.username = "root"
+	db.h5.passwd = "123456"
+
+	host = 数据库IP地址；port = 数据库端口；dbname = 数据库名
+	username = 数据库用户名
+	passwd = 数据库密码
+
+5、打开网站后台：http://domain/admin/index/index
+	在网站设置中修改网站的根域名；
+
+6、开始测试吧；
+
+
+//nginx与PHP结合的一般性配置
+    gzip  on;
+    gzip_min_length  1024;
+    gzip_comp_level 3;
+    gzip_types  text/plain text/css application/x-javascript text/javascript application/xml;
+
+    server {
+        listen       80;
+        server_name  www.namiyx.com namiyx.com;
+
+        #charset koi8-r;
+
+        #access_log  logs/host.access.log  main;
+
+        location / {
+            root   /www/h5/public;
+            index  index.php index.html;
+            if (!-e $request_filename) {
+                rewrite ^/(.*)  /index.php last;
+            }
+        }
+
+        #error_page  404              /404.html;
+
+        # redirect server error pages to the static page /50x.html
+        #
+        error_page   500 502 503 504  /50x.html;
+        location = /50x.html {
+            root   html;
+        }
+
+        # pass the PHP scripts to FastCGI server listening on 127.0.0.1:9000
+        #
+        location ~ \.php$ {
+            if (!-e $request_filename) {
+                rewrite ^/(.*)  /index.php last;
+            }
+            root           /www/h5/public;
+            fastcgi_pass   127.0.0.1:9000;
+            fastcgi_index  index.php;
+            fastcgi_param  SCRIPT_FILENAME  $document_root$fastcgi_script_name;
+            include        fastcgi_params;
+        }
+
+        # deny access to .htaccess files, if Apache's document root
+        # concurs with nginx's one
+        #
+        #location ~ /\.ht {
+        #    deny  all;
+        #}
+    }
