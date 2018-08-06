@@ -95,7 +95,7 @@ class UsersModel extends F_Model_Pdo
 		$username = preg_replace('/[\'\"\\\]+/', '', $username);
 		$time = time();
 
-		require_once APPLICATION_PATH.'/config.inc.php';
+//		require_once APPLICATION_PATH.'/config.inc.php';
 //		require_once APPLICATION_PATH.'/uc_client/client.php';
 		
 //		list($u_id, $u_name, $u_pass, $u_email) = uc_user_login($username, $password, $isuid);
