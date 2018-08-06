@@ -17,7 +17,7 @@ class TgchannelModel extends F_Model_Pdo
 	{
 	    return array(
 	        'channel_id' => '渠道ID',
-	        'name' => '渠道名称',
+	        'nickname' => '渠道名称',
 	        'code' => '渠道代码',
 	        'fwd' => '跳转地址',
 	        'admin' => '所属管理员',

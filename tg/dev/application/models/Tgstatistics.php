@@ -12,15 +12,11 @@ class TgstatisticsModel extends F_Model_Pdo
 	public function getFieldsLabel()
 	{
 	    return array(
-	        'ymd' => function(&$row){
-                if( empty($row) ) return '统计日期';
-                return date('Y-m-d H:i:s', $row['ymd']);
-            },
 	        'channel' => function(&$row){
 	            if(empty($row)) return '推广渠道';
-	            $model = F_Model_Pdo::getInstance('Tgchannel');
-	            $tmp = $model->getWithTmpCache($row['channel']);
-	            return $tmp ? $tmp['name'] : '-';
+	            $model = F_Model_Pdo::getInstance('Admin');
+	            $tmp = $model->fetch(['admin_id'=>$row['channel']],'nickname');
+	            return $tmp ? $tmp['nickname'] : '-';
 	        },
 	        'pv' => '访问量',
 	        'ip' => '独立IP数',
@@ -37,8 +33,8 @@ class TgstatisticsModel extends F_Model_Pdo
 	public function getFieldsSearch()
 	{
 	    return array(
-	        'ymd_begin' => array('开始日期', 'datepicker', null, ''),
-	        'ymd_end' => array('结束日期', 'datepicker', null, ''),
+//	        'ymd_begin' => array('开始日期', 'datepicker', null, ''),
+//	        'ymd_end' => array('结束日期', 'datepicker', null, ''),
 	        'channel' => array('渠道ID', 'input', null, ''),
 	    );
 	}

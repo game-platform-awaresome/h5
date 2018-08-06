@@ -50,7 +50,21 @@ class AdminModel extends F_Model_Pdo
 //		    },
 		);
 	}
-	
+//    public function getFieldsPadding()
+//    {
+//        return array(
+//            'link' => function(&$row){
+//                if(empty($row)) return '推广链接';
+//                $url = 'http://www.namiyx.com/channel/index/'.$row['code'];
+//                if( $row['fwd'] ) {
+//                    $fwd = str_replace(array('http://www.namiyx.com', 'http://namiyx.com', 'www.namiyx.com', 'namiyx.com'), '', trim($row['fwd']));
+//                    $url .= '?fwd=';
+//                    $url .= strpos($row['fwd'], '?') ? urlencode($fwd) : $fwd;
+//                }
+//                return $url;
+//            },
+//        );
+//    }
 	/**
 	 * 管理员登录
 	 *
@@ -75,13 +89,21 @@ class AdminModel extends F_Model_Pdo
 		if( $user['status'] == 'disabled' ){
 			return '你没有访问权限。';
 		}
-		
+        $tg_channel=$user['admin_id'];
+        $admin=new AdminModel();
+        $channel_ids=$admin->fetchAll(['parent_id'=>$user['admin_id']],1,20000,'admin_id');
+        foreach ($channel_ids as $k=>$v){
+            $channel_ids[$k]=(int)$channel_ids[$k]['admin_id'];
+        }
+
 		$s = Yaf_Session::getInstance();
 		$s->set('admin_id', $user['admin_id']);
 		$s->set('admin_name', $user['username']);
 		$s->set('admin_status', $user['status']);
 		$s->set('admin_group', $user['group_id']);
-		
+		$s->set('channel_ids', $channel_ids);//渠道
+        $s->set('channel_ids_condition','('.implode(',',$channel_ids).')');
+
 		if( $remember ) {
 			$time = time() + 864000;
 			$info = "{$user['admin_id']}\t{$user['username']}\t{$user['status']}\t{$user['group_id']}\t{$time}";

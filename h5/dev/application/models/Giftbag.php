@@ -13,7 +13,7 @@ class GiftbagModel extends F_Model_Pdo
 	public $_desc = array(
 	    'limited' => '每人限领1个CDKEY！',
 	    'onlyone' => '每人限领1个CDKEY！',
-	    'infinity' => '无限制礼包，可以重复领取！',
+	    'infinity' => '礼包数量无限，每人限领1个CDKEY！',
 	);
 	
 	public function getTableLabel()

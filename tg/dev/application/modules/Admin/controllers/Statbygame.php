@@ -28,8 +28,27 @@ class StatbygameController extends F_Controller_Backend
                 }
             }
         }
-        $params=parent::beforeList();
+
         $params['op'] = F_Helper_Html::Op_Null;
+        $conds = '';
+        $search = $this->getRequest()->getQuery('search', array());
+        $s = Yaf_Session::getInstance();
+        $admin_id=$s->get('admin_id');
+        if( $search ) {
+            $cmm = '';
+            foreach ($search as $k=>$v)
+            {
+                if( empty($v) ) {
+                    continue;
+                }
+                $conds .= "{$cmm}{$k}='{$v}'";
+                $cmm = ' AND ';
+            }
+            $conds.="AND admin_id = {$admin_id}";
+        }else{
+            $conds.="admin_id = {$admin_id}";
+        }
+        $params['conditions']=$conds;
         return $params;
     }
 

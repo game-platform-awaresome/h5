@@ -102,7 +102,7 @@ class GiftbagController extends F_Controller_Backend
             $gift = $this->_model->fetch("gift_id='{$id}'", 'nums');
             
             $this->_model->update(array(
-                'type' => 'limited',
+//                'type' => 'limited',
                 'nums' => intval($gift['nums']) + $nums,
             ), "gift_id='{$id}'");
             

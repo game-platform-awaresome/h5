@@ -64,18 +64,19 @@ class GameModel extends F_Model_Pdo
 			'name' => '名称',
 		    'type' => '分类',
 		    'classic' => '经典分类',
-		    'corner' => function(&$row){
-		        if( empty($row) ) return '角标';
-		        return $this->_corner[$row['corner']];
-		    },
-		    'label' => function(&$row){
-		        if( empty($row) ) return '后标';
-		        return $this->_labels[$row['label']];
-		    },
-		    'giftbag' => function(&$row){
-		        if( empty($row) ) return '礼包ID';
-		        return $row['giftbag'] ? "<a href=\"/admin/giftbag/list?search[gift_id]={$row['giftbag']}\">{$row['giftbag']}</a>" : '-';
-		    },
+		    'divide_into' => '分成比例',
+//		    'corner' => function(&$row){
+//		        if( empty($row) ) return '角标';
+//		        return $this->_corner[$row['corner']];
+//		    },
+//		    'label' => function(&$row){
+//		        if( empty($row) ) return '后标';
+//		        return $this->_labels[$row['label']];
+//		    },
+//		    'giftbag' => function(&$row){
+//		        if( empty($row) ) return '礼包ID';
+//		        return $row['giftbag'] ? "<a href=\"/admin/giftbag/list?search[gift_id]={$row['giftbag']}\">{$row['giftbag']}</a>" : '-';
+//		    },
 		    'logo' => function(&$row){
 		        if( empty($row) ) return '图标';
 		        return $row['logo'] ? "<a class=\"lightbox\" href=\"{$row['logo']}\"><img style=\"max-width:32px;\" src=\"{$row['logo']}\"></a>" : '';
@@ -98,10 +99,10 @@ class GameModel extends F_Model_Pdo
 		        if( empty($row) ) return '直充';
 		        return $row['prepay'] ? '是' : '-';
 		    },
-		    'channel' => function(&$row){
-		        if( empty($row) ) return '合作渠道';
-		        return $this->_channels[$row['channel']];
-		    },
+//		    'channel' => function(&$row){
+//		        if( empty($row) ) return '合作渠道';
+//		        return $this->_channels[$row['channel']];
+//		    },
 		);
 	}
 	
