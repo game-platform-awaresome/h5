@@ -6,7 +6,7 @@ class GameModel extends F_Model_Pdo
 	protected $_primary = 'game_id';
     public function __construct()
     {
-        parent::__construct('h5');
+        parent::__construct('h5_open');
     }
 	//类型
 	public $_types = array('推荐','独家','互动','网游','单机');
