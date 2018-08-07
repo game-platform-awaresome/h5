@@ -4,10 +4,7 @@ class GameModel extends F_Model_Pdo
 {
 	protected $_table = 'game';
 	protected $_primary = 'game_id';
-    public function __construct()
-    {
-        parent::__construct('h5_open');
-    }
+	
 	//类型
 	public $_types = array('推荐','独家','互动','网游','单机');
 	//经典分类
@@ -52,6 +49,11 @@ class GameModel extends F_Model_Pdo
 	    'grade' => '星级',
 	);
 	
+	public function __construct()
+	{
+	    parent::__construct('h5');
+	}
+	
 	public function getTableLabel()
 	{
 		return '游戏';
@@ -65,18 +67,18 @@ class GameModel extends F_Model_Pdo
 		    'type' => '分类',
 		    'classic' => '经典分类',
 		    'divide_into' => '分成比例',
-//		    'corner' => function(&$row){
-//		        if( empty($row) ) return '角标';
-//		        return $this->_corner[$row['corner']];
-//		    },
-//		    'label' => function(&$row){
-//		        if( empty($row) ) return '后标';
-//		        return $this->_labels[$row['label']];
-//		    },
-//		    'giftbag' => function(&$row){
-//		        if( empty($row) ) return '礼包ID';
-//		        return $row['giftbag'] ? "<a href=\"/admin/giftbag/list?search[gift_id]={$row['giftbag']}\">{$row['giftbag']}</a>" : '-';
-//		    },
+		    'corner' => function(&$row){
+		        if( empty($row) ) return '角标';
+		        return $this->_corner[$row['corner']];
+		    },
+		    'label' => function(&$row){
+		        if( empty($row) ) return '后标';
+		        return $this->_labels[$row['label']];
+		    },
+		    'giftbag' => function(&$row){
+		        if( empty($row) ) return '礼包ID';
+		        return $row['giftbag'] ? "<a href=\"/admin/giftbag/list?search[gift_id]={$row['giftbag']}\">{$row['giftbag']}</a>" : '-';
+		    },
 		    'logo' => function(&$row){
 		        if( empty($row) ) return '图标';
 		        return $row['logo'] ? "<a class=\"lightbox\" href=\"{$row['logo']}\"><img style=\"max-width:32px;\" src=\"{$row['logo']}\"></a>" : '';
@@ -92,12 +94,8 @@ class GameModel extends F_Model_Pdo
 		        return substr($row['add_time'], 0, 10);
 		    },
 		    'visible' => function(&$row){
-		        if( empty($row) ) return '可见';
+		        if( empty($row) ) return '是否可见';
 		        return $row['visible'] ? '是' : '-';
-		    },
-		    'prepay' => function(&$row){
-		        if( empty($row) ) return '直充';
-		        return $row['prepay'] ? '是' : '-';
 		    },
 //		    'channel' => function(&$row){
 //		        if( empty($row) ) return '合作渠道';
@@ -126,221 +124,16 @@ class GameModel extends F_Model_Pdo
 	    );
 	}
 	
-	/**
-	 * 生成评级HTML
-	 * 
-	 * @param float $grade
-	 * @return string
-	 */
-	public function gradeHtml($grade)
+	//上线
+	public function online($game_id)
 	{
-	    $grade = round($grade);
-	    $html = str_repeat('<i class="icons i_start1"></i>', $grade);
-	    $html .= str_repeat('<i class="icons i_start2"></i>', 5 - $grade);
-	    return $html;
+	    $conds = "game_id='{$game_id}'";
+	    $this->update(array('visible'=>1), $conds);
 	}
-	
-	/**
-	 * 格式化人气数
-	 * 
-	 * @param int $support
-	 * @return string
-	 */
-	public function supportFormat($support)
+	//下线
+	public function offline($game_id)
 	{
-	    if( $support > 10000000 ) {
-	        return floor($support/10000000).'千万+';
-	    } elseif( $support > 1000000 ) {
-	        return floor($support/1000000).'百万+';
-	    } elseif( $support > 10000 ) {
-	        return floor($support/10000).'万+';
-	    } elseif( $support > 1000 ) {
-	        return floor($support/1000).'千+';
-	    }
-	    return $support;
-	}
-	
-	/**
-	 * 根据类型返回游戏总数，没有指定类型时返回所有类型游戏的总数
-	 * 指定类型时返回INT型，没有指定类型时返回数组
-	 * 
-	 * @param string $type
-	 * @return mixed
-	 */
-	public function getCountByType($type = '')
-	{
-	    if( $type != '' ) {
-	        return $this->fetchCount("visible=1 AND type='{$type}'");
-	    }
-	    
-	    $data = array();
-	    foreach ($this->_types as $type)
-	    {
-	        $data[$type] = $this->fetchCount("visible=1 AND type='{$type}'");
-	    }
-	    return $data;
-	}
-	
-	/**
-	 * 根据类型返回游戏列表，没有指定类型则返回所有类型的游戏列表
-	 * 指定类型时返回二位数组，没有指定类型时返回三维数组
-	 * 
-	 * @param int $pn
-	 * @param int $limit
-	 * @param string $type
-	 * @return array
-	 */
-	public function getTopByType($pn = 1, $limit = 3, $type = '')
-	{
-	    if( in_array($type, $this->_types) ) {
-	        $data = $this->fetchAll("visible=1 AND type='{$type}'", $pn, $limit, 'game_id,name,logo,corner,label,giftbag,support,grade,in_short,play_times', 'weight ASC');
-	        foreach ($data as &$row)
-	        {
-	            $row['grade'] = $this->gradeHtml($row['grade']);
-	            $row['support'] = $this->supportFormat($row['support'] + $row['play_times']);
-	        }
-	        return $data;
-	    }
-	    
-	    $data = array();
-	    foreach ($this->_types as $type)
-	    {
-	        $data[$type] = $this->fetchAll("visible=1 AND type='{$type}'", $pn, $limit, 'game_id,name,logo,corner,label,giftbag,support,grade,in_short,play_times', 'weight ASC');
-	        foreach ($data[$type] as &$row)
-	        {
-	            $row['grade'] = $this->gradeHtml($row['grade']);
-	            $row['support'] = $this->supportFormat($row['support'] + $row['play_times']);
-	        }
-	    }
-	    return $data;
-	}
-	
-	/**
-	 * 根据游戏属性获取游戏列表
-	 * 
-	 * @param string $attr
-	 * @param int $pn
-	 * @param int $limit
-	 * @return array
-	 */
-	public function getListByAttr($attr, $pn = 1, $limit = 10)
-	{
-	    switch ($attr)
-	    {
-	        case 'support':
-	            $order = 'support DESC';
-	            break;
-	        case 'new':
-	            $order = 'game_id DESC';
-	            break;
-	        case 'grade':
-	            $order = 'grade DESC';
-	            break;
-	    }
-	    $conds = 'visible=1';
-	    $select = 'game_id,name,logo,corner,label,giftbag,support,grade,in_short,play_times';
-	    
-	    $games = $this->fetchAll($conds, $pn, $limit, $select, $order);
-	    foreach ($games as &$row)
-	    {
-	        $row['grade'] = $this->gradeHtml($row['grade']);
-	        $row['support'] = $this->supportFormat($row['support'] + $row['play_times']);
-	    }
-	    return $games;
-	}
-	
-	/**
-	 * 特殊列表获取方式
-	 * 
-	 * @param string $type
-	 * @param int $pn
-	 * @param int $limit
-	 * @return mixed
-	 */
-	public function getListBySpecial($type, $pn = 1, $limit = 10)
-	{
-	    $conds = 'visible=1';
-	    if( $type == 'all' ) {
-	        $order = '';
-	    } elseif( in_array($type, $this->_types) ) {
-	        $conds .= " AND type='{$type}'";
-	        $order = '';
-	    } elseif( array_key_exists($type, $this->_special) ) {
-	        if( $type == 'new' ) {
-	            $order = "game_id DESC";
-	        } else {
-	            $order = "{$type} DESC";
-	        }
-	    } else {
-	        $ord_s = ord('A');
-	        $ord_e = ord('Z');
-	        $ord_t = ord($type);
-	        if( $ord_t >= $ord_s && $ord_t <= $ord_e ) {
-	            $initial = include APPLICATION_PATH.'/application/cache/game/initial.php';
-	        }
-	    }
-	    
-	    if( isset($order) ) {
-	        $order .= $order ? ',weight ASC' : 'weight ASC';
-	        $select = 'game_id,name,logo,corner,label,giftbag,support,grade,in_short,play_times';
-	        
-	        $games = $this->fetchAll($conds, $pn, $limit, $select, $order);
-	        foreach ($games as &$row)
-	        {
-	            $row['grade'] = $this->gradeHtml($row['grade']);
-	            $row['support'] = $this->supportFormat($row['support'] + $row['play_times']);
-	        }
-	        return $games;
-	    }
-	    
-	    if( isset($initial) && array_key_exists($type, $initial) ) {
-	        $total = count($initial[$type]);
-	        $offset = ($pn - 1) * $limit;
-	        if( $total <= $offset ) {
-	            return null;
-	        }
-	        
-	        $tmp = array_slice($initial[$type], $offset, $limit);
-	        $ids = array();
-	        foreach ($tmp as &$row)
-	        {
-	            $ids[] = $row['game_id'];
-	        }
-	        $ids = implode(',', $ids);
-	        
-	        $conds = "game_id IN({$ids})";
-	        $select = 'game_id,name,logo,corner,label,giftbag,support,grade,in_short,play_times';
-	        $order = 'weight ASC';
-	        
-	        $games = $this->fetchAll($conds, $pn, $limit, $select, $order);
-	        foreach ($games as &$row)
-	        {
-	            $row['grade'] = $this->gradeHtml($row['grade']);
-	            $row['support'] = $this->supportFormat($row['support'] + $row['play_times']);
-	        }
-	        return $games;
-	    }
-	    
-	    return null;
-	}
-	
-    /**
-	 * 搜索游戏
-	 * 
-	 * @param string $name
-	 * @param int $pn
-	 * @param int $limit
-	 * @return array
-	 */
-	public function search($name, $pn = 1, $limit = 10)
-	{
-	    $data = $this->fetchAll("visible=1 AND search LIKE '%{$name}%'", $pn, $limit,
-	       'game_id,name,logo,corner,label,giftbag,support,grade,in_short,play_times', 'weight ASC');
-	    foreach ($data as &$row)
-	    {
-	        $row['grade'] = $this->gradeHtml($row['grade']);
-            $row['support'] = $this->supportFormat($row['support'] + $row['play_times']);
-	    }
-	    return $data;
+	    $conds = "game_id='{$game_id}'";
+	    $this->update(array('visible'=>0), $conds);
 	}
 }

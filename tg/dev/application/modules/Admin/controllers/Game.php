@@ -13,11 +13,11 @@ class GameController extends F_Controller_Backend
         $this->_view->assign('load_types', $this->_model->_load_types);
         $this->_view->assign('screens', $this->_model->_screens);
     }
-    
+
     protected function beforeList()
     {
         $search = $this->getRequest()->getQuery('search', array());
-        $conds = 'dev_id = 0'; //不显示来自开放平台的游戏
+        $conds = 'dev_id > 0';
         $comma = ' AND ';
         if( !empty($search['add_begin']) && !empty($search['add_end']) ) {
             $search['add_end'] .= ' 23:59:59';
@@ -32,9 +32,8 @@ class GameController extends F_Controller_Backend
             $comma = ' AND ';
         }
         $params['conditions'] = $conds;
-        
-        $params['orderby'] = 'weight ASC,game_id DESC';
-        $params['op']=F_Helper_Html::Op_Null;
+        $params['op'] = F_Helper_Html::Op_Null;
+        $params['orderby'] = 'weight ASC';
         return $params;
     }
     
