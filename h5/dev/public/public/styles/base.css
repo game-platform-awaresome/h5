@@ -414,6 +414,21 @@ button {
   background-attachment: fixed;
   top: 0;
 }
+
+@media screen and (max-width: 600px) {
+  .bg00 {
+    background: url("../images/bg03.jpg") no-repeat top;
+    background-size: 100% 100%;
+    background-attachment: fixed;
+    top: 0;
+  }
+  .bg01 {
+    background: url("../images/bg03.jpg") no-repeat top;
+    background-size: 600px 100%;
+    background-attachment: fixed;
+    top: 0;
+  }
+}
 .relative {
   position: relative;
 }
