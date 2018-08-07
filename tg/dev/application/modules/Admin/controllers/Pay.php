@@ -176,4 +176,13 @@ class PayController extends F_Controller_Backend
         $json['finish_time'] = $json['finish_time'] ? date('Y-m-d H:i:s', $json['finish_time']) : 0;
         exit(json_encode($json));
     }
+
+    /**
+     * 渠道结算
+     */
+    public function balanceAction(){
+        //1.查询记录
+
+        //2.动态追加
+    }
 }
