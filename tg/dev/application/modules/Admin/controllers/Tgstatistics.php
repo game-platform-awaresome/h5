@@ -19,7 +19,7 @@ class TgstatisticsController extends F_Controller_Backend
         }
         //生成统计报表
         $m_pay = new PayModel();
-        $stat = $m_pay->fetchAll("pay_time>0 AND type<>'deposit' AND tg_channel in {$channel_ids} GROUP BY tg_channel",
+        $stat = $m_pay->fetchAll("pay_time>0 AND pay_type<>'deposit' AND tg_channel in {$channel_ids} GROUP BY tg_channel",
             1, 200000, 'tg_channel AS channel, COUNT(pay_id) AS pay_times, COUNT(DISTINCT user_id) AS pay_people, SUM(money) AS pay_money');
         foreach ($stat as $row)
         {
