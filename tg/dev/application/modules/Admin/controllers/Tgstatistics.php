@@ -29,8 +29,6 @@ class TgstatisticsController extends F_Controller_Backend
         $params['op'] = F_Helper_Html::Op_Null;
         $conds = '';
         $search = $this->getRequest()->getQuery('search', array());
-        $s = Yaf_Session::getInstance();
-        $admin_id=$s->get('admin_id');
         if( $search ) {
             $cmm = '';
             foreach ($search as $k=>$v)

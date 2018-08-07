@@ -9,8 +9,7 @@ class AdminController extends F_Controller_Backend
         $conds = '';
         $search = $this->getRequest()->getQuery('search', array());
         $s = Yaf_Session::getInstance();
-        $admin_id=$s->get('admin_id');
-        $search['parent_id']=$admin_id;
+        $channel_ids_condition=$s->get('channel_ids_condition');
         if( $search ) {
             $cmm = '';
             foreach ($search as $k=>$v)
@@ -31,6 +30,9 @@ class AdminController extends F_Controller_Backend
                 $conds .= "{$cmm}{$k}='{$v}'";
                 $cmm = ' AND ';
             }
+            $conds.="  AND parent_id in {$channel_ids_condition}";
+        }else{
+            $conds.="parent_id in {$channel_ids_condition}";
         }
         $params['conditions']=$conds;
         return $params;

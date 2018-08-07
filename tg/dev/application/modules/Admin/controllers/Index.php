@@ -94,19 +94,25 @@ class IndexController extends Yaf_Controller_Abstract
 		if( empty($this->a_info) ) {
 			return false;
 		}
-
-		$mem = new Memcache();
-		$mem->addServer('127.0.0.1');
-		$stat = $mem->getStats();
-		$stat['used_percent'] = floor(($stat['bytes'] / $stat['limit_maxbytes']) * 100).'%';
-		if( $stat['bytes'] > 1048576 ) {
-		    $stat['bytes'] = round($stat['bytes'] / 1048576).'M';
-		} elseif( $stat['bytes'] > 1024 ) {
-		    $stat['bytes'] = round($stat['bytes'] / 1024).'K';
-		} else {
-		    $stat['bytes'] .= 'B';
-		}
-		$stat['limit_maxbytes'] = ($stat['limit_maxbytes'] / 1048576).'M';
-		$this->getView()->assign('stat', $stat);
+		$user=new UsersModel();
+        $s = Yaf_Session::getInstance();
+        $channel_ids_condition=$s->get('channel_ids_condition');
+        $date=date("Ymd");
+        $count=$user->fetchAll("tg_channel in {$channel_ids_condition} and login_day={$date}", 1, 200000, 'user_id');
+        $count=count($count);
+        $this->getView()->assign('count',$count);
+//		$mem = new Memcache();
+//		$mem->addServer('127.0.0.1');
+//		$stat = $mem->getStats();
+//		$stat['used_percent'] = floor(($stat['bytes'] / $stat['limit_maxbytes']) * 100).'%';
+//		if( $stat['bytes'] > 1048576 ) {
+//		    $stat['bytes'] = round($stat['bytes'] / 1048576).'M';
+//		} elseif( $stat['bytes'] > 1024 ) {
+//		    $stat['bytes'] = round($stat['bytes'] / 1024).'K';
+//		} else {
+//		    $stat['bytes'] .= 'B';
+//		}
+//		$stat['limit_maxbytes'] = ($stat['limit_maxbytes'] / 1048576).'M';
+//		$this->getView()->assign('stat', $stat);
 	}
 }

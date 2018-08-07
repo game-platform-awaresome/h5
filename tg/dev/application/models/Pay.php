@@ -30,6 +30,7 @@ class PayModel extends F_Model_Pdo
 		    },
 		    'username' => '支付账号',
 		    'to_user' => '充入账号',
+		    'tg_channel' => '渠道id',
 		    'game_name' => '游戏名称',
 			'server_name' => '区/服名称',
 		    'money' => function(&$row){

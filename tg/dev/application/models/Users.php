@@ -34,6 +34,10 @@ class UsersModel extends F_Model_Pdo
 	    return array(
 	        'user_id' => '用户ID',
 	        'username' => '用户名',
+	        'tg_channel' =>function($row){
+                if( empty($row) ) return '渠道id';
+                return $row['tg_channel'];
+            },
 	        'email' => '邮箱',
 	        'money' => function(&$row){
 	            if( empty($row) ) return '余额';

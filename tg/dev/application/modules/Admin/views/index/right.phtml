@@ -7,40 +7,62 @@
     </noscript>
     
     <!-- Page Head -->
-    <h2>Welcome</h2>
-    <p id="page-intro">这里是系统的简要统计信息，当前在线人数为当前的活跃链接数，存在一点误差！</p>
+    <h2>个人中心</h2>
+<!--    <p id="page-intro">这里是系统的简要统计信息，当前在线人数为当前的活跃链接数，存在一点误差！</p>-->
     <div class="clear"></div>
     <!-- End .clear -->
     
     <div class="content-box column-left">
       <div class="content-box-header">
-        <h3>当前活跃链接数<small>（大约为24分钟内的链接总数，包括后台及爬虫建立的链接）</small></h3>
+        <h3>24小时活跃链接数<small></small></h3>
       </div>
       <!-- End .content-box-header -->
       <div class="content-box-content">
         <div class="tab-content default-tab">
-          <h4><?=number_format($stat['curr_items'], 0)?></h4>
+          <h4><?=$count?></h4>
         </div>
         <!-- End #tab3 -->
       </div>
       <!-- End .content-box-content -->
+        <div class="content-box-header">
+            <h3>您的推广链接<small></small></h3>
+        </div>
+        <!-- End .content-box-header -->
+        <div class="content-box-content">
+            <div class="tab-content default-tab">
+                <h4><a target="_blank" href="<?='http://h5.zyttx.com?g='.$_SESSION['admin_id']?>"><?='http://h5.zyttx.com?g='.$_SESSION['admin_id']?></a> </h4>
+            </div>
+            <!-- End #tab3 -->
+        </div>
+        <div class="content-box-header">
+            <h3>安卓盒子链接<small></small></h3>
+        </div>
+        <!-- End .content-box-header -->
+        <div class="content-box-content">
+            <div class="tab-content default-tab">
+                <h4><a target="_blank" href="<?='http://xgame.zyttx.com/apk/'.$_SESSION['admin_id'].'.apk'?>"><?='http://xgame.zyttx.com/apk/'.$_SESSION['admin_id'].'.apk'?></a></h4>
+            </div>
+            <!-- End #tab3 -->
+        </div>
     </div>
     <!-- End .content-box -->
 <!--    <div class="content-box column-right">-->
 <!--      <div class="content-box-header">-->
-<!--        <!-- Add the class "closed" to the Content box header to have it closed by default -->-->
+<!--        <!-- Add the class "closed" to the Content box header to have it closed by default -->
 <!--        <h3>缓存使用情况</h3>-->
 <!--      </div>-->
-<!--      <!-- End .content-box-header -->-->
+<!--      <!-- End .content-box-header -->
 <!--      <div class="content-box-content">-->
 <!--        <div class="tab-content default-tab">-->
 <!--          <p>已使用：--><?//=$stat['bytes']?><!--</p>-->
 <!--          <p>总&nbsp;&nbsp;&nbsp;计：--><?//=$stat['limit_maxbytes']?><!--</p>-->
 <!--          <p>使用率：--><?//=$stat['used_percent']?><!--</p>-->
 <!--        </div>-->
-<!--        <!-- End #tab3 -->-->
+<!--        <!-- End #tab3 -->
 <!--      </div>-->
-<!--      <!-- End .content-box-content -->-->
+<!--      <!-- End .content-box-content -->
 <!--    </div>-->
     <!-- End .content-box -->
     <div class="clear"></div>
+    <script type="text/javascript" src="/admin/js/common.js"></script>
+

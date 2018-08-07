@@ -106,11 +106,17 @@ class AdminModel extends F_Model_Pdo
 			return '你没有访问权限。';
 		}
         $admin=new AdminModel();
-        $channel_ids=$admin->fetchAll(['parent_id'=>$user['admin_id']],1,20000,'admin_id');
-        foreach ($channel_ids as $k=>$v){
-            $channel_ids[$k]=(int)$channel_ids[$k]['admin_id'];
+		if($user['admin_id']==1){
+		    //超级管理员
+            $channel_ids = $admin->fetchAll('', 1, 20000, 'admin_id');
+        }else {
+            $channel_ids = $admin->fetchAll(['parent_id' => $user['admin_id']], 1, 20000, 'admin_id');
         }
-
+        foreach ($channel_ids as $k => $v) {
+            $channel_ids[$k] = (int)$channel_ids[$k]['admin_id'];
+        }
+        array_push($channel_ids,$user['admin_id']);
+        $channel_ids=array_unique($channel_ids);
 		$s = Yaf_Session::getInstance();
 		$s->set('admin_id', $user['admin_id']);
 		$s->set('admin_name', $user['username']);
@@ -118,7 +124,7 @@ class AdminModel extends F_Model_Pdo
 		$s->set('admin_group', $user['group_id']);
 		$s->set('channel_ids', $channel_ids);//渠道
         $s->set('channel_ids_condition','('.implode(',',$channel_ids).')');
-        $s->set('cps_type',$user['cps_type']);
+        $s->set('cps_type',(int)$user['cps_type']);
         $this->update(array('last_login_time'=>date("Y-m-d H:i:s"), 'last_login_ip'=>$_SERVER['REMOTE_ADDR']), "admin_id='{$user['admin_id']}'");
 		if( $remember ) {
 			$time = time() + 864000;
