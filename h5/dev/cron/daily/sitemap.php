@@ -36,7 +36,7 @@ function sitemap()
     $types = $m_game->_classic;
     $types[] = '精品推荐';
     $types[] = '独家首发';
-    $types[] = '互动对战';
+    $types[] = '变态版本';
     $types[] = '网络游戏';
     $types[] = '单机游戏';
     foreach ($types as $tp)
