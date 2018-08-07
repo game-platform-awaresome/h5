@@ -75,10 +75,10 @@ class GameModel extends F_Model_Pdo
 		        if( empty($row) ) return '后标';
 		        return $this->_labels[$row['label']];
 		    },
-		    'giftbag' => function(&$row){
-		        if( empty($row) ) return '礼包ID';
-		        return $row['giftbag'] ? "<a href=\"/admin/giftbag/list?search[gift_id]={$row['giftbag']}\">{$row['giftbag']}</a>" : '-';
-		    },
+//		    'giftbag' => function(&$row){
+//		        if( empty($row) ) return '礼包ID';
+//		        return $row['giftbag'] ? "<a href=\"/admin/giftbag/list?search[gift_id]={$row['giftbag']}\">{$row['giftbag']}</a>" : '-';
+//		    },
 		    'logo' => function(&$row){
 		        if( empty($row) ) return '图标';
 		        return $row['logo'] ? "<a class=\"lightbox\" href=\"{$row['logo']}\"><img style=\"max-width:32px;\" src=\"{$row['logo']}\"></a>" : '';
