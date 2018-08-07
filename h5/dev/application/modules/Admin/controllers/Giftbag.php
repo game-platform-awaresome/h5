@@ -44,7 +44,8 @@ class GiftbagController extends F_Controller_Backend
             set_time_limit(600);
         }
         if( $id ) {
-            unset($info['type'], $info['nums']);
+//            unset($info['type'], $info['nums']);
+            unset($info['type']);
         }
         
         //判断文件是否被导入过

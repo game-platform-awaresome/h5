@@ -159,29 +159,29 @@ var editor = UE.getEditor('logo_selecter');
 
 $(function(){
 	var type = '<?=isset($info['type']) ? $info['type'] : ''?>';
-	var nums = '<?=isset($info['nums']) ? $info['nums'] : ''?>';
+	//var nums = '<?//=isset($info['nums']) ? $info['nums'] : ''?>//';
 	var desc = <?=$desc?>;
 	if( type != '' ) {
 		$('#gift_type').val(type).prop('disabled', 'disabled');
 		$('#type_desc').html(desc[type]);
 	}
-	if( nums != '' ) {
-		$('#gift_nums').val(nums).prop('disabled', 'disabled');
-	}
+	// if( nums != '' ) {
+	// 	$('#gift_nums').val(nums).prop('disabled', 'disabled');
+	// }
 	$('#gift_type').change(function(){
 		var v = $(this).val();
 		if( v == 'limited' ) {
 			$('#nums_p').show();
-			$('#nums').val($('#gift_nums').val());
+			// $('#nums').val($('#gift_nums').val());
 		} else {
 			$('#nums_p').hide();
 			$('#nums').val('0');
 		}
 		$('#type_desc').html(desc[v]);
 	});
-	$('#gift_nums').change(function(){
-		$('#nums').val($(this).val());
-	});
+	// $('#gift_nums').change(function(){
+	// 	$('#nums').val($(this).val());
+	// });
 	$('#gift_type').trigger('change');
 
     var servers = {};
