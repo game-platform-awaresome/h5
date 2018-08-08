@@ -69,7 +69,9 @@ class GameModel extends F_Model_Pdo
 		    'divide_into' => function(&$row){
                 if( empty($row) ) return '分成比例';
                 if($_SESSION['cps_type']==3){
-                    return  '';
+                    $admin=new AdminModel();
+                    $divide_into=$admin->fetch(['admin_id'=>$_SESSION['admin_id']],'divide_into');
+                    return $divide_into['divide_into'];
                 }
                 return $row['divide_into'];
             },
