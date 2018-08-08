@@ -66,7 +66,13 @@ class GameModel extends F_Model_Pdo
 			'name' => '名称',
 		    'type' => '分类',
 		    'classic' => '经典分类',
-		    'divide_into' => '分成比例',
+		    'divide_into' => function(&$row){
+                if( empty($row) ) return '分成比例';
+                if($_SESSION['cps_type']==3){
+                    return  '';
+                }
+                return $row['divide_into'];
+            },
 //		    'corner' => function(&$row){
 //		        if( empty($row) ) return '角标';
 //		        return $this->_corner[$row['corner']];
