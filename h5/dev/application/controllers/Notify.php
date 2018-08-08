@@ -26,6 +26,7 @@ class NotifyController extends Yaf_Controller_Abstract
             $rs1 = $m_user->changeMoney($pay['to_uid'], $pay['money']);
             $rs2 = $m_pay->update(array(
                 'deposit' => $deposit,
+                'type' => $pay_type,
                 'pay_type' => $pay_type,
                 'trade_no' => $trade_no,
                 'pay_time' => $time,
@@ -47,6 +48,7 @@ class NotifyController extends Yaf_Controller_Abstract
             
         } else if( (int)$pay['pay_time'] == 0 ) {
             $rs = $m_pay->update(array(
+                'type' => $pay_type,
                 'pay_type' => $pay_type,
                 'trade_no' => $trade_no,
                 'pay_time' => $time,
@@ -80,7 +82,7 @@ class NotifyController extends Yaf_Controller_Abstract
 //        }
         
         if( $rs == '' ) {
-            $m_pay->update(array('finish_time'=>$time,'pay_type' => $pay_type), $conds);
+            $m_pay->update(array('finish_time'=>$time,'pay_type' => $pay_type ,'type' => $pay_type,), $conds);
             $status = $success;
         } else {
             $status = $fail;
