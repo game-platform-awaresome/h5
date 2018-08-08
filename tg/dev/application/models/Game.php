@@ -67,14 +67,14 @@ class GameModel extends F_Model_Pdo
 		    'type' => '分类',
 		    'classic' => '经典分类',
 		    'divide_into' => '分成比例',
-		    'corner' => function(&$row){
-		        if( empty($row) ) return '角标';
-		        return $this->_corner[$row['corner']];
-		    },
-		    'label' => function(&$row){
-		        if( empty($row) ) return '后标';
-		        return $this->_labels[$row['label']];
-		    },
+//		    'corner' => function(&$row){
+//		        if( empty($row) ) return '角标';
+//		        return $this->_corner[$row['corner']];
+//		    },
+//		    'label' => function(&$row){
+//		        if( empty($row) ) return '后标';
+//		        return $this->_labels[$row['label']];
+//		    },
 //		    'giftbag' => function(&$row){
 //		        if( empty($row) ) return '礼包ID';
 //		        return $row['giftbag'] ? "<a href=\"/admin/giftbag/list?search[gift_id]={$row['giftbag']}\">{$row['giftbag']}</a>" : '-';
@@ -85,18 +85,18 @@ class GameModel extends F_Model_Pdo
 		    },
 		    'support' => '人气',
 		    'grade' => '评级',
-		    'weight' => '排序',
+//		    'weight' => '排序',
 		    'version' => '当前版本',
-		    'trade_money' => '总流水',
-			'play_times' => '游戏次数',
+//		    'trade_money' => '总流水',
+//			'play_times' => '游戏次数',
 		    'add_time' => function(&$row){
 		        if( empty($row) ) return '添加时间';
 		        return substr($row['add_time'], 0, 10);
 		    },
-		    'visible' => function(&$row){
-		        if( empty($row) ) return '是否可见';
-		        return $row['visible'] ? '是' : '-';
-		    },
+//		    'visible' => function(&$row){
+//		        if( empty($row) ) return '是否可见';
+//		        return $row['visible'] ? '是' : '-';
+//		    },
 //		    'channel' => function(&$row){
 //		        if( empty($row) ) return '合作渠道';
 //		        return $this->_channels[$row['channel']];

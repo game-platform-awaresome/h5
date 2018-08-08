@@ -17,7 +17,7 @@ class GameController extends F_Controller_Backend
     protected function beforeList()
     {
         $search = $this->getRequest()->getQuery('search', array());
-        $conds = 'dev_id > 0';
+        $conds = 'dev_id > 0 and visible = 1';
         $comma = ' AND ';
         if( !empty($search['add_begin']) && !empty($search['add_end']) ) {
             $search['add_end'] .= ' 23:59:59';
