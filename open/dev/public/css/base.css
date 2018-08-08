@@ -612,7 +612,7 @@ footer{
     border-top: 1px solid #F3EDED;
 }
 .footer_center{
-    width: 80%;
+    width: 1200px;
     margin: 0 auto;
     overflow: hidden;
 }
@@ -623,7 +623,8 @@ footer{
     background-position: -36px -172px;
 }
 address{
-    float: left;
+    /*float: left;*/
+    text-align: center;
     margin-left: 50px;
     font-style: normal;
     font-size: 16px;
