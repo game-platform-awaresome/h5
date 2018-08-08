@@ -42,7 +42,10 @@ class F_Controller_Backend extends Yaf_Controller_Abstract
 		}
 		$this->_query = trim($this->_query, '&');
 		$this->_pn = $this->getRequest()->get('pn', 1);
-		
+        if ($this->getRequest()->isXmlHttpRequest()) {
+            //如果是Ajax请求, 关闭自动渲染, 由我们手工返回Json响应
+            Yaf_Dispatcher::getInstance()->autoRender(FALSE);
+        }
 		$this->_view = $this->getView();
 		$this->_view->assign('controller', $this->_ctl);
 		$this->_view->assign('primary', $this->_primary);
@@ -243,4 +246,7 @@ class F_Controller_Backend extends Yaf_Controller_Abstract
 	{
 	    
 	}
+	protected function ajax(){
+
+    }
 }
