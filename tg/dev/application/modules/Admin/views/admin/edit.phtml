@@ -46,8 +46,8 @@
                     </p>
                     <p>
                         <label>分成比例</label>
-                        <input class="text-input small-input" type="text" id="boxname" name="info[divide_into]"
-                               value="<?php echo isset($info) ? $info['divide_into'] : ''; ?>"/>
+                        <input class="text-input small-input" type="number" id="boxname" name="info[divide_into]"
+                               value="<?php echo isset($info) ? $info['divide_into'] : ''; ?>" min="0" max="55"/>
                         <br/>
                     </p>
 
