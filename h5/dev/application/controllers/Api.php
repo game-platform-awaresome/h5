@@ -73,6 +73,10 @@ class ApiController extends Yaf_Controller_Abstract
         $arr['server_name'] = $server_name;
         $arr['type'] = 'pigpay';
         $arr['cp_return'] = $arr['cp_return'] ? $arr['cp_return'] : '1';
+        $user=new UsersModel();
+        $tg_channel=$user->fetch(['user_id'=>$user_id],'tg_channel');
+        $tg_channel=$tg_channel['tg_channel'];
+        $arr['tg_channel'] = $tg_channel;
         $rs = $m_pay->insert($arr, false);
         if( ! $rs ) {
             exit('Save payment failed.');
