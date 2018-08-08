@@ -22,7 +22,7 @@ class PaybalanceModel extends F_Model_Pdo
 		        return date('Y-m-d H:i:s',$row['end_time']);
             },
 		    'admin_id' =>function($row){
-                if(empty($row['admin_id']))return '渠道信息';
+                if(empty($row['admin_id']))return '姓名-支付宝';
                 if($row['admin_id']==$_SESSION['admin_id']){
                     return '所有代理及本渠道';
                 }else{
