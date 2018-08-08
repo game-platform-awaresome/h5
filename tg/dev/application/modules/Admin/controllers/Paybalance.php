@@ -175,8 +175,8 @@ class PaybalanceController extends F_Controller_Backend
         $balance=0;
         foreach ($pay_list as $key=>$value){
             //计算能获取的分成比例
-            $channel_divide_into=$admin->fetch("admin_id = {$admin_id}",'divide_into');//代理获取的分成
             $admin_divide_into=$game->fetch("game_id={$value['game_id']}",'divide_into');//该一级代理能获取的分成
+            $channel_divide_into=$admin->fetch("admin_id = {$value['tg_channel']}",'divide_into');//代理获取的分成
             $can_get_divide_into=(int)$admin_divide_into['divide_into']-(int)$channel_divide_into['divide_into'];//一级能享有的分成
             $balance+=$value['money']*$can_get_divide_into/100;
         }
