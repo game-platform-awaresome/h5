@@ -104,12 +104,12 @@
             <!--div.game_news 快速通道  end-->
             <?php
             //第一次缓存链接
-            $g=$_GET['g']??1;
+            $g=$_GET['channel_id']??0;
             $session=Yaf_Session::getInstance();
-            if($session->has('g')){
-                $g=$session->get('g');
+            if($session->has('channel_id')){
+                $g=$session->get('channel_id');
             }else {
-                $session->set('g',$g);
+                $session->set('channel_id',$g);
             }
             ?>
             <!--figure.game_figure vip俱乐部  statr-->
