@@ -15,7 +15,7 @@ class TgstatisticsModel extends F_Model_Pdo
 	        'channel' => function(&$row){
 	            if(empty($row)) return '推广渠道';
 	            $model = F_Model_Pdo::getInstance('Admin');
-	            $tmp = $model->fetch(['admin_id'=>$row['channel']],'nickname');
+	            $tmp = $model->fetch(['admin_id'=>$row['channel']],'username');
 	            return $tmp ? $tmp['nickname'] : '-';
 	        },
 	        'pv' => '访问量',

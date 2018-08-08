@@ -11,7 +11,6 @@ class PaybalanceModel extends F_Model_Pdo
 	
 	public function getFieldsLabel()
 	{
-	    $admin=new AdminModel();
 		return array(
 		    'id' => '编号',
             'start_time' =>function($row){
@@ -27,7 +26,9 @@ class PaybalanceModel extends F_Model_Pdo
                 if($row['admin_id']==$_SESSION['admin_id']){
                     return '所有代理及本渠道';
                 }else{
-                    return '渠道id:'.$row['admin_id'];
+                    $admin=new AdminModel();
+                    $info=$admin->fetch(['admin_id'=>$row['admin_id']],'nickname,pay_number');
+                    return $info['nickname'].'-'.$info['pay_number'];
                 }
             },
 		    'add_time' =>function($row) {
@@ -40,7 +41,10 @@ class PaybalanceModel extends F_Model_Pdo
 		        if(empty($row['status']))return '申请';
 		         switch ($row['status']){
                      case 1:
-                         return "<a  href=\"applybalance?id={$row['id']}&type=apply\">申请结算</a>";
+                         if($row['total_balance']<100){
+                             return '累计结算金额大于100方可申请结算';
+                         }
+                         return "<a href=\"applybalance?id={$row['id']}&type=apply\">申请结算</a>";
                          break;
                      case 2:
                          return "<a href=\"javascrpit:void(0);\">正在结算中</a>";
