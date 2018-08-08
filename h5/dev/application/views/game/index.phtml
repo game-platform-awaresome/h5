@@ -104,11 +104,11 @@
             <!--div.game_news 快速通道  end-->
             <?php
             //第一次缓存链接
-            $g=$_GET['user']??0;
+            $g=$_GET['user']??1;
             $session=Yaf_Session::getInstance();
             if($session->has('user')){
                 $g=$session->get('user');
-            }else {
+            }else{
                 $session->set('user',$g);
             }
             ?>
