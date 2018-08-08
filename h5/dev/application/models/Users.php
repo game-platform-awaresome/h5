@@ -380,9 +380,9 @@ class UsersModel extends F_Model_Pdo
 //	    $uid = uc_user_register($username, $password, $email);
 //	    if( $uid > 0 ) {
 	        $sess = Yaf_Session::getInstance();
-	        $channel_id = $sess->get('channel_id');
+	        $channel_id = $sess->get('user');
 	        if( empty($channel_id) ) {
-	            $channel_id = isset($_COOKIE['channel_id']) ? $_COOKIE['channel_id'] : 0;
+	            $channel_id = isset($_COOKIE['user']) ? $_COOKIE['user'] : 0;
 	        }
 	        try {
                 $rs = $this->insert(array(
