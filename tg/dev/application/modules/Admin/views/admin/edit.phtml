@@ -50,6 +50,19 @@
                                value="<?php echo isset($info) ? $info['divide_into'] : ''; ?>" min="0" max="55"/>
                         <br/>
                     </p>
+                    <p>
+                        <label>客服QQ</label>
+                        <input class="text-input small-input" type="number" id="boxname" name="info[qq1]"
+                               value="<?php echo isset($info) ? $info['qq1'] : ''; ?>" min="0" max="55"/>
+                        <br/>
+                    </p>
+                    <p>
+                        <label>QQ群</label>
+                        <input class="text-input small-input" type="number" id="boxname" name="info[qq1]"
+                               value="<?php echo isset($info) ? $info['qq2'] : ''; ?>" min="0" max="55"/>
+                        <br/>
+                    </p>
+
 
                     <input type="hidden" name="info[status]" value="super">
                     <input class="button" type="submit" value="提交"/>

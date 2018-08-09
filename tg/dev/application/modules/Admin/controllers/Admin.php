@@ -95,18 +95,17 @@ class AdminController extends F_Controller_Backend
         $file_dir="/www/wwwroot/tool/apk/assets/apps/default/www/manifest.json";
         $json_string = file_get_contents($file_dir);
         $data = json_decode($json_string,true);
-        var_dump($data);
-        die;// 把JSON字符串转成PHP数组
-//        $data[$code]=array("a"=>"as","b"=>"bs","c"=>"cs");
-//        $json_strings = json_encode($data);
-//        file_put_contents("text.json",$json_strings);//写入
-//        $json_string = file_get_contents("text.json");// 从文件中读取数据到PHP变量
-//        $data = json_decode($json_string,true);// 把JSON字符串转成PHP数组
-//        $data["001"]["a"]="aas";
-//        $json_strings = json_encode($data);
-//        file_put_contents("text.json",$json_strings);//写入
-        //2.压缩apk
+        $launch_path="http://h5.zyttx.com?user=".$admin_id;
+        $developer_url="http://h5.zyttx.com?user=".$admin_id;
+         // 把JSON字符串转成PHP数组
+        $data['launch_path']=$launch_path;
+        $data['developer']['url']=$developer_url;
+        $json_strings = json_encode($data);
+        file_put_contents($file_dir,$json_strings);//写入
+        $json_string = file_get_contents($file_dir);// 从文件中读取数据到PHP变量
+        //2.压缩apk  /www/wwwroot/xgame.zyttx.com/apk/01.apk
+        system("sudo zip -r {$admin_id}.apk /www/wwwroot/tool/apk/* > /tmp/null &");
         //3.返回链接
-
+        $this->redirect('index/right');
     }
 }
