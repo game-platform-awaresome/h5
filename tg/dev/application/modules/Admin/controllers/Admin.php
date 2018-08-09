@@ -94,8 +94,9 @@ class AdminController extends F_Controller_Backend
         //1.修改文件
         $file_dir="/www/wwwroot/tool/apk/assets/apps/default/www/manifest.json";
         $json_string = file_get_contents($file_dir);
-        var_dump($json_string);
-//        $data = json_decode($json_string,true);// 把JSON字符串转成PHP数组
+        $data = json_decode($json_string,true);
+        var_dump($data);
+        die;// 把JSON字符串转成PHP数组
 //        $data[$code]=array("a"=>"as","b"=>"bs","c"=>"cs");
 //        $json_strings = json_encode($data);
 //        file_put_contents("text.json",$json_strings);//写入
