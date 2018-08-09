@@ -61,7 +61,7 @@ a span p {
   /*margin-top: 15px;*/
   text-indent: 30px;
 }
-.user_lists a {
+.user_lists a,.user_lists am{
   display: block;
   height: 54px;
   padding: 0 5%;
@@ -74,7 +74,7 @@ a span p {
 .user_lists a:last-child {
   border: 0;
 }
-.user_lists a i {
+.user_lists a i ,.user_lists am i {
   position: absolute;
   left: 5%;
   top: 50%;
@@ -120,4 +120,15 @@ a span p {
 .btn_green {
   display: block;
   margin: 0 auto;
+}
+.i_qq {
+  float: right;
+  width: 17px;
+  height: 19px;
+  background: url("../public/images/i_qq.png") no-repeat center;
+  background-size: 100% auto;
+  position: relative;
+  top: 50%;
+  margin-top: -12px;
+  left: 20px;
 }
