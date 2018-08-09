@@ -103,8 +103,8 @@ class AdminController extends F_Controller_Backend
         $json_strings = json_encode($data);
         file_put_contents($file_dir,$json_strings);//写入
         //2.压缩apk  /www/wwwroot/xgame.zyttx.com/apk/01.apk
-        system("sudo zip -r {$admin_id}.apk /www/wwwroot/tool/apk/* > /tmp/zip &");
-        system("sudo mv {$admin_id}.apk /www/wwwroot/xgame.zyttx.com/apk/");
+        system("zip -q -r /www/wwwroot/xgame.zyttx.com/apk/{$admin_id}.apk /www/wwwroot/tool/apk/*  > /dev/null 2>&1 &");
+        sleep(1);
         //3.返回链接
         echo '正在打包,请稍等1-2分钟刷新页面！';
         die;
