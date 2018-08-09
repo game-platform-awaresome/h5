@@ -104,8 +104,9 @@ class AdminController extends F_Controller_Backend
         file_put_contents($file_dir,$json_strings);//写入
         $json_string = file_get_contents($file_dir);// 从文件中读取数据到PHP变量
         //2.压缩apk  /www/wwwroot/xgame.zyttx.com/apk/01.apk
-        system("sudo zip -r {$admin_id}.apk /www/wwwroot/tool/apk/* > /tmp/null &");
+        system("sudo zip -r /www/wwwroot/xgame.zyttx.com/apk/{$admin_id}.apk /www/wwwroot/tool/apk/* > /tmp/zip &");
         //3.返回链接
-        $this->redirect('index/right');
+        die;
+//        $this->redirect('index/right');
     }
 }
