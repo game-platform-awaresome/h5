@@ -86,9 +86,9 @@
             <am target="_top" href="javascript:void(0);" class="block_bg">
                 <i class="icon i_list4"></i>
                 <span>客服QQ</span>
-               <a target="_blank" href="http://wpa.qq.com/msgrd?v=3&uin=2133906919&site=qq&menu=yes" style="float: right;margin: 0;padding: 0;text-align: left">客服妮妮</a>
+               <a target="_blank" onclick="jump_qq(this)" data-id="2133906919" href="javascript:void(0);" style="float: right;margin: 0;padding: 0;text-align: left">客服妮妮</a>
                 <span class="icon i_qq"></span>
-               <a target="_blank" href="http://wpa.qq.com/msgrd?v=3&uin=2169525906&site=qq&menu=yes" style="float: right;margin: 0;padding: 0;text-align: left">客服欣欣</a>
+               <a target="_blank" onclick="jump_qq(this)" data-id="2169525906" href="javascript:void(0);" style="float: right;margin: 0;padding: 0;text-align: left">客服欣欣</a>
                 <span class="icon i_qq"></span>
             </am>
             <a href="javascript:void(0)" class="block_bg">
@@ -111,5 +111,29 @@
 <?php include $this->getScriptPath().'/footer.phtml'; ?>
 <script src="/public/scripts/jquery-1.11.1.min.js"></script>
 <script>$('#footer a:eq(4)').attr('id', 'footer_nav_active');</script>
+<script>
+    function IsPC() {
+        var userAgentInfo = navigator.userAgent;
+        var Agents = ["Android", "iPhone",
+            "SymbianOS", "Windows Phone",
+            "iPad", "iPod"];
+        var flag = true;
+        for (var v = 0; v < Agents.length; v++) {
+            if (userAgentInfo.indexOf(Agents[v]) > 0) {
+                flag = false;
+                break;
+            }
+        }
+        return flag;
+    }
+    function jump_qq(obj) {
+        var qq=$(obj).attr('data-id');
+        if(IsPC()){
+            window.open("http://wpa.qq.com/msgrd?v=3&uin="+qq+"&site=qq&menu=yes");
+        }else{
+            window.open("mqqwpa://im/chat?chat_type=wpa&uin="+qq+"&version=1&src_type=web&web_src=oicqzone.com");
+        }
+    }
+</script>
 </body>
 </html>
