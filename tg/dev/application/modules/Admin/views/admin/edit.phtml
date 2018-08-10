@@ -16,50 +16,50 @@
                     <p>
                         <label>渠道账号</label>
                         <input class="text-input small-input" type="text" id="username" name="info[username]"
-                               value="<?php echo isset($info) ? $info['username'] : ''; ?>" <?php echo isset($info)?'readonly':'';?>/>
+                               value="<?php echo isset($info) ? $info['username'] : ''; ?>" <?php echo isset($info)?'readonly':'';?> maxlength="16" required/>
                         <br/>
                     </p>
                     <p>
                         <label>用户密码</label>
                         <input class="text-input small-input" type="password" id="upass" name="info[password]"
-                               value=""/>
+                               value="" maxlength="16"/>
                         <br/>
                     </p>
                     <p>
                         <label>真实姓名</label>
                         <input class="text-input small-input" type="text" id="nickname" name="info[nickname]"
-                               value="<?php echo isset($info) ? $info['nickname'] : ''; ?>"/>
+                               value="<?php echo isset($info) ? $info['nickname'] : ''; ?>" maxlength="16" required/>
                         <br/>
                     </p>
                     <p>
                         <label>支付宝账号</label>
                         <input class="text-input small-input" type="text" id="pay_number" name="info[pay_number]"
-                               value="<?php echo isset($info) ? $info['pay_number'] : ''; ?>"/>
+                               value="<?php echo isset($info) ? $info['pay_number'] : ''; ?>" required/>
                         <br/>
                     </p>
                     <p>
                     <p>
                         <label>盒子名称</label>
                         <input class="text-input small-input" type="text" id="boxname" name="info[boxname]"
-                               value="<?php echo isset($info) ? $info['boxname'] : ''; ?>"/>
+                               value="<?php echo isset($info) ? $info['boxname'] : '';?>" placeholder="可以不填"/>
                         <br/>
                     </p>
                     <p>
                         <label>分成比例</label>
                         <input class="text-input small-input" type="number" id="boxname" name="info[divide_into]"
-                               value="<?php echo isset($info) ? $info['divide_into'] : ''; ?>" min="0" max="55"/>
+                               value="<?php echo isset($info) ? $info['divide_into'] : ''; ?>" min="0" max="55" required/>
                         <br/>
                     </p>
                     <p>
                         <label>客服QQ</label>
-                        <input class="text-input small-input" type="number"  name="info[qq1]"
-                               value="<?php echo isset($info) ? $info['qq1'] : ''; ?>"/>
+                        <input class="text-input small-input" type="text"  name="info[qq1]"
+                               value="<?php echo isset($info) ? $info['qq1'] : ''; ?>" placeholder="可以不填"/>
                         <br/>
                     </p>
                     <p>
                         <label>QQ群</label>
-                        <input class="text-input small-input" type="number"  name="info[qq2]"
-                               value="<?php echo isset($info) ? $info['qq2'] : ''; ?>"/>
+                        <input class="text-input small-input" type="text"  name="info[qq2]"
+                               value="<?php echo isset($info) ? $info['qq2'] : ''; ?>" placeholder="可以不填"/>
                         <br/>
                     </p>
 
