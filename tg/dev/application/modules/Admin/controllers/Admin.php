@@ -125,10 +125,10 @@ class AdminController extends F_Controller_Backend
         export JAVA_HOME CLASSPATH PATH;
         cd /www/wwwroot/tool;
         apktool b 1;
-        /cp /www/wwwroot/tool/1/dist/1.apk 1.apk;
+        sudo cp /www/wwwroot/tool/1/dist/1.apk  /www/wwwroot/tool/1.apk;
         cd /www/wwwroot/tool;
         java -jar signapk.jar  testkey.x509.pem testkey.pk8  1.apk {$admin_id}.apk; 
-        mv -f {$admin_id}.apk /www/wwwroot/xgame.zyttx.com/apk/;
+        sudo mv -f {$admin_id}.apk /www/wwwroot/xgame.zyttx.com/apk/;
         rm -rf 1.apk;  > /dev/null 2>&1 &");
         sleep(2);
         //3.返回链接
