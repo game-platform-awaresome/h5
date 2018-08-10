@@ -59,7 +59,7 @@ class Game_Recharge
         //记录日志
         $adminlog=new AdminlogModel();
         $adminlog->insert(['admin'=>'支付通知','content'=>$url,'ymd'=>date('Ymd'),'op_time'=>date('Y-m-d H;i;s')]);
-        if( trim($ret) == 'success' ) {
+        if( trim($ret) == 'success' || trim($ret)=='ok') {
             return '';
         } else {
             $log = new F_Helper_Log();
