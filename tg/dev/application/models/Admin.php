@@ -26,7 +26,15 @@ class AdminModel extends F_Model_Pdo
             'pay_number' => '支付宝',
 			'username' => '渠道账号',
 			'boxname' => '盒子名字',
-			'divide_into' => '分成比例',
+			'divide_into' =>
+                function(&$row){
+                    if( empty($row) ) return '分层比例';
+                        if($row['cps_type']!=3){
+                            return '参考游戏列表';
+                        }else{
+                            return $row['divide_into'];
+                        }
+            },
 			'last_login_time' => '最后登录时间',
 			'last_login_ip' => '最后登录IP',
             'add_time' => '添加时间',
@@ -64,6 +72,7 @@ class AdminModel extends F_Model_Pdo
 //		        return $tmp['name'];
 //		    },
             'add_ip' => '添加IP',
+            'cps_type'=>'类型',
 		);
 	}
 //    public function getFieldsPadding()
