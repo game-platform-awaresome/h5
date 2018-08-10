@@ -16,7 +16,6 @@ class PayController extends F_Controller_Backend
         $search = $this->getRequest()->getQuery('search', array());
         $s = Yaf_Session::getInstance();
         $channel_ids_condition=$s->get('channel_ids_condition');
-        $search='pay_time>0';
         if( $search ) {
             $cmm = '';
             foreach ($search as $k=>$v)
@@ -41,11 +40,7 @@ class PayController extends F_Controller_Backend
         }else{
             $conds.="tg_channel in {$channel_ids_condition}";
         }
-        if($conds){
-            $conds.=' AND pay_time>0';
-        }else{
-            $conds.=' pay_time>0';
-        }
+        $conds.=' AND pay_time>0';
         $params['conditions']=$conds;
         return $params;
     }
