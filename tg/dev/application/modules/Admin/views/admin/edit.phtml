@@ -16,7 +16,7 @@
                     <p>
                         <label>渠道账号</label>
                         <input class="text-input small-input" type="text" id="username" name="info[username]"
-                               value="<?php echo isset($info) ? $info['username'] : ''; ?>" readonly/>
+                               value="<?php echo isset($info) ? $info['username'] : ''; ?>" <?php echo isset($info)?'readonly':'';?>/>
                         <br/>
                     </p>
                     <p>
