@@ -92,21 +92,43 @@ class AdminController extends F_Controller_Backend
     public function apkAction(){
         $admin_id=$_SESSION['admin_id'];
         //1.修改文件
-        $file_dir="/www/wwwroot/tool/apk/assets/apps/default/www/manifest.json";
+        $file_dir="/www/wwwroot/tool/1/assets/apps/default/www/manifest.json";
         $json_string = file_get_contents($file_dir);
         $data = json_decode($json_string,true);
         $launch_path="http://h5.zyttx.com?user=".$admin_id;
         $developer_url="http://h5.zyttx.com?user=".$admin_id;
-//        $boxname=$_SESSION['boxname'];
+        $boxname=$_SESSION['boxname'];
          // 把JSON字符串转成PHP数组
-//        $data['name']=$boxname;
+        $data['name']=$boxname;
         $data['launch_path']=$launch_path;
         $data['developer']['url']=$developer_url;
         $json_strings = json_encode($data);
         file_put_contents($file_dir,$json_strings);//写入
-        //2.压缩apk  /www/wwwroot/xgame.zyttx.com/apk/01.apk
-        shell_exec("cd /www/wwwroot/tool/apk; zip -q -r /www/wwwroot/xgame.zyttx.com/apk/{$admin_id}.apk ./*  > /dev/null 2>&1 &");
-        sleep(1);
+
+        //修改APP名字
+        $file_dir2="/www/wwwroot/tool/1/res/values/strings.xml";
+        $doc = new DOMDocument();
+        $doc->load($file_dir2);
+        $resources = $doc -> getElementsByTagName("resources");
+        //遍历
+        foreach ($resources as $resource) {
+            //将id=3的title设置为33333
+            if($resource->getAttribute('name')=='app_name'){
+                $resource->nodeValue($boxname);
+            }
+        }
+        //对文件做修改后，一定要记得重新sava一下，才能修改掉原文件
+        $doc -> save($file_dir2);
+        //2. 编译app
+        shell_exec("
+        cd /www/wwwroot/tool;
+        apktool b 1;
+        cp /www/wwwroot/tool/1/dist/1.apk 1.apk;
+        java -jar signapk.jar  testkey.x509.pem testkey.pk8  1.apk {$admin_id}.apk;
+        mv {$admin_id}.apk /www/wwwroot/xgame.zyttx.com/apk/;
+        rm -rf 1.apk;
+        > /dev/null 2>&1 &");
+        sleep(2);
         //3.返回链接
         echo '正在打包,请稍等1-2分钟刷新页面！';
         die;
