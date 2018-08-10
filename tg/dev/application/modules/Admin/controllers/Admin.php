@@ -114,7 +114,7 @@ class AdminController extends F_Controller_Backend
         foreach ($strings as $string) {
             //将id=3的title设置为33333
             if($string->getAttribute('name')=='app_name'){
-                $string->nodeValue($boxname);
+                $string->nodeValue=$boxname;
             }
         }
         //对文件做修改后，一定要记得重新sava一下，才能修改掉原文件
