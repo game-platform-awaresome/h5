@@ -41,11 +41,11 @@
         <div class="content-box-content">
             <div class="tab-content default-tab">
                 <h4>
-<!--                    --><?php //if(file_exists('/www/wwwroot/xgame.zyttx.com/apk/'.$_SESSION['admin_id'].'.apk')):?>
+                    <?php if(file_exists('/www/wwwroot/xgame.zyttx.com/apk/'.$_SESSION['admin_id'].'.apk')):?>
                         <a target="_blank" href="<?='http://xgame.zyttx.com/apk/'.$_SESSION['admin_id'].'.apk'?>"><?='http://xgame.zyttx.com/apk/'.$_SESSION['admin_id'].'.apk'?></a>
-<!--                    --><?php //else:?>
-<!--                        <a href="/admin/admin/apk">您还没有渠道apk链接,点击生成!</a>-->
-<!--                    --><?php //endif;?>
+                    <?php else:?>
+                        <a href="/admin/admin/apk">您还没有渠道apk链接,点击生成!</a>
+                    <?php endif;?>
                 </h4>
             </div>
             <!-- End #tab3 -->
