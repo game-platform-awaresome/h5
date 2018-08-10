@@ -30,9 +30,9 @@ class AdminController extends F_Controller_Backend
                 $conds .= "{$cmm}{$k}='{$v}'";
                 $cmm = ' AND ';
             }
-            $conds.="  AND parent_id in {$channel_ids_condition}";
+            $conds.="  AND parent_id in {$channel_ids_condition} or admin_id = {$_SESSION['admin_id']}";
         }else{
-            $conds.="parent_id in {$channel_ids_condition}";
+            $conds.="parent_id in {$channel_ids_condition} or admin_id = {$_SESSION['admin_id']}";
         }
         $params['conditions']=$conds;
         return $params;
@@ -61,52 +61,49 @@ class AdminController extends F_Controller_Backend
 //        $html .= "<script>\$('#info_group_id').val('{$info['group_id']}');</script>";
 //        $this->getView()->assign('groups', $html);
     }
-    
-	protected function beforeUpdate($id, &$info)
-	{
-	    if( $id && empty($info['password']) ) {
-	        unset($info['password']);
-	    } else {
-	        $info['password'] = md5(trim($info['password']));
-	    }
-	    
-	    if( empty($id) ) {
-	        $login = $this->_model->getLogin();
-	        $info['add_by'] = $login['username'];
-	        $info['parent_id']=$login['admin_id'];
-	        $info['add_ip'] = $_SERVER['REMOTE_ADDR'];
-	        if($login['admin_id']==0){
-	            $info['cps_type']=1;
+
+    protected function beforeUpdate($id, &$info)
+    {
+        if( $id && empty($info['password']) ) {
+            unset($info['password']);
+        } else {
+            $info['password'] = md5(trim($info['password']));
+        }
+
+        if( empty($id) ) {
+            $login = $this->_model->getLogin();
+            $info['add_by'] = $login['username'];
+            $info['parent_id']=$login['admin_id'];
+            $info['add_ip'] = $_SERVER['REMOTE_ADDR'];
+            if($login['admin_id']==0){
+                $info['cps_type']=1;
             }elseif($info['parent_id']==1){
                 $info['cps_type']=2;
             }else{
                 $info['cps_type']=3;
             }
-	    }
-	    return '';
-	}
+        }
+        return '';
+    }
 
     /**
      * 生成apk
      */
-	public function apkAction(){
-
-	    $admin_id=$_SESSION['admin_id'];
+    public function apkAction(){
+        $admin_id=$_SESSION['admin_id'];
         //1.修改文件
         $file_dir="/www/wwwroot/tool/apk/assets/apps/default/www/manifest.json";
         $json_string = file_get_contents($file_dir);
         $data = json_decode($json_string,true);
         $launch_path="http://h5.zyttx.com?user=".$admin_id;
         $developer_url="http://h5.zyttx.com?user=".$admin_id;
-        $boxname=$_SESSION['boxname'];
-         // 把JSON字符串转成PHP数组
-        $data['name']=$boxname;
+        // 把JSON字符串转成PHP数组
         $data['launch_path']=$launch_path;
         $data['developer']['url']=$developer_url;
         $json_strings = json_encode($data);
         file_put_contents($file_dir,$json_strings);//写入
         //2.压缩apk  /www/wwwroot/xgame.zyttx.com/apk/01.apk
-        system("zip -q -r /www/wwwroot/xgame.zyttx.com/apk/{$admin_id}.apk /www/wwwroot/tool/apk/*  > /dev/null 2>&1 &");
+        shell_exec("cd /www/wwwroot/tool/apk; zip -q -r /www/wwwroot/xgame.zyttx.com/apk/{$admin_id}.apk ./*  > /dev/null 2>&1 &");
         sleep(1);
         //3.返回链接
         echo '正在打包,请稍等1-2分钟刷新页面！';

@@ -16,7 +16,7 @@
                     <p>
                         <label>渠道账号</label>
                         <input class="text-input small-input" type="text" id="username" name="info[username]"
-                               value="<?php echo isset($info) ? $info['username'] : ''; ?>"/>
+                               value="<?php echo isset($info) ? $info['username'] : ''; ?>" readonly/>
                         <br/>
                     </p>
                     <p>
@@ -52,13 +52,13 @@
                     </p>
                     <p>
                         <label>客服QQ</label>
-                        <input class="text-input small-input" type="number" id="boxname" name="info[qq1]"
+                        <input class="text-input small-input" type="number"  name="info[qq1]"
                                value="<?php echo isset($info) ? $info['qq1'] : ''; ?>"/>
                         <br/>
                     </p>
                     <p>
                         <label>QQ群</label>
-                        <input class="text-input small-input" type="number" id="boxname" name="info[qq1]"
+                        <input class="text-input small-input" type="number"  name="info[qq2]"
                                value="<?php echo isset($info) ? $info['qq2'] : ''; ?>"/>
                         <br/>
                     </p>
