@@ -120,14 +120,7 @@ class AdminController extends F_Controller_Backend
         //对文件做修改后，一定要记得重新sava一下，才能修改掉原文件
         $doc -> save($file_dir2);
         //2. 编译app
-        shell_exec("
-        cd /www/wwwroot/tool;
-        apktool b 1;
-        cp /www/wwwroot/tool/1/dist/1.apk 1.apk;
-        java -jar signapk.jar  testkey.x509.pem testkey.pk8  1.apk {$admin_id}.apk;
-        mv {$admin_id}.apk /www/wwwroot/xgame.zyttx.com/apk/;
-        rm -rf 1.apk;
-        > /dev/null 2>&1 &");
+        shell_exec("sudo cd /www/wwwroot/tool;sudo apktool b 1; sudo cp /www/wwwroot/tool/1/dist/1.apk 1.apk;sudo java -jar signapk.jar  testkey.x509.pem testkey.pk8  1.apk {$admin_id}.apk; sudo mv -r {$admin_id}.apk /www/wwwroot/xgame.zyttx.com/apk/;sudo rm -rf 1.apk;> /dev/null 2>&1 &");
         sleep(2);
         //3.返回链接
         echo '正在打包,请稍等1-2分钟刷新页面！';
