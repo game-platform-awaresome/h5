@@ -90,14 +90,17 @@ class AdminController extends F_Controller_Backend
      * 生成apk
      */
 	public function apkAction(){
-        $admin_id=$_SESSION['admin_id'];
+
+	    $admin_id=$_SESSION['admin_id'];
         //1.修改文件
         $file_dir="/www/wwwroot/tool/apk/assets/apps/default/www/manifest.json";
         $json_string = file_get_contents($file_dir);
         $data = json_decode($json_string,true);
         $launch_path="http://h5.zyttx.com?user=".$admin_id;
         $developer_url="http://h5.zyttx.com?user=".$admin_id;
+        $boxname=$_SESSION['boxname'];
          // 把JSON字符串转成PHP数组
+        $data['name']=$boxname;
         $data['launch_path']=$launch_path;
         $data['developer']['url']=$developer_url;
         $json_strings = json_encode($data);
