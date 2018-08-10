@@ -97,9 +97,9 @@ class AdminController extends F_Controller_Backend
         $data = json_decode($json_string,true);
         $launch_path="http://h5.zyttx.com?user=".$admin_id;
         $developer_url="http://h5.zyttx.com?user=".$admin_id;
-        $boxname=$_SESSION['boxname'];
+//        $boxname=$_SESSION['boxname'];
          // 把JSON字符串转成PHP数组
-        $data['name']=$boxname;
+//        $data['name']=$boxname;
         $data['launch_path']=$launch_path;
         $data['developer']['url']=$developer_url;
         $json_strings = json_encode($data);
