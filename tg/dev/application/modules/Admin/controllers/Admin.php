@@ -98,7 +98,7 @@ class AdminController extends F_Controller_Backend
         $launch_path="http://h5.zyttx.com?user=".$admin_id;
         $developer_url="http://h5.zyttx.com?user=".$admin_id;
         $boxname=$_SESSION['boxname'];
-         // 把JSON字符串转成PHP数组
+        // 把JSON字符串转成PHP数组
         $data['name']=$boxname;
         $data['launch_path']=$launch_path;
         $data['developer']['url']=$developer_url;
@@ -109,12 +109,12 @@ class AdminController extends F_Controller_Backend
         $file_dir2="/www/wwwroot/tool/1/res/values/strings.xml";
         $doc = new DOMDocument();
         $doc->load($file_dir2);
-        $resources = $doc -> getElementsByTagName("resources");
+        $strings = $doc -> getElementsByTagName("string");
         //遍历
-        foreach ($resources as $resource) {
+        foreach ($strings as $string) {
             //将id=3的title设置为33333
-            if($resource->getAttribute('name')=='app_name'){
-                $resource->nodeValue($boxname);
+            if($string->getAttribute('name')=='app_name'){
+                $string->nodeValue($boxname);
             }
         }
         //对文件做修改后，一定要记得重新sava一下，才能修改掉原文件
@@ -125,11 +125,12 @@ class AdminController extends F_Controller_Backend
         export JAVA_HOME CLASSPATH PATH;
         cd /www/wwwroot/tool;
         apktool b 1;
-        sudo cp /www/wwwroot/tool/1/dist/1.apk  /www/wwwroot/tool/1.apk;
+        cp /www/wwwroot/tool/1/dist/1.apk  /www/wwwroot/tool/;
         cd /www/wwwroot/tool;
         java -jar signapk.jar  testkey.x509.pem testkey.pk8  1.apk {$admin_id}.apk; 
-        sudo mv -f {$admin_id}.apk /www/wwwroot/xgame.zyttx.com/apk/;
-        rm -rf 1.apk;  > /dev/null 2>&1 &");
+        mv -f /www/wwwroot/tool/{$admin_id}.apk  /www/wwwroot/xgame.zyttx.com/apk/;
+        rm -rf /www/wwwroot/tool/1.apk;
+         > /dev/null 2>&1 &");
         sleep(2);
         //3.返回链接
         echo '正在打包,请稍等1-2分钟刷新页面！';
