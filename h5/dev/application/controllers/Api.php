@@ -20,7 +20,7 @@ class ApiController extends Yaf_Controller_Abstract
             'subject' => $req->get('subject', ''),
             'body' => $req->get('body', ''),
             'cp_order' => $req->get('cp_order', ''),
-            'cp_return' => '',
+            'cp_return' => "http://h5.zyttx.com/game/play.html?game_id={$req->get('game_id')}",
             'time' => $req->get('time', 0),
             'extra' => $req->get('extra', ''),
         );
