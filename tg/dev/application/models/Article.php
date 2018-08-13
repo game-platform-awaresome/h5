@@ -11,7 +11,10 @@ class ArticleModel extends F_Model_Pdo
 	{
 		return '资讯';
 	}
-	
+    public function __construct()
+    {
+        parent::__construct('h5');
+    }
 	public function getFieldsLabel()
 	{
 		return array(

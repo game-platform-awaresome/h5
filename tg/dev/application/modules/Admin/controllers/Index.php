@@ -101,6 +101,11 @@ class IndexController extends Yaf_Controller_Abstract
         $count=$user->fetchAll("tg_channel in {$channel_ids_condition} and login_day={$date}", 1, 200000, 'user_id');
         $count=count($count);
         $this->getView()->assign('count',$count);
+
+        //公告列表
+        $m_article=new ArticleModel();
+        $articles=$m_article->fetchAll(['type'=>'代理公告']);
+        $this->getView()->assign('articles',$articles);
 //		$mem = new Memcache();
 //		$mem->addServer('127.0.0.1');
 //		$stat = $mem->getStats();
