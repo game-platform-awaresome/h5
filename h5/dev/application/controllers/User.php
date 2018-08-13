@@ -49,12 +49,18 @@ class UserController extends Yaf_Controller_Abstract
         $channel_id=$_SESSION['user']??1;
         $cps_admin=new AdminModel('cps');
         $channel_info=$cps_admin->fetch(['admin_id'=>$channel_id]);
+        $user['qq1']=$channel_info['qq1'];
+        $user['qq2']=$channel_info['qq2'];
         if(!$channel_info['qq1']){
             //查找管理员的
             $channel_info=$cps_admin->fetch(['admin_id'=>1]);
-        }
             $user['qq1']=$channel_info['qq1'];
+        }
+        if(!$channel_info['qq1']){
+            //查找管理员的
+            $channel_info=$cps_admin->fetch(['admin_id'=>1]);
             $user['qq2']=$channel_info['qq2'];
+        }
         $this->getView()->assign('user', $user);
     }
     
