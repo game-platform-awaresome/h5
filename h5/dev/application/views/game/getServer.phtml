@@ -1,0 +1,19 @@
+<?php foreach ($servers as $row) : ?>
+<li>
+    <section class="list_content">
+        <div class="game_log relative">
+            <a target="_top" href="javascript:void(0);"><img src="<?=$row['logo']?>" width="60" height="60" alt="<?=$row['game_name']?>"></a>
+        </div>
+        <div class="game_info">
+            <h3>
+                <span><a target="_top" href="javascript:void(0);" style="color:#fff;"><?=$row['game_name']?></a></span>
+            </h3>
+            <p><?=$row['name']?></p>
+                <p>开服时间：<?=$row['start_time']?></p>
+        </div>
+        <div class="game_btn">
+            <a target="_top" href="/game/play.html?game_id=<?=$row['game_id']??''?>" class="btn_blue">开始玩</a>
+        </div>
+    </section>
+</li>
+<?php endforeach; ?>

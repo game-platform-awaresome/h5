@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+<meta name="keywords" content="H5 HTML5 H5游戏 HTML5游戏 小游戏 手机游戏 网页游戏 在线游戏 点击即玩 久乐游戏 久乐H5">
+<meta name="description" content="久乐游戏是一个行业领先的H5在线游戏平台，玩游戏不再苦苦的等待下载，点击即玩。">
+<title>久乐H5在线游戏平台</title>
+<link rel="stylesheet" href="/public/styles/base.css"/>
+<link rel="stylesheet" href="/styles/ranking.css"/>
+</head>
+<body class="bg00">
+    <!--div.container 总外框  start-->
+    <div class="z_container bg01">
+        <!--div.z_min 内容区域 statr-->
+        <div class="main">
+            <section class="top_fexed">
+                <header class="z_header">
+                    <a href="/game/center.html"></a><span></span>
+                </header>
+                <nav class="ranking_nav">
+                    <a class="chose" href="javascript:void(0)" style="width: 50%">已开新服</a>
+                    <a href="javascript:void(0)" style="width: 50%">新服预告</a>
+                </nav>
+            </section>
+            <!--div.game_list 区服列表  start-->
+            <section class="game_list">
+                <div class="swipe" id="slider">
+                    <div class="slide_cont swipe-wrap">
+                        <ul id="game_list_0" class="wrap">
+                            <li class="loading"><img src="/images/loader/loading.gif"><span>数据玩命加载中...</span></li>
+                        </ul>
+                        <ul id="game_list_1" class="wrap">
+                            <li class="loading"><img src="/images/loader/loading.gif"><span>数据玩命加载中...</span></li>
+                        </ul>
+                        <ul id="game_list_2" class="wrap">
+                            <li class="loading"><img src="/images/loader/loading.gif"><span>数据玩命加载中...</span></li>
+                        </ul>
+                        <ul id="game_list_3" class="wrap">
+                            <li class="loading"><img src="/images/loader/loading.gif"><span>数据玩命加载中...</span></li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+            <!--div.game_list 游戏列表  end-->
+            <div class="footer_padding"></div>
+        </div>
+        <!--div.z_min 内容区域 end-->
+    </div>
+    <!--div.container 总外框  end-->
+<?php include $this->getScriptPath().'/footer.phtml'; ?>
+<script src="/public/scripts/jquery-1.11.1.min.js"></script>
+<script src="/public/scripts/jquery.mobile.min.js"></script>
+<script src="/jquery/swipe.js"></script>
+<script>
+$('#footer a:eq(2)').attr('id', 'footer_nav_active');
+$(function(){
+	var nomore = '<label>没有更多数据了</label>';
+    var current = 0;
+    var pn = [0,0,0,0];
+    var limit = 8;
+    var loading = false;
+    function tc()
+    {
+        if( loading ) return ;
+        var t = $('#game_list_'+current);
+        var l = t.children('li.loading');
+        if( l.children('label').length > 0 ) return ;
+        loading = true;
+        ++pn[current];
+        $.ajax({
+            url: '/game/getServer.html?tc=<?=$tc?>&pn='+pn[current]+'&limit='+limit+'&order='+current,
+            dataType: 'html',
+            success: function(h){
+                if( $(h).length > 0 ) {
+                    $(h).hide().insertBefore(l).fadeIn('fast');
+                }
+                if( $(h).length < limit ) {
+                    l.html(nomore);
+                }
+                loading = false;
+            },
+            error: function(){
+            	loading = false;
+            }
+        });
+    }
+    tc();
+    $(window).on('scrollstop', function(){
+        var t_h = $('.z_container').height();
+        var c_h = $(document).scrollTop();
+        if( c_h == 0 ) c_h = $('.z_container').scrollTop();
+        c_h += $(window).height() + 10;
+        if( c_h >= t_h ) {
+            tc();
+        }
+    });
+
+    var slider = new Swipe(document.getElementById('slider'), {
+        auto: false,
+        continuous: true,
+        disableScroll: false,
+        stopPropagation: false,
+        callback: function(index, element) {
+            $(".ranking_nav a").eq(index).addClass("chose").siblings().removeClass("chose");
+            current = index;
+            tc();
+        }
+    });
+    $(".ranking_nav a").on('tap',function(){
+        $(this).addClass("chose").siblings().removeClass("chose");
+        slider.slide($(this).index(), 300);
+    });
+    $(".game_list").css({height:'auto'});
+});
+</script>
+</body>
+</html>

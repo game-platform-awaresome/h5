@@ -431,4 +431,48 @@ class GameController extends Yaf_Controller_Abstract
 	    
 	    $this->getView()->assign($assign);
 	}
+
+    /**
+     * 区服表
+     */
+	public function serverAction(){
+	    //1.查询条件
+        //2.获取数据
+        $this->getView()->assign('tc',$_GET['tc']);
+    }
+    //获取type,classic列表
+    public function getServerAction()
+    {
+        $req = $this->getRequest();
+        $tc = $req->get('order', 0);
+        $tc = preg_replace('/[\%\*\'\"\\\]+/', '', $tc);
+        $pn = $req->get('pn', 1);
+        $limit = $req->get('limit', 6);
+        $order = 'start_time asc';
+        $selects = '*';
+        $m_server = new ServerModel();
+        $servers = array();
+        $now_time=(string)date('Y-m-d H:i:s');
+        $three_day_befor=(string)date("Y-m-d H:i:s",strtotime("-3 day"));
+        $three_day_after=(string)date("Y-m-d H:i:s",strtotime("+3 day"));
+        $condition="start_time between '{$three_day_befor}' and '{$three_day_after}'";
+        if( $tc == 0 ) {
+            $condition.=" and start_time< '{$now_time}'";//已开新服,时间大于当前,前三天
+            $servers = $m_server->fetchAll($condition, $pn, $limit, $selects, $order);
+        } elseif( $tc == 1) {
+            $condition.=" and start_time> '{$now_time}'";//新服预告
+            $servers = $m_server->fetchAll($condition, $pn, $limit, $selects, $order);
+        }
+        $m_game=new GameModel();
+        foreach ($servers as &$row){
+            $game=$m_game->fetch(['game_id'=>$row['game_id']],'logo');
+            $row['logo']=$game['logo'];
+        }
+//        foreach ($servers as &$row)
+//        {
+//            $row['grade'] = $m_server->gradeHtml($row['grade']);
+//            $row['support'] = $m_server->supportFormat($row['support'] + $row['play_times']);
+//        }
+        $this->getView()->assign('servers', $servers);
+    }
 }
