@@ -12,6 +12,12 @@ class ApiController extends Yaf_Controller_Abstract
             exit('Params error.');
         }
         $sign = preg_replace('/[^0-9a-f]+/', '', $sign);
+        $game_id=$req->get('game_id',0);
+        if($game_id){
+            $cp_return="http://h5.zyttx.com/game/play.html?game_id={$req->get('game_id')}";
+        }else{
+            $cp_return=$req->get('cp_return','');
+        }
         $arr = array(
             'user_id' => $user_id,
             'username' => $req->get('username', ''),
