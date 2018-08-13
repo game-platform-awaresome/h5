@@ -26,7 +26,7 @@ class ApiController extends Yaf_Controller_Abstract
             'subject' => $req->get('subject', ''),
             'body' => $req->get('body', ''),
             'cp_order' => $req->get('cp_order', ''),
-            'cp_return' => $cp_return,
+            'cp_return' => $req->get('cp_return',''),
             'time' => $req->get('time', 0),
             'extra' => $req->get('extra', ''),
         );
