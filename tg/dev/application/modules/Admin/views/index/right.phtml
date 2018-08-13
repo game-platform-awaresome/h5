@@ -1,6 +1,6 @@
 <style>
     .title span ,.content span{
-        width: 33.33%;
+        width: 50%;
         float: left;
         margin-bottom: 10px;
         display:block;
@@ -15,7 +15,7 @@
         Download From <a href="http://www.exet.tk">exet.tk</a></div>
     </div>
     </noscript>
-    
+
     <!-- Page Head -->
     <h2>个人中心</h2>
 <!--    <p id="page-intro">这里是系统的简要统计信息，当前在线人数为当前的活跃链接数，存在一点误差！</p>-->
@@ -64,20 +64,20 @@
     <!-- End .content-box -->
     <div class="content-box column-right">
       <div class="content-box-header">
-        <h3>系统公告</h3>
+        <h3>公告</h3>
       </div>
       <div class="content-box-content">
         <div class="tab-content default-tab">
             <div class="title">
                 <span>标题</span>
                 <span>时间</span>
-                <span>内容</span>
+<!--                <span>内容</span>-->
             </div>
             <div class="content">
             <?php foreach ($articles as $key=>$value):?>
-                <span><?=$value['title']?></span>
+                <span><a href="/admin/index/content?id=<?=$value['article_id']?>"><?=$value['title']?></a></span>
                 <span><?=date('Y-m-d H:i:s',$value['add_time'])?></span>
-                <span><?=strip_tags($value['content'])?></span>
+<!--                <span>--><?//=strip_tags($value['content'])?><!--</span>-->
             <?php endforeach;?>
             </div>
         </div>

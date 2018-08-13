@@ -120,4 +120,14 @@ class IndexController extends Yaf_Controller_Abstract
 //		$stat['limit_maxbytes'] = ($stat['limit_maxbytes'] / 1048576).'M';
 //		$this->getView()->assign('stat', $stat);
 	}
+
+    /**
+     * 详情
+     */
+	public function contentAction(){
+	    $id=$_GET['id'];
+	    $m_artic=new ArticleModel();
+	    $artic=$m_artic->fetch(['article_id'=>$id]);
+        $this->getView()->assign('artic', $artic);
+    }
 }
