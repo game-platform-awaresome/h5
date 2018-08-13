@@ -12,12 +12,6 @@ class ApiController extends Yaf_Controller_Abstract
             exit('Params error.');
         }
         $sign = preg_replace('/[^0-9a-f]+/', '', $sign);
-        $game_id=$req->get('game_id',0);
-        if($game_id){
-            $cp_return="http://h5.zyttx.com/game/play.html?game_id={$req->get('game_id')}";
-        }else{
-            $cp_return=$req->get('cp_return','');
-        }
         $arr = array(
             'user_id' => $user_id,
             'username' => $req->get('username', ''),
@@ -77,7 +71,13 @@ class ApiController extends Yaf_Controller_Abstract
         $arr['game_name'] = $game_name;
         $arr['server_name'] = $server_name;
         $arr['type'] = 'pigpay';
-        $arr['cp_return'] = $arr['cp_return'] ? $arr['cp_return'] : '1';
+        $game_id=$req->get('game_id',0);
+        if($game_id){
+            $cp_return="http://h5.zyttx.com/game/play.html?game_id={$req->get('game_id')}";
+        }else{
+            $cp_return=$req->get('cp_return','');
+        }
+        $arr['cp_return'] = $cp_return;
         $user=new UsersModel();
         $tg_channel=$user->fetch(['user_id'=>$user_id],'tg_channel');
         $tg_channel=$tg_channel['tg_channel'];
