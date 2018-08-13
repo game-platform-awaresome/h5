@@ -12,7 +12,6 @@ class ApiController extends Yaf_Controller_Abstract
             exit('Params error.');
         }
         $sign = preg_replace('/[^0-9a-f]+/', '', $sign);
-        
         $arr = array(
             'user_id' => $user_id,
             'username' => $req->get('username', ''),
@@ -21,7 +20,7 @@ class ApiController extends Yaf_Controller_Abstract
             'subject' => $req->get('subject', ''),
             'body' => $req->get('body', ''),
             'cp_order' => $req->get('cp_order', ''),
-            'cp_return' => $req->get('cp_return', ''),
+            'cp_return' => '',
             'time' => $req->get('time', 0),
             'extra' => $req->get('extra', ''),
         );
