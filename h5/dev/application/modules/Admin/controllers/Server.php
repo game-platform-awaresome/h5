@@ -72,6 +72,7 @@ class ServerController extends F_Controller_Backend
             $data=$csv->input_csv($handle);
             unset($data[0]);
             $gameModel=new GameModel();
+            $server=new ServerModel();
 //            var_dump($data);die;
             $inserts=array();
             foreach ($data as $key=>$value){
@@ -80,6 +81,8 @@ class ServerController extends F_Controller_Backend
                 if(!$game){
                     throw new Exception("第".$key.'行,游戏名：'.$value[0].'匹配不到对应的游戏!');
                 }
+                //去重复
+                if($server->fetch(['game_name'=>$value[0],'name'=>$value[1]]) )continue;
                 $insert=array();
                 $insert['game_id']=$game['game_id'];
                 $insert['game_name']=$game['name'];
@@ -91,7 +94,6 @@ class ServerController extends F_Controller_Backend
                 $inserts[]=$insert;
             }
             //插入数据
-            $server=new ServerModel();
             foreach ($inserts as $key=>$value){
                 $server->insert($value);
             }
