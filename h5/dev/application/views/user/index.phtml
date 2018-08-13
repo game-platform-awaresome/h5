@@ -1,103 +1,113 @@
 <!DOCTYPE html>
 <html>
 <head lang="en">
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"/>
-<title>个人中心 - 久乐游戏</title>
-<link rel="stylesheet" href="/public/styles/base.css"/>
-<link rel="stylesheet" href="/styles/user_center.css"/>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"/>
+    <title>个人中心 - 久乐游戏</title>
+    <link rel="stylesheet" href="/public/styles/base.css"/>
+    <link rel="stylesheet" href="/styles/user_center.css"/>
 </head>
 <body class="bg00">
 <!--div.container 总外框  start-->
-<div  class="z_container wrapper bg01">
+<div class="z_container wrapper bg01">
     <!--div.z_min 内容区域 statr-->
     <div class="z_main">
-    <?php if($user) { ?>
-        <!--div.have_login 登录后信息 statr-->
-        <div class="have_login" style="margin-top:0">
-            <section class="user_info block_bg border_line">
-                <figure class="fl user_img">
-                <a target="_top" href="/user/edit.html">
-                    <img src="<?=$user['avatar']?$user['avatar']:'/images/user_center/default_img.png'?>" alt="<?=$user['username']??'请登录'?>"/>
-                </a>
-                </figure>
-                <ul class="fl information">
-                    <li>
-                        <i class="icons i_porstion"></i>
-                        <span>欢迎您：</span>
-                        <a><?=$user['username']??'请登录'?></a>
-                    </li>
-                    <li>
-                        <i class="icons i_gold"></i>
-                        <span>平台币：</span>
-                        <a class="green"><?=number_format($user['money'])?>￥</a>
-                    </li>
-                    <li>
-                        <i class="icons i_jf"></i>
-                        <span>积分币：</span>
-                        <a class="green"><?=number_format($user['integral'])?></a>
-                    </li>
-                </ul>
-            </section>
-            <nav class="nav_info block_bg">
-                <a target="_top" href="/user/logout.html?fwd=/user/index.html">退出登录<span class="split_line"></span></a>
-                <a target="_top" href="/user/giftlogs.html">礼包记录<span class="split_line"></span></a>
-                <a target="_top" href="/user/paylogs.html">充值记录</a>
-            </nav>
-        </div>
-        <!--div.have_login 登录后信息 end-->
-    <?php } else { ?>
-        <!--div.no_login 未登录的状态 statr-->
-        <div class="no_login block_bg" style="margin-top:0">
-            <div class="img_cont">
-                <figure class="fl user_img">
-                    <img src="/images/user_center/default_img.png"/>
-                </figure>
+        <?php if ($user['username']??false) { ?>
+            <!--div.have_login 登录后信息 statr-->
+            <div class="have_login" style="margin-top:0">
+                <section class="user_info block_bg border_line">
+                    <figure class="fl user_img">
+                        <a target="_top" href="/user/edit.html">
+                            <img src="<?= isset($user['avatar']) ? $user['avatar'] : '/images/user_center/default_img.png' ?>"
+                                 alt="<?= $user['username'] ?? '请登录' ?>"/>
+                        </a>
+                    </figure>
+                    <ul class="fl information">
+                        <li>
+                            <i class="icons i_porstion"></i>
+                            <span>欢迎您：</span>
+                            <a><?= $user['username'] ?? '请登录' ?></a>
+                        </li>
+                        <li>
+                            <i class="icons i_gold"></i>
+                            <span>平台币：</span>
+                            <a class="green"><?= number_format($user['money'] ?? 0) ?>￥</a>
+                        </li>
+                        <li>
+                            <i class="icons i_jf"></i>
+                            <span>积分币：</span>
+                            <a class="green"><?= number_format($user['integral'] ?? 0) ?></a>
+                        </li>
+                    </ul>
+                </section>
+                <nav class="nav_info block_bg">
+                    <a target="_top" href="/user/logout.html?fwd=/user/index.html">退出登录<span
+                                    class="split_line"></span></a>
+                    <a target="_top" href="/user/giftlogs.html">礼包记录<span class="split_line"></span></a>
+                    <a target="_top" href="/user/paylogs.html">充值记录</a>
+                </nav>
             </div>
-            <p class="tip_word">
-<!--                <span class="urls">namiyx.com </span>-->
-                <span class="green">您还未登录</span>，请您先登录平台。
-            </p>
-            <div class="btn_cont">
-                <button class="btn_green" onclick="javascript:location.href='/user/login.html?fwd=/user/index.html';">登录平台</button>
+            <!--div.have_login 登录后信息 end-->
+        <?php } else { ?>
+            <!--div.no_login 未登录的状态 statr-->
+            <div class="no_login block_bg" style="margin-top:0">
+                <div class="img_cont">
+                    <figure class="fl user_img">
+                        <img src="/images/user_center/default_img.png"/>
+                    </figure>
+                </div>
+                <p class="tip_word">
+                    <!--                <span class="urls">namiyx.com </span>-->
+                    <span class="green">您还未登录</span>，请您先登录平台。
+                </p>
+                <div class="btn_cont">
+                    <button class="btn_green"
+                            onclick="javascript:location.href='/user/login.html?fwd=/user/index.html';">登录平台
+                    </button>
+                </div>
             </div>
-        </div>
-        <!--div.no_login 未登录的状态 end-->
-    <?php } ?>
+            <!--div.no_login 未登录的状态 end-->
+        <?php } ?>
 
         <!--nav.user_lists 用户信息分类列表 statr-->
         <nav class="user_lists">
-            <a target="_top" href="<?php if(empty($user)) echo '/user/login.html?fwd='; ?>/user/games.html" class="block_bg">
+            <a target="_top" href="<?php if (empty($user)) echo '/user/login.html?fwd='; ?>/user/games.html"
+               class="block_bg">
                 <i class="icon i_list1"></i>
                 <span>最近在玩</span>
                 <span class="icon i_go"></span>
             </a>
-            <a target="_top" href="<?php if(empty($user)) echo '/user/login.html?fwd='; ?>/user/favorites.html" class="block_bg">
+            <a target="_top" href="<?php if (empty($user)) echo '/user/login.html?fwd='; ?>/user/favorites.html"
+               class="block_bg">
                 <i class="icon i_list2"></i>
                 <span>我的收藏</span>
                 <!--<sup class="sup_number">12</sup>-->
                 <span class="icon i_go"></span>
             </a>
-            <a target="_top" href="<?php if(empty($user)) echo '/user/login.html?fwd='; ?>/pay/index.html" class="block_bg">
+            <a target="_top" href="<?php if (empty($user)) echo '/user/login.html?fwd='; ?>/pay/index.html"
+               class="block_bg">
                 <i class="icon i_list3"></i>
                 <span>充值中心</span>
                 <span class="icon i_go"></span>
             </a>
-            <am target="_top" href="javascript:void(0);" class="block_bg" >
+            <am target="_top" href="javascript:void(0);" class="block_bg">
                 <i class="icon i_list4"></i>
-                <a target="_blank"  data-id="<?=$user['qq2']?>" href="javascript:void(0);" style="float: right;margin: 0;padding: 0;text-align: left;font-size: 0.8em">群:<?=$user['qq2']?></a>
+                <a target="_blank" data-id="<?= $user['qq2'] ?>" href="javascript:void(0);"
+                   style="float: right;margin: 0;padding: 0;text-align: left;font-size: 0.8em">群:<?= $user['qq2'] ?></a>
 
                 <span>客服服务</span>
-               <a target="_blank" onclick="jump_qq(this)" data-id="<?=$user['qq1']?>" href="javascript:void(0);" style="float: right;margin: 0;padding: 0;text-align: left;font-size: 0.8em">客服</a>
+                <a target="_blank" onclick="jump_qq(this)" data-id="<?= $user['qq1'] ?>" href="javascript:void(0);"
+                   style="float: right;margin: 0;padding: 0;text-align: left;font-size: 0.8em">客服</a>
                 <span class="icon i_qq"></span>
-<!--                <span class="icon i_qq"></span>-->
+                <!--                <span class="icon i_qq"></span>-->
             </am>
             <a href="javascript:void(0)" class="block_bg">
                 <i class="icon i_list5"></i>
                 <span>我的积分</span>
                 <span class="icon i_go"></span>
             </a>
-            <a target="_top" href="<?php if(empty($user)) echo '/user/login.html?fwd='; ?>/user/fcm.html" class="block_bg">
+            <a target="_top" href="<?php if (empty($user)) echo '/user/login.html?fwd='; ?>/user/fcm.html"
+               class="block_bg">
                 <i class="icon i_list6"></i>
                 <span>防沉迷验证</span>
                 <span class="icon i_go"></span>
@@ -109,7 +119,7 @@
     <!--div.z_min 内容区域 end-->
 </div>
 <!--div.container 总外框  end-->
-<?php include $this->getScriptPath().'/footer.phtml'; ?>
+<?php include $this->getScriptPath() . '/footer.phtml'; ?>
 <script src="/public/scripts/jquery-1.11.1.min.js"></script>
 <script>$('#footer a:eq(4)').attr('id', 'footer_nav_active');</script>
 <script>
@@ -127,12 +137,13 @@
         }
         return flag;
     }
+
     function jump_qq(obj) {
-        var qq=$(obj).attr('data-id');
-        if(IsPC()){
-            window.open("http://wpa.qq.com/msgrd?v=3&uin="+qq+"&site=qq&menu=yes");
-        }else{
-            window.open("mqqwpa://im/chat?chat_type=wpa&uin="+qq+"&version=1&src_type=web&web_src=oicqzone.com");
+        var qq = $(obj).attr('data-id');
+        if (IsPC()) {
+            window.open("http://wpa.qq.com/msgrd?v=3&uin=" + qq + "&site=qq&menu=yes");
+        } else {
+            window.open("mqqwpa://im/chat?chat_type=wpa&uin=" + qq + "&version=1&src_type=web&web_src=oicqzone.com");
         }
     }
 </script>
