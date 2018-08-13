@@ -104,7 +104,7 @@ class IndexController extends Yaf_Controller_Abstract
 
         //公告列表
         $m_article=new ArticleModel();
-        $articles=$m_article->fetchAll(['type'=>'代理公告']);
+        $articles=$m_article->fetchAll(['type'=>'代理公告'],$pn = 1, $limit = 20, $selects = '*', $orderby = 'add_time desc');
         $this->getView()->assign('articles',$articles);
 //		$mem = new Memcache();
 //		$mem->addServer('127.0.0.1');
