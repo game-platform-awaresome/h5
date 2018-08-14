@@ -18,8 +18,8 @@ class TgstatisticsModel extends F_Model_Pdo
 	            $tmp = $model->fetch(['admin_id'=>$row['channel']],'username');
 	            return $tmp ? $tmp['username'] : '-';
 	        },
-	        'pv' => '访问量',
-	        'ip' => '独立IP数',
+//	        'pv' => '访问量',
+//	        'ip' => '独立IP数',
 	        'reg_people' => '注册人数',
 	        'pay_times' => '付费次数',
 	        'pay_people' => '付费人数',
