@@ -382,7 +382,8 @@ class UsersModel extends F_Model_Pdo
 	        $sess = Yaf_Session::getInstance();
 	        $channel_id = $sess->get('user');
 	        if( empty($channel_id) ) {
-	            $channel_id = isset($_COOKIE['user']) ? $_COOKIE['user'] : 0;
+//	            $channel_id = isset($_COOKIE['user']) ? $_COOKIE['user'] : 0;
+	            $channel_id=1;
 	        }
 	        try {
                 $rs = $this->insert(array(

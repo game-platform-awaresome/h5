@@ -91,10 +91,13 @@ class GameModel extends F_Model_Pdo
 		        if( empty($row) ) return '图标';
 		        return $row['logo'] ? "<a class=\"lightbox\" href=\"{$row['logo']}\"><img style=\"max-width:32px;\" src=\"{$row['logo']}\"></a>" : '';
 		    },
-		    'support' => '人气',
-		    'grade' => '评级',
+		    'support' => function(&$row){
+                if( empty($row) ) return '推广链接';
+                return "http://h5.zyttx.com/game/play.html?game_id={$row['game_id']}&user={$_SESSION['admin_id']}";
+            },
+//		    'grade' => '评级',
 //		    'weight' => '排序',
-		    'version' => '当前版本',
+//		    'version' => '当前版本',
 //		    'trade_money' => '总流水',
 //			'play_times' => '游戏次数',
 		    'add_time' => function(&$row){
