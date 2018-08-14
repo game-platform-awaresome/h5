@@ -180,29 +180,29 @@ class UsersModel extends F_Model_Pdo
             } else {
                 $username = "{$app}_{$info['nickname']}";
             }
-            $check = uc_user_checkname($username);
-            if( $check != 1 ) {
-                $username = "{$app}_".substr(md5($info['openid']), 0, 8);
-                $check = uc_user_checkname($username);
-                if( $check != 1 ) {
-                    $username = "{$app}_".uniqid();
-                }
-            }
+//            $check = uc_user_checkname($username);
+//            if( $check != 1 ) {
+//                $username = "{$app}_".substr(md5($info['openid']), 0, 8);
+//                $check = uc_user_checkname($username);
+//                if( $check != 1 ) {
+//                    $username = "{$app}_".uniqid();
+//                }
+//            }
             
             $nickname = $info['nickname'];
             $password = substr(md5("{$info['openid']}#{$app}"), 8, 16);
             $email = '';
-            $uid = uc_user_register($username, $password, '');
-            if( $uid < 1 ) {
-                switch ($uid)
-                {
-                    case -3: //用户名已经存在
-                        $user = uc_get_user($username);
-                        $uid = $user[0];
-                        break;
-                    default: return $uid.' 用户数据同步失败，请重试！';
-                }
-            }
+//            $uid = uc_user_register($username, $password, '');
+//            if( $uid < 1 ) {
+//                switch ($uid)
+//                {
+//                    case -3: //用户名已经存在
+//                        $user = uc_get_user($username);
+//                        $uid = $user[0];
+//                        break;
+//                    default: return $uid.' 用户数据同步失败，请重试！';
+//                }
+//            }
             
             $sess = Yaf_Session::getInstance();
             $channel_id = $sess->get('channel_id');
@@ -214,7 +214,7 @@ class UsersModel extends F_Model_Pdo
                 $info['openid'] = md5($info['openid']);
             }
             $rs = $this->insert(array(
-                'user_id' => $uid,
+//                'user_id' => $uid,
                 'app' => $app,
                 'openid' => $info['openid'],
                 'password' => $password,
