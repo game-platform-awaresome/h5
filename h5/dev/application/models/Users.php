@@ -205,9 +205,9 @@ class UsersModel extends F_Model_Pdo
 //            }
             
             $sess = Yaf_Session::getInstance();
-            $channel_id = $sess->get('channel_id');
+            $channel_id = $sess->get('user');
             if( empty($channel_id) ) {
-                $channel_id = isset($_COOKIE['channel_id']) ? $_COOKIE['channel_id'] : 0;
+                $channel_id = 1;
             }
             
             if( strlen($info['openid']) > 32 ) {
