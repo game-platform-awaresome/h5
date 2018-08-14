@@ -22,10 +22,12 @@ class StatbygameController extends F_Controller_Backend
                     $m_bygame->update($people, $conds."admin_id={$admin_id} AND game_id='{$people['game_id']}'");
                 } else {
                     $game = $m_game->fetch("game_id='{$people['game_id']}'", 'name,dev_id');
-                    $people['game_name'] = $game['name'];
-                    $people['dev_id'] = $game['dev_id'];
-                    $people['admin_id'] = $admin_id;
-                    $m_bygame->insert($people, false);
+                    if($game) {
+                        $people['game_name'] = $game['name'];
+                        $people['dev_id'] = $game['dev_id'];
+                        $people['admin_id'] = $admin_id;
+                        $m_bygame->insert($people, false);
+                    }
                 }
             }
         }
