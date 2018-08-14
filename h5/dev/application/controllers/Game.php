@@ -458,6 +458,7 @@ class GameController extends Yaf_Controller_Abstract
         $condition="start_time between '{$three_day_befor}' and '{$three_day_after}'";
         if( $tc == 0 ) {
             $condition.=" and start_time< '{$now_time}'";//已开新服,时间大于当前,前三天
+            $order = 'start_time desc';
             $servers = $m_server->fetchAll($condition, $pn, $limit, $selects, $order);
         } elseif( $tc == 1) {
             $condition.=" and start_time> '{$now_time}'";//新服预告
