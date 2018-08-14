@@ -72,7 +72,7 @@ class AdminController extends F_Controller_Backend
 
         if( empty($id) ) {
             $login = $this->_model->getLogin();
-            $info['add_by'] = $login['username'];
+            $info['add_by'] = trim($login['username']);
             $info['parent_id']=$login['admin_id'];
             $info['add_ip'] = $_SERVER['REMOTE_ADDR'];
             if($login['admin_id']==0){

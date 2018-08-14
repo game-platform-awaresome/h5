@@ -230,7 +230,8 @@ class UsersModel extends F_Model_Pdo
                 'login_day' => date('Ymd'),
                 'login_times' => 1,
                 'tg_channel' => $channel_id,
-            ), false);
+            ), true);
+            $uid=$rs;
             if( ! $rs ) {
                 return '用户数据保存失败，请重试！';
             }
