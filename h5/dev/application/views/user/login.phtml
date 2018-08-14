@@ -25,22 +25,22 @@
             <a target="_top" href="/user/register.html<?=$fwd ? '?fwd='.urlencode($fwd) : ''?>" class="register_btn" style="float: left">注册</a>
             </div>
         </form>
-<!--        <section class="login_nav">-->
-<!--            <h3>-->
-<!--                <span class="line_through"></span>-->
-<!--                <span class="center_word">快速登录:</span>-->
-<!--                <span class="line_through"></span>-->
-<!--            </h3>-->
-<!--            <nav >-->
-<!--                <span class="split_h"></span>-->
-<!--                <a href="javascript:void(0)" class="left_btn" id="wx_login">-->
-<!--                    <i class="logos weixin_img"></i><span>微信登录</span>-->
-<!--                </a>-->
-<!--                <a target="_top" href="/user/qqlogin.html--><?//=$fwd ? '?fwd='.urlencode($fwd) : ''?><!--" class="right_btn" style="text-indent:50px">-->
-<!--                    <i class="logos qq_img"></i><span>QQ登录</span>-->
-<!--                </a>-->
-<!--            </nav>-->
-<!--        </section>-->
+        <section class="login_nav">
+            <h3>
+                <span class="line_through"></span>
+                <span class="center_word">快速登录:</span>
+                <span class="line_through"></span>
+            </h3>
+            <nav >
+                <span class="split_h"></span>
+                <a href="javascript:void(0)" class="left_btn" id="wx_login">
+                    <i class="logos weixin_img"></i><span>微信登录</span>
+                </a>
+                <a target="_top" href="/user/qqlogin.html<?=$fwd ? '?fwd='.urlencode($fwd) : ''?>" class="right_btn" style="text-indent:50px">
+                    <i class="logos qq_img"></i><span>QQ登录</span>
+                </a>
+            </nav>
+        </section>
         
         <section class="bottom_btns">
             <div class="box1">
@@ -129,6 +129,8 @@ $(function(){
 	});
 
 	$('#wx_login').on('tap', function(){
+	    alert('正在开发，敬请期待！');
+	    return false;
 		if( navigator.userAgent.indexOf('MicroMessenger') == -1 ) {
 			alert('请在微信中打开此页面，再使用微信登录功能！');
 		} else {
