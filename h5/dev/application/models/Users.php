@@ -168,8 +168,8 @@ class UsersModel extends F_Model_Pdo
 	 */
 	public function oAuthLogin($app, $info)
     {
-        require_once APPLICATION_PATH.'/config.inc.php';
-        require_once APPLICATION_PATH.'/uc_client/client.php';
+//        require_once APPLICATION_PATH.'/config.inc.php';
+//        require_once APPLICATION_PATH.'/uc_client/client.php';
         $time = time();
         
         $user = $this->fetch("app='{$app}' AND openid='{$info['openid']}'", 'user_id,username,nickname,`password`,email,expires,login_times,tg_channel');
