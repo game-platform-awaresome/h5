@@ -38,8 +38,8 @@ class InfoController extends Yaf_Controller_Abstract
 	    } else {
 	        exit;
 	    }
-	    
-	    $list = $m_article->fetchAll($conds, $pn, $limit, 'article_id,cover,title,up_time', 'weight ASC,article_id DESC');
+        $conds .= " and type!='代理公告'";//过滤公告
+        $list = $m_article->fetchAll($conds, $pn, $limit, 'article_id,cover,title,up_time', 'weight ASC,article_id DESC');
 	    foreach ($list as &$row)
 	    {
 	        $row['up_time'] = $m_article->formatTime($row['up_time']);
