@@ -56,7 +56,7 @@ class UserController extends Yaf_Controller_Abstract
             $channel_info=$cps_admin->fetch(['admin_id'=>1]);
             $user['qq1']=$channel_info['qq1'];
         }
-        if(!$channel_info['qq1']){
+        if(!$channel_info['qq2']){
             //查找管理员的
             $channel_info=$cps_admin->fetch(['admin_id'=>1]);
             $user['qq2']=$channel_info['qq2'];
