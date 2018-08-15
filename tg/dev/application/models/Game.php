@@ -95,6 +95,12 @@ class GameModel extends F_Model_Pdo
                 if( empty($row) ) return '推广链接';
                 return "http://h5.zyttx.com/game/play.html?game_id={$row['game_id']}&user={$_SESSION['admin_id']}";
             },
+            'material_url' =>
+                function(&$row){
+                    if( empty($row) ) return '素材下载';
+                    return "<a href=\"{$row['material_url']}\">{$row['material_url']}</a>";
+                }
+            ,
 //		    'grade' => '评级',
 //		    'weight' => '排序',
 //		    'version' => '当前版本',

@@ -89,6 +89,12 @@ class GameModel extends F_Model_Pdo
 		    'version' => '当前版本',
 		    'trade_money' => '总流水',
 			'play_times' => '游戏次数',
+			'material_url' =>
+                function(&$row){
+                    if( empty($row) ) return '素材下载';
+                    return "<a href=\"{$row['material_url']}\">{$row['material_url']}</a>";
+                }
+            ,
 		    'add_time' => function(&$row){
 		        if( empty($row) ) return '添加时间';
 		        return substr($row['add_time'], 0, 10);
