@@ -31,7 +31,8 @@
                 <span class="center_word">快速登录:</span>
                 <span class="line_through"></span>
             </h3>
-            <nav >
+            <?if($_SERVER['SERVER_NAME']=='h5.zyttx.com'):?>
+            <nav>
                 <span class="split_h"></span>
                 <a href="javascript:void(0)" class="left_btn" id="wx_login">
                     <i class="logos weixin_img"></i><span>微信登录</span>
@@ -40,6 +41,7 @@
                     <i class="logos qq_img"></i><span>QQ登录</span>
                 </a>
             </nav>
+            <?php endif;?>
         </section>
         
         <section class="bottom_btns">
