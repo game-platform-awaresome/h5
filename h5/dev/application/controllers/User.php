@@ -726,7 +726,7 @@ class UserController extends Yaf_Controller_Abstract
 	    
 	    $conf = Yaf_Application::app()->getConfig();
 	    $appid = $conf->qq->appid;
-	    $domain_old = isset($_SERVER['HTTP_HOST']) ? $_SERVER['HTTP_HOST'] : $_SERVER['SERVER_NAME'];
+	    $domain_old =isset($_SERVER['HTTP_HOST']) ? $_SERVER['HTTP_HOST'] : $_SERVER['SERVER_NAME'];
         if($domain_old!='h5.zyttx.com'){
             //缓存域名,登录成功后跳转
             $_SESSION['qq_back_url']=$domain_old;

@@ -16,7 +16,7 @@ class F_Helper_Url
      * 获取域名中代理的标识
      */
     function getUrlSign(){
-        $url=$_SERVER['SERVER_NAME'];
+        $url=isset($_SERVER['HTTP_HOST']) ? $_SERVER['HTTP_HOST'] : $_SERVER['SERVER_NAME'];
         $info=explode('.',$url);
         if(is_numeric($info[0])){
             return $info[0];//三级代理域名
