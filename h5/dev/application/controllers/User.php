@@ -35,6 +35,16 @@ class UserController extends Yaf_Controller_Abstract
     //个人中心主页
     public function indexAction()
     {
+        $ip=$_SERVER['REMOTE_ADDR'];
+        $host = Yaf_Registry::get('config')->redis->host;
+        $port = Yaf_Registry::get('config')->redis->port;
+        $conf=array('host'=>$host,'port'=>$port);
+        $redis=F_Helper_Redis::getInstance($conf);
+        if($redis->get('back_url'.$ip)){
+            $domain=$redis->get('back_url');
+            $redis->del('back_url'.$ip);
+            $this->redirect('http://'.$domain.'/user/index');
+        }
         $this->m_user = new UsersModel();
         $this->user = $this->m_user->getLogin();
         
@@ -735,7 +745,7 @@ class UserController extends Yaf_Controller_Abstract
             $port = Yaf_Registry::get('config')->redis->port;
             $conf=array('host'=>$host,'port'=>$port);
             $redis=F_Helper_Redis::getInstance($conf);
-            $redis->set('back_url'.$ip,$_SERVER['REMOTE_HOST']);
+            $redis->set('back_url'.$ip,$_SERVER['HTTP_HOST']);
         }
 	    $domain = 'h5.zyttx.com';
 	    $callback = "http://{$domain}/user/qqcallback.html";
@@ -782,17 +792,7 @@ class UserController extends Yaf_Controller_Abstract
 	    $conf = Yaf_Application::app()->getConfig();
 	    $appid = $conf->qq->appid;
 	    $appkey = $conf->qq->appkey;
-	    $ip=$_SERVER['REMOTE_ADDR'];
-        $host = Yaf_Registry::get('config')->redis->host;
-        $port = Yaf_Registry::get('config')->redis->port;
-        $conf=array('host'=>$host,'port'=>$port);
-        $redis=F_Helper_Redis::getInstance($conf);
-	    if($redis->get('back_url'.$ip)){
-	        $domain=$redis->get('back_url');
-            $redis->del('back_url'.$ip);
-        }else{
-            $domain = isset($_SERVER['HTTP_HOST']) ? $_SERVER['HTTP_HOST'] : $_SERVER['SERVER_NAME'];
-        }
+        $domain = isset($_SERVER['HTTP_HOST']) ? $_SERVER['HTTP_HOST'] : $_SERVER['SERVER_NAME'];
 	    $callback = urlencode("http://{$domain}/user/qqcallback.html");
 	    
 	    //$log = new F_Helper_Log();
