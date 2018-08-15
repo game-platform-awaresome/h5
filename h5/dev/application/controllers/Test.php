@@ -128,7 +128,7 @@ class TestController extends Yaf_Controller_Abstract
             $conf=array('host'=>$host,'port'=>$port);
             $redis=F_Helper_Redis::getInstance($conf);
             $redis->set('test',111);
-            var_dump($redis->set('test'));
+            var_dump($redis->get('test'));
             die;
         }
 
