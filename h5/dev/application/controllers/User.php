@@ -9,20 +9,21 @@ class UserController extends Yaf_Controller_Abstract
     private function getForward($referer = true)
     {
         $fwd = $this->getRequest()->get('fwd', '');
-        if( $fwd ) $fwd = urldecode($fwd);
-        if( ! $referer ) return $fwd;
-        if( empty($fwd) && !empty($_SERVER['HTTP_REFERER']) ) {
-            $fwd = $_SERVER['HTTP_REFERER'];
-            /*
-            if( $fwd && strpos($fwd, '?') ) {
-                $query = substr($fwd, strpos($fwd, '?'));
-                parse_str($query, $arr);
-                if( $arr && !empty($arr['fwd']) ) {
-                    $fwd = urldecode($arr['fwd']);
-                }
-            }
-            */
-        }
+        $fwd=urldecode($fwd);
+//        if( $fwd ) $fwd = urldecode($fwd);
+//        if( ! $referer ) return $fwd;
+//        if( empty($fwd) && !empty($_SERVER['HTTP_REFERER']) ) {
+//            $fwd = $_SERVER['HTTP_REFERER'];
+//            /*
+//            if( $fwd && strpos($fwd, '?') ) {
+//                $query = substr($fwd, strpos($fwd, '?'));
+//                parse_str($query, $arr);
+//                if( $arr && !empty($arr['fwd']) ) {
+//                    $fwd = urldecode($arr['fwd']);
+//                }
+//            }
+//            */
+//        }
         return $fwd;
     }
     
