@@ -730,7 +730,12 @@ class UserController extends Yaf_Controller_Abstract
 	    $domain_old =isset($_SERVER['HTTP_HOST']) ? $_SERVER['HTTP_HOST'] : $_SERVER['SERVER_NAME'];
         if($domain_old!='h5.zyttx.com'){
             //缓存域名,登录成功后跳转
-            $_COOKIE['qq_back_url']=$domain_old;
+            $ip=$_SERVER['REMOTE_ADDR'];
+            $host = Yaf_Registry::get('config')->redis->host;
+            $port = Yaf_Registry::get('config')->redis->port;
+            $conf=array('host'=>$host,'port'=>$port);
+            $redis=F_Helper_Redis::getInstance($conf);
+            $redis->set('back_url'.$ip,$_SERVER['REMOTE_HOST']);
         }
 	    $domain = 'h5.zyttx.com';
 	    $callback = "http://{$domain}/user/qqcallback.html";
@@ -777,8 +782,14 @@ class UserController extends Yaf_Controller_Abstract
 	    $conf = Yaf_Application::app()->getConfig();
 	    $appid = $conf->qq->appid;
 	    $appkey = $conf->qq->appkey;
-	    if($_COOKIE['qq_back_url']){
-	        $domain=$_COOKIE['qq_back_url'];
+	    $ip=$_SERVER['REMOTE_ADDR'];
+        $host = Yaf_Registry::get('config')->redis->host;
+        $port = Yaf_Registry::get('config')->redis->port;
+        $conf=array('host'=>$host,'port'=>$port);
+        $redis=F_Helper_Redis::getInstance($conf);
+	    if($redis->get('back_url'.$ip)){
+	        $domain=$redis->get('back_url');
+            $redis->del('back_url'.$ip);
         }else{
             $domain = isset($_SERVER['HTTP_HOST']) ? $_SERVER['HTTP_HOST'] : $_SERVER['SERVER_NAME'];
         }
