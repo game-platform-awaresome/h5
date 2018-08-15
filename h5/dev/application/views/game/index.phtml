@@ -104,11 +104,13 @@
             <!--div.game_news 快速通道  end-->
             <?php
             //第一次缓存链接
-            $g=$_GET['user']??1;
             $session=Yaf_Session::getInstance();
             if($session->has('user')){
                 $g=$session->get('user');
             }else{
+                //优先使用域名判断
+                $url=new F_Helper_Url();
+                $g=$url->getUrlSign();
                 $session->set('user',$g);
             }
             ?>

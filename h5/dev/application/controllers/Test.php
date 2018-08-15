@@ -116,4 +116,10 @@ class TestController extends Yaf_Controller_Abstract
 
         }
 
+        function urlAction(){
+           $url= new F_Helper_Url();
+           $url->getUrlSign();
+           die;
+        }
+
 }

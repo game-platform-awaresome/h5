@@ -726,7 +726,12 @@ class UserController extends Yaf_Controller_Abstract
 	    
 	    $conf = Yaf_Application::app()->getConfig();
 	    $appid = $conf->qq->appid;
-	    $domain = isset($_SERVER['HTTP_HOST']) ? $_SERVER['HTTP_HOST'] : $_SERVER['SERVER_NAME'];
+	    $domain_old = isset($_SERVER['HTTP_HOST']) ? $_SERVER['HTTP_HOST'] : $_SERVER['SERVER_NAME'];
+        if($domain_old!='h5.zyttx.com'){
+            //缓存域名,登录成功后跳转
+            $_SESSION['qq_back_url']=$domain_old;
+        }
+	    $domain = 'h5.zyttx.com';
 	    $callback = "http://{$domain}/user/qqcallback.html";
 	    if( $fwd ) {
 	        $callback .= '?fwd='.urlencode($fwd);
@@ -772,7 +777,11 @@ class UserController extends Yaf_Controller_Abstract
 	    $conf = Yaf_Application::app()->getConfig();
 	    $appid = $conf->qq->appid;
 	    $appkey = $conf->qq->appkey;
-	    $domain = isset($_SERVER['HTTP_HOST']) ? $_SERVER['HTTP_HOST'] : $_SERVER['SERVER_NAME'];
+	    if($_SESSION['qq_back_url']){
+	        $domain=$_SESSION['qq_back_url'];
+        }else{
+            $domain = isset($_SERVER['HTTP_HOST']) ? $_SERVER['HTTP_HOST'] : $_SERVER['SERVER_NAME'];
+        }
 	    $callback = urlencode("http://{$domain}/user/qqcallback.html");
 	    
 	    //$log = new F_Helper_Log();

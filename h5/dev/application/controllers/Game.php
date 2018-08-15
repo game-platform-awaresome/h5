@@ -279,7 +279,9 @@ class GameController extends Yaf_Controller_Abstract
 	    if( empty($user) ) {
 	        //缓存渠道id
             if(!$_SESSION['user']) {
-                $_SESSION['user'] = $_GET['user'] ?? 1;
+                $url=new F_Helper_Url();
+                $g=$url->getUrlSign();
+                $_SESSION['user'] = $g;
             }
 	        $this->redirect('/user/login.html?fwd='.urlencode("/game/play.html?game_id={$game_id}&server_id={$server_id}"));
 	        return false;
