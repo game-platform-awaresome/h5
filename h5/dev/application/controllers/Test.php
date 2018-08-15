@@ -122,5 +122,12 @@ class TestController extends Yaf_Controller_Abstract
            $url->getUrlSign();
            die;
         }
+        function redisAction(){
+            $host = Yaf_Registry::get('config')->redis->host;
+            $port = Yaf_Registry::get('config')->redis->port;
+            $conf=array('host'=>$host,'port'=>$port);
+            $redis=F_Helper_Redis::getInstance($conf);
+            var_dump($redis);
+        }
 
 }
