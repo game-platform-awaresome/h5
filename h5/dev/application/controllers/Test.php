@@ -117,6 +117,7 @@ class TestController extends Yaf_Controller_Abstract
         }
 
         function urlAction(){
+           var_dump($_SERVER['HTTP_HOST']);
            $url= new F_Helper_Url();
            $url->getUrlSign();
            die;
