@@ -376,17 +376,17 @@ class GameController extends Yaf_Controller_Abstract
 	{
 	    $req = $this->getRequest();
 	    $params = $req->getParams();
-//	    if( count($params) != 3 || empty($params['game_name']) || empty($params['url']) || empty($params['load_type']) ) {
-//	        $this->redirect('/game/index.html');
-//	        return false;
-//	    }
+	    if( count($params) != 3 || empty($params['game_name']) || empty($params['url']) || empty($params['load_type']) ) {
+	        $this->redirect('/game/index.html');
+	        return false;
+	    }
 	    
-//	    if( $params['load_type'] == 'redirect' ) {
+	    if( $params['load_type'] == 'redirect' ) {
 	        $this->redirect($params['url']);
-//	        return false;
-//	    }
+	        return false;
+	    }
 	    
-//	    $this->getView()->assign($params);
+	    $this->getView()->assign($params);
 	}
 	
 	//搜索

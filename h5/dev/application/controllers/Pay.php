@@ -432,10 +432,10 @@ class PayController extends Yaf_Controller_Abstract
 	    }
 	    
 	    //iapppay返回
-	    if( isset($_GET['transdata']) ) {
-	        $class = new Pay_Iapppay_Mobile();
-	        $rs = $class->result();
-	    }
+//	    if( isset($_GET['transdata']) ) {
+//	        $class = new Pay_Iapppay_Mobile();
+//	        $rs = $class->result();
+//	    }
 	    //金猪返回
         if(isset($_GET['orderId'])){
             $class = new Pay_Pigpay_Mobile();
