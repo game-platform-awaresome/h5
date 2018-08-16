@@ -448,19 +448,19 @@ class PayController extends Yaf_Controller_Abstract
 	    if( $rs ) {
 	        $pay = $this->m_pay->fetch("pay_id='{$rs['pay_id']}'", 'pay_id,user_id,username,to_uid,to_user,game_id,server_id,game_name,money,cp_order,cp_return,channel,extra');
 	    }
-	    if( isset($pay) && $pay['channel'] == 'egret' ) {
-//	        if( $pay['server_id'] ) {
-//	            $m_server = new ServerModel();
-//	            $server = $m_server->fetch("server_id='{$pay['server_id']}'", 'load_type');
-//	            $load_type = $server['load_type'];
-//	        } else {
-	            $m_game = new GameModel();
-	            $game = $m_game->fetch("game_id='{$pay['game_id']}'", 'load_type');
-	            $load_type = $game['load_type'];
-//	        }
-	        $this->forward('game', 'entry', array('game_name'=>$pay['game_name'], 'url'=>$pay['cp_return'], 'load_type'=>$load_type));
-            return false;
-	    }
+//	    if( isset($pay) && $pay['channel'] == 'egret' ) {
+////	        if( $pay['server_id'] ) {
+////	            $m_server = new ServerModel();
+////	            $server = $m_server->fetch("server_id='{$pay['server_id']}'", 'load_type');
+////	            $load_type = $server['load_type'];
+////	        } else {
+//	            $m_game = new GameModel();
+//	            $game = $m_game->fetch("game_id='{$pay['game_id']}'", 'load_type');
+//	            $load_type = $game['load_type'];
+////	        }
+//	        $this->forward('game', 'entry', array('game_name'=>$pay['game_name'], 'url'=>$pay['cp_return'], 'load_type'=>$load_type));
+//            return false;
+//	    }
 	    if( isset($pay) && $pay['cp_return'] ) {
 //	        if( $pay['server_id'] ) {
 //	            $m_server = new ServerModel();

@@ -19,6 +19,7 @@ class Pay_Pigpay_Mobile
 //        $domain ="www.zyttx.com";
         $this->notify_url=$domain;
         $this->return_url=$domain;
+        //代理域名
         $config = Yaf_Registry::get('config')->goldpigpay;
         $this->userid=$config['userid'];
         $this->wooolID=$config['wooolID'];
