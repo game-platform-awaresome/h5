@@ -93,7 +93,9 @@ class GameModel extends F_Model_Pdo
 		    },
 		    'support' => function(&$row){
                 if( empty($row) ) return '推广链接';
-                return "http://h5.zyttx.com/game/play.html?game_id={$row['game_id']}&user={$_SESSION['admin_id']}";
+//                return "http://h5.zyttx.com/game/play.html?game_id={$row['game_id']}&user={$_SESSION['admin_id']}";
+                return "http://".$_SESSION["admin_id"].".h5.zyttx.com/game/play.html?game_id={$row['game_id']}&user={$_SESSION['admin_id']}";
+
             },
             'material_url' =>
                 function(&$row){
