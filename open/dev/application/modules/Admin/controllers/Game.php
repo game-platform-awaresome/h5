@@ -38,7 +38,7 @@ class GameController extends F_Controller_Backend
         }
         $params['conditions'] = $conds;
         
-        $params['orderby'] = 'weight ASC';
+        $params['orderby'] = 'id desc';
         return $params;
     }
     
