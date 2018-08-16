@@ -271,9 +271,18 @@ class GameController extends Yaf_Controller_Abstract
 	//进入游戏
 	public function playAction()
 	{
+        $ip=$this->getIp();
+        $host = Yaf_Registry::get('config')->redis->host;
+        $port = Yaf_Registry::get('config')->redis->port;
+        $conf=array('host'=>$host,'port'=>$port);
+        $redis=F_Helper_Redis::getInstance($conf);
+        if($redis->get('back_url'.$ip)){
+            $domain=$redis->get('back_url'.$ip);
+            $redis->del('back_url'.$ip);
+            $this->redirect('http://'.$domain.'/game/play');
+        }
 	    $game_id = $this->getRequest()->get('game_id', 0);
 	    $server_id = $this->getRequest()->get('server_id', 0);
-	    
 	    $m_user = new UsersModel();
 	    $user = $m_user->getLogin();
 	    if( empty($user) ) {
