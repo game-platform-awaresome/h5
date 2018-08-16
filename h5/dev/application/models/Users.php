@@ -235,7 +235,7 @@ class UsersModel extends F_Model_Pdo
 //            $rs = $this->update(array(
 //                'username' => 'qq'.$rs
 //            ),['user_id'=>$rs]);
-//            $uid=$rs;
+            $uid=$rs;
 //            $username='qq'.$rs;
             if( ! $rs ) {
                 return '用户数据保存失败，请重试！';
