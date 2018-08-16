@@ -278,8 +278,10 @@ class GameController extends Yaf_Controller_Abstract
         $redis=F_Helper_Redis::getInstance($conf);
         if($redis->get('back_url'.$ip)){
             $domain=$redis->get('back_url'.$ip);
+            $fwd=$redis->get('back_url_query'.$ip);
             $redis->del('back_url'.$ip);
-            $this->redirect('http://'.$domain.'/game/play');
+            $redis->del('back_url_query'.$ip);
+            $this->redirect('http://'.$domain.$fwd);
         }
 	    $game_id = $this->getRequest()->get('game_id', 0);
 	    $server_id = $this->getRequest()->get('server_id', 0);

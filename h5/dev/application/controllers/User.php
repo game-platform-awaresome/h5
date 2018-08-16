@@ -746,6 +746,7 @@ class UserController extends Yaf_Controller_Abstract
             $conf=array('host'=>$host,'port'=>$port);
             $redis=F_Helper_Redis::getInstance($conf);
             $redis->set('back_url'.$ip,$_SERVER['HTTP_HOST']);
+            $redis->set('back_url_query'.$ip,$_REQUEST['fwd']);
         }
 	    $domain = 'h5.zyttx.com';
 	    $callback = "http://{$domain}/user/qqcallback.html";
