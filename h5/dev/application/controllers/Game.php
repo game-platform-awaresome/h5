@@ -271,8 +271,7 @@ class GameController extends Yaf_Controller_Abstract
 	//进入游戏
 	public function playAction()
 	{
-	    $user=new UserController();
-        $ip=$user->getIp();
+        $ip=$this->getIp();
         $host = Yaf_Registry::get('config')->redis->host;
         $port = Yaf_Registry::get('config')->redis->port;
         $conf=array('host'=>$host,'port'=>$port);
@@ -491,5 +490,17 @@ class GameController extends Yaf_Controller_Abstract
 //            $row['support'] = $m_server->supportFormat($row['support'] + $row['play_times']);
 //        }
         $this->getView()->assign('servers', $servers);
+    }
+    //不同环境下获取真实的IP
+    function getIp(){
+        global $ip;
+        if (getenv("HTTP_CLIENT_IP"))
+            $ip = getenv("HTTP_CLIENT_IP");
+        else if(getenv("HTTP_X_FORWARDED_FOR"))
+            $ip = getenv("HTTP_X_FORWARDED_FOR");
+        else if(getenv("REMOTE_ADDR"))
+            $ip = getenv("REMOTE_ADDR");
+        else $ip = "Unknow";
+        return $ip;
     }
 }
