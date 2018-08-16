@@ -73,7 +73,7 @@ class ApiController extends Yaf_Controller_Abstract
         $arr['type'] = 'pigpay';
         $game_id=$req->get('game_id',0);
         if($game_id){
-            $cp_return="http://h5.zyttx.com/game/play.html?game_id={$req->get('game_id')}";
+            $cp_return="http://".$_SERVER['HTTP_HOST']."/game/play.html?game_id={$req->get('game_id')}";
         }else{
             $cp_return=$req->get('cp_return','');
         }
