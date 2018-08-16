@@ -33,7 +33,7 @@ class GameController extends F_Controller_Backend
         }
         $params['conditions'] = $conds;
         $params['op'] = F_Helper_Html::Op_Null;
-        $params['orderby'] = 'weight ASC';
+        $params['orderby'] = 'game_id ASC';
         return $params;
     }
     

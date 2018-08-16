@@ -38,7 +38,7 @@ class GameController extends F_Controller_Backend
         }
         $params['conditions'] = $conds;
         
-        $params['orderby'] = 'id desc';
+        $params['orderby'] = 'game_id desc';
         return $params;
     }
     
