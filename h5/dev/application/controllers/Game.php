@@ -30,6 +30,7 @@ class GameController extends Yaf_Controller_Abstract
         $conf=array('host'=>$host,'port'=>$port);
         $redis=F_Helper_Redis::getInstance($conf);
         //缓存域名，后面跳转使用
+
         $redis->set('global_url'.$ip,$_SESSION['HTTP_HOST']);
         Yaf_Registry::set('layout', false);
     }
