@@ -15,8 +15,8 @@ class Pay_Pigpay_Mobile
     private $wooolID;//商户平台id
     public function __construct()
     {
-        $domain = empty($_SERVER['SERVER_NAME']) ? $_SERVER['HTTP_HOST'] : $_SERVER['SERVER_NAME'];
-        $domain ="www.zyttx.com";
+        $domain = empty($_SERVER['HTTP_HOST']) ? $_SERVER['HTTP_HOST'] : $_SERVER['SERVER_NAME'];
+//        $domain ="www.zyttx.com";
         $this->notify_url=$domain;
         $this->return_url=$domain;
         $config = Yaf_Registry::get('config')->goldpigpay;
