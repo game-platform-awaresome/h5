@@ -232,9 +232,9 @@ class UsersModel extends F_Model_Pdo
                 'tg_channel' => $channel_id,
             ), true);
             //统一修改用户名
-            $rs = $this->update(array(
-                'username' => $rs.'qq'
-            ),['user_id'=>$rs]);
+//            $rs = $this->update(array(
+//                'username' => 'qq'.$rs
+//            ),['user_id'=>$rs]);
             $uid=$rs;
             if( ! $rs ) {
                 return '用户数据保存失败，请重试！';
