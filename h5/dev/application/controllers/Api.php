@@ -78,7 +78,7 @@ class ApiController extends Yaf_Controller_Abstract
             $port = Yaf_Registry::get('config')->redis->port;
             $conf=array('host'=>$host,'port'=>$port);
             $redis=F_Helper_Redis::getInstance($conf);
-            $back_url=$redis->get('global_url'.$ip)??$_SERVER['HTTP_HOST'];
+            $back_url=$redis->get('global_url'.$ip);
             $cp_return="http://".$back_url."/game/play.html?game_id={$req->get('game_id')}";
         }else{
             $cp_return=$req->get('cp_return','');
