@@ -271,7 +271,8 @@ class GameController extends Yaf_Controller_Abstract
 	//进入游戏
 	public function playAction()
 	{
-        $ip=$this->getIp();
+	    $user=new UserController();
+        $ip=$user->getIp();
         $host = Yaf_Registry::get('config')->redis->host;
         $port = Yaf_Registry::get('config')->redis->port;
         $conf=array('host'=>$host,'port'=>$port);
