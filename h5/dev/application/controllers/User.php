@@ -45,6 +45,8 @@ class UserController extends Yaf_Controller_Abstract
             $redis->del('back_url'.$ip);
             $this->redirect('http://'.$domain.'/user/index');
         }
+        //缓存域名，后面跳转使用
+        $redis->set('global_url'.$ip,$_SESSION['HTTP_HOST']);
         $this->m_user = new UsersModel();
         $this->user = $this->m_user->getLogin();
         
