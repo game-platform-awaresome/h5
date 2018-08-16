@@ -29,14 +29,6 @@ class UserController extends Yaf_Controller_Abstract
     
     public function init()
     {
-        $ip=$this->getIp();
-        $host = Yaf_Registry::get('config')->redis->host;
-        $port = Yaf_Registry::get('config')->redis->port;
-        $conf=array('host'=>$host,'port'=>$port);
-        $redis=F_Helper_Redis::getInstance($conf);
-        //缓存域名，后面跳转使用
-        $redis->set('global_url'.$ip,$_SERVER['HTTP_HOST']);
-
         Yaf_Registry::set('layout', false);
     }
     
@@ -179,6 +171,13 @@ class UserController extends Yaf_Controller_Abstract
 	//登录界面
 	public function loginAction()
 	{
+        $ip=$this->getIp();
+        $host = Yaf_Registry::get('config')->redis->host;
+        $port = Yaf_Registry::get('config')->redis->port;
+        $conf=array('host'=>$host,'port'=>$port);
+        $redis=F_Helper_Redis::getInstance($conf);
+        //缓存域名，后面跳转使用
+        $redis->set('global_url'.$ip,$_SERVER['HTTP_HOST']);
 	    $this->m_user = new UsersModel();
 	    $this->user = $this->m_user->getLogin();
 	    if( $this->user ) {
