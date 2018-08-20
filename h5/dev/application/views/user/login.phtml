@@ -35,7 +35,7 @@
             <nav>
                 <span class="split_h"></span>
                 <a href="javascript:void(0)" class="left_btn" id="wx_login">
-                    <i class="logos weixin_img"></i><span>微信登录</span>
+                    <i class="logos phone_login"></i><span>手机登录</span>
                 </a>
                 <a target="_top" href="/user/qqlogin.html<?=$fwd ? '?fwd='.urlencode($fwd) : ''?>" class="right_btn" style="text-indent:50px">
                     <i class="logos qq_img"></i><span>QQ登录</span>
@@ -131,12 +131,12 @@ $(function(){
 	});
 
 	$('#wx_login').on('tap', function(){
-	    // alert('正在开发，敬请期待！');
-	    // return false;
+	    alert('正在开发，敬请期待！');
+	    return false;
 		// if( navigator.userAgent.indexOf('MicroMessenger') == -1 ) {
 		// 	alert('请在微信中打开此页面，再使用微信登录功能！');
 		// } else {
-			location.href = '/user/wxlogin.html<?=$fwd ? '?fwd='.urlencode($fwd) : ''?>';
+		//	location.href = '/user/wxlogin.html<?//=$fwd ? '?fwd='.urlencode($fwd) : ''?>//';
 		// }
 	});
 
