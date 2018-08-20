@@ -901,7 +901,8 @@ class UserController extends Yaf_Controller_Abstract
 	    $state = uniqid('dxj', true);
 	    Yaf_Session::getInstance()->set('wx_state', $state);
 	    
-	    $url = "https://open.weixin.qq.com/connect/oauth2/authorize?appid={$appid}&redirect_uri={$callback}&response_type=code&scope=snsapi_userinfo&state={$state}#wechat_redirect";
+//	    $url = "https://open.weixin.qq.com/connect/oauth2/authorize?appid={$appid}&redirect_uri={$callback}&response_type=code&scope=snsapi_userinfo&state={$state}#wechat_redirect";
+	    $url = "https://open.weixin.qq.com/connect/oauth2/authorize?appid={$appid}&redirect_uri={$callback}&response_type=code&scope=snsapi_login&state={$state}#wechat_redirect";
 	    $this->redirect($url);
 	    return false;
 	}
