@@ -48,8 +48,7 @@ class F_Helper_Redis
         $this->port        =    $config['port'] ? $config['port'] : 6379;
         $this->host        =    $config['host'];
         $this->redis->connect($this->host, $this->port, $this->attr['timeout']);
-
-        if($config['auth'])
+        if($config['auth']??false)
         {
             $this->auth($config['auth']);
             $this->auth    =    $config['auth'];
@@ -76,11 +75,12 @@ class F_Helper_Redis
             $attr['db_id']    =    $dbId;
         }
 
-        $attr['db_id']    =    $attr['db_id'] ? $attr['db_id'] : 0;
+        $attr['db_id']    =    isset($attr['db_id']) ? $attr['db_id'] : 0;
 
 
         $k    =    md5(implode('', $config).$attr['db_id']);
-        if(! (static::$_instance[$k] instanceof self))
+        $attr['db_id']    =    isset($attr['db_id']) ? $attr['db_id'] : 0;
+        if(! (@static::$_instance[$k] instanceof self))
         {
 
             static::$_instance[$k] = new self($config,$attr);
