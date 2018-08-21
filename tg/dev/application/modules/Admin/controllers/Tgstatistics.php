@@ -14,9 +14,13 @@ class TgstatisticsController extends F_Controller_Backend
         foreach ($stat as $row)
         {
             if(!$m_stat->fetch(['channel'=>$row['channel']])) {
-                $stat_id = $m_stat->insert($row);
+                $m_stat->insert($row);
+            }else{
+                $m_stat->update($row,"channel='{$row['channel']}'");
             }
         }
+        unset($row);
+        unset($stat);
         //生成统计报表
         $m_pay = new PayModel();
         $stat = $m_pay->fetchAll("pay_time>0 AND pay_type<>'deposit' AND tg_channel in {$channel_ids} GROUP BY tg_channel",
