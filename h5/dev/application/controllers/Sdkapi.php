@@ -30,8 +30,9 @@ class SdkapiController extends Yaf_Controller_Abstract
         $request=$this->convertUrlQuery($request);
         $username=$request['username'];
         $password=$request['password'];
-        // $username='liuqi9';
-        // $password='123456';
+        if(!$username || !$password){
+            echo json_encode(['status'=>500,'msg'=>'请检查参数必填项']);
+        }
         $m_user=new UsersModel();
         if($user=$m_user->fetch(['username'=>$username,'password'=>md5($password)])){
             $data['status']=100;
@@ -53,7 +54,9 @@ class SdkapiController extends Yaf_Controller_Abstract
         $request=$this->convertUrlQuery($request);
         $username=$request['username'];
         $password=$request['password'];
-        // username&password&q_id&game_id&Device_Id&Android;
+        if(!$username || !$password){
+            echo json_encode(['status'=>500,'msg'=>'请检查参数必填项']);
+        }
         $m_user=new UsersModel();
         $data['username']=$username;
         $data['password']=md5($password);
@@ -78,7 +81,29 @@ class SdkapiController extends Yaf_Controller_Abstract
             $data['msg']='账号或密码错误';
         }
         }
-      
+        echo json_encode($data);
+    }
+
+    /**
+     * 修改密码
+     */
+    function changePwdAction(){
+        $request=urldecode($_REQUEST['data']);
+        $request=$this->convertUrlQuery($request);
+        $username=$request['username'];
+        $password=$request['password'];
+        if(!$username || !$password){
+            echo json_encode(['status'=>500,'msg'=>'请检查参数必填项']);
+        }
+//        String data = "username=&newpassword=";
+        $m_user=new UsersModel();
+        if($m_user->update(['password'=>md5($password)],['username'=>$username])){
+            $data['status']=100;
+            $data['msg']='修改成功';
+        }else{
+            $data['status']=404;
+            $data['msg']='账号或密码错误';
+        }
         echo json_encode($data);
     }
     function convertUrlQuery($query)
