@@ -65,7 +65,7 @@ class SdkapiController extends Yaf_Controller_Abstract
             $data['msg']='该账号已被使用';
         }else{
             if($user_id=$m_user->insert($data,true)){
-                $user=$m_user->fetch(['user_id',$user_id]);
+                $user=$m_user->fetch(['user_id'=>$user_id]);
                 $data['status']=100;
                 $info['user_id']=$user['user_id'];
                 $info['user_name']=$user['username'];
