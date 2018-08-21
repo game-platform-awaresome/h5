@@ -6,7 +6,7 @@
  * Time: 15:50
  */
 
-class Sdkapi extends Yaf_Controller_Abstract
+class SdkapiController extends Yaf_Controller_Abstract
 {
     /**
      * 登录接口
@@ -26,6 +26,9 @@ class Sdkapi extends Yaf_Controller_Abstract
         $q_id=$_REQUEST['qid'];
         $game_id=$_REQUEST['game_id'];
         $user=new UsersModel();
-//        if($)
+        echo json_encode(['code'=>1,'message'=>'登陆成功']);
+    }
+    function register(){
+        echo json_encode(['code'=>1,'message'=>'注册成功']);
     }
 }
