@@ -23,6 +23,7 @@ class SdkapiController extends Yaf_Controller_Abstract
     function init(){
         Yaf_Dispatcher::getInstance()->disableView();
     }
+    //登录
     function loginAction(){
 //        $_REQUEST['data']='username%3Dtest%26password%3D123456%26q_id%3Dnull%26game_id%3Dnull';
         $request=urldecode($_REQUEST['data']);
@@ -32,21 +33,53 @@ class SdkapiController extends Yaf_Controller_Abstract
         // $username='liuqi9';
         // $password='123456';
         $m_user=new UsersModel();
-        if($user=$m_user->fetch(['username'=>$username,md5($password)])){
+        if($user=$m_user->fetch(['username'=>$username,'password'=>md5($password)])){
             $data['status']=100;
             $info['user_id']=$user['user_id'];
-            $info['user_name']=$user['nickname'];
-            $info['user_password']=$user['password'];
+            $info['user_name']=$user['username'];
+            $info['user_password']=$password;
             $info['q_id']=$request['q_id']??0;
             $info['game_id']=$request['game_id']??0;
             $data['info']=$info;
         }else{
+            $data['status']=404;
             $data['msg']='账号或密码错误';
         }
         echo json_encode($data);
     }
+    //注册
     function registerAction(){
-        echo json_encode(['code'=>1,'message'=>'注册成功']);
+        $request=urldecode($_REQUEST['data']);
+        $request=$this->convertUrlQuery($request);
+        $username=$request['username'];
+        $password=$request['password'];
+        // username&password&q_id&game_id&Device_Id&Android;
+        $m_user=new UsersModel();
+        $data['username']=$username;
+        $data['password']=md5($password);
+        $data['app']='sdk';
+        $data['reg_time']=time();
+        $data['tg_channel']=$request['q_id'];
+        if($m_user->fetch(['username'=>$username],'user_id')){
+            $data['status']=404;
+            $data['msg']='该账号已被使用';
+        }else{
+            if($user_id=$m_user->insert($data,true)){
+                $user=$m_user->fetch(['user_id',$user_id]);
+                $data['status']=100;
+                $info['user_id']=$user['user_id'];
+                $info['user_name']=$user['username'];
+                $info['user_password']=$password;
+                $info['q_id']=$request['q_id']??0;
+                $info['game_id']=$request['game_id']??0;
+                $data['info']=$info;
+        }else{
+            $data['status']=404;
+            $data['msg']='账号或密码错误';
+        }
+        }
+      
+        echo json_encode($data);
     }
     function convertUrlQuery($query)
     {
