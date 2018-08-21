@@ -33,12 +33,12 @@
             </h3>
 <!--            --><?//if($_SERVER['HTTP_HOST']=='h5.zyttx.com'):?>
             <nav>
-                <span class="split_h"></span>
-                <a href="javascript:void(0)" class="left_btn" id="wx_login">
-                    <i class="logos phone_login"></i><span>手机登录</span>
-                </a>
-                <a target="_top" href="/user/qqlogin.html<?=$fwd ? '?fwd='.urlencode($fwd) : ''?>" class="right_btn" style="text-indent:50px">
-                    <i class="logos qq_img"></i><span>QQ登录</span>
+<!--                <span class="split_h"></span>-->
+<!--                <a href="javascript:void(0)" class="left_btn" id="wx_login">-->
+<!--<!--                    <i class="logos phone_login"></i><span>手机登录</span>-->
+<!--                </a>-->
+                <a target="_top" href="/user/qqlogin.html<?=$fwd ? '?fwd='.urlencode($fwd) : ''?>" class="left_btn">
+                        <i class="logos qq_img"></i>
                 </a>
             </nav>
 <!--            --><?php //endif;?>

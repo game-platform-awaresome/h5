@@ -128,12 +128,12 @@ div {
   border-bottom-left-radius: 0;
 }
 .login_nav nav a .logos {
-  display: inline-block;
-  width: 30px;
-  height: auto;
-  position: absolute;
-  left: 20px;
-  top: 50%;
+  /*display: inline-block;*/
+  /*width: 30px;*/
+  /*height: auto;*/
+  /*position: absolute;*/
+  /*left: 20px;*/
+  /*top: 50%;*/
 }
 .login_nav nav a .weixin_img {
   height: 25px;
@@ -142,8 +142,8 @@ div {
   margin-top: -12px;
 }
 .login_nav nav a .qq_img {
-  width: 22px;
-  height: 25px;
+  width: 90px;
+  height: 40px;
   background: url("../images/login/qq2.png") no-repeat center;
   background-size: 100% 100%;
   margin-top: -12px;
