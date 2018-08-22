@@ -35,7 +35,6 @@ class ApiController extends Yaf_Controller_Abstract
         if( ($arr['time'] + 300) < $time ) {
             exit('Time error.');
         }
-        
 //        if( $arr['server_id'] ) {
 //            $m_server = new ServerModel();
 //            $server = $m_server->fetch("server_id='{$arr['server_id']}'", 'name,game_name,login_url,sign_key');
