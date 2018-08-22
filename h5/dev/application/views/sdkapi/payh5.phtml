@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"/>
+    <title>选择金额 - 久乐游戏</title>
+    <link rel="stylesheet" href="/public/styles/base.css"/>
+    <link rel="stylesheet" href="/styles/pay_edit.css"/>
+</head>
+<body class="bg00">
+<!--div.container 总外框  start-->
+<div class="z_container bg01">
+    <form class="z_main" data-role="conent" action="http://api.357p.com" method="post">
+        <h3 class="block_bg your_money" style="position:relative">
+            <span>充入账号：</span>
+            <b class="bold green"><?=$pay['to_user']?></b>
+<!--            <span class="fr" style="position:absolute; right:1px">(1RMB = --><?//=$parities?><!--平台币)</span>-->
+            <input type="hidden" name="user_id" value="<?=$pay['user_id']?>">
+            <input type="hidden" name="username" value="<?=$pay['to_user']?>">
+        </h3>
+        <h3 class="block_bg your_money" style="position:relative">
+            <span>充入游戏：</span>
+            <b class="bold green"><?=$pay['game_name']?></b>
+            <!--            <span class="fr" style="position:absolute; right:1px">(1RMB = --><?//=$parities?><!--平台币)</span>-->
+            <input type="hidden" name="game_name" value="<?=$pay['game_name']?>">
+        </h3>
+        <h3 class="block_bg your_money" style="position:relative">
+            <span>充值金额：</span>
+            <b class="bold green"><?=$pay['money']?>元</b>
+            <!--            <span class="fr" style="position:absolute; right:1px">(1RMB = --><?//=$parities?><!--平台币)</span>-->
+            <input type="hidden" name="Price" value="<?=$pay['money']?>">
+        </h3>
+        <section class="block_bg choses" >
+<!--            <h3>充值方式：</h3>-->
+            <ul style="width:90%;margin: 0 auto;font-size: 10px">
+                <!--                <li>-->
+                <!--                    <span data-type="iapppay" class="checkbox checkbox_active"><i></i></span>-->
+                <!--                    <span class="i_zfb"><i></i></span>-->
+                <!--                    <span>在线支付</span>-->
+                <!--                </li>-->
+                <li>
+                    <span data-type="alipay" class="checkbox checkbox_active"><i></i></span>
+                    <span class="i_zfb"><i></i></span>
+                    <span class="bold">支付宝</span>
+                </li>
+                <!--                --><?php //if( strpos($_SERVER['HTTP_USER_AGENT'], 'MicroMessenger') ) { ?>
+                <li>
+                    <span data-type="wxpay" class="checkbox"><i></i></span>
+                    <span class="i_weixin"><i></i></span>
+                    <span class="bold">微信</span>
+                </li>
+               <!--  <li>
+                    <span data-type="deposit" class="checkbox"><i></i></span>
+                    <span class="i_ptb"><i></i></span>
+                    <span class="bold">平台币</span>
+                </li> -->
+                <!--                --><?php //} ?>
+            </ul>
+        </section>
+        <div class="btn_cont">
+            <input type="hidden" name="shouji" value="">
+            <input type="hidden" id="PayID" name="PayID" value="">
+            <input type="hidden" name="userid" value="27641">
+            <input type="hidden" name="wooolID" value="69525">
+            <input type="hidden" name="jinzhua" value="">
+            <input type="hidden" name="jinzhub" value="">
+            <input type="hidden" name="jinzhuc" value="" id="jinzhuc">
+            <input type="hidden" id="jinzhue" name="jinzhue" value="<?=$pay['pay_id']?>">
+            <button id="next_step" class="btn_green" type="button" style="width: 80%">确认充值</button>
+        </div>
+        <div class="footer_padding"></div>
+    </form>
+    <!--div.z_min 内容区域 end-->
+</div>
+<!--div.container 总外框  end-->
+<script src="/public/scripts/jquery-1.11.1.min.js"></script>
+<script src="/public/scripts/jquery.mobile.min.js"></script>
+<script>
+    $('#footer a:eq(4)').attr('id', 'footer_nav_active');
+    $(function(){
+        var parities = parseInt('<?=$parities?>');
+        /**支付金额选择*/
+        $(".edit ul li").on("tap",function(){
+            var money = parseInt($(this).find("span").text());
+            $(".edit input").val(money);
+            $('#get_nums').html(parities * money);
+            $(this).addClass("m_active").siblings().removeClass("m_active");
+        });
+        /**支付方式选择*/
+        $(".choses ul li").on("tap",function(){
+            $(this).find(".checkbox ").addClass("checkbox_active");
+            $(this).siblings().find(".checkbox").removeClass("checkbox_active");
+        });
+        /**验证输入框信息*/
+        $("input[name=money]").on("focus",function(){
+            $(".edit ul li").removeClass("m_active");
+            $(this).attr("placeholder","");
+        });
+        $('.i_edit').on('tap', function(){
+            $("input[name=money]").focus();
+        });
+        $("input[name=money]").on("blur",function(){
+            var _t = $(this);
+            var v = parseInt(_t.val());
+            if( isNaN(v) || v < 0 ) {
+                _t.val('');
+                $('#get_nums').html('0');
+                return false;
+            }
+            if( v > 60000 ) {
+                _t.val(60000);
+                $('#get_nums').html(parities * 60000);
+                return false;
+            }
+        });
+        $('#next_step').on('click', function(){
+            var mn = parseInt($("input[name=Price]").val());
+            if( isNaN(mn) || mn < 1 ) {
+                alert('最小充值金额为1元！');
+                return false;
+            }
+            if( mn > 60000 ) mn = 60000;
+            var tp = $('.checkbox_active:visible');
+            if( tp.length < 1 ) {
+                alert('请选择支付方式！');
+                return false;
+            }
+            tp = tp.attr('data-type');
+            $('#jinzhuc').val(tp);
+            //判断选择通道id
+            switch (tp) {
+                case 'alipay':
+                    if(IsPC()){
+                        $('#PayID').val('25');
+                    }else{
+                        $('#PayID').val('26');
+                    }
+                    $('.z_main').submit();
+                    break;
+                case 'wxpay':
+                    if(IsPC()){
+                        $('#PayID').val('16');
+                    }else{
+                        $('#PayID').val('29');
+                    }
+                    $('.z_main').submit();
+                    break;
+                case 'deposit':
+                    $.ajax({
+                        url:"/api/payByDeposit",
+                        data:$('.z_main').serialize(),
+                        type:"post",
+                        async:false,
+                        success:function(aaa){
+                            //aaa为服务器所返回的值
+                            var aaa=JSON.parse(aaa);
+                            if(aaa.code===1){
+                                alert(aaa.message);
+                            }else{
+                                alert('支付成功!');
+                                window.location.href=aaa.message;
+                            }
+                        },
+                        error:function(){
+                            //服务器连接失败
+                            alert('服务器连接失败');
+                        },
+                        beforeSend:function(){
+                            //在success之前就进行了
+                            //操作
+                        },
+                        complete:function(){
+                            //在success之后就进行
+                            //操作
+                        }
+                    });
+                    break;
+                default:
+                    return false;
+            }
+            // console.log($('.z_main').serialize());
+            return false;
+        });
+        function IsPC() {
+            var userAgentInfo = navigator.userAgent;
+            var Agents = ["Android", "iPhone",
+                "SymbianOS", "Windows Phone",
+                "iPad", "iPod"];
+            var flag = true;
+            for (var v = 0; v < Agents.length; v++) {
+                if (userAgentInfo.indexOf(Agents[v]) > 0) {
+                    flag = false;
+                    break;
+                }
+            }
+            return flag;
+        }
+    });
+</script>
+</body>
+</html>
