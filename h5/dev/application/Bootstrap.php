@@ -15,9 +15,11 @@ class Bootstrap extends Yaf_Bootstrap_Abstract {
 		//把配置保存起来
 		$this->_config = Yaf_Application::app()->getConfig();
 		Yaf_Registry::set('config', $this->_config);
-		
 		date_default_timezone_set($this->_config['timezone']);
-		
+		$session_domain=$this->_config['session']['domain'];
+		if($session_domain){
+			ini_set('session.cookie_domain', $session_domain);
+		}		
 		Url::$suffix = $this->_config['application']['url_suffix'];
 		
 		$sess = Yaf_Session::getInstance();

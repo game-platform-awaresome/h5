@@ -28,7 +28,7 @@ class SdkapiController extends Yaf_Controller_Abstract
     public function loginAction()
     {
 //        $_REQUEST['data']='username%3Dtest%26password%3D123456%26q_id%3Dnull%26game_id%3Dnull';
-        $request = urldecode($_REQUEST['data']);
+        $request = urldecode($_REQUEST['data']??'');
         $request = $this->convertUrlQuery($request);
         $this->checkParams($request, ['username', 'password']);
         $username = $request['username'];
@@ -51,7 +51,7 @@ class SdkapiController extends Yaf_Controller_Abstract
     //注册
     public function registerAction()
     {
-        $request = urldecode($_REQUEST['data']);
+        $request = urldecode($_REQUEST['data']??'');
         $request = $this->convertUrlQuery($request);
         $this->checkParams($request, ['username', 'password']);
         $username           = $request['username'];
@@ -91,7 +91,7 @@ class SdkapiController extends Yaf_Controller_Abstract
      */
     public function changePwdAction()
     {
-        $request = urldecode($_REQUEST['data']);
+        $request = urldecode($_REQUEST['data']??'');
         $request = $this->convertUrlQuery($request);
         $this->checkParams($request, ['username', 'password']);
         $username = $request['username'];
@@ -137,7 +137,7 @@ class SdkapiController extends Yaf_Controller_Abstract
         // server_id 区服id 1
         // sdkorder  订单号 4bb31a31-31ee-48e6-839f-c9e478485d17
         //生成订单
-        $request = urldecode($_REQUEST['data']);
+        $request = urldecode($_REQUEST['data']??'');
         $request = $this->convertUrlQuery($request);
         $this->checkParams(
             $request,
@@ -201,7 +201,7 @@ class SdkapiController extends Yaf_Controller_Abstract
      */
     public function paystatusAction()
     {
-        $request = urldecode($_REQUEST['data']);
+        $request = urldecode($_REQUEST['data']??'');
         $request = $this->convertUrlQuery($request);
         $this->checkParams($request, ['sdkorder']);
         $sdkorder=$request['sdkorder'];
@@ -213,6 +213,41 @@ class SdkapiController extends Yaf_Controller_Abstract
         }else{
             $data['status'] = 500;
             $data['msg']    = '支付未完成';
+        }
+        echo json_encode($data);
+    }
+    /**
+     * 创建角色
+     * @Author   liuqi
+     * @DateTime 2018-08-22T17:20:20+0800
+     * @return   [type]                   [description]
+     */
+    public function roleCreateAction(){
+        // qu_id=1
+        // game_id=1
+        // role_id=1
+        // role_name=1
+        // username=liuqi
+        // server_id=1
+        // user_id=9
+        $request = urldecode($_REQUEST['data']??'');
+        $request = $this->convertUrlQuery($request);
+        $this->checkParams($request, ['qu_id','game_id','role_id','role_name','username','server_id','user_id']);
+        $m_game_role=new GameRoleModel();
+        $info['role_id']=$request['role_id'];
+        $info['game_id']=$request['game_id'];
+        $info['role_name']=$request['role_name'];
+        $info['username']=$request['username'];
+        $info['server_id']=$request['server_id'];
+        $info['user_id']=$request['user_id'];
+        $info['tg_channel']=$request['qu_id'];
+        $id=$m_game_role->insert($info,true);
+         if($id){   
+            $data['status'] = 100;
+            $data['msg']    = '创建成功';
+        }else{
+            $data['status'] = 500;
+            $data['msg']    = '创建失败';
         }
         echo json_encode($data);
     }
