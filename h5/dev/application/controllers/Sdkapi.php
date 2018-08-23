@@ -265,8 +265,8 @@ class SdkapiController extends Yaf_Controller_Abstract
     public function serviceAction(){
       $request = urldecode($_REQUEST['data']??'');
       $request = $this->convertUrlQuery($request); 
-      $this->checkParams($request, ['qu_id']);
-      $tg_channel=$request['qu_id'];
+      $this->checkParams($request, ['q_id']);
+      $tg_channel=$request['q_id'];
       $m_channel=new AdminModel('cps');
       $channel_info=$m_channel->fetch(['admin_id',$tg_channel],'admin_id as service_id,nickname as service_name,qq1 as service_qq');
       if($channel_info){
@@ -293,13 +293,13 @@ class SdkapiController extends Yaf_Controller_Abstract
     {
         foreach ($check as $key => $value) {
             if (!array_key_exists($value, $request)) {
-                $rs['code'] = 1001;
+                $rs['status'] = 1001;
                 $rs['msg']  = $value . "参数必须!";
                 echo json_encode($rs);
                 die;
             }
             if (!$request[$value]) {
-                $rs['code'] = 1002;
+                $rs['status'] = 1002;
                 $rs['msg']  = $value . "参数值必须!";
                 echo json_encode($rs);
                 die;
