@@ -257,6 +257,31 @@ class SdkapiController extends Yaf_Controller_Abstract
         echo json_encode($data);
     }
     /**
+     * 客服
+     * @Author   liuqi
+     * @DateTime 2018-08-23T10:54:47+0800
+     * @return   [type]                   [description]
+     */
+    public function serviceAction(){
+      $request = urldecode($_REQUEST['data']??'');
+      $request = $this->convertUrlQuery($request); 
+      $this->checkParams($request, ['qu_id']);
+      $tg_channel=$request['qu_id'];
+      $m_channel=new AdminModel('cps');
+      $channel_info=$m_channel->fetch(['admin_id',$tg_channel],'admin_id as service_id,nickname as service_name,qq1 as service_qq');
+      if($channel_info){
+        $data['status']=100;
+        $info['service_id']=$channel_info['service_id'];
+        $info['service_name']=$channel_info['service_name'];
+        $info['service_qq']=$channel_info['service_qq'];
+        $data['info']=$info;
+      }else{
+        $data['status']=200;
+        $msg['暂无客服信息'];
+      }
+      echo json_encode($data);
+    }
+    /**
      * 检查参数
      * @Author   liuqi
      * @DateTime 2018-08-22T11:01:38+0800
