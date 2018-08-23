@@ -274,7 +274,7 @@ class SdkapiController extends Yaf_Controller_Abstract
         $info['service_id']=$channel_info['service_id'];
         $info['service_name']=$channel_info['service_name'];
         $info['service_qq']=$channel_info['service_qq'];
-        $data['info']=$info;
+        $data['info'][0]=$info;
       }else{
         $data['status']=200;
         $msg['暂无客服信息'];
