@@ -241,6 +241,10 @@ class SdkapiController extends Yaf_Controller_Abstract
         $info['server_id']=$request['server_id'];
         $info['user_id']=$request['user_id'];
         $info['tg_channel']=$request['qu_id'];
+        if($m_game_role->fetch($info)){
+            $data['status'] = 500;
+            $data['msg']    = '请勿重复创建';
+        }else{
         $id=$m_game_role->insert($info,true);
          if($id){   
             $data['status'] = 100;
@@ -248,6 +252,7 @@ class SdkapiController extends Yaf_Controller_Abstract
         }else{
             $data['status'] = 500;
             $data['msg']    = '创建失败';
+        }
         }
         echo json_encode($data);
     }
