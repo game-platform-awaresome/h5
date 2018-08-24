@@ -42,6 +42,7 @@ class PayController extends F_Controller_Backend
         }
         $conds.=' AND pay_time>0';
         $params['conditions']=$conds;
+        $params['orderby'] = 'add_time DESC';
         return $params;
     }
     

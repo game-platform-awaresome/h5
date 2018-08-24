@@ -28,13 +28,24 @@
                     <p>
                         <label>真实姓名</label>
                         <input class="text-input small-input" type="text" id="nickname" name="info[nickname]"
-                               value="<?php echo isset($info) ? $info['nickname'] : ''; ?>" maxlength="16" required/>
+                               value="<?php echo isset($info) ? $info['nickname'] : ''; ?>" maxlength="16" required
+                            <?php
+                                if($info && $_SESSION['admin_id']!=1){
+                                    echo 'readonly';
+                                }
+                            ;?>/>
                         <br/>
                     </p>
                     <p>
                         <label>支付宝账号</label>
                         <input class="text-input small-input" type="text" id="pay_number" name="info[pay_number]"
-                               value="<?php echo isset($info) ? $info['pay_number'] : ''; ?>" required/>
+                               value="<?php echo isset($info) ? $info['pay_number'] : ''; ?>" required
+                            <?php
+                            if($info && $_SESSION['admin_id']!=1){
+                                echo 'readonly';
+                            }
+                            ;?>
+                        />
                         <br/>
                     </p>
                     <p>
