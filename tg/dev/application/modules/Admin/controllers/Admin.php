@@ -147,6 +147,10 @@ class AdminController extends F_Controller_Backend
         $zip = new ZipArchive();
         $filename = "/www/wwwroot/open/public/game/apk/{$game_id}.apk";//母包位置
         //复制一份到当前
+        //判断游戏目录是否存在
+        if(!is_dir("/game/apk/{$game_id}")){
+            mkdir("/game/apk/{$game_id}");
+        }
         shell_exec(" cp {$filename}  /www/wwwroot/tg/public/game/apk/{$game_id}/{$admin_id}.apk;  > /dev/null 2>&1 &");
         $now_path="/game/apk/{$game_id}/{$admin_id}.apk";
         if ($zip->open($now_path, ZIPARCHIVE::CREATE)!==TRUE) {

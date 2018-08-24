@@ -99,6 +99,7 @@ class GameModel extends F_Model_Pdo
             'apk_url' =>
                 function(&$row){
                     if( empty($row) ) return '下载地址';
+                    if($row['game_type']=='h5') return '不需要';
                     return "<a href=\"{$row['apk_url']}\">下载</a>";
                 }
         ,
