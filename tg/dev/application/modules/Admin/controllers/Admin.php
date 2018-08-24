@@ -152,7 +152,10 @@ class AdminController extends F_Controller_Backend
         if(!is_dir($path)){
             mkdir($path);
         }
-        shell_exec(" cp {$filename}  /www/wwwroot/code/tg/dev/public/game/apk/{$game_id}/{$admin_id}.apk;  > /dev/null 2>&1 &");
+        shell_exec(" 
+        PATH=/bin:/sbin:/usr/bin:/usr/sbin:/usr/local/bin:/usr/local/sbin;~/bin;
+        export PATH;
+        cp {$filename}  /www/wwwroot/code/tg/dev/public/game/apk/{$game_id}/{$admin_id}.apk;  > /dev/null 2>&1 &");
         $now_path=$path."/{$admin_id}.apk";
         if ($zip->open($now_path, ZIPARCHIVE::CREATE)!==TRUE) {
             exit("cannot open <$filename> ");
