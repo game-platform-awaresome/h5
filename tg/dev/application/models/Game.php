@@ -64,6 +64,7 @@ class GameModel extends F_Model_Pdo
 		return array(
 			'game_id' => '游戏ID',
 			'name' => '名称',
+		    'game_type'=>'游戏类型',
 		    'type' => '分类',
 		    'classic' => '经典分类',
 		    'divide_into' => function(&$row){
@@ -93,9 +94,17 @@ class GameModel extends F_Model_Pdo
 		    },
 		    'support' => function(&$row){
                 if( empty($row) ) return '推广链接';
-//                return "http://h5.zyttx.com/game/play.html?game_id={$row['game_id']}&user={$_SESSION['admin_id']}";
-                return "http://".$_SESSION["admin_id"].".h5.zyttx.com/game/play.html?game_id={$row['game_id']}";
-
+                if($row['game_type']=='微端'){
+                    $channel_id=$_SESSION['admin_id'];
+                    if(file_exists("game/apk/{$row['game_id']}/".$channel_id.'.apk')){
+                            $a='<a href="/game/apk/'.$row['game_id'].'/'.$channel_id.'.apk">http://'.$_SESSION["admin_id"].".h5.zyttx.com/game/apk/".$row['game_id'].'/'.$channel_id.'.apk'.'</a>';
+                    }else{
+                            $a='<a href="/admin/admin/akpgame?game_id='.$row['game_id'].'">点击获取</a>';
+                    }
+                            return $a;
+                }else{
+                    return "http://".$_SESSION["admin_id"].".h5.zyttx.com/game/play.html?game_id={$row['game_id']}";
+                }
             },
             'material_url' =>
                 function(&$row){
@@ -103,18 +112,18 @@ class GameModel extends F_Model_Pdo
                     return "<a href=\"{$row['material_url']}\">{$row['material_url']}</a>";
                 }
             ,
-            'apk_url' =>
-                function(&$row){
-                    if( empty($row) ) return 'apk包';
-                    $channel_id=$_SESSION['admin_id'];
-                    if(file_exists("game/apk/{$row['game_id']}/".$channel_id.'.apk')){
-                            $a='<a href="/game/apk/'.$row['game_id'].'/'.$channel_id.'.apk">地址</a>';
-                    }else{
-                            $a='<a href="/admin/admin/akpgame?game_id='.$row['game_id'].'">获取</a>';
-                    }
-                    return $a;
-                }
-            ,
+//            'apk_url' =>
+//                function(&$row){
+//                    if( empty($row) ) return 'apk包';
+//                    $channel_id=$_SESSION['admin_id'];
+//                    if(file_exists("game/apk/{$row['game_id']}/".$channel_id.'.apk')){
+//                            $a='<a href="/game/apk/'.$row['game_id'].'/'.$channel_id.'.apk">地址</a>';
+//                    }else{
+//                            $a='<a href="/admin/admin/akpgame?game_id='.$row['game_id'].'">获取</a>';
+//                    }
+//                    return $a;
+//                }
+//            ,
 //		    'grade' => '评级',
 //		    'weight' => '排序',
 //		    'version' => '当前版本',
