@@ -20,7 +20,14 @@
               <label>标签tag、keyword<small>（目前主要用于搜索，类似于关键字的功能）</small></label>
               <input class="text-input small-input" type="text" name="info[tag]" value="<?php echo isset($info) ? $info['tag'] : ''; ?>" />
             </p>
-
+                <p>
+                    <label>游戏类型</label>
+                    <select class="small-input" name="info[game_type]">
+                        <?php foreach ($game_types as $tp) { ?>
+                            <option value="<?=$tp?>"<?php if(isset($info) && $info['game_type'] == $tp) echo ' selected="selected"'; ?>><?=$tp?></option>
+                        <?php } ?>
+                    </select>
+                </p>
             <p>
               <label>分类</label>
               <select class="small-input" name="info[type]">
@@ -176,6 +183,11 @@
                 <label>素材下载</label>
                 <input class="text-input large-input" type="text" name="info[material_url]" value="<?php echo isset($info) ? $info['material_url'] : ''; ?>" />
             </p>
+                <p>
+                    <label>下载地址</label>
+                    <input type="file" name="apk_url">&nbsp;&nbsp;
+                    <?php if(isset($info) && $info['apk_url']) echo "<a class=\"lightbox\" href=\"{$info['apk_url']}\"><img style=\"max-height:48px;\" src=\"{$info['apk_url']}\"></a>"; ?>
+                </p>
             <p>
               <input class="button" type="submit" value="提交" />
             </p>

@@ -20927,7 +20927,7 @@ class F_Helper_Pinyin
 		$py = array();
 		for($i = 1; $i < $len; ++$i)
 		{
-			$py[] = self::$_kv['\\'.$arr[$i]];
+			$py[] = @self::$_kv['\\'.$arr[$i]];
 		}
 		if( $first > 0 && count($py) > $first ) {
 			$r = '';

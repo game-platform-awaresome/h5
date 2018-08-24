@@ -4,7 +4,7 @@ class GameModel extends F_Model_Pdo
 {
 	protected $_table = 'game';
 	protected $_primary = 'game_id';
-	
+    public $_game_types = array('h5','微端');
 	//类型
 	public $_types = array('推荐','独家','BT版','网游','单机');
 	//经典分类
@@ -64,6 +64,7 @@ class GameModel extends F_Model_Pdo
 		return array(
 			'game_id' => '游戏ID',
 			'name' => '名称',
+		    'game_type' => '类型',
 		    'type' => '分类',
 		    'classic' => '经典分类',
             'divide_into' => '分成比例',
@@ -95,6 +96,12 @@ class GameModel extends F_Model_Pdo
                     return "<a href=\"{$row['material_url']}\">{$row['material_url']}</a>";
                 }
             ,
+            'apk_url' =>
+                function(&$row){
+                    if( empty($row) ) return '下载地址';
+                    return "<a href=\"{$row['apk_url']}\">下载</a>";
+                }
+        ,
 		    'add_time' => function(&$row){
 		        if( empty($row) ) return '添加时间';
 		        return substr($row['add_time'], 0, 10);

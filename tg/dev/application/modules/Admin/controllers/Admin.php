@@ -137,4 +137,28 @@ class AdminController extends F_Controller_Backend
         die;
 //        $this->redirect('index/right');
     }
+
+    /**
+     * 游戏渠道分包
+     */
+    public function akpgameAction(){
+        $game_id=$_GET['game_id']??die('游戏id必须');
+        $admin_id=$_SESSION['admin_id'];
+        $zip = new ZipArchive();
+        $filename = "/www/wwwroot/open/public/game/apk/{$game_id}.apk";//母包位置
+        //复制一份到当前
+        shell_exec(" cp {$filename}  /www/wwwroot/tg/public/game/apk/{$game_id}/{$admin_id}.apk;  > /dev/null 2>&1 &");
+        $now_path="/game/apk/{$game_id}/{$admin_id}.apk";
+        if ($zip->open($now_path, ZIPARCHIVE::CREATE)!==TRUE) {
+            exit("cannot open <$filename> ");
+        }
+        $zip->addFromString("META-INF/lefengwan_channelid", "{$admin_id}");
+        $zip->addFromString("META-INF/lefengwan_gameid","{$game_id}");
+        //$zip->addFile($thisdir . "/too.php","/testfromfile.php");
+        echo "numfiles: " . $zip->numFiles . " ";
+        echo "status:" . $zip->status . " ";
+        $zip->close();
+        echo "分包完成";
+        $this->redirect('/admin/game/list');
+    }
 }

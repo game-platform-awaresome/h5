@@ -12,6 +12,7 @@ class GameController extends F_Controller_Backend
         parent::init();
         $this->_view->assign('classic', $this->_model->_classic);
         $this->_view->assign('types', $this->_model->_types);
+        $this->_view->assign('game_types', $this->_model->_game_types);
         $this->_view->assign('labels', $this->_model->_labels);
         $this->_view->assign('corner', $this->_model->_corner);
         $this->_view->assign('channels', $this->_model->_channels);
@@ -120,6 +121,37 @@ class GameController extends F_Controller_Backend
 	        $path = "http://{$domain}{$path}";
 	        $up_arr['logo'] = $path;
 	    }
+	    //上传游戏
+        if( $_FILES['apk_url']['size'] > 0 && $_FILES['apk_url']['error'] == 0 ) {
+            $apk = $this->_model->fetch("game_id={$id}", 'apk_url');
+            $string = strrev($_FILES['apk_url']['name']);
+            $array = explode('.',$string);
+            $suffix=$array[0];
+            if($suffix!='kpa') {
+                return '上传的不是有效的apk文件！';
+            }
+            $ext = 'apk';
+            //删除原来的apk
+            if( $apk['apk_url'] ) {
+                $apk = explode('?', $apk['apk_url']);
+                $apk = str_replace('http://', '', $apk[0]);
+                $apk = substr($apk, strpos($apk, '/'));
+                $apk = APPLICATION_PATH."/public{$apk}";
+                if( file_exists($apk) ) {
+                    @unlink($apk);
+                }
+            }
+            $path = '/game/apk/';
+            $path .= "{$id}.{$ext}";
+            $dst = APPLICATION_PATH.'/public'.$path;
+            $rs = move_uploaded_file($_FILES['apk_url']['tmp_name'], $dst);
+            if( ! $rs ) {
+                return '不是有效的上传文件，请重新上传！';
+            }
+            $path .= '?'.time();
+            $path = "http://{$domain}{$path}";
+            $up_arr['apk_url'] = $path;
+        }
 	    
 	    $data = $this->_model->fetch($conds, 'screenshots');
 	    if( $data && $data['screenshots'] ) {
