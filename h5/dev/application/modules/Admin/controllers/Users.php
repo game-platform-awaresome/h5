@@ -25,6 +25,7 @@ class UsersController extends F_Controller_Backend
             $conds .= "{$comma}{$k}='{$v}'";
             $comma = ' AND ';
         }
+        $params['orderby'] = 'reg_time desc';
         $params['conditions'] = $conds;
         
         return $params;
