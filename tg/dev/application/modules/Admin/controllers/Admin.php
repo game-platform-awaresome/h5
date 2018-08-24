@@ -145,14 +145,15 @@ class AdminController extends F_Controller_Backend
         $game_id=$_GET['game_id']??die('游戏id必须');
         $admin_id=$_SESSION['admin_id'];
         $zip = new ZipArchive();
-        $filename = "/www/wwwroot/open/public/game/apk/{$game_id}.apk";//母包位置
+        $filename = "/www/wwwroot/code/open/public/game/apk/{$game_id}.apk";//母包位置
         //复制一份到当前
         //判断游戏目录是否存在
-        if(!is_dir("/game/apk/{$game_id}")){
-            mkdir("/game/apk/{$game_id}");
+        $path=APPLICATION_PATH."/public/game/apk/{$game_id}";
+        if(!is_dir($path)){
+            mkdir($path);
         }
-        shell_exec(" cp {$filename}  /www/wwwroot/tg/public/game/apk/{$game_id}/{$admin_id}.apk;  > /dev/null 2>&1 &");
-        $now_path="/game/apk/{$game_id}/{$admin_id}.apk";
+        shell_exec(" cp {$filename}  /www/wwwroot/code/tg/public/game/apk/{$game_id}/{$admin_id}.apk;  > /dev/null 2>&1 &");
+        $now_path=$path."/{$admin_id}.apk";
         if ($zip->open($now_path, ZIPARCHIVE::CREATE)!==TRUE) {
             exit("cannot open <$filename> ");
         }
@@ -163,6 +164,6 @@ class AdminController extends F_Controller_Backend
         echo "status:" . $zip->status . " ";
         $zip->close();
         echo "分包完成";
-        $this->redirect('/admin/game/list');
+//        $this->redirect('/admin/game/list');
     }
 }
