@@ -97,14 +97,13 @@ class AdminController extends F_Controller_Backend
         $data = json_decode($json_string,true);
         $launch_path="http://h5.zyttx.com?user=".$admin_id;
         $developer_url="http://h5.zyttx.com?user=".$admin_id;
-        $boxname=$_SESSION['boxname'];
+        $boxname=$_SESSION['boxname']??'游戏盒子';
         // 把JSON字符串转成PHP数组
         $data['name']=$boxname;
         $data['launch_path']=$launch_path;
         $data['developer']['url']=$developer_url;
         $json_strings = json_encode($data);
         file_put_contents($file_dir,$json_strings);//写入
-
         //修改APP名字
         $file_dir2="/www/wwwroot/tool/1/res/values/strings.xml";
         $doc = new DOMDocument();
