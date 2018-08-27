@@ -49,7 +49,7 @@ class StatbygameController extends F_Controller_Backend
                 } else {
                     $game = $m_game->fetch("game_id='{$row['game_id']}'", 'name,dev_id');
                     $row['game_name'] = $game['name']??'未知';
-                    $row['dev_id'] = $game['dev_id'];
+                    $row['dev_id'] = $game['dev_id']??'未知';
                     $row['admin_id'] = $admin_id;
                     $m_bygame->insert($row, false);
                 }
