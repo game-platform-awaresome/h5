@@ -179,7 +179,7 @@
                                             <?php } ?>
                                             <div class="game_btn">
                                                 <?php if($row['game_type']=='微端'):?>
-                                                    <a target="_top" href="<?='http://'.$_SESSION["admin_id"].".h5.zyttx.com/game/apk/".$row['game_id'].'/'.$_SESSION["admin_id"].'.apk'?>" class="btn_blue">点击下载</a>
+                                                    <a target="_top" href="<?='http://yun.zyttx.com/game/apk/'.$row['game_id'].'/'.$_SESSION["admin_id"].'.apk'?>" class="btn_blue">点击下载</a>
                                                 <?php else:?>
                                                     <a target="_top" href="/game/play.html?game_id=<?=$row['game_id']?>" class="btn_blue">开始玩</a>
                                                 <?php endif;?>

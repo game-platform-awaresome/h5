@@ -25,8 +25,11 @@
         <a href="/game/giftbag.html?gift_id=<?=$row['giftbag']?>" class="icons i_lb"></a>
         <?php } ?>
         <div class="game_btn">
-            <a target="_top" href="/game/play.html?game_id=<?=$row['game_id']?>" class="btn_blue">开始玩</a>
-        </div>
+            <?php if($row['game_type']=='微端'):?>
+                <a target="_top" href="<?='http://yun.zyttx.com/game/apk/'.$row['game_id'].'/'.$_SESSION["admin_id"].'.apk'?>" class="btn_blue">点击下载</a>
+            <?php else:?>
+                <a target="_top" href="/game/play.html?game_id=<?=$row['game_id']?>" class="btn_blue">开始玩</a>
+            <?php endif;?>        </div>
     </section>
 </li>
 <?php } ?>
