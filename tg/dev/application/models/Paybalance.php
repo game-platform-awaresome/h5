@@ -13,6 +13,9 @@ class PaybalanceModel extends F_Model_Pdo
 	{
 		return array(
 		    'id' => '编号',
+            'admin_id'=>function($row){
+                if(empty($row['admin_id']))return '渠道id';
+            },
             'start_time' =>function($row){
                 if(empty($row['start_time']))return '开始时间';
                 return date('Y-m-d H:i:s',$row['start_time']);

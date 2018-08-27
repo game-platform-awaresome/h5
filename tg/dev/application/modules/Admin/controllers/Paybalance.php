@@ -10,7 +10,11 @@ class PaybalanceController extends F_Controller_Backend
         $admin_id=$s->get('admin_id');
         $paybalanceinfo=$paybalance->fetch(['admin_id'=>$admin_id,'status'=>1]);//未申请
         $applybalancelastinfo=$paybalance->fetch("admin_id={$admin_id} and status =2");//申请中
-        $paybalancelastinfo=$paybalance->fetch("admin_id={$admin_id} and status =3");//已结算
+
+        // SELECT *FROM cps.pay_balance WHERE `admin_id`=17 and `status` =3 and `end_time` = (select max(cps.pay_balance.end_time) from cps.pay_balance where `admin_id` = 17 and `status` =3);
+        $paybalancelastinfo=$paybalance->fetch("admin_id={$admin_id} and status =3 and end_time = (select max(cps.pay_balance.end_time)  
+                  from cps.pay_balance where `admin_id` = {$admin_id} and `status` =3)");
+                  //已结算且时间最后一条
         if($paybalancelastinfo){
             $start_time=$paybalancelastinfo['end_time'];
         }else{
