@@ -63,7 +63,11 @@
                 <?php } ?>
                 <div class="game_btn">
                 <?php if($game['visible'] == 1) { ?>
-                    <a target="_top" class="btn_blue" href="/game/play.html?game_id=<?=$game['game_id']?>">开始玩</a>
+                    <?php if($row['game_type']=='微端'):?>
+                        <a target="_top" href="<?='http://yun.zyttx.com/game/apk/'.$row['game_id'].'/'.$tg_channel.'.apk'?>" class="btn_blue">点击下载</a>
+                    <?php else:?>
+                        <a target="_top" href="/game/play.html?game_id=<?=$row['game_id']?>" class="btn_blue">开始玩</a>
+                    <?php endif;?>
                 <?php } else { ?>
                     <a class="btn_blue" href="javascript:void(0);">敬请期待</a>
                 <?php } ?>
