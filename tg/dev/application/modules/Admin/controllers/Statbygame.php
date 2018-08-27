@@ -14,7 +14,7 @@ class StatbygameController extends F_Controller_Backend
         //统计用户注册数
 //        $signon_people = $m_user->fetch("tg_channel ={$tg_channel}", 'COUNT(user_id) AS reg_people');
         //统计用户登录次数与人数
-        $games=$m_sign->fetchAllBySql("select distinct game_id from h5.signon_log  inner join h5.`user`  on h5.signon_log.user_id = h5.`user`.user_id where h5.`user`.tg_channel =  {$tg_channel}");
+        $games=$m_sign->fetchAllBySql("select distinct game_id from h5.signon_log  inner join h5.`user`  on h5.signon_log.user_id = h5.`user`.user_id where h5.`user`.tg_channel =  {$tg_channel} and game_id>0");
         $peopel_stat=array();
         foreach ($games as $key=>$game){
             $game_id=$game['game_id'];
