@@ -23,6 +23,7 @@ class Game_Recharge
         $data = array(
             'user_id' => $pay['user_id'],
             'username' => $pay['username'],
+            'role_id' => $pay['role_id'],
             'to_uid' => $pay['to_uid'],
             'to_user' => $pay['to_user'],
             'pay_id' => $pay['pay_id'],

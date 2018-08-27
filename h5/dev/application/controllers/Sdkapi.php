@@ -151,6 +151,7 @@ class SdkapiController extends Yaf_Controller_Abstract
             'pay_id'      => $pay_id,
             'user_id'     => $request['user_id'],
             'username'    => $request['username'],
+            'role_id'    => $request['role_id'],
             'to_uid'      => $request['user_id'],
             'to_user'     => $request['username'],
             'game_id'     => $request['game_id'],

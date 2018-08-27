@@ -6,7 +6,7 @@ class NotifyController extends Yaf_Controller_Abstract
     {
         $conds = "pay_id='{$pay_id}'";
         $m_pay = new PayModel();
-        $pay = $m_pay->fetch($conds, 'pay_id,user_id,username,to_uid,to_user,game_id,server_id,game_name,server_name,money,type,pay_time,finish_time,cp_order,channel,extra');
+        $pay = $m_pay->fetch($conds, 'pay_id,user_id,username,role_id,to_uid,to_user,game_id,server_id,game_name,server_name,money,type,pay_time,finish_time,cp_order,channel,extra');
         if( (int)$pay['finish_time'] > 0 ) {
             exit($success);
         }
