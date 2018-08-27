@@ -13,9 +13,6 @@ class PaybalanceModel extends F_Model_Pdo
 	{
 		return array(
 		    'id' => '编号',
-            'admin_id'=>function($row){
-                if(empty($row['admin_id']))return '渠道id';
-            },
             'start_time' =>function($row){
                 if(empty($row['start_time']))return '开始时间';
                 return date('Y-m-d H:i:s',$row['start_time']);
@@ -25,13 +22,13 @@ class PaybalanceModel extends F_Model_Pdo
 		        return date('Y-m-d H:i:s',$row['end_time']);
             },
 		    'admin_id' =>function($row){
-                if(empty($row['admin_id']))return '姓名-支付宝';
+                if(empty($row['admin_id']))return '渠道id-姓名-支付宝';
                 if($row['admin_id']==$_SESSION['admin_id']){
                     return '所有代理及本渠道';
                 }else{
                     $admin=new AdminModel();
                     $info=$admin->fetch(['admin_id'=>$row['admin_id']],'nickname,pay_number');
-                    return $info['nickname'].'-'.$info['pay_number'];
+                    return $row['admin_id'].'-'.$info['nickname'].'-'.$info['pay_number'];
                 }
             },
 		    'add_time' =>function($row) {
