@@ -190,7 +190,7 @@ class GameModel extends F_Model_Pdo
 	public function getTopByType($pn = 1, $limit = 3, $type = '')
 	{
 	    if( in_array($type, $this->_types) ) {
-	        $data = $this->fetchAll("visible=1 AND type='{$type}'", $pn, $limit, 'game_id,name,logo,corner,label,giftbag,support,grade,in_short,play_times', 'weight ASC');
+	        $data = $this->fetchAll("visible=1 AND type='{$type}'", $pn, $limit, 'game_id,name,logo,corner,label,giftbag,support,grade,in_short,play_times,game_type', 'weight ASC');
 	        foreach ($data as &$row)
 	        {
 	            $row['grade'] = $this->gradeHtml($row['grade']);
@@ -202,7 +202,7 @@ class GameModel extends F_Model_Pdo
 	    $data = array();
 	    foreach ($this->_types as $type)
 	    {
-	        $data[$type] = $this->fetchAll("visible=1 AND type='{$type}'", $pn, $limit, 'game_id,name,logo,corner,label,giftbag,support,grade,in_short,play_times', 'weight ASC');
+	        $data[$type] = $this->fetchAll("visible=1 AND type='{$type}'", $pn, $limit, 'game_id,name,logo,corner,label,giftbag,support,grade,in_short,play_times,game_type', 'weight ASC');
 	        foreach ($data[$type] as &$row)
 	        {
 	            $row['grade'] = $this->gradeHtml($row['grade']);
@@ -235,7 +235,7 @@ class GameModel extends F_Model_Pdo
 	            break;
 	    }
 	    $conds = 'visible=1';
-	    $select = 'game_id,name,logo,corner,label,giftbag,support,grade,in_short,play_times';
+	    $select = 'game_id,name,logo,corner,label,giftbag,support,grade,in_short,play_times,game_type';
 	    
 	    $games = $this->fetchAll($conds, $pn, $limit, $select, $order);
 	    foreach ($games as &$row)
@@ -279,7 +279,7 @@ class GameModel extends F_Model_Pdo
 	    
 	    if( isset($order) ) {
 	        $order .= $order ? ',weight ASC' : 'weight ASC';
-	        $select = 'game_id,name,logo,corner,label,giftbag,support,grade,in_short,play_times';
+	        $select = 'game_id,name,logo,corner,label,giftbag,support,grade,in_short,play_times,game_type';
 	        
 	        $games = $this->fetchAll($conds, $pn, $limit, $select, $order);
 	        foreach ($games as &$row)
@@ -306,7 +306,7 @@ class GameModel extends F_Model_Pdo
 	        $ids = implode(',', $ids);
 	        
 	        $conds = "game_id IN({$ids})";
-	        $select = 'game_id,name,logo,corner,label,giftbag,support,grade,in_short,play_times';
+	        $select = 'game_id,name,logo,corner,label,giftbag,support,grade,in_short,play_times,game_type';
 	        $order = 'weight ASC';
 	        
 	        $games = $this->fetchAll($conds, $pn, $limit, $select, $order);
@@ -332,7 +332,7 @@ class GameModel extends F_Model_Pdo
 	public function search($name, $pn = 1, $limit = 10)
 	{
 	    $data = $this->fetchAll("visible=1 AND search LIKE '%{$name}%'", $pn, $limit,
-	       'game_id,name,logo,corner,label,giftbag,support,grade,in_short,play_times', 'weight ASC');
+	       'game_id,name,logo,corner,label,giftbag,support,grade,in_short,play_times,game_type', 'weight ASC');
 	    foreach ($data as &$row)
 	    {
 	        $row['grade'] = $this->gradeHtml($row['grade']);

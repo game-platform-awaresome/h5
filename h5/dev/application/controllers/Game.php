@@ -130,7 +130,7 @@ class GameController extends Yaf_Controller_Abstract
             '单机游戏' => '单机',
         );
         
-        $selects = 'game_id,name,logo,corner,label,giftbag,support,grade,in_short,play_times';
+        $selects = 'game_id,name,logo,corner,label,giftbag,support,grade,in_short,play_times,game_type';
         $m_game = new GameModel();
         $games = array();
         if( $tc == '全部分类' ) {

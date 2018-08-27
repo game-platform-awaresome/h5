@@ -97,7 +97,7 @@ class GameModel extends F_Model_Pdo
                 if($row['game_type']=='微端'){
                     $channel_id=$_SESSION['admin_id'];
                     if(file_exists("game/apk/{$row['game_id']}/".$channel_id.'.apk')){
-                            $a='<a href="/game/apk/'.$row['game_id'].'/'.$channel_id.'.apk">http://'.$_SESSION["admin_id"].".h5.zyttx.com/game/apk/".$row['game_id'].'/'.$channel_id.'.apk'.'</a>';
+                            $a='<a href="http://'.$_SESSION["admin_id"].".h5.zyttx.com/game/apk/".$row['game_id'].'/'.$channel_id.'.apk">http://'.$_SESSION["admin_id"].".h5.zyttx.com/game/apk/".$row['game_id'].'/'.$channel_id.'.apk'.'</a>';
                     }else{
                             $a='<a href="/admin/admin/akpgame?game_id='.$row['game_id'].'">点击获取</a>';
                     }
