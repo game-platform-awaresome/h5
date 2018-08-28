@@ -34,6 +34,7 @@ class IndexController extends Yaf_Controller_Abstract
 //        echo "status:" . $zip->status . " ";
         $zip->close();
         $this->downFile($admin_id.'.apk',"/www/wwwroot/code/h5/tg/dev/public/game/apk/{$game_id}/");
+        Yaf_Dispatcher::getInstance()->disableView();
     }
     private function downFile($file_name,$file_dir){
         //检查文件是否存在
