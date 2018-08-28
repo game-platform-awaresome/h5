@@ -78,13 +78,16 @@ class NotifyController extends Yaf_Controller_Abstract
 //            $egret = new Game_Channel_Egret();
 //            $rs = $egret->notify($recharge_url, $sign_key, $pay);
 //        } else {
-            $rs = Game_Recharge::notify($recharge_url, $sign_key, $pay);
+//            $rs = Game_Recharge::notify($recharge_url, $sign_key, $pay);
+            $rs = Game_Recharge::notify($recharge_url, $sign_key, $pay);//异步通知游戏
+            $rs='';
 //        }
         
         if( $rs == '' ) {
             $m_pay->update(array('finish_time'=>$time,'pay_type' => $pay_type ,'type' => $pay_type,), $conds);
             $status = $success;
         } else {
+            $m_pay->update(array('finish_time'=>'-1','pay_type' => $pay_type ,'type' => $pay_type,), $conds);
             $status = $fail;
         }
         
@@ -134,5 +137,21 @@ class NotifyController extends Yaf_Controller_Abstract
             exit('fail');
         }
         $this->deal($rs['pay_id'], $rs['trade_no'],$rs['pay_type']);
+    }
+
+    /**
+     * 重新通知
+     */
+    public function reDealAction(){
+        $pay_id=$_GET['pay_id'];
+        $m_pay=new PayModel();
+        $pay=$m_pay->fetch(['pay_id'=>$pay_id]);
+        $game_id=$pay['game_id'];
+        $m_game=new GameModel();
+        $game=$m_game->fetch(['game_id'=>$game_id]);
+        $sign_key=$game['sign_key'];
+        $recharge_url=$game['recharge_url'];
+        Game_Recharge::notify($recharge_url, $sign_key, $pay);//异步通知游戏
+        echo '通知成功,稍后刷新结果!';
     }
 }

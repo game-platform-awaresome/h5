@@ -8,8 +8,9 @@ class PayModel extends F_Model_Pdo
 	public $_types = array(
 	    'alipay' => '支付宝',
 	    'wxpay' => '微信',
-	    'iapppay' => '爱贝',
+//	    'iapppay' => '爱贝',
 	    'deposit' => '平台币',
+        ''=>'未知'
 	);
 	
 	public function getTableLabel()
@@ -54,9 +55,31 @@ class PayModel extends F_Model_Pdo
 		        if( empty($row) ) return '到账时间';
 		        return $row['finish_time'] ? date('Y-m-d H:i:s', $row['finish_time']) : '-';
 		    },
+            'game_success_time'=>function(&$row){
+                if( empty($row) ) return '游戏充值结果';
+                if($row['game_name']) {
+                    if ($row['game_success_time'] == '') {
+                        return '未通知';
+                    } elseif ($row['game_success_time'] == '-1') {
+                        return "<a href='/index/notify/redeal?pay_id={$row['pay_id']}' target='_blank'>失败,重新通知</a>";
+                    } else {
+                        return date('Y-m-d H:i:s', $row['game_success_time']);
+                    }
+                }else{
+                    return '无需通知';
+                }
+            }
 		);
 	}
-	
+//    public function getFieldsPadding()
+//    {
+//        return array(
+//            function(&$row){
+//                if( empty($row) ) return '游戏充值';
+//                return "<a href=\"/admin/server/list?search[game_id]={$row['game_id']}\" target='_blank'>补单</a>";
+//            }
+//        );
+//    }
 	public function getFieldsSearch()
 	{
 	    return array(
