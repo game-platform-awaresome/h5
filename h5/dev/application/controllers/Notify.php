@@ -151,7 +151,8 @@ class NotifyController extends Yaf_Controller_Abstract
         $game=$m_game->fetch(['game_id'=>$game_id]);
         $sign_key=$game['sign_key'];
         $recharge_url=$game['recharge_url'];
-        Game_Recharge::notify($recharge_url, $sign_key, $pay);//异步通知游戏
+        $rs=Game_Recharge::notify($recharge_url, $sign_key, $pay);//异步通知游戏
         echo '通知成功,稍后刷新结果!';
+        Yaf_Dispatcher::getInstance()->disableView();
     }
 }
