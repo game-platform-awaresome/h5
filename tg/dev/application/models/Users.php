@@ -43,22 +43,22 @@ class UsersModel extends F_Model_Pdo
 	            if( empty($row) ) return '余额';
 	            return number_format($row['money']).'￥';
 	        },
-	        'identity' => '身份证号',
-	        'realname' => '真实姓名',
-	        'fcm_status' => function(&$row){
-	            if( empty($row) ) return '身份认证';
-	            return $this->_fcm_status[$row['fcm_status']];
-	        },
+//	        'identity' => '身份证号',
+//	        'realname' => '真实姓名',
+//	        'fcm_status' => function(&$row){
+//	            if( empty($row) ) return '身份认证';
+//	            return $this->_fcm_status[$row['fcm_status']];
+//	        },
 	        'reg_time' => function(&$row){
 	            if( empty($row) ) return '注册时间';
 	            return date('Y-m-d H:i:s', $row['reg_time']);
 	        },
-	        'check_status' => function(&$row){
-	            if( empty($row) ) return '验证状态';
-	            $ck = $row['check_status'] & 1 ? '手机' : '';
-	            $ck .= $row['check_status'] & 2 ? '邮箱' : '';
-	            return $ck;
-	        },
+//	        'check_status' => function(&$row){
+//	            if( empty($row) ) return '验证状态';
+//	            $ck = $row['check_status'] & 1 ? '手机' : '';
+//	            $ck .= $row['check_status'] & 2 ? '邮箱' : '';
+//	            return $ck;
+//	        },
 	    );
 	}
 	
