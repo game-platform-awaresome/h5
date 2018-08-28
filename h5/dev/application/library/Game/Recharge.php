@@ -23,7 +23,6 @@ class Game_Recharge
         $data = array(
             'user_id' => $pay['user_id'],
             'username' => $pay['username'],
-            'role_id' => $pay['role_id'],
             'to_uid' => $pay['to_uid'],
             'to_user' => $pay['to_user'],
             'pay_id' => $pay['pay_id'],
@@ -33,6 +32,9 @@ class Game_Recharge
             'cp_order' => $pay['cp_order'],
             'time' => $time,
         );
+        if($pay['role_id']>0){
+            $data['role_id']=$pay['role_id'];
+        }
         if( isset($pay['extra']) && $pay['extra'] ) {
             $data['extra'] = $pay['extra'];
         }
