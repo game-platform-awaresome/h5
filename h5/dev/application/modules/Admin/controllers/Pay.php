@@ -11,8 +11,53 @@ class PayController extends F_Controller_Backend
     protected function beforeList()
     {
         $params = parent::beforeList();
+        $search = $this->getRequest()->getQuery('search', array());
+        $conds = '';
+        $comma = '';
+        if( !empty($search['add_begin']) && !empty($search['add_end']) ) {
+            $search['add_end'] .= ' 23:59:59';
+            $search['add_begin']=strtotime($search['add_begin']);
+            $search['add_end']=strtotime($search['add_end']);
+            $conds = "{$comma}pay_time BETWEEN {$search['add_begin']} AND {$search['add_end']}";
+        }
+        //支付状态
+        if(!empty($search['pay_status'])){
+            if($search['pay_status']=='need_pay'){
+                $search['pay_time']=0;
+            }elseif($search['pay_status']=='has_pay'){
+                if($conds){
+                    $conds .= " AND pay_time > 0";
+                }else{
+                    $conds .= "pay_time > 0";
+                }
+            }
+        }
+        unset($search['add_begin'], $search['add_end'],$search['pay_status']);
+        foreach ($search as $k=>$v)
+        {
+            $v = trim($v);
+            if( empty($v) ) continue;
+            if($conds){
+                $conds.=' AND ';
+            }
+            $conds .= "{$comma}{$k}='{$v}'";
+            $comma = ' AND ';
+        }
+        $params['conditions'] = $conds;
         $params['op'] = F_Helper_Html::Op_Edit;
-        $params['orderby'] = 'pay_id DESC';
+        $params['orderby'] = 'add_time DESC';
+        //统计总支付金额
+        //统计金额
+//
+
+        $m_pay=new PayModel();
+        if(!$params['conditions']){
+            $params['conditions']='1=1';
+        }
+        $total_money=$m_pay->fetch($params['conditions'],'SUM(money)  sum_money');
+        $this->getView()->assign('total_money',$total_money['sum_money']);
+//        $GLOBALS['total_money']=$GLOBALS['total_money']??0;
+//        $GLOBALS['total_money']+=number_format($row['money']);
         return $params;
     }
     

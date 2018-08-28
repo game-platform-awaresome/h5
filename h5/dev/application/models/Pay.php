@@ -4,17 +4,20 @@ class PayModel extends F_Model_Pdo
 {
 	protected $_table = 'pay';
 	protected $_primary='pay_id';
-	
+
 	public $_types = array(
 	    'alipay' => '支付宝',
 	    'wxpay' => '微信',
 //	    'iapppay' => '爱贝',
 	    'deposit' => '平台币',
-        ''=>'未知'
-	);
+        ''=>'未知',
+    );
+	public $_payTypes=array(
+	  'need_pay'=>'未支付',
+      'has_pay'=>'已支付'
+    );
 	
-	public function getTableLabel()
-	{
+	public function getTableLabel(){
 		return '支付记录';
 	}
 	
@@ -83,10 +86,13 @@ class PayModel extends F_Model_Pdo
 	public function getFieldsSearch()
 	{
 	    return array(
+            'add_begin' => array('开始日期', 'datepicker', null, ''),
+            'add_end' => array('结束日期', 'datepicker', null, ''),
+	        'pay_status'=>array('支付状态','select',$this->_payTypes,''),
 	        'type' => array('付款方式', 'select', $this->_types, ''),
 	        'pay_id' => array('支付ID', 'input', null, ''),
 	        'username' => array('用户名', 'input', null, ''),
-	        'game_id' => array('游戏ID', 'input', null, ''),
+	        'game_name' => array('游戏名', 'input', null, ''),
 	        'server_id' => array('区/服ID', 'input', null, ''),
 	        'trade_no' => array('流水号', 'input', null, ''),
 	    );
