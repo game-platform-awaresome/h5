@@ -9,7 +9,9 @@ class IndexController extends Yaf_Controller_Abstract
 	}
     public function akpgameAction(){
         $game_id=$_GET['game_id']??die('游戏id必须');
-        $admin_id=$_SESSION['admin_id'];
+        $f_url=new F_Helper_Url();
+        $channe_id=$f_url->getUrlSign();
+        $admin_id=$channe_id;
         $zip = new ZipArchive();
         $filename = "/www/wwwroot/code/h5/open/dev/public/game/apk/{$game_id}.apk";//母包位置
         //复制一份到当前
