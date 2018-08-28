@@ -28,7 +28,7 @@
                 <?php if(file_exists("/www/wwwroot/code/h5/tg/dev/public/game/apk/{$row['game_id']}/".$tg_channel.'.apk')):?>
                     <a target="_top" href="<?='http://yun.zyttx.com/game/apk/'.$row['game_id'].'/'.$tg_channel.'.apk'?>" class="btn_blue">点击下载</a>
                 <?php else:?>
-                    <a target="_top" href="<?='http://yun.zyttx.com/index/akpgame?game_id='.$row['game_id']?>" class="btn_blue">点击下载</a>
+                    <a target="_top" href="<?='http://yun.zyttx.com/index/akpgame?game_id='.$row['game_id'].'&$tg_channel='.$tg_channel?>" class="btn_blue">点击下载</a>
                 <?php endif;?>
             <?php else:?>
                 <a target="_top" href="/game/play.html?game_id=<?=$row['game_id']?>" class="btn_blue">开始玩</a>
