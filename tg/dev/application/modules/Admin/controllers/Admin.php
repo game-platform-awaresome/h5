@@ -163,8 +163,8 @@ class AdminController extends F_Controller_Backend
         if ($zip->open($now_path, ZIPARCHIVE::CREATE)!==TRUE) {
             exit("cannot open <$filename> ");
         }
-        $zip->addFromString("META-INF/lefengwan_channelid", "{$admin_id}");
-        $zip->addFromString("META-INF/lefengwan_gameid","{$game_id}");
+        $zip->addFromString("META-INF/jiule_channelid", "{$admin_id}");
+        $zip->addFromString("META-INF/jiule_gameid","{$game_id}");
         //$zip->addFile($thisdir . "/too.php","/testfromfile.php");
         echo "numfiles: " . $zip->numFiles . " ";
         echo "status:" . $zip->status . " ";
