@@ -16,15 +16,16 @@
 
     <!--div.z_min 内容区域 statr-->
     <div class="z_main" data-role="conent">
-        <figure class="banner block_bg">
+<!--         <figure class="banner block_bg">
         <?php foreach ($banner['ads'] as &$row) { ?>
             <a target="_top" href="<?=$row['url']?>" class="line_01">
                 <img src="<?=$row['image']?>" width="100%" height="auto"<?php if($row['subject']) echo " alt=\"{$row['subject']}\""; ?>/>
             </a>
         <?php } ?>
-        </figure>
+        </figure> -->
         <section class="pay_infos">
             <nav>
+<!--                --><?php //var_dump($pay);die;?>
                 <a style="width:100%"><span>订单编号：</span><span class="bold"><?=sprintf('%16.0f', $pay['pay_id'])?></span></a>
             </nav>
             <ul>
@@ -36,7 +37,7 @@
         </section>
          <div class="btn_cont">
         <?php if($pay['cp_return']=='android'):?>
-            <a class="btn_green" target="_top" href="javascript:void(0);" onclick="window.Android.backToApp()">返回</a>
+            <a class="btn_green" target="_top" href="javascript:void(0);" onclick="window.Android.backToApp()">返回游戏</a>
         <?php else:?>
             <a class="btn_green" target="_top" href="/user/index.html">返回</a>
         <?php endif;?>

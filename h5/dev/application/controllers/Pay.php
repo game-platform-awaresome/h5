@@ -518,8 +518,9 @@ class PayController extends Yaf_Controller_Abstract
 //	            $this->forward('game', 'entry', array('game_name'=>$game_name, 'url'=>$url, 'load_type'=>$load_type));
 	            return false;
 	        }
-	    }
-	    
+	    }elseif ($pay['cp_return']=='android'){
+	        $this->getView()->assign('pay',$pay);
+        }
 	    if( is_array($rs) && $rs['result'] ) {
 	        $status = 'success';
 	        $message = '您的充值已成功到账！';

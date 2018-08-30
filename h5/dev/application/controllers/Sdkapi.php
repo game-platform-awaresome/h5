@@ -137,6 +137,12 @@ class SdkapiController extends Yaf_Controller_Abstract
         // server_id 区服id 1
         // sdkorder  订单号 4bb31a31-31ee-48e6-839f-c9e478485d17
         //生成订单
+        //*****************测试返回*********************//
+            
+        $pay_id='5356027267923333';
+        $this->redirect('/index/pay/result?orderId='.$pay_id.'&jinzhue='.$pay_id);
+
+        //*****************测试返回*********************//
         $request = urldecode($_REQUEST['data']??'');
         $request = $this->convertUrlQuery($request);
         $this->checkParams(
