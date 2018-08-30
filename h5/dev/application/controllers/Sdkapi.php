@@ -139,13 +139,13 @@ class SdkapiController extends Yaf_Controller_Abstract
         //生成订单
         //*****************测试返回*********************//
             
-        $pay_id='5356027267923333';
-        $data['status']=100;
-        $data['msg']     = '创建订单成功';
-        $info['pay_url'] = 'http://' . $_SERVER['HTTP_HOST']  . '/pay/result?orderId=' . $pay_id.'&jinzhue='.$pay_id;
-        $data['info']    = $info;
-        echo json_encode($data);
-        die;
+        // $pay_id='5356027267923333';
+        // $data['status']=100;
+        // $data['msg']     = '创建订单成功';
+        // $info['pay_url'] = 'http://' . $_SERVER['HTTP_HOST']  . '/pay/result?orderId=' . $pay_id.'&jinzhue='.$pay_id;
+        // $data['info']    = $info;
+        // echo json_encode($data);
+        // die;
         //*****************测试返回*********************//
         $request = urldecode($_REQUEST['data']??'');
         $request = $this->convertUrlQuery($request);
