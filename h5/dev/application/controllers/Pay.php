@@ -462,7 +462,7 @@ class PayController extends Yaf_Controller_Abstract
 //	        $this->forward('game', 'entry', array('game_name'=>$pay['game_name'], 'url'=>$pay['cp_return'], 'load_type'=>$load_type));
 //            return false;
 //	    }
-	    if( isset($pay) && $pay['cp_return'] ) {
+	    if( isset($pay) && $pay['cp_return'] && $pay['cp_return']!='android') {
 //	        if( $pay['server_id'] ) {
 //	            $m_server = new ServerModel();
 //	            $server = $m_server->fetch("server_id='{$pay['server_id']}'", 'login_url,sign_key,load_type');

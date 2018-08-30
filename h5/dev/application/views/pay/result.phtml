@@ -34,8 +34,13 @@
                 </li>
             </ul>
         </section>
-        <div class="btn_cont">
+         <div class="btn_cont">
+        <?php if($pay['cp_return']=='android'):?>
+            <a class="btn_green" target="_top" href="javascript:void(0);" onclick="window.Android.backToApp()">返回</a>
+        <?php else:?>
             <a class="btn_green" target="_top" href="/user/index.html">返回</a>
+        <?php endif;?>
+       
         </div>
         <div class="footer_padding"></div>
     </div>

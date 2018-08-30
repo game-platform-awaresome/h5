@@ -166,6 +166,7 @@ class SdkapiController extends Yaf_Controller_Abstract
             'pay_type'    => '',
             'add_time'    => time(),
             'cp_order'    => $request['order_number'],
+            'cp_return'    => 'android',
             'tg_channel'  => $request['q_id'],
             'extra'       => $request['goods_id'],
             'player_channel'=>$user_info['player_channel']
