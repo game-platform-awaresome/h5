@@ -165,7 +165,7 @@ class SdkapiController extends Yaf_Controller_Abstract
             'add_time'    => time(),
             'cp_order'    => $request['order_number'],
             'tg_channel'  => $request['q_id'],
-            'extra'       => $request['order_number'],
+            'extra'       => $request['goods_id'],
         );
         $m_pay->insert($pay);
         if ($m_pay->fetch(['pay_id'=>$pay_id],'pay_id')) {

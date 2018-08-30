@@ -29,6 +29,7 @@ class UserController extends Yaf_Controller_Abstract
     
     public function init()
     {
+        $_SESSION['player_channel']=$_GET['player_channel']??0;
         Yaf_Registry::set('layout', false);
     }
     
@@ -734,7 +735,6 @@ class UserController extends Yaf_Controller_Abstract
 	        $this->redirect('/user/index.html');
 	        return false;
 	    }
-	    
 	    $conf = Yaf_Application::app()->getConfig();
 	    $appid = $conf->qq->appid;
 	    $domain_old =isset($_SERVER['HTTP_HOST']) ? $_SERVER['HTTP_HOST'] : $_SERVER['SERVER_NAME'];
@@ -1014,6 +1014,26 @@ class UserController extends Yaf_Controller_Abstract
 	    
 	    return false;
 	}
+    public function playerchannelAction(){
+    }
+    public function playerchannellistAction(){
+        $m_user = new UsersModel();
+        $user = $m_user->getLogin();
+        if( empty($user) ) {
+            exit;
+        }
+        $req = $this->getRequest();
+        $pn = $req->get('pn', 0);
+        $limit = $req->get('limit', 0);
+
+        if( $pn < 1 || $limit < 1 ) {
+            exit;
+        }
+
+//        $logs = $m_user->giftLogs($user['user_id'], $pn, $limit);
+        $logs=$m_user->fetchAll(['player_channel'=>$_SESSION['user_id']],$pn,$limit,'user_id,reg_time','reg_time desc');
+        $this->getView()->assign('logs', $logs);
+    }
 
     //不同环境下获取真实的IP
     function getIp(){

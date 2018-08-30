@@ -3,7 +3,7 @@
     <a target="_top" href="/user/giftinfo.html?log_id=<?=$row['log_id']?>">
         <span><?=$row['gift_name']?></span>
         <span class="bold col-2"><?=$row['cdkey']?></span>
-        <span class="col-3"><?=date('Y-m-d', $row['get_time'])?></span>
+        <span class="col-3"><?=date('Y-m-d H:i:s', $row['get_time'])?></span>
     </a>
 </li>
 <?php } ?>

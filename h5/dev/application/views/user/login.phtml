@@ -22,7 +22,7 @@
             <input type="password" id="password" placeholder="密码"/>
             <div>
             <a href="javascript:void(0)" class="login_btn" style="float: right">登录</a>
-            <a target="_top" href="/user/register.html<?=$fwd ? '?fwd='.urlencode($fwd) : ''?>" class="register_btn" style="float: left">注册</a>
+            <a target="_top" href="/user/register.html<?=$fwd ? '?fwd='.urlencode($fwd) : ''?><?php if($_GET['player_channel']??false)echo "&player_channel={$_GET['player_channel']}";?>" class="register_btn" style="float: left">注册</a>
             </div>
         </form>
         <section class="login_nav">
@@ -37,7 +37,7 @@
 <!--                <a href="javascript:void(0)" class="left_btn" id="wx_login">-->
 <!--<!--                    <i class="logos phone_login"></i><span>手机登录</span>-->
 <!--                </a>-->
-                <a target="_top" href="/user/qqlogin.html<?=$fwd ? '?fwd='.urlencode($fwd) : ''?>" class="left_btn">
+                <a target="_top" href="/user/qqlogin.html<?=$fwd ? '?fwd='.urlencode($fwd) : ''?><?php if($_GET['player_channel']??false)echo "&player_channel={$_GET['player_channel']}";?>" class="left_btn">
                         <i class="logos qq_img"></i>
                 </a>
             </nav>

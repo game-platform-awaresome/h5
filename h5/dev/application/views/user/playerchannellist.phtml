@@ -1,7 +1,7 @@
-<?php
-/**
- * Created by PhpStorm.
- * User: Administrator
- * Date: 2018/8/29/029
- * Time: 13:48
- */
+<?php foreach ($logs as &$row) { ?>
+    <li>
+            <span><?=date('Y-m-d H:i:s', $row['reg_time'])?></span>
+            <span class="bold col-2"><?=$row['user_id']?></span>
+            <span class="col-3"><?=$row['user_id']?></span>
+    </li>
+<?php } ?>

@@ -42,6 +42,7 @@ class PayController extends Yaf_Controller_Abstract
                 'type' => '',
                 'cp_order' => '',
                 'tg_channel' => $this->user['channel_id'],
+                'player_channel' => $this->user['player_channel'],
             );
             $this->sess->set('pay_info', $this->pay);
         }

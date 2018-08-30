@@ -50,7 +50,7 @@
                 <label>已有久乐账号</label>
             </div>
     		<div class="box2">
-            	<a target="_top" href="/user/login.html?fwd=<?=$fwd?>" class="btn_green2">立即登录</a>
+            	<a target="_top" href="/user/login.html?fwd=<?=$fwd?><?php if($_GET['player_channel']??false)echo "&player_channel={$_GET['player_channel']}";?>" class="btn_green2">立即登录</a>
     		</div>
     		<div class="box3"></div>
         </section>

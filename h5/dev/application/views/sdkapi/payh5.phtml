@@ -24,6 +24,12 @@
             <!--            <span class="fr" style="position:absolute; right:1px">(1RMB = --><?//=$parities?><!--平台币)</span>-->
             <input type="hidden" name="game_name" value="<?=$pay['game_name']?>">
         </h3>
+       <h3 class="block_bg your_money" style="position:relative">
+            <span>充值描述：</span>
+            <b class="bold green"><?=$pay['goods_id']?></b>
+            <!--            <span class="fr" style="position:absolute; right:1px">(1RMB = --><?//=$parities?><!--平台币)</span>-->
+            <input type="hidden" name="goods_id" value="<?=$pay['goods_id']?>">
+        </h3>
         <h3 class="block_bg your_money" style="position:relative">
             <span>充值金额：</span>
             <b class="bold green"><?=$pay['money']?>元</b>

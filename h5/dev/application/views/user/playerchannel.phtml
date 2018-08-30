@@ -3,50 +3,81 @@
 <head lang="en">
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-<title>我的收藏 - 久乐游戏</title>
+<title>我的推广 - 久乐游戏</title>
 <link rel="stylesheet" href="/public/styles/base.css"/>
 <link rel="stylesheet" href="/styles/my_favs.css"/>
+<link rel="stylesheet" href="/styles/pay_list.css"/>
 </head>
 <body class="bg00">
 <div data-role="page" class="z_container bg01">
     <div class="main">
         <header  class="z_header">
-            <a target="_top" href="/user/index.html"></a>我的收藏
+            <a target="_top" href="/user/index.html"></a>我的推广
         </header>
-        <figure class="banner block_bg">
-            <img src="/images/index/index_03.png" width="100%" height="auto" alt="图片"/>
-        </figure>
-        <section class="games">
-            <h1 class="block_bg">
-                <span class="fl">
-                    <i class="i_start"></i>我的收藏
-                </span>
-                <span class="fr delete">
-                    <i class="i_delete"></i>删除
-                </span>
-            </h1>
-            <ul class="game_list block_bg">
-            <?php if($games) { foreach ($games as $row) { ?>
-                <li>
-                    <i class="i_close none" data-gid="<?=$row['game_id']?>"></i>
-                    <a target="_top" href="/game/detail.html?game_id=<?=$row['game_id']?>"><img src="<?=$row['logo']?>" width="50" height="50" alt="<?=$row['name']?>"/></a>
-                </li>
-            <?php } } else { ?>
-                <li style="width:98%">
-                    <h4 style="font-weight:normal; padding-top:34px; text-align:center">还没有收藏游戏！</h4>
-                </li>
-            <?php } ?>
-            </ul>
+
+        <section style="padding: 10px;font-size: large;">
+               推广说明<br/>
+                <div style="font-size: small;padding: 10px">
+                    您的好友通过你的推广链接注册成功后，系统将自动跟踪统计你的下线提成20%
+                </div>
+               推广二维码
+               <div style="text-align: center;padding: 10px">
+                   <div id="qrcode_player_channel" ></div>
+               </div>
+            <div>
+                推广链接
+                <div style="font-size: small;padding: 10px">
+                    <span id="mytext"><?="http://".$_SERVER['HTTP_HOST'].'/user/register.html?fwd=user/index&player_channel='.$_SESSION['user_id']?></span>
+                    <br/>
+                    <button id="copy_input">复制</button>
+                </div>
+            </div>
+            <!--            <div>-->
+<!--                操作方法:<br/>-->
+<!--                复制以下信息<br/>-->
+<!--                <div style="font-size: small">-->
+<!--                   久乐游戏-转发就能赚钱，每天五分钟，轻松月入上万   --><?//="http://".$_SERVER['HTTP_HOST'].'/user/register.html?fwd=user/index&player_channel='.$_SESSION['user_id']?>
+<!--                </div>-->
+<!--                1.作为QQ签名<br/>-->
+<!--                2.发到QQ群或微信群<br/>-->
+<!--                3.作为微信签名<br/>-->
+<!--            </div>-->
+            我的下线
+            <div class="pay_list gift_logs">
+                <ul class="list_header">
+                    <li>
+                        <span>注册时间</span>
+                        <span class="bold col-2">用户id</span>
+                        <span class="col-3">收益</span>
+                    </li>
+                </ul>
+                <ul class="list_body">
+                    <li>
+                        <a id="show_more" href="javascript:void(0)"><span>显示跟多 &gt;</span></a>
+                    </li>
+                </ul>
+            </div>
         </section>
+
     </div>
     <div class="footer_padding"></div>
 </div>
 <?php include $this->getScriptPath().'/footer.phtml'; ?>
-<script src="/public/scripts/jquery-1.11.1.min.js"></script>
-<script src="/public/scripts/jquery.mobile.min.js"></script>
+<script src="/js/jquery-zclip/jquery.zclip.js"></script>
+
 <script>
 $('#footer a:eq(4)').attr('id', 'footer_nav_active');
 $(function(){
+    $('#copy_input').zclip({        　 //copy_input表示 按钮
+        path: '/js/jquery-zclip/ZeroClipboard.swf',
+        copy: function(){ 　　　　　　　　　　//复制内容
+            return $('#mytext').text();  　 //mytext表示 内容
+        },
+        afterCopy: function(){ //复制成功
+            // $("<span id='msg'/>").insertAfter($('#copy_input')).text('复制成功');
+            alert('复制成功');
+        }
+    });
 	$('.i_delete').parent().on('tap', function(){
 		$('.i_close').toggleClass('none');
 	});
@@ -85,7 +116,56 @@ $(function(){
 			}
 		});
 	});
+	//显示数据
+    var pn = 0;
+    var limit = 8;
+    var nomore = false;
+    var loading = false;
+    function morePayLogs()
+    {
+        if( loading || nomore ) return false;
+        ++pn;
+        var send = 'pn='+pn+'&limit='+limit;
+        loading = true;
+        $.ajax({
+            type: 'GET',
+            url: '/user/playerchannellist.html',
+            data: send,
+            dataType: 'html',
+            success: function(msg){
+                if( $(msg).length < 1 ) {
+                    $('#show_more span').html('没有更多了...');
+                    nomore = true;
+                } else {
+                    $(msg).insertBefore($('#show_more').parent());
+                    if( $(msg).length < limit) {
+                        $('#show_more span').html('没有更多了...');
+                        nomore = true;
+                    }
+                }
+                loading = false;
+            },
+            error: function(){
+                loading = false;
+            }
+        });
+    }
+    morePayLogs();
+    $('#show_more').on('click', morePayLogs);
+
 });
+</script>
+<?php
+$player_channel_addr="http://".$_SERVER['HTTP_HOST'].'/user/register.html?fwd=user/index&player_channel='.$_SESSION['user_id'];
+?>
+<script>
+    $('#qrcode_player_channel').qrcode({
+        text:"<?=$player_channel_addr?>",
+        width: 160, //宽度
+        height:160, //高度
+        background: "#ffffff",
+        correctLevel: 0,//纠错等级
+    });
 </script>
 </body>
 </html>

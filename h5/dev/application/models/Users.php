@@ -106,7 +106,7 @@ class UsersModel extends F_Model_Pdo
 //		} elseif( $u_id < 1 ) {
 //		    return '服务器错误，请重试！';
 //		}
-		$has = $this->fetch(['username'=>$username,'password'=>md5($password)], 'user_id,username,nickname,email,login_times,tg_channel');
+		$has = $this->fetch(['username'=>$username,'password'=>md5($password)], 'user_id,username,nickname,email,login_times,tg_channel,player_channel');
 		$u_id=$has['user_id'];
 		if( empty($has) ) {
 //		    $sess = Yaf_Session::getInstance();
@@ -129,6 +129,7 @@ class UsersModel extends F_Model_Pdo
 		} else {
 		    $nickname = $has['nickname'];
 		    $channel_id = $has['tg_channel'];
+            $player_channel = $has['player_channel'];
 		    $this->update(array('login_day'=>date('Ymd'), 'login_times'=>$has['login_times']+1), "username='{$username}'");
 		}
 		
@@ -147,11 +148,12 @@ class UsersModel extends F_Model_Pdo
 		$s->set('nickname', $nickname);
 		$s->set('email', $has['email']);
 		$s->set('channel_id', $channel_id);
-		
+		$s->set('player_channel', $player_channel);
+
 		if( $remember ) {
             //始终使用自动登录功能
             $time = $time + 86400 * 7;
-            $info = "{$u_id}\t{$username}\t{$nickname}\t{$password}\t{$has['email']}\t{$channel_id}";
+            $info = "{$u_id}\t{$username}\t{$nickname}\t{$password}\t{$has['email']}\t{$channel_id}\t{$player_channel}";
             $info = F_Helper_Mcrypt::authcode($info, 'ENCODE');
             $domain = Yaf_Registry::get('config')->cookie->domain;
             setcookie($this->_ck_ui_name, $info, $time, '/', $domain);
@@ -172,7 +174,7 @@ class UsersModel extends F_Model_Pdo
 //        require_once APPLICATION_PATH.'/uc_client/client.php';
         $time = time();
         
-        $user = $this->fetch("app='{$app}' AND openid='{$info['openid']}'", 'user_id,username,nickname,`password`,email,expires,login_times,tg_channel');
+        $user = $this->fetch("app='{$app}' AND openid='{$info['openid']}'", 'user_id,username,nickname,`password`,email,expires,login_times,tg_channel,player_channel');
         if( empty($user) ) {
             $info['nickname'] = trim(str_replace(array("'", '"', '\\'), '', $info['nickname']));
             if( $info['nickname'] == '' ) {
@@ -230,6 +232,7 @@ class UsersModel extends F_Model_Pdo
                 'login_day' => date('Ymd'),
                 'login_times' => 1,
                 'tg_channel' => $channel_id,
+                'player_channel'=>$_SESSION['player_channel']
             ), true);
             //统一修改用户名
 //            $rs = $this->update(array(
@@ -246,7 +249,7 @@ class UsersModel extends F_Model_Pdo
             $password = $user['password'];
             $email = $user['email'];
             $channel_id = $user['tg_channel'];
-            
+            $player_channel = $user['player_channel'];
             if( $user['expires'] < $time ) {
                 if( strlen($info['openid']) > 32 ) {
                     $info['openid'] = md5($info['openid']);
@@ -282,10 +285,11 @@ class UsersModel extends F_Model_Pdo
         $s->set('nickname', $nickname);
         $s->set('email', $email);
         $s->set('channel_id', $channel_id);
-        
+        $s->set('player_channel', $player_channel);
+
         //第三方登录始终使用自动登录功能
         $time = $time + 86400 * 7;
-        $info = "{$uid}\t{$username}\t{$nickname}\t{$password}\t{$email}\t{$channel_id}";
+        $info = "{$uid}\t{$username}\t{$nickname}\t{$password}\t{$email}\t{$channel_id}\t{$player_channel}";
         $info = F_Helper_Mcrypt::authcode($info, 'ENCODE');
         $domain = Yaf_Registry::get('config')->cookie->domain;
         setcookie($this->_ck_ui_name, $info, $time, '/', $domain);
@@ -322,6 +326,7 @@ class UsersModel extends F_Model_Pdo
 			    'nickname' => $s->get('nickname'),
 				'email' => $s->get('email'),
 			    'channel_id' => $s->get('channel_id'),
+			    'player_channel' => $s->get('player_channel'),
 			);
 		}
 		if( empty($_COOKIE[$this->_ck_ui_name]) ) {
@@ -334,7 +339,7 @@ class UsersModel extends F_Model_Pdo
 			setcookie($this->_ck_ui_name, '', 1, '/', $domain);
 			return null;
 		}
-		list($user_id, $username, $nickname, $password, $email, $channel_id) = $info;
+		list($user_id, $username, $nickname, $password, $email, $channel_id,$player_channel) = $info;
 		if( $user_id > 0 ) {
 		    //再次登录，避免被冻结的用户继续操作
 		    $err = $this->login($username, $password);
@@ -344,6 +349,7 @@ class UsersModel extends F_Model_Pdo
     			$s->set('nickname', $nickname);
     			$s->set('email', $email);
     			$s->set('channel_id', $channel_id);
+    			$s->set('player_channel', $player_channel);
     			return array(
     				'user_id' => $user_id,
     				'username' => $username,
@@ -401,6 +407,7 @@ class UsersModel extends F_Model_Pdo
                     'reg_time' => time(),
                     'check_status' => $mobile ? 1 : 0,
                     'tg_channel' => $channel_id,
+                    'player_channel'=>$_SESSION['player_channel']
                 ), false);
                 $uid = $rs;
                 return (int)$uid;

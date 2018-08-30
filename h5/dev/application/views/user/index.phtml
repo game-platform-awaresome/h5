@@ -101,9 +101,9 @@
                 <span class="icon i_qq"></span>
                 <!--                <span class="icon i_qq"></span>-->
             </am>
-            <a href="javascript:void(0)" class="block_bg">
+            <a href="<?php if (empty($user)) echo '/user/login.html?fwd='; ?>/user/playerchannel.html" class="block_bg">
                 <i class="icon i_list5"></i>
-                <span>我的积分</span>
+                <span>我的推广</span>
                 <span class="icon i_go"></span>
             </a>
             <a target="_top" href="<?php if (empty($user)) echo '/user/login.html?fwd='; ?>/user/fcm.html"
