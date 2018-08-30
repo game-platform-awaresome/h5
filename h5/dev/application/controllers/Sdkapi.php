@@ -140,7 +140,7 @@ class SdkapiController extends Yaf_Controller_Abstract
         //*****************测试返回*********************//
             
         $pay_id='5356027267923333';
-        $data['code']=100;
+        $data['status']=100;
         $data['msg']     = '创建订单成功';
         $info['pay_url'] = 'http://' . $_SERVER['HTTP_HOST']  . '/sdkapi/payh5?pay_id=' . $pay_id;
         $data['info']    = $info;
