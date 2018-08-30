@@ -147,6 +147,8 @@ class SdkapiController extends Yaf_Controller_Abstract
         $m_game    = new GameModel();
         $game_name = $m_game->fetch(['game_id' => $request['game_id']], 'name');
         $pay_id=$m_pay->createPayId();
+        $m_user=new UsersModel();
+        $user_info=$m_user->fetch(['user_id'=>$request['user_id']],'player_channel');
         $pay       = array(
             'pay_id'      => $pay_id,
             'user_id'     => $request['user_id'],
@@ -166,6 +168,7 @@ class SdkapiController extends Yaf_Controller_Abstract
             'cp_order'    => $request['order_number'],
             'tg_channel'  => $request['q_id'],
             'extra'       => $request['goods_id'],
+            'player_channel'=>$user_info['player_channel']
         );
         $m_pay->insert($pay);
         if ($m_pay->fetch(['pay_id'=>$pay_id],'pay_id')) {
