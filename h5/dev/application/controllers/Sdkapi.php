@@ -141,7 +141,7 @@ class SdkapiController extends Yaf_Controller_Abstract
         $request = $this->convertUrlQuery($request);
         $this->checkParams(
             $request,
-            ['username', 'user_id', 'q_id', 'game_id', 'gold', 'goods_id', 'role_id', 'role_name', 'server_id', 'sdkorder']
+            ['username', 'user_id', 'q_id', 'game_id', 'gold', 'goods_id', 'role_id', 'role_name', 'server_id', 'order_number']
         );
         $m_pay     = new PayModel();
         $m_game    = new GameModel();
@@ -163,9 +163,9 @@ class SdkapiController extends Yaf_Controller_Abstract
             'type'        => '',
             'pay_type'    => '',
             'add_time'    => time(),
-            'cp_order'    => $request['sdkorder'],
+            'cp_order'    => $request['order_number'],
             'tg_channel'  => $request['q_id'],
-            'extra'       => $request['sdkorder'],
+            'extra'       => $request['order_number'],
         );
         $m_pay->insert($pay);
         if ($m_pay->fetch(['pay_id'=>$pay_id],'pay_id')) {

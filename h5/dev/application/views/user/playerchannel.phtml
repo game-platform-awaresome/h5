@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<title>我的收藏 - 久乐游戏</title>
+<link rel="stylesheet" href="/public/styles/base.css"/>
+<link rel="stylesheet" href="/styles/my_favs.css"/>
+</head>
+<body class="bg00">
+<div data-role="page" class="z_container bg01">
+    <div class="main">
+        <header  class="z_header">
+            <a target="_top" href="/user/index.html"></a>我的收藏
+        </header>
+        <figure class="banner block_bg">
+            <img src="/images/index/index_03.png" width="100%" height="auto" alt="图片"/>
+        </figure>
+        <section class="games">
+            <h1 class="block_bg">
+                <span class="fl">
+                    <i class="i_start"></i>我的收藏
+                </span>
+                <span class="fr delete">
+                    <i class="i_delete"></i>删除
+                </span>
+            </h1>
+            <ul class="game_list block_bg">
+            <?php if($games) { foreach ($games as $row) { ?>
+                <li>
+                    <i class="i_close none" data-gid="<?=$row['game_id']?>"></i>
+                    <a target="_top" href="/game/detail.html?game_id=<?=$row['game_id']?>"><img src="<?=$row['logo']?>" width="50" height="50" alt="<?=$row['name']?>"/></a>
+                </li>
+            <?php } } else { ?>
+                <li style="width:98%">
+                    <h4 style="font-weight:normal; padding-top:34px; text-align:center">还没有收藏游戏！</h4>
+                </li>
+            <?php } ?>
+            </ul>
+        </section>
+    </div>
+    <div class="footer_padding"></div>
+</div>
+<?php include $this->getScriptPath().'/footer.phtml'; ?>
+<script src="/public/scripts/jquery-1.11.1.min.js"></script>
+<script src="/public/scripts/jquery.mobile.min.js"></script>
+<script>
+$('#footer a:eq(4)').attr('id', 'footer_nav_active');
+$(function(){
+	$('.i_delete').parent().on('tap', function(){
+		$('.i_close').toggleClass('none');
+	});
+
+	var loading = false;
+	var timeout = true;
+	$('.i_close').on('vmouseup', function(){
+		if( loading || ! timeout ) return false;
+		loading = true;
+		timeout = false;
+		setTimeout(function(){
+			timeout = true;
+		}, 1000);
+		var _t = $(this);
+		var gid = _t.attr('data-gid');
+		$.ajax({
+			url: '/user/delfavorite.html',
+			type: 'POST',
+			dataType: 'text',
+			data: 'game_id='+gid,
+			success: function(msg){
+				if( msg != 'success' ) {
+					alert(msg);
+					loading = false;
+				} else {
+					_t.parent().fadeOut('fast', function(){
+						_t.parent().remove();
+						loading = false;
+						if( $('ul.game_list > li').length < 1 ) location.reload();
+					});
+				}
+			},
+			error: function(){
+				loading = false;
+				alert('网络连接失败，请重试！');
+			}
+		});
+	});
+});
+</script>
+</body>
+</html>
