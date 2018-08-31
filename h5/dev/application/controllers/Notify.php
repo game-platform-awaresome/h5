@@ -136,14 +136,6 @@ class NotifyController extends Yaf_Controller_Abstract
                 'ymd' => date('Ymd'),
             ));
             echo '非法订单,已记录访问ip,请勿违法犯罪之事';die;
-        }elseif($html=json_decode($html,true)){
-            if($num==$html['num']){
-                    //正确订单
-            }else{
-                echo 'no';die;
-            }
-        }else{
-            echo 'no';die;
         }
         //订单验证
         //日志
