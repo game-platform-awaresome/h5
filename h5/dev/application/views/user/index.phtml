@@ -71,20 +71,20 @@
 
         <!--nav.user_lists 用户信息分类列表 statr-->
         <nav class="user_lists">
-            <a target="_top" href="<?php if (empty($user)) echo '/user/login.html?fwd='; ?>/user/games.html"
+            <a target="_top" href="<?php if (empty($user['username'])) echo '/user/login.html?fwd='; ?>/user/games.html"
                class="block_bg">
                 <i class="icon i_list1"></i>
                 <span>最近在玩</span>
                 <span class="icon i_go"></span>
             </a>
-            <a target="_top" href="<?php if (empty($user)) echo '/user/login.html?fwd='; ?>/user/favorites.html"
+            <a target="_top" href="<?php if (empty($user['username'])) echo '/user/login.html?fwd='; ?>/user/favorites.html"
                class="block_bg">
                 <i class="icon i_list2"></i>
                 <span>我的收藏</span>
                 <!--<sup class="sup_number">12</sup>-->
                 <span class="icon i_go"></span>
             </a>
-            <a target="_top" href="<?php if (empty($user)) echo '/user/login.html?fwd='; ?>/pay/index.html"
+            <a target="_top" href="<?php if (empty($user['username'])) echo '/user/login.html?fwd='; ?>/pay/index.html"
                class="block_bg">
                 <i class="icon i_list3"></i>
                 <span>充值中心</span>
@@ -101,12 +101,12 @@
                 <span class="icon i_qq"></span>
                 <!--                <span class="icon i_qq"></span>-->
             </am>
-            <a href="<?php if (empty($user)) echo '/user/login.html?fwd='; ?>/user/playerchannel.html" class="block_bg">
+            <a href="<?php if (empty($user['username'])) echo '/user/login.html?fwd='; ?>/user/playerchannel.html" class="block_bg">
                 <i class="icon i_list5"></i>
                 <span>我的推广</span>
                 <span class="icon i_go"></span>
             </a>
-            <a target="_top" href="<?php if (empty($user)) echo '/user/login.html?fwd='; ?>/user/fcm.html"
+            <a target="_top" href="<?php if (empty($user['username'])) echo '/user/login.html?fwd='; ?>/user/fcm.html"
                class="block_bg">
                 <i class="icon i_list6"></i>
                 <span>防沉迷验证</span>
