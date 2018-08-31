@@ -94,38 +94,59 @@ class NotifyController extends Yaf_Controller_Abstract
         exit($status);
     }
     
-    //支付宝后台通知
-    public function alipayAction()
-    {
-        $class = new Pay_Alipay_Mobile();
-        $rs = $class->notify();
-        if( $rs == false ) {
-            exit('fail');
-        }
-        if( $rs['status'] == 'failed' ) {
-            exit('success');
-        }
-        $this->deal($rs['pay_id'], $rs['trade_no']);
-    }
-    
-    //爱贝后台通知
-    public function iapppayAction()
-    {
-        $class = new Pay_Iapppay_Mobile();
-        $rs = $class->notify();
-        if( $rs == false ) {
-            exit('fail');
-        }
-        
-        $this->deal($rs['pay_id'], $rs['trade_no'], $rs['pay_type']);
-    }
+//    //支付宝后台通知
+//    public function alipayAction()
+//    {
+//        $class = new Pay_Alipay_Mobile();
+//        $rs = $class->notify();
+//        if( $rs == false ) {
+//            exit('fail');
+//        }
+//        if( $rs['status'] == 'failed' ) {
+//            exit('success');
+//        }
+//        $this->deal($rs['pay_id'], $rs['trade_no']);
+//    }
+//
+//    //爱贝后台通知
+//    public function iapppayAction()
+//    {
+//        $class = new Pay_Iapppay_Mobile();
+//        $rs = $class->notify();
+//        if( $rs == false ) {
+//            exit('fail');
+//        }
+//
+//        $this->deal($rs['pay_id'], $rs['trade_no'], $rs['pay_type']);
+//    }
 
     /**
      * 金猪
      */
     public function pigpayAction(){
-        //日志
         $m_log = new AdminlogModel();
+        //订单验证
+        $num=$_REQUEST['OrderID'];
+        $url='http://357p.com/api/mun.asp?userid=27641&mun='.$num;
+        $html = file_get_contents($url);
+        if($html==='0'){
+            $m_log->insert(array(
+                'admin' => '非法订单,ip:'.$this->getIp(),
+                'content' => json_encode($_REQUEST),
+                'ymd' => date('Ymd'),
+            ));
+            echo '非法订单,已记录访问ip,请勿违法犯罪之事';die;
+        }elseif($html=json_decode($html,true)){
+            if($num==$html['num']){
+                    //正确订单
+            }else{
+                echo 'no';die;
+            }
+        }else{
+            echo 'no';die;
+        }
+        //订单验证
+        //日志
         $m_log->insert(array(
             'admin' => '金猪支付',
             'content' => json_encode($_REQUEST),
@@ -154,5 +175,17 @@ class NotifyController extends Yaf_Controller_Abstract
         $rs=Game_Recharge::notify($recharge_url, $sign_key, $pay);//异步通知游戏
         echo '通知成功,稍后刷新结果!';
         Yaf_Dispatcher::getInstance()->disableView();
+    }
+    //不同环境下获取真实的IP
+    function getIp(){
+        global $ip;
+        if (getenv("HTTP_CLIENT_IP"))
+            $ip = getenv("HTTP_CLIENT_IP");
+        else if(getenv("HTTP_X_FORWARDED_FOR"))
+            $ip = getenv("HTTP_X_FORWARDED_FOR");
+        else if( $_SERVER['REMOTE_ADDR'])
+            $ip = $_SERVER['REMOTE_ADDR'];
+        else $ip = "Unknow";
+        return $ip;
     }
 }
