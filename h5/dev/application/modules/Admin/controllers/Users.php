@@ -2,6 +2,11 @@
 
 class UsersController extends F_Controller_Backend
 {
+    public function init()
+    {
+        parent::init();
+        $this->_view->assign('status', $this->_model->_status);
+    }
     private $_oldinfo;
     
     protected function beforeList()
@@ -34,7 +39,7 @@ class UsersController extends F_Controller_Backend
     protected function beforeUpdate($id, &$info)
     {
         if( $id ) {
-            $this->_oldinfo = $this->_model->fetch(array('user_id'=>$id), 'username,money');
+            $this->_oldinfo = $this->_model->fetch(array('user_id'=>$id), 'username,money,status');
         }
     }
     

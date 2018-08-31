@@ -25,6 +25,14 @@
               <input class="text-input small-input" type="text" name="info[money]" value="<?=$info['money']?>">
             </p>
             <p>
+                <label>启用状态</label>
+                <select class="small-input" name="info[status]">
+                    <?php foreach ($status as $tp) { ?>
+                        <option value="<?=$tp?>"<?php if(isset($info) && $info['status'] == $tp) echo ' selected="selected"'; ?>><?=$tp?></option>
+                    <?php } ?>
+                </select>
+            </p>
+            <p>
               <input class="button" type="submit" value="提交" />
             </p>
             </fieldset>

@@ -35,13 +35,18 @@ class SdkapiController extends Yaf_Controller_Abstract
         $password = $request['password'];
         $m_user   = new UsersModel();
         if ($user = $m_user->fetch(['username' => $username, 'password' => md5($password)])) {
-            $data['status']        = 100;
-            $info['user_id']       = $user['user_id'];
-            $info['user_name']     = $user['username'];
-            $info['user_password'] = $password;
-            $info['q_id']          = $request['q_id'] ?? 0;
-            $info['game_id']       = $request['game_id'] ?? 0;
-            $data['info']          = $info;
+            if($user['status']=='禁用'){
+                $data['status'] = 404;
+                $data['msg']    = '账号被禁用';
+            }else {
+                $data['status'] = 100;
+                $info['user_id'] = $user['user_id'];
+                $info['user_name'] = $user['username'];
+                $info['user_password'] = $password;
+                $info['q_id'] = $request['q_id'] ?? 0;
+                $info['game_id'] = $request['game_id'] ?? 0;
+                $data['info'] = $info;
+            }
         } else {
             $data['status'] = 404;
             $data['msg']    = '账号或密码错误';

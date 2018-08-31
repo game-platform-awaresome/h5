@@ -4,7 +4,7 @@ class UsersModel extends F_Model_Pdo
 {
     protected $_table = 'user';
     protected $_primary = 'user_id';
-    
+    public $_status = array('启用','禁用');
     //private $_fcm_url = 'http://fcm.namiyx.com/';
     public $_nciic = false; //是否去NCIIC验证身份信息
     public $_fcm_status = array(
@@ -52,6 +52,7 @@ class UsersModel extends F_Model_Pdo
 	            $ck .= $row['check_status'] & 2 ? '邮箱' : '';
 	            return $ck;
 	        },
+            'status'=>'启用状态',
 	    );
 	}
 	
@@ -106,7 +107,10 @@ class UsersModel extends F_Model_Pdo
 //		} elseif( $u_id < 1 ) {
 //		    return '服务器错误，请重试！';
 //		}
-		$has = $this->fetch(['username'=>$username,'password'=>md5($password)], 'user_id,username,nickname,email,login_times,tg_channel,player_channel');
+		$has = $this->fetch(['username'=>$username,'password'=>md5($password)], 'user_id,username,nickname,email,login_times,tg_channel,player_channel,status');
+		if($has['status']=='禁用'){
+            return '该账号已被禁用';
+        }
 		$u_id=$has['user_id'];
 		if( empty($has) ) {
 //		    $sess = Yaf_Session::getInstance();
@@ -174,8 +178,11 @@ class UsersModel extends F_Model_Pdo
 //        require_once APPLICATION_PATH.'/uc_client/client.php';
         $time = time();
         
-        $user = $this->fetch("app='{$app}' AND openid='{$info['openid']}'", 'user_id,username,nickname,`password`,email,expires,login_times,tg_channel,player_channel');
-        if( empty($user) ) {
+        $user = $this->fetch("app='{$app}' AND openid='{$info['openid']}'", 'user_id,username,nickname,`password`,email,expires,login_times,tg_channel,player_channel,status');
+        if($user['status']=='禁用') {
+            return '该账号已被禁用';
+        }
+            if( empty($user) ) {
             $info['nickname'] = trim(str_replace(array("'", '"', '\\'), '', $info['nickname']));
             if( $info['nickname'] == '' ) {
                 $username = "{$app}_".substr(md5($info['openid']), 8, 8);
