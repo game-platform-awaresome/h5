@@ -44,6 +44,9 @@ class Game_Recharge
         
         $data['username'] = urlencode($data['username']);
         $data['to_user'] = urlencode($data['to_user']);
+        if( isset($pay['extra']) && $pay['extra'] ) {
+            $data['extra'] = urlencode($data['extra']);
+        }
         $query = '';
         foreach ($data as $k=>$v)
         {
