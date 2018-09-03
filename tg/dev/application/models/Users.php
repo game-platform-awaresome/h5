@@ -33,7 +33,24 @@ class UsersModel extends F_Model_Pdo
 	{
 	    return array(
 	        'user_id' => '用户ID',
-	        'username' => '用户名',
+	        'username' =>
+            function(&$row){
+                if( empty($row) ) return '用户名';
+                if($row['player_channel']>0){
+                    return '(玩家推广)'.$row['username'];
+                }else{
+                    return $row['username'];
+                }
+            },
+            'player_channel'=>
+                function(&$row){
+                    if( empty($row) ) return '玩家推广id';
+                    if($row['player_channel']>0){
+                        return  $row['player_channel'];
+                    }else{
+                        return '无';
+                    }
+                },
 	        'tg_channel' =>function($row){
                 if( empty($row) ) return '渠道id';
                 return $row['tg_channel'];

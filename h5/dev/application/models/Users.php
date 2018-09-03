@@ -414,7 +414,7 @@ class UsersModel extends F_Model_Pdo
                     'reg_time' => time(),
                     'check_status' => $mobile ? 1 : 0,
                     'tg_channel' => $channel_id,
-                    'player_channel'=>$_SESSION['player_channel']
+                    'player_channel'=>$_SESSION['player_channel']??0
                 ), false);
                 $uid = $rs;
                 return (int)$uid;

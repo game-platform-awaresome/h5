@@ -11,7 +11,10 @@
 <!--div.container 总外框  start-->
 <div class="wrapper z_container bg02">
     <header class="z_header">
-        <a target="_top" href="<?=$fwd?>" class="fl"></a>
+        <?php if($_GET['player_channel']??false):?>
+        <?php else:?>
+            <a target="_top" href="<?=$fwd?>" class="fl"></a>
+        <?php endif;?>
         <span>用户注册</span>
     </header>
 
