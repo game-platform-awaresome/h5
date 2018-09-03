@@ -126,6 +126,8 @@ class NotifyController extends Yaf_Controller_Abstract
     public function pigpayAction(){
         $m_log = new AdminlogModel();
         //订单验证
+        $type=$_REQUEST['jinzhuc'];
+        if($type!='deposit'){
         $num=$_REQUEST['OrderID'];
         $url='http://357p.com/api/mun.asp?userid=27641&mun='.$num;
         $html = file_get_contents($url);
@@ -136,6 +138,7 @@ class NotifyController extends Yaf_Controller_Abstract
                 'ymd' => date('Ymd'),
             ));
             echo '非法订单,已记录访问ip,请勿违法犯罪之事';die;
+        }
         }
         //订单验证
         //日志
