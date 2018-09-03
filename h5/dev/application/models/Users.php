@@ -451,16 +451,16 @@ class UsersModel extends F_Model_Pdo
 //	    require_once APPLICATION_PATH.'/config.inc.php';
 //	    require_once APPLICATION_PATH.'/uc_client/client.php';
 	    
-	    $rs = uc_user_edit($username, $oldpw, $newpw, $email, $ignore);
-	    
-	    switch ($rs)
-	    {
-	        case -1: return '旧密码不正确';
-	        case -4: return 'Email 格式有误';
-	        case -5: return 'Email 不允许注册';
-	        case -6: return '该 Email 已经被注册';
-	        case -8: return '该用户受保护无权限更改';
-	    }
+//	    $rs = uc_user_edit($username, $oldpw, $newpw, $email, $ignore);
+//
+//	    switch ($rs)
+//	    {
+//	        case -1: return '旧密码不正确';
+//	        case -4: return 'Email 格式有误';
+//	        case -5: return 'Email 不允许注册';
+//	        case -6: return '该 Email 已经被注册';
+//	        case -8: return '该用户受保护无权限更改';
+//	    }
 	    
 	    $up_arr = null;
 	    if( $mobile ) {
