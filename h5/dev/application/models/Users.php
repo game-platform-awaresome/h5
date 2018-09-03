@@ -461,7 +461,14 @@ class UsersModel extends F_Model_Pdo
 //	        case -6: return '该 Email 已经被注册';
 //	        case -8: return '该用户受保护无权限更改';
 //	    }
-	    
+        //旧密码验证
+        $s = Yaf_Session::getInstance();
+        $user_id = $s->get('user_id');
+        $user_info=$this->fetch(['user_id'=>$user_id]);
+        if($user_info['password']!=md5($oldpw)){
+            return '旧密码不正确';
+        }
+        $this->update(['password'=>md5($newpw)],['user_id'=>$user_id]);
 	    $up_arr = null;
 	    if( $mobile ) {
 	        $up_arr['mobile'] = $mobile;
