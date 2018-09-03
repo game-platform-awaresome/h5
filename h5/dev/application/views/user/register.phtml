@@ -207,7 +207,7 @@ $(function(){
         $.ajax({
         	type: 'POST',
 	        url: '/user/ajaxreg.html',
-	        data: 'username='+u+'&password='+p+'&xcode='+x+'&sms_code='+s,
+	        data: 'username='+u+'&password='+p+'&xcode='+x+'&sms_code='+s+'&player_channel='+<?=$_GET['player_channel']??0;?>,
 	        dataType: 'json',
 	        success: function(msg){
 	        	loading = false;

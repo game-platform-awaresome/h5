@@ -110,6 +110,8 @@ class UserController extends Yaf_Controller_Abstract
 	    $req = $this->getRequest();
 	    $username = $req->getPost('username', '');
 	    $password = $req->getPost('password', '');
+	    $player_channel=$req->getPost('player_channel',0);
+	    $_SESSION['player_channel']=$player_channel;
 	    $xcode = $req->getPost('xcode', '');
 //	    $sms_code = $req->getPost('sms_code', 0);
 	    
