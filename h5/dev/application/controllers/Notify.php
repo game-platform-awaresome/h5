@@ -93,6 +93,11 @@ class NotifyController extends Yaf_Controller_Abstract
                 $add_money=$pay['money']*0.2;
                 $final_moeny=(int)($old_money+$add_money);
                 $m_user->update(['money'=>$final_moeny],['user_id'=>$player_channel]);
+                //统计金额
+                $pay_user=$m_user->fetch(['user_id'=>$pay['user_id']]);
+                $player_channel_get=$pay_user['player_channel_get'];
+                $final_player_channel_get=(int)($player_channel_get+$add_money);
+                $m_user->update(['player_channel_get'=>$final_player_channel_get],['user_id'=>$pay['user_id']]);
                 $m_log = new AdminlogModel();
                 $m_log->insert(array(
                     'admin' => "玩家{$player_channel}获取订单{$pay_id}充值分成",
