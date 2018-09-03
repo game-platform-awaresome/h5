@@ -1018,6 +1018,7 @@ class UserController extends Yaf_Controller_Abstract
     }
     public function playerchannellistAction(){
         $m_user = new UsersModel();
+        $m_pay=new PayModel();
         $user = $m_user->getLogin();
         if( empty($user) ) {
             exit;
@@ -1031,7 +1032,7 @@ class UserController extends Yaf_Controller_Abstract
         }
 
 //        $logs = $m_user->giftLogs($user['user_id'], $pn, $limit);
-        $logs=$m_user->fetchAll(['player_channel'=>$_SESSION['user_id']],$pn,$limit,'user_id,reg_time','reg_time desc');
+        $logs=$m_pay->fetchAll(['player_channel'=>$_SESSION['user_id']],$pn,$limit,'username,finish_time,money','finish_time desc');
         $this->getView()->assign('logs', $logs);
     }
 

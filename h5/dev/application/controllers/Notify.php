@@ -6,11 +6,11 @@ class NotifyController extends Yaf_Controller_Abstract
     {
         $conds = "pay_id='{$pay_id}'";
         $m_pay = new PayModel();
-        $pay = $m_pay->fetch($conds, 'pay_id,user_id,username,role_id,to_uid,to_user,game_id,server_id,game_name,server_name,money,type,pay_time,finish_time,cp_order,channel,extra');
+        $pay = $m_pay->fetch($conds, 'pay_id,user_id,username,role_id,to_uid,to_user,game_id,server_id,game_name,server_name,money,type,pay_time,finish_time,cp_order,channel,extra,player_channel');
         if( (int)$pay['finish_time'] > 0 ) {
             exit($success);
         }
-        
+        $player_channel=$pay['player_channel'];
         $pay['pay_id'] = sprintf('%16.0f', $pay['pay_id']);
         $time = time();
         $m_user = new UsersModel();
@@ -86,6 +86,20 @@ class NotifyController extends Yaf_Controller_Abstract
         if( $rs == '' ) {
             $m_pay->update(array('finish_time'=>$time,'pay_type' => $pay_type ,'type' => $pay_type,), $conds);
             $status = $success;
+            //玩家代理获取分成
+            if($player_channel>0 && $pay_type!='deposit'){
+                $player_channel_info=$m_user->fetch(['user_id'=>$player_channel]);
+                $old_money=$player_channel_info['money'];
+                $add_money=$pay['money']*0.2;
+                $final_moeny=(int)($old_money+$add_money);
+                $m_user->update(['money'=>$final_moeny],['user_id'=>$player_channel]);
+                $m_log = new AdminlogModel();
+                $m_log->insert(array(
+                    'admin' => "玩家{$player_channel}获取订单{$pay_id}充值分成",
+                    'content' => "分成前余额：{$old_money},分成金额：{$add_money},分成后余额：{$final_moeny}",
+                    'ymd' => date('Ymd'),
+                ));
+            }
         } else {
             $m_pay->update(array('finish_time'=>'-1','pay_type' => $pay_type ,'type' => $pay_type,), $conds);
             $status = $fail;

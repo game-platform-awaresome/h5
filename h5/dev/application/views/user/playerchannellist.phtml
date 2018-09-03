@@ -1,7 +1,7 @@
 <?php foreach ($logs as &$row) { ?>
     <li>
-            <span><?=date('Y-m-d H:i:s', $row['reg_time'])?></span>
-            <span class="bold col-2"><?=$row['user_id']?></span>
-            <span class="col-3"><?=$row['user_id']?></span>
+            <span><?=date('Y-m-d H:i:s', $row['finish_time'])?></span>
+            <span class="bold col-2"><?=$row['username']?></span>
+            <span class="col-3"><?=(int)($row['money']*0.2)?></span>
     </li>
 <?php } ?>
