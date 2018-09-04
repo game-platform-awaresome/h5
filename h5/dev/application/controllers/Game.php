@@ -496,11 +496,10 @@ class GameController extends Yaf_Controller_Abstract
             $game=$m_game->fetch(['game_id'=>$row['game_id']],'logo');
             $row['logo']=$game['logo'];
         }
-//        foreach ($servers as &$row)
-//        {
-//            $row['grade'] = $m_server->gradeHtml($row['grade']);
-//            $row['support'] = $m_server->supportFormat($row['support'] + $row['play_times']);
-//        }
+        foreach ($servers as &$row)
+        {
+            $row['game_type'] = $m_server->getGameType($row['game_id']);
+        }
         $this->getView()->assign('servers', $servers);
     }
     //不同环境下获取真实的IP

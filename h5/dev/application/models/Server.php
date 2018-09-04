@@ -49,4 +49,9 @@ class ServerModel extends F_Model_Pdo
 	        'game_id' => array('游戏ID', 'input', null, ''),
 	    );
 	}
+	public function getGameType($game_id){
+        $m_game=new GameModel();
+        $game_type=$m_game->fetch(['game_id'=>$game_id],'game_type');
+        return $game_type['game_type'];
+    }
 }
