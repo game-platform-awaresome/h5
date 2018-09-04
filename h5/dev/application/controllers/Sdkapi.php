@@ -26,7 +26,7 @@ class SdkapiController extends Yaf_Controller_Abstract
     //登录
     public function loginAction()
     {
-        $_REQUEST['data']='username%3Dliuqi2%26password%3D123456%26q_id%3D22%26game_id%3D11';
+//        $_REQUEST['data']='username%3Dliuqi2%26password%3D123456%26q_id%3D22%26game_id%3D11';
         $request = urldecode($_REQUEST['data']??'');
         $request = $this->convertUrlQuery($request);
         $this->checkParams($request, ['username', 'password']);
