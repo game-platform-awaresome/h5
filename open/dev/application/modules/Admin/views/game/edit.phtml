@@ -1,210 +1,288 @@
-    <div class="content-box">
-      <!-- Start Content Box -->
-      <div class="content-box-header">
-        <h3><?=$title?></h3>
+<style>
+    .container {
+        width: 200px;
+        height: 20px;
+        background-color: gray;
+    }
+
+    #progress {
+        height: 20px;
+        background-color: orange;
+        display: inline-block;
+    }
+</style>
+<div class="content-box">
+    <!-- Start Content Box -->
+    <div class="content-box-header">
+        <h3><?= $title ?></h3>
         <a class="go_back" href="javascript:history.go(-1);">返回上一页</a>
         <div class="clear"></div>
-      </div>
-      <!-- End .content-box-header -->
-      <div class="content-box-content">
+    </div>
+    <!-- End .content-box-header -->
+    <div class="content-box-content">
         <div class="tab-content default-tab">
-          <form action="/admin/<?=$controller?>/update?<?=$query?>" method="post" enctype="multipart/form-data">
-          <input type="hidden" name="info[game_id]" value="<?php echo isset($info) ? $info['game_id'] : ''; ?>" />
-            <fieldset>
-            <!-- Set class to "column-left" or "column-right" on fieldsets to divide the form into columns -->
-            <p>
-              <label>游戏名</label>
-              <input class="text-input small-input" type="text" name="info[name]" value="<?php echo isset($info) ? $info['name'] : ''; ?>" />
-            </p>
-            <p>
-              <label>标签tag、keyword<small>（目前主要用于搜索，类似于关键字的功能）</small></label>
-              <input class="text-input small-input" type="text" name="info[tag]" value="<?php echo isset($info) ? $info['tag'] : ''; ?>" />
-            </p>
-                <p>
-                    <label>游戏类型</label>
-                    <select class="small-input" name="info[game_type]">
-                        <?php foreach ($game_types as $tp) { ?>
-                            <option value="<?=$tp?>"<?php if(isset($info) && $info['game_type'] == $tp) echo ' selected="selected"'; ?>><?=$tp?></option>
-                        <?php } ?>
-                    </select>
-                </p>
-            <p>
-              <label>分类</label>
-              <select class="small-input" name="info[type]">
-              <?php foreach ($types as $tp) { ?>
-                <option value="<?=$tp?>"<?php if(isset($info) && $info['type'] == $tp) echo ' selected="selected"'; ?>><?=$tp?></option>
-              <?php } ?>
-              </select>
-            </p>
-            <p>
-              <label>经典分类</label>
-              <select class="small-input" name="info[classic]">
-              <?php foreach ($classic as $tp) { ?>
-                <option value="<?=$tp?>"<?php if(isset($info) && $info['classic'] == $tp) echo ' selected="selected"'; ?>><?=$tp?></option>
-              <?php } ?>
-              </select>
-            </p>
-            
-            <p>
-              <label>角标</label>
-              <select class="small-input" name="info[corner]">
-              <?php foreach ($corner as $lk=>$lv) { ?>
-                <option value="<?=$lk?>"<?php if(isset($info) && $info['corner'] == $lk) echo ' selected="selected"'; ?>><?=$lv?></option>
-              <?php } ?>
-              </select>
-            </p>
-            <p>
-              <label>后标</label>
-              <select class="small-input" name="info[label]">
-              <?php foreach ($labels as $lk=>$lv) { ?>
-                <option value="<?=$lk?>"<?php if(isset($info) && $info['label'] == $lk) echo ' selected="selected"'; ?>><?=$lv?></option>
-              <?php } ?>
-              </select>
-            </p>
-            <p>
-              <label>礼包ID</label>
-              <input class="text-input small-input" type="text" name="info[giftbag]" value="<?php echo isset($info) ? $info['giftbag'] : '0'; ?>" />
-            </p>
-            
-            <p>
-              <label>LOGO</label>
-              <input type="file" name="logo">&nbsp;&nbsp;
-              <?php if(isset($info) && $info['logo']) echo "<a class=\"lightbox\" href=\"{$info['logo']}\"><img style=\"max-height:48px;\" src=\"{$info['logo']}\"></a>"; ?>
-            </p>
-            <p>
-              <label>评级（1.0-5.0）</label>
-              <input class="text-input small-input" type="text" name="info[grade]" value="<?php echo isset($info) ? $info['grade'] : '4.5'; ?>" />
-            </p>
-            <p>
-              <label>人气</label>
-              <input class="text-input small-input" type="text" name="info[support]" value="<?php echo isset($info) ? $info['support'] : ''; ?>" />
-            </p>
-            <p>
-              <label>排序（升序， 0-65535）</label>
-              <input class="text-input small-input" type="text" name="info[weight]" value="<?php echo isset($info) ? $info['weight'] : '0'; ?>" />
-            </p>
-            <p>
-              <label>版本</label>
-              <input class="text-input small-input" type="text" name="info[version]" value="<?php echo isset($info) ? $info['version'] : ''; ?>" />
-            </p>
-            
-            <p>
-              <label>登录地址</label>
-              <input class="text-input medium-input" type="text" name="info[login_url]" value="<?php echo isset($info) ? $info['login_url'] : ''; ?>" />
-            </p>
-            <p>
-              <label>充值地址</label>
-              <input class="text-input medium-input" type="text" name="info[recharge_url]" value="<?php echo isset($info) ? $info['recharge_url'] : ''; ?>" />
-            </p>
-            <p>
-              <label>通信密钥</label>
-              <input class="text-input medium-input" type="text" name="info[sign_key]" value="<?php echo isset($info) ? $info['sign_key'] : ''; ?>" />
-            </p>
-            
-            <p>
-              <label>简单描述</label>
-              <input class="text-input large-input" type="text" name="info[in_short]" value="<?php echo isset($info) ? $info['in_short'] : ''; ?>" />
-            </p>
-            <p>
-              <label>详细信息</label>
-              <textarea name="info[details]" id="info_details" style="width:80%px; height:360px;"><?php echo isset($info) ? $info['details'] : ''; ?></textarea>
-            </p>
-            <p>
-              <label>游戏截图</label>
-              <table><tbody>
-                <tr>
-                <?php $screenshots = empty($info['screenshots']) ? array('','','','','') : $info['screenshots']; ?>
-                <?php foreach ($screenshots as $img) { ?>
-                    <td><?php if($img) { ?><a class="lightbox" href="<?=$img?>"><img src="<?=$img?>" style="max-width:200px;"></a><?php } ?></td>
-                <?php } ?>
-                </tr>
-                <tr>
-                <?php foreach ($screenshots as $idx=>$img) { ?>
-                    <td>
-                        <input type="file" name="screenshots[]">
-                    </td>
-                <?php } ?>
-                </tr>
-                <tr>
-                <?php foreach ($screenshots as $idx=>$img) { ?>
-                    <td><input type="checkbox" name="delsss[<?=$idx?>]" value="<?=$idx?>" id="del_<?=$idx?>"><label for="del_<?=$idx?>" style="display:inline">删除此截图</label></td>
-                <?php } ?>
-                </tr>
-              </tbody></table>
-            </p>
-            
-            <p>
-              <label>是否可见</label>
-              <select name="info[visible]">
-              <?php foreach (array('1'=>'是','0'=>'否') as $lk=>$lv) { ?>
-                <option value="<?=$lk?>"<?php if(isset($info) && $info['visible'] == $lk) echo ' selected="selected"'; ?>><?=$lv?></option>
-              <?php } ?>
-              </select>
-            </p>
-            <p>
-              <label>屏幕适应性</label>
-              <select name="info[screen]">
-              <?php foreach ($screens as $lk=>$lv) { ?>
-                <option value="<?=$lk?>"<?php if(isset($info) && $info['screen'] == $lk) echo ' selected="selected"'; ?>><?=$lv?></option>
-              <?php } ?>
-              </select>
-            </p>
-            <p>
-              <label>是否支持直接支付<small>（平台发起的充值）</small></label>
-              <select name="info[prepay]">
-              <?php foreach (array('0'=>'否','1'=>'是') as $lk=>$lv) { ?>
-                <option value="<?=$lk?>"<?php if(isset($info) && $info['prepay'] == $lk) echo ' selected="selected"'; ?>><?=$lv?></option>
-              <?php } ?>
-              </select>
-            </p>
-            <p>
-              <label>合作渠道</label>
-              <select name="info[channel]">
-              <?php foreach ($channels as $k=>$v) { ?>
-                <option value="<?=$k?>"<?php if(isset($info) && $info['channel'] == $k) echo ' selected="selected"'; ?>><?=$v?></option>
-              <?php } ?>
-              </select>
-              <span style="color:red">&nbsp;提示：</span>
-              <span>如果设置了合作渠道，需要将渠道的游戏ID与久乐的游戏ID做映射。</span>
-            </p>
-            <p>
-              <label>游戏加载方式</label>
-              <select name="info[load_type]">
-              <?php foreach ($load_types as $k=>$v) { ?>
-                <option value="<?=$k?>"<?php if(isset($info) && $info['load_type'] == $k) echo ' selected="selected"'; ?>><?=$v?></option>
-              <?php } ?>
-              </select>
-            </p>
-            <p>
-                <label>分成比例</label>
-                <input class="text-input large-input" type="text" name="info[divide_into]" value="<?php echo isset($info) ? $info['divide_into'] : ''; ?>" />
-            </p>
-            <p>
-                <label>素材下载</label>
-                <input class="text-input large-input" type="text" name="info[material_url]" value="<?php echo isset($info) ? $info['material_url'] : ''; ?>" />
-            </p>
-                <p>
-                    <label>下载地址</label>
-                    <input type="file" name="apk_url">&nbsp;&nbsp;
-                    <?php if(isset($info) && $info['apk_url']) echo "<a class=\"lightbox\" href=\"{$info['apk_url']}\">{$info['apk_url']}</a>"; ?>
-                </p>
-            <p>
-              <input class="button" type="submit" value="提交" />
-            </p>
-            </fieldset>
-            <div class="clear"></div>
-            <!-- End .clear -->
-          </form>
+            <form action="/admin/<?= $controller ?>/update?<?= $query ?>" method="post" enctype="multipart/form-data" id="edit">
+                <input type="hidden" name="info[game_id]" value="<?php echo isset($info) ? $info['game_id'] : ''; ?>"/>
+                <fieldset>
+                    <!-- Set class to "column-left" or "column-right" on fieldsets to divide the form into columns -->
+                    <p>
+                        <label>游戏名</label>
+                        <input class="text-input small-input" type="text" name="info[name]"
+                               value="<?php echo isset($info) ? $info['name'] : ''; ?>"/>
+                    </p>
+                    <p>
+                        <label>标签tag、keyword
+                            <small>（目前主要用于搜索，类似于关键字的功能）</small>
+                        </label>
+                        <input class="text-input small-input" type="text" name="info[tag]"
+                               value="<?php echo isset($info) ? $info['tag'] : ''; ?>"/>
+                    </p>
+                    <p>
+                        <label>游戏类型</label>
+                        <select class="small-input" name="info[game_type]">
+                            <?php foreach ($game_types as $tp) { ?>
+                                <option value="<?= $tp ?>"<?php if (isset($info) && $info['game_type'] == $tp) echo ' selected="selected"'; ?>><?= $tp ?></option>
+                            <?php } ?>
+                        </select>
+                    </p>
+                    <p>
+                        <label>分类</label>
+                        <select class="small-input" name="info[type]">
+                            <?php foreach ($types as $tp) { ?>
+                                <option value="<?= $tp ?>"<?php if (isset($info) && $info['type'] == $tp) echo ' selected="selected"'; ?>><?= $tp ?></option>
+                            <?php } ?>
+                        </select>
+                    </p>
+                    <p>
+                        <label>经典分类</label>
+                        <select class="small-input" name="info[classic]">
+                            <?php foreach ($classic as $tp) { ?>
+                                <option value="<?= $tp ?>"<?php if (isset($info) && $info['classic'] == $tp) echo ' selected="selected"'; ?>><?= $tp ?></option>
+                            <?php } ?>
+                        </select>
+                    </p>
+
+                    <p>
+                        <label>角标</label>
+                        <select class="small-input" name="info[corner]">
+                            <?php foreach ($corner as $lk => $lv) { ?>
+                                <option value="<?= $lk ?>"<?php if (isset($info) && $info['corner'] == $lk) echo ' selected="selected"'; ?>><?= $lv ?></option>
+                            <?php } ?>
+                        </select>
+                    </p>
+                    <p>
+                        <label>后标</label>
+                        <select class="small-input" name="info[label]">
+                            <?php foreach ($labels as $lk => $lv) { ?>
+                                <option value="<?= $lk ?>"<?php if (isset($info) && $info['label'] == $lk) echo ' selected="selected"'; ?>><?= $lv ?></option>
+                            <?php } ?>
+                        </select>
+                    </p>
+                    <p>
+                        <label>礼包ID</label>
+                        <input class="text-input small-input" type="text" name="info[giftbag]"
+                               value="<?php echo isset($info) ? $info['giftbag'] : '0'; ?>"/>
+                    </p>
+
+                    <p>
+                        <label>LOGO</label>
+                        <input type="file" name="logo">&nbsp;&nbsp;
+                        <?php if (isset($info) && $info['logo']) echo "<a class=\"lightbox\" href=\"{$info['logo']}\"><img style=\"max-height:48px;\" src=\"{$info['logo']}\"></a>"; ?>
+                    </p>
+                    <p>
+                        <label>评级（1.0-5.0）</label>
+                        <input class="text-input small-input" type="text" name="info[grade]"
+                               value="<?php echo isset($info) ? $info['grade'] : '4.5'; ?>"/>
+                    </p>
+                    <p>
+                        <label>人气</label>
+                        <input class="text-input small-input" type="text" name="info[support]"
+                               value="<?php echo isset($info) ? $info['support'] : ''; ?>"/>
+                    </p>
+                    <p>
+                        <label>排序（升序， 0-65535）</label>
+                        <input class="text-input small-input" type="text" name="info[weight]"
+                               value="<?php echo isset($info) ? $info['weight'] : '0'; ?>"/>
+                    </p>
+                    <p>
+                        <label>版本</label>
+                        <input class="text-input small-input" type="text" name="info[version]"
+                               value="<?php echo isset($info) ? $info['version'] : ''; ?>"/>
+                    </p>
+
+                    <p>
+                        <label>登录地址</label>
+                        <input class="text-input medium-input" type="text" name="info[login_url]"
+                               value="<?php echo isset($info) ? $info['login_url'] : ''; ?>"/>
+                    </p>
+                    <p>
+                        <label>充值地址</label>
+                        <input class="text-input medium-input" type="text" name="info[recharge_url]"
+                               value="<?php echo isset($info) ? $info['recharge_url'] : ''; ?>"/>
+                    </p>
+                    <p>
+                        <label>通信密钥</label>
+                        <input class="text-input medium-input" type="text" name="info[sign_key]"
+                               value="<?php echo isset($info) ? $info['sign_key'] : ''; ?>"/>
+                    </p>
+
+                    <p>
+                        <label>简单描述</label>
+                        <input class="text-input large-input" type="text" name="info[in_short]"
+                               value="<?php echo isset($info) ? $info['in_short'] : ''; ?>"/>
+                    </p>
+                    <p>
+                        <label>详细信息</label>
+                        <textarea name="info[details]" id="info_details"
+                                  style="width:80%; height:360px;"><?php echo isset($info) ? $info['details'] : ''; ?></textarea>
+                    </p>
+                    <p>
+                        <label>游戏截图</label>
+                    <table>
+                        <tbody>
+                        <tr>
+                            <?php $screenshots = empty($info['screenshots']) ? array('', '', '', '', '') : $info['screenshots']; ?>
+                            <?php foreach ($screenshots as $img) { ?>
+                                <td><?php if ($img) { ?><a class="lightbox" href="<?= $img ?>"><img src="<?= $img ?>"
+                                                                                                    style="max-width:200px;">
+                                        </a><?php } ?></td>
+                            <?php } ?>
+                        </tr>
+                        <tr>
+                            <?php foreach ($screenshots as $idx => $img) { ?>
+                                <td>
+                                    <input type="file" name="screenshots[]">
+                                </td>
+                            <?php } ?>
+                        </tr>
+                        <tr>
+                            <?php foreach ($screenshots as $idx => $img) { ?>
+                                <td><input type="checkbox" name="delsss[<?= $idx ?>]" value="<?= $idx ?>"
+                                           id="del_<?= $idx ?>"><label for="del_<?= $idx ?>" style="display:inline">删除此截图</label>
+                                </td>
+                            <?php } ?>
+                        </tr>
+                        </tbody>
+                    </table>
+                    </p>
+
+                    <p>
+                        <label>是否可见</label>
+                        <select name="info[visible]">
+                            <?php foreach (array('1' => '是', '0' => '否') as $lk => $lv) { ?>
+                                <option value="<?= $lk ?>"<?php if (isset($info) && $info['visible'] == $lk) echo ' selected="selected"'; ?>><?= $lv ?></option>
+                            <?php } ?>
+                        </select>
+                    </p>
+                    <p>
+                        <label>屏幕适应性</label>
+                        <select name="info[screen]">
+                            <?php foreach ($screens as $lk => $lv) { ?>
+                                <option value="<?= $lk ?>"<?php if (isset($info) && $info['screen'] == $lk) echo ' selected="selected"'; ?>><?= $lv ?></option>
+                            <?php } ?>
+                        </select>
+                    </p>
+                    <p>
+                        <label>是否支持直接支付
+                            <small>（平台发起的充值）</small>
+                        </label>
+                        <select name="info[prepay]">
+                            <?php foreach (array('0' => '否', '1' => '是') as $lk => $lv) { ?>
+                                <option value="<?= $lk ?>"<?php if (isset($info) && $info['prepay'] == $lk) echo ' selected="selected"'; ?>><?= $lv ?></option>
+                            <?php } ?>
+                        </select>
+                    </p>
+                    <p>
+                        <label>合作渠道</label>
+                        <select name="info[channel]">
+                            <?php foreach ($channels as $k => $v) { ?>
+                                <option value="<?= $k ?>"<?php if (isset($info) && $info['channel'] == $k) echo ' selected="selected"'; ?>><?= $v ?></option>
+                            <?php } ?>
+                        </select>
+                        <span style="color:red">&nbsp;提示：</span>
+                        <span>如果设置了合作渠道，需要将渠道的游戏ID与久乐的游戏ID做映射。</span>
+                    </p>
+                    <p>
+                        <label>游戏加载方式</label>
+                        <select name="info[load_type]">
+                            <?php foreach ($load_types as $k => $v) { ?>
+                                <option value="<?= $k ?>"<?php if (isset($info) && $info['load_type'] == $k) echo ' selected="selected"'; ?>><?= $v ?></option>
+                            <?php } ?>
+                        </select>
+                    </p>
+                    <p>
+                        <label>分成比例</label>
+                        <input class="text-input large-input" type="text" name="info[divide_into]"
+                               value="<?php echo isset($info) ? $info['divide_into'] : ''; ?>"/>
+                    </p>
+                    <p>
+                        <label>素材下载</label>
+                        <input class="text-input large-input" type="text" name="info[material_url]"
+                               value="<?php echo isset($info) ? $info['material_url'] : ''; ?>"/>
+                    </p>
+                    <p>
+                        <label>下载地址</label>
+                        <input type="file" name="apk_url">
+                        <div class='container'>
+                            <span id="progress"></span>
+                        </div>
+                        <div id="info"></div>
+                        <div id="result"></div>
+                    <?php if (isset($info) && $info['apk_url']) echo "<a class=\"lightbox\" href=\"{$info['apk_url']}\">{$info['apk_url']}</a>"; ?>
+                    </p>
+                    <p>
+                        <input  onclick="upload()" class="button" type="button" value="提交"/>
+                    </p>
+                </fieldset>
+                <div class="clear"></div>
+                <!-- End .clear -->
+            </form>
         </div>
         <!-- End #tab2 -->
-      </div>
-      <!-- End .content-box-content -->
     </div>
-    <!-- End .content-box -->
+    <!-- End .content-box-content -->
+</div>
+<!-- End .content-box -->
 
-    <div class="clear"></div>
+<div class="clear"></div>
 
 <script type="text/javascript" charset="utf-8" src="/ue/ueditor.config.js"></script>
-<script type="text/javascript" charset="utf-8" src="/ue/ueditor.all.min.js"> </script>
+<script type="text/javascript" charset="utf-8" src="/ue/ueditor.all.min.js"></script>
 <script type="text/javascript" charset="utf-8" src="/ue/lang/zh-cn/zh-cn.js"></script>
-<script>var editor = UE.getEditor('info_details');</script>
+<script>
+    var editor = UE.getEditor('info_details');
+     function upload(){
+         $('#upload').attr('disabled','disabled');
+        //创建FormData对象，初始化为form表单中的数据。需要添加其他数据可使用formData.append("property", "value");
+        var formData = new FormData($('form')[0]);
+         //ajax异步上传56
+        $.ajax({
+            url: "/admin/game/update",
+            type: "POST",
+            data: formData,
+            xhr: function () { //获取ajaxSettings中的xhr对象，为它的upload属性绑定progress事件的处理函数
+                myXhr = $.ajaxSettings.xhr();
+                if (myXhr.upload) { //检查upload属性是否存在
+                    //绑定progress事件的回调函数
+                    myXhr.upload.addEventListener('progress', progressHandlingFunction, false);
+                }
+                return myXhr; //xhr对象返回给jQuery使用
+            },
+            success: function (result) {
+                window.location.href='/admin/game/list';
+            },
+            contentType: false, //必须false才会自动加上正确的Content-Type
+            processData: false  //必须false才会避开jQuery对 formdata 的默认处理
+        });
+        return false;
+    };
+    //上传进度回调函数：
+    function progressHandlingFunction(e) {
+        if (e.lengthComputable) {
+            $('#progress').attr({value: e.loaded, max: e.total}); //更新数据到进度条
+            var percent = Math.round(e.loaded * 100 / e.total);
+            $('#progress').html(percent.toFixed(2) + "%");
+            $('#progress').css('width', percent.toFixed(2) + "%");
+        }
+    }
+</script>

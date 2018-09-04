@@ -215,6 +215,7 @@ class GameController extends F_Controller_Backend
 	    if( $up_arr ) {
 	        $this->_model->update($up_arr, $conds);
 	    }
+        exit(json_encode(['status'=>1,'info'=>'success']));
 	}
 	
 	protected function beforeDelete($id)
