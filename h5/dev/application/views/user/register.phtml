@@ -56,9 +56,12 @@
     		</div>
     		<div class="box3"></div>
         </section>
+        <?php if($_GET['player_channel']??false):?>
+        <?php else:?>
         <section style="margin-top: 10px">
             <image src="/images/login/player_channel.png" style="width: 100%;height: auto"></image>
         </section>
+        <?php endif;?>
         <div class="footer_padding"></div>
     </div>
     <!--div.z_min 内容区域 end-->
