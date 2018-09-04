@@ -41,8 +41,8 @@
                                 <span><?=$sign_key?></span>
                             </div>
                             <div class="info_list">
-                                <label class="labels"> <i class="red">*</i> 登录接口地址：</label>
-                                <input type="text" id="login_url" name="login_url" placeholder="请填写游戏登录接口地址" value="<?=$login_url?>" />
+                                <label class="labels"> 登录接口地址：</label>
+                                <input type="text" id="login_url" name="login_url" placeholder="微端游戏不用填写" value="<?=$login_url?>" />
                             </div>
                             <div class="info_list">
                                 <label class="labels"> 充值接口地址：</label>
@@ -77,7 +77,6 @@ $(function(){
     $("#js_validate").validate({
         rules:{
         	login_url: {
-                required: true,
                 maxlength:128
             },
             recharge_url: {
@@ -86,7 +85,6 @@ $(function(){
         },
         messages:{
         	login_url: {
-                required: "登录接口地址不能为空",
                 maxlength:"登录接口地址的长度限制为128位"
             },
             recharge_url: {

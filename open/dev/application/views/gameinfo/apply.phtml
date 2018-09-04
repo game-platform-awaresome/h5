@@ -26,7 +26,7 @@
                     <article>
                         <div class="step_cont">
                             <ul class="step">
-                                <li<?=$status>=3 ? ' class="choose"' : ''?>>
+                                <li<?=$status>=2 ? ' class="choose"' : ''?>>
                                     <span class="number"> <i>1</i> </span>
                                     <i class="lines lines_right"></i>
                                     <h3>提交申请</h3>
@@ -50,11 +50,11 @@
                         </ul>
                         <?php } ?>
                     </article>
-                    <?php if( in_array($status, array(3,5,6,9)) ) { ?>
+                    <?php if( in_array($status, array(2,3,5,6,9)) ) { ?>
                     <footer class="buttons_group">
                     <form method="post">
                         <div class="buttons_center">
-                        <?php if( in_array($status, array(3,5)) ) { ?>
+                        <?php if( in_array($status, array(2,3,5)) ) { ?>
                             <input type="submit" name="apply" value="立即申请" class="btn_green2">
                         <?php } elseif( $status == 6 ) { ?>
                             <input type="submit" name="online" value="上&nbsp;&nbsp;线" class="btn_green2">

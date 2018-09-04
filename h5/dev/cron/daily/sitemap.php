@@ -38,7 +38,7 @@ function sitemap()
     $types[] = '独家首发';
     $types[] = 'BT游戏';
     $types[] = '网络游戏';
-    $types[] = '单机游戏';
+    $types[] = 'GM游戏';
     foreach ($types as $tp)
     {
         $xml[] = "\t<url>";

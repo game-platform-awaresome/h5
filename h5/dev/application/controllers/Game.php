@@ -130,7 +130,7 @@ class GameController extends Yaf_Controller_Abstract
             '独家首发' => '独家',
             'BT游戏' => 'BT版',
             '网络游戏' => '网游',
-            '单机游戏' => '单机',
+            'GM游戏' => 'GM版',
         );
         
         $selects = 'game_id,name,logo,corner,label,giftbag,support,grade,in_short,play_times,game_type';
@@ -514,5 +514,14 @@ class GameController extends Yaf_Controller_Abstract
             $ip = $_SERVER['REMOTE_ADDR'];
         else $ip = "Unknow";
         return $ip;
+    }
+    function countgameAction(){
+        Yaf_Dispatcher::getInstance()->disableView();
+        $game_id=$_POST['game_id'];
+	    if($game_id){
+        $m_game=new GameModel();
+        $support=$m_game->fetch(['game_id'=>$game_id],'support');
+        $m_game->update(['support'=>($support['support']+1)],['game_id'=>$game_id]);
+        }
     }
 }

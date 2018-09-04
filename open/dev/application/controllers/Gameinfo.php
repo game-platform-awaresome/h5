@@ -57,7 +57,7 @@ class GameinfoController extends Yaf_Controller_Abstract
         $assign['servers'] = $has['servers'];
         $assign['status'] = $has['status'];
         $assign['message'] = $has['message'];
-        
+
         $assign['games'] = $this->m_devgms->fetchAll("dev_id='{$this->_dev['dev_id']}'", 1, 50, 'game_id,name', 'game_id DESC');
         $assign['menu'] = $this->_menu;
         $assign['menu_a'] = $req->getActionName();
@@ -87,7 +87,7 @@ class GameinfoController extends Yaf_Controller_Abstract
     public function baseinfoAction()
     {
         $m_game = new GameModel();
-        $info = $m_game->fetch("game_id='{$this->_gid}'", 'game_id,name,classic,version,in_short,screen,sign_key,add_time');
+        $info = $m_game->fetch("game_id='{$this->_gid}'", 'game_id,name,classic,version,in_short,screen,sign_key,add_time,game_type');
         $info['screen'] = $m_game->_screens[$info['screen']];
         $this->getView()->assign('info', $info);
     }
@@ -103,7 +103,8 @@ class GameinfoController extends Yaf_Controller_Abstract
                 'screen' => $req->getPost('screen', ''),
                 'version' => $req->getPost('version', ''),
                 'in_short' => $req->getPost('in_short', ''),
-            );
+                'game_type'=> $req->getPost('game_type','')
+        );
             if( ! in_array($data['classic'], $m_game->_classic) ) {
                 unset($data['classic']);
             }
@@ -128,9 +129,10 @@ class GameinfoController extends Yaf_Controller_Abstract
             $this->redirect('/gameinfo/baseinfo.html?game_id='.$this->_gid);
             return false;
         } else {
-            $assign['info'] = $m_game->fetch("game_id='{$this->_gid}'", 'game_id,name,classic,version,in_short,details,screen,sign_key');
+            $assign['info'] = $m_game->fetch("game_id='{$this->_gid}'", 'game_id,name,classic,version,in_short,details,screen,sign_key,game_type');
             $assign['classic'] = $m_game->_classic;
             $assign['screens'] = $m_game->_screens;
+            $assign['game_types'] = $m_game->_game_types;
             $assign['menu_a'] = 'baseinfo';
             $this->getView()->assign($assign);
         }
@@ -277,9 +279,9 @@ class GameinfoController extends Yaf_Controller_Abstract
             
             //更新状态
             if( $rs && $this->getView()->status < 3 ) {
-                if( $data['login_url'] ) {
+//                if( $data['login_url'] ) {
                     $this->m_devgms->update(array('status'=>3), "game_id='{$this->_gid}'");
-                }
+//                }
             }
             
             $this->redirect('/gameinfo/apiinfo.html?game_id='.$this->_gid);
@@ -301,13 +303,13 @@ class GameinfoController extends Yaf_Controller_Abstract
     {
         $req = $this->getRequest();
         $v = $this->getView();
-        if( $req->isPost() && in_array($v->status, array(3,5,6,9)) ) {
+        if( $req->isPost() && in_array($v->status, array(2,3,5,6,9)) ) {
             $conds = "dev_id='{$this->_dev['dev_id']}'";
             $apply = $req->getPost('apply', '') != '' ? 1 : 0;
             $online = $req->getPost('online', '') != '' ? 1 : 0;
             //$offline = $req->getPost('offline', '') != '' ? 1 : 0;
             
-            if( $apply && in_array($v->status, array(3,5)) ) {
+            if( $apply && in_array($v->status, array(2,3,5)) ) {
                 $v->status = 4;
                 $v->message = '已提交审核，我们的工作人员一般会在1-3个工作日内处理您的申请，请耐心等待。';
                 //更新数量信息
@@ -342,7 +344,7 @@ class GameinfoController extends Yaf_Controller_Abstract
             } elseif( $v->status == 6 ) {
                 $v->message = '游戏已审核通过，随时可以上线运营。';
             } elseif( $v->status < 3 ) {
-                $v->message = '请先完善游戏资料，再提交审核。';
+//                $v->message = '请先完善游戏资料，再提交审核。';
             }
         }
     }

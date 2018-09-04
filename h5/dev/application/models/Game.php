@@ -6,7 +6,7 @@ class GameModel extends F_Model_Pdo
 	protected $_primary = 'game_id';
 	
 	//类型
-	public $_types = array('推荐','独家','BT版','网游','单机');
+	public $_types = array('推荐','独家','BT版','网游','GM版');
 	//经典分类
 	public $_classic = array(
 	    '角色扮演', '动作过关', '休闲娱乐', '街机童年', '竞速狂飙', '亲子益智', '体育竞技', '解密探险', '放置挂机', '音乐舞蹈',

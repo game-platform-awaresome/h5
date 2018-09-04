@@ -688,8 +688,16 @@ address a{
     color: #F85B06;
 }
 label.error {
-    float: left;
-    text-align: left;
+    /*float: left;*/
+    /*text-align: left;*/
+    margin-left: 10px;
+    color: #f68142;
+    width: auto;
+    padding: 0;
+}
+div.error {
+    /*float: left;*/
+    /*text-align: left;*/
     margin-left: 10px;
     color: #f68142;
     width: auto;

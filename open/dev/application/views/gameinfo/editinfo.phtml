@@ -45,6 +45,14 @@
                                 </select>
                             </div>
                             <div class="info_list">
+                                <strong> <i class="red">*</i> 类型：</strong>
+                                <select id="game_type" name="game_type">
+                                    <?php foreach ($game_types as $tp) { ?>
+                                        <option value="<?=$tp?>"<?php if($tp == $info['game_type']) echo ' selected="selected"'; ?>><?=$tp?></option>
+                                    <?php } ?>
+                                </select>
+                            </div>
+                            <div class="info_list">
                                 <strong> <i class="red">*</i> 屏幕适配：</strong>
                                 <select id="screen" name="screen">
                                 <?php foreach ($screens as $k=>$v) { ?>

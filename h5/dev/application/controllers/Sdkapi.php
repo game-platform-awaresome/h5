@@ -5,7 +5,6 @@
  * Date: 2018/8/17/017
  * Time: 15:50
  */
-
 class SdkapiController extends Yaf_Controller_Abstract
 {
     /**
@@ -27,7 +26,7 @@ class SdkapiController extends Yaf_Controller_Abstract
     //登录
     public function loginAction()
     {
-//        $_REQUEST['data']='username%3Dtest%26password%3D123456%26q_id%3Dnull%26game_id%3Dnull';
+        $_REQUEST['data']='username%3Dliuqi2%26password%3D123456%26q_id%3D22%26game_id%3D11';
         $request = urldecode($_REQUEST['data']??'');
         $request = $this->convertUrlQuery($request);
         $this->checkParams($request, ['username', 'password']);
@@ -46,6 +45,8 @@ class SdkapiController extends Yaf_Controller_Abstract
                 $info['q_id'] = $request['q_id'] ?? 0;
                 $info['game_id'] = $request['game_id'] ?? 0;
                 $data['info'] = $info;
+                //记录登录
+                $m_user->addPlayServer($info['user_id'], $info['game_id'], 0);//无法统计区服
             }
         } else {
             $data['status'] = 404;

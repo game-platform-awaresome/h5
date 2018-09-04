@@ -88,7 +88,8 @@ class GameController extends Yaf_Controller_Abstract
         
         $m_game = new GameModel();
         $assign['classic'] = $m_game->_classic;
-        
+        $assign['game_types'] = $m_game->_game_types;
+
         $assign['dev'] = $m_dev->fetch("dev_id='{$login['dev_id']}'", 'contact,mobile,qq,wx,status,message');
         if( $assign['dev']['status'] != 9 && empty($assign['dev']['message']) ) {
             switch ($assign['dev']['status'])
@@ -124,6 +125,7 @@ class GameController extends Yaf_Controller_Abstract
         
         $name = $req->getPost('name', '');
         $type = $req->getPost('type', '');
+        $game_type = $req->getPost('game_type', '');
         if( empty($name) || empty($type) ) {
             $this->forward('game', 'create');
             return false;
@@ -133,13 +135,17 @@ class GameController extends Yaf_Controller_Abstract
             $this->forward('game', 'create');
             return false;
         }
-        
+        if( ! in_array($game_type, $m_game->_game_types) ) {
+            $this->forward('game', 'create');
+            return false;
+        }
         $name = preg_replace('/[\'\"\\\]+/', '', mb_substr($name, 0, 16, 'UTF-8'));
         $sign_key = md5(uniqid(mt_rand()));
         $data = array(
             'name' => $name,
             'type' => '推荐',
             'classic' => $type,
+            'game_type'=>$game_type,
             'tag' => '',
             'logo' => '',
             'version' => '',

@@ -66,6 +66,15 @@
                         </select>
                     </div>
                     <div class="info_list">
+                        <label> <i class="red">*</i> 类型:</label>
+                        <select id="game_type" name="game_type">
+                            <option value="" selected="selected">请选择游戏类型</option>
+                            <?php foreach ($game_types as $tp) { ?>
+                                <option value="<?=$tp?>"><?=$tp?></option>
+                            <?php } ?>
+                        </select>
+                    </div>
+                    <div class="info_list">
                         <label> <i class="red">*</i> 联系人:</label>
                         <span><?=$dev['contact']?></span>
                     </div>
@@ -103,6 +112,7 @@
 $('#top_nav a:eq(1)').addClass('selected');
 $(function(){
 	$("#js_validate").validate({
+        errorElement: "div",
         rules:{
             name: {
                 required: true,
@@ -110,6 +120,9 @@ $(function(){
             },
             type: {
                 required: true
+            },
+            game_type:{
+              required:true
             },
             agreement: {
                 required: true
@@ -122,6 +135,9 @@ $(function(){
             },
             type: {
                 required: "请选择游戏类别"
+            },
+            game_type:{
+        	  required:'请选择游戏类型'
             },
             agreement: {
                 required: "请阅读并同意《久乐游戏开发平台注册协议》中的相关条款"

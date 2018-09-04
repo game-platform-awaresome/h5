@@ -52,5 +52,14 @@
         background: "#ffffff",
         correctLevel: 0,//纠错等级
     });
+
+    /**
+     * 统计
+     */
+    function countDownload(game_id){
+        $.post("/index/game/countgame",{game_id:game_id},function(result){
+            console.log(result);
+        });
+    }
 </script>
 
