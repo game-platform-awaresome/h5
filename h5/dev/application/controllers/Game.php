@@ -496,9 +496,12 @@ class GameController extends Yaf_Controller_Abstract
             $game=$m_game->fetch(['game_id'=>$row['game_id']],'logo');
             $row['logo']=$game['logo'];
         }
+        $m_game=new GameModel();
         foreach ($servers as &$row)
         {
-            $row['game_type'] = $m_server->getGameType($row['game_id']);
+            $game_info=$m_game->fetch(['game_id'=>$row['game_id']],'game_type,giftbag');
+            $row['game_type'] = $game_info['game_type'];
+            $row['giftbag'] = $game_info['giftbag'];
         }
         $this->getView()->assign('servers', $servers);
     }
