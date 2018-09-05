@@ -34,6 +34,7 @@ class GameinfoController extends Yaf_Controller_Abstract
     {
         $req = $this->getRequest();
         $this->_gid = $req->get('game_id', 0);
+//        $this->_gid = $_REQUEST['game_id'];
         if( $this->_gid < 1 ) {
             $this->redirect('/game/index.html');
             exit;
@@ -252,7 +253,7 @@ class GameinfoController extends Yaf_Controller_Abstract
     public function apiinfoAction()
     {
         $m_game = new GameModel();
-        $info = $m_game->fetch("game_id='{$this->_gid}'", 'game_id,name AS game_name,login_url,recharge_url,prepay,sign_key,material_url');
+        $info = $m_game->fetch("game_id='{$this->_gid}'", 'game_id,name AS game_name,login_url,recharge_url,prepay,sign_key,apk_url');
         
         //API文档链接
         $m_adpos = new AdposModel();
@@ -314,7 +315,7 @@ class GameinfoController extends Yaf_Controller_Abstract
                     $this->m_devgms->update(array('status'=>3), "game_id='{$this->_gid}'");
 //                }
             }
-            exit(json_encode(['status'=>1,'info'=>'success','url'=>"/gameinfo/apiinfo.html?game_id='.$this->_gid"]));
+            exit(json_encode(['status'=>1,'info'=>'success','url'=>"/gameinfo/apiinfo.html?game_id=$this->_gid"]));
         } else {
             $info = $m_game->fetch("game_id='{$this->_gid}'", 'game_id,login_url,recharge_url,prepay,sign_key');
             $info['menu_a'] = 'apiinfo';

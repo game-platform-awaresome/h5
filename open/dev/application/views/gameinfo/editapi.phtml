@@ -6,7 +6,7 @@
 <link rel="stylesheet" href="/css/base.css"/>
 <link rel="stylesheet" href="/css/game_api.css"/>
 <style>
-    .progress_container {
+    .container2 {
         width: 200px;
         height: 20px;
         background-color: gray;
@@ -43,7 +43,7 @@
                             <?php } ?>
                             </p>
                         </div>
-                        <form class="ul_info" id="js_validate" method="post">
+                        <form class="ul_info" id="js_validate" method="post"  enctype="multipart/form-data">
                             <div class="info_list">
                                 <strong>游戏ID：</strong>
                                 <span><?=$game_id?></span>
@@ -72,13 +72,13 @@
                                 <strong>微端游戏包上传：</strong>
                                 <span>
                                     <input type="file" name="apk_url">
-                                    <div class='progress_container'>
-                                        <span id="progress"></span>
+                                    <div class='container2'>
+                                        <div id="progress"></div>
                                     </div>
                                 <div id="info"></div>
                                 </span>
-
                             </li>
+                            <input type="hidden" name="game_id" value="<?=$game_id;?>">
                         </form>
                     </article>
                     <footer class="buttons_group">
