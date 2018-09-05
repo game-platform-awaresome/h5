@@ -90,7 +90,7 @@ class GameController extends F_Controller_Backend
 	        
 	        $img = getimagesize($_FILES['logo']['tmp_name']);
 	        if( ! $img ) {
-	            return '上传的LOGO不是有效的图片文件！';
+                exit(json_encode(['status'=>404,'info'=>'上传的LOGO不是有效的图片文件！']));
 	        }
 	        $ext = '';
 	        switch ($img[2])
@@ -98,7 +98,7 @@ class GameController extends F_Controller_Backend
 	            case 1: $ext = 'gif'; break;
 	            case 2: $ext = 'jpg'; break;
 	            case 3: $ext = 'png'; break;
-	            default: return '不支持的图片文件格式！';
+	            default: exit(json_encode(['status'=>404,'info'=>'不支持的图片文件格式！']));
 	        }
 	        //删除原来的LOGO
 	        if( $logo['logo'] ) {
@@ -115,8 +115,8 @@ class GameController extends F_Controller_Backend
 	        $dst = APPLICATION_PATH.'/public'.$path;
 	        $rs = move_uploaded_file($_FILES['logo']['tmp_name'], $dst);
 	        if( ! $rs ) {
-	            return '不是有效的上传文件，请重新上传！';
-	        }
+                exit(json_encode(['status'=>404,'info'=>'不是有效的上传文件，请重新上传！']));
+            }
 	        $path .= '?'.time();
 	        $path = "http://{$domain}{$path}";
 	        $up_arr['logo'] = $path;
@@ -152,8 +152,41 @@ class GameController extends F_Controller_Backend
             $path = "http://{$domain}{$path}";
             $up_arr['apk_url'] = $path;
         }
-	    
-	    $data = $this->_model->fetch($conds, 'screenshots');
+
+        //上传素材资源
+        if( $_FILES['material_url']['size'] > 0 && $_FILES['material_url']['error'] == 0 ) {
+            $apk = $this->_model->fetch("game_id={$id}", 'material_url');
+            $string = strrev($_FILES['material_url']['name']);
+            $array = explode('.',$string);
+            $suffix=$array[0];
+            if($suffix!='piz') {
+                exit(json_encode(['status'=>404,'info'=>'上传的不是有效的zip文件']));
+            }
+            $ext = 'zip';
+            //删除原来的zip
+            if( $apk['material_url'] ) {
+                $apk = explode('?', $apk['material_url']);
+                $apk = str_replace('http://', '', $apk[0]);
+                $apk = substr($apk, strpos($apk, '/'));
+                $apk = APPLICATION_PATH."/public{$apk}";
+                if( file_exists($apk) ) {
+                    @unlink($apk);
+                }
+            }
+            $path = '/game/material/';
+            $path .= "{$id}.{$ext}";
+            $dst = APPLICATION_PATH.'/public'.$path;
+            $rs = move_uploaded_file($_FILES['material_url']['tmp_name'], $dst);
+            if( ! $rs ) {
+                exit(json_encode(['status'=>404,'info'=>'不是有效的上传文件，请重新上传']));
+            }
+            $path .= '?'.time();
+            $path = "http://{$domain}{$path}";
+            $up_arr['material_url'] = $path;
+        }
+
+
+        $data = $this->_model->fetch($conds, 'screenshots');
 	    if( $data && $data['screenshots'] ) {
 	        $images = unserialize($data['screenshots']);
 	    } else {
@@ -223,8 +256,8 @@ class GameController extends F_Controller_Backend
 	    $conds = "game_id='{$id}'";
 	    $game = $this->_model->fetch($conds, 'name,logo,screenshots,details');
 	    if( empty($game) ) {
-	        return '游戏不存在，可能已经被删除了。';
-	    }
+            exit(json_encode(['status'=>404,'info'=>'游戏不存在，可能已经被删除了。']));
+        }
 	    if( $game['logo'] ) {
 	        $game['logo'] = explode('?', $game['logo']);
 	        $game['logo'] = str_replace('http://', '', $game['logo'][0]);
@@ -232,8 +265,8 @@ class GameController extends F_Controller_Backend
 	        $file = APPLICATION_PATH."/public{$game['logo']}";
 	        $rs = @unlink($file);
 	        if( ! $rs ) {
-	            return '删除游戏LOGO时发生错误！';
-	        }
+                exit(json_encode(['status'=>404,'info'=>'删除游戏LOGO时发生错误']));
+            }
 	    }
 	    
 	    if( $game['screenshots'] ) {

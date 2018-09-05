@@ -216,9 +216,9 @@
                                value="<?php echo isset($info) ? $info['divide_into'] : ''; ?>"/>
                     </p>
                     <p>
-                        <label>素材下载</label>
-                        <input class="text-input large-input" type="text" name="info[material_url]"
-                               value="<?php echo isset($info) ? $info['material_url'] : ''; ?>"/>
+                        <label>素材下载
+                        <input type="file" name="material_url">
+                        <?php if (isset($info) && $info['material_url']) echo "<a  href=\"{$info['material_url']}\">{$info['material_url']}</a>"; ?>
                     </p>
                     <p>
                         <label>下载地址</label>
@@ -228,7 +228,7 @@
                         </div>
                         <div id="info"></div>
                         <div id="result"></div>
-                    <?php if (isset($info) && $info['apk_url']) echo "<a class=\"lightbox\" href=\"{$info['apk_url']}\">{$info['apk_url']}</a>"; ?>
+                    <?php if (isset($info) && $info['apk_url']) echo "<a  href=\"{$info['apk_url']}\">{$info['apk_url']}</a>"; ?>
                     </p>
                     <p>
                         <input  onclick="upload()" class="button" type="button" value="提交"/>
@@ -269,7 +269,13 @@
                 return myXhr; //xhr对象返回给jQuery使用
             },
             success: function (result) {
-                window.location.href='/admin/game/list';
+                var result=JSON.parse(result);
+                if(result.status==1){
+                    alert('编辑成功!');
+                    window.location.href='/admin/game/list';
+                }else{
+                    alert(result.info);
+                }
             },
             contentType: false, //必须false才会自动加上正确的Content-Type
             processData: false  //必须false才会避开jQuery对 formdata 的默认处理
