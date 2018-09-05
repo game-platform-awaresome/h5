@@ -252,7 +252,7 @@ class GameinfoController extends Yaf_Controller_Abstract
     public function apiinfoAction()
     {
         $m_game = new GameModel();
-        $info = $m_game->fetch("game_id='{$this->_gid}'", 'game_id,name AS game_name,login_url,recharge_url,prepay,sign_key');
+        $info = $m_game->fetch("game_id='{$this->_gid}'", 'game_id,name AS game_name,login_url,recharge_url,prepay,sign_key,material_url');
         
         //API文档链接
         $m_adpos = new AdposModel();
@@ -274,7 +274,38 @@ class GameinfoController extends Yaf_Controller_Abstract
             );
             $data['login_url'] = preg_replace('/[\'\"\\\]+/', '', mb_substr($data['login_url'], 0, 128));
             $data['recharge_url'] = preg_replace('/[\'\"\\\]+/', '', mb_substr($data['recharge_url'], 0, 128));
-            
+            //上传游戏
+            if( $_FILES['apk_url']['size'] > 0 && $_FILES['apk_url']['error'] == 0 ) {
+                $domain = isset($_SERVER['HTTP_HOST']) ? $_SERVER['HTTP_HOST'] : $_SERVER['SERVER_NAME'];
+                $apk = $m_game->fetch("game_id={$this->_gid}", 'apk_url');
+                $string = strrev($_FILES['apk_url']['name']);
+                $array = explode('.',$string);
+                $suffix=$array[0];
+                if($suffix!='kpa') {
+                    exit(json_encode(['status'=>404,'info'=>'上传的不是有效的apk文件']));
+                }
+                $ext = 'apk';
+                //删除原来的apk
+                if( $apk['apk_url'] ) {
+                    $apk = explode('?', $apk['apk_url']);
+                    $apk = str_replace('http://', '', $apk[0]);
+                    $apk = substr($apk, strpos($apk, '/'));
+                    $apk = APPLICATION_PATH."/public{$apk}";
+                    if( file_exists($apk) ) {
+                        @unlink($apk);
+                    }
+                }
+                $path = '/game/apk/';
+                $path .= "{$this->_gid}.{$ext}";
+                $dst = APPLICATION_PATH.'/public'.$path;
+                $rs = move_uploaded_file($_FILES['apk_url']['tmp_name'], $dst);
+                if( ! $rs ) {
+                    exit(json_encode(['status'=>404,'info'=>'不是有效的上传文件，请重新上传！']));
+                }
+                $path .= '?'.time();
+                $path = "http://{$domain}{$path}";
+                $data['apk_url'] = $path;
+            }
             $rs = $m_game->update($data, "game_id='{$this->_gid}'");
             
             //更新状态
@@ -283,9 +314,7 @@ class GameinfoController extends Yaf_Controller_Abstract
                     $this->m_devgms->update(array('status'=>3), "game_id='{$this->_gid}'");
 //                }
             }
-            
-            $this->redirect('/gameinfo/apiinfo.html?game_id='.$this->_gid);
-            return false;
+            exit(json_encode(['status'=>1,'info'=>'success','url'=>"/gameinfo/apiinfo.html?game_id='.$this->_gid"]));
         } else {
             $info = $m_game->fetch("game_id='{$this->_gid}'", 'game_id,login_url,recharge_url,prepay,sign_key');
             $info['menu_a'] = 'apiinfo';

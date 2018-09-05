@@ -5,6 +5,18 @@
 <title>编辑API - 游戏管理 久乐游戏开发者平台</title>
 <link rel="stylesheet" href="/css/base.css"/>
 <link rel="stylesheet" href="/css/game_api.css"/>
+<style>
+    .progress_container {
+        width: 200px;
+        height: 20px;
+        background-color: gray;
+    }
+    #progress {
+        height: 20px;
+        background-color: orange;
+        display: inline-block;
+    }
+</style>
 </head>
 <body class="user">
     <div class="container">
@@ -56,11 +68,22 @@
                                 <?php } ?>
                                 </select>
                             </div>
+                            <li class="info_list">
+                                <strong>微端游戏包上传：</strong>
+                                <span>
+                                    <input type="file" name="apk_url">
+                                    <div class='progress_container'>
+                                        <span id="progress"></span>
+                                    </div>
+                                <div id="info"></div>
+                                </span>
+
+                            </li>
                         </form>
                     </article>
                     <footer class="buttons_group">
                         <div class="buttons_center">
-                            <input type="button" id="save" value="保存信息" class="btn_green2 fl">
+                            <input onclick="upload()"  type="button" id="save" value="保存信息" class="btn_green2 fl">
                             <button onclick="javascript:location.href='/gameinfo/baseinfo.html?game_id=<?=$game_id?>';return false;" class="btn_white fl">取消修改</button>
                         </div>
                     </footer>
@@ -73,6 +96,50 @@
 <script src="/js/jquery.validate.min.js"></script>
 <script>
 <?php include $this->getScriptPath().'/info_base.js'; ?>
+function upload(){
+    event.preventDefault();
+    if( !$("#js_validate").valid() ) {
+        return false;
+    }
+    $('#upload').attr('disabled','disabled');
+    //创建FormData对象，初始化为form表单中的数据。需要添加其他数据可使用formData.append("property", "value");
+    var formData = new FormData($('form')[0]);
+    //ajax异步上传56
+    $.ajax({
+        url: "/gameinfo/editapi",
+        type: "POST",
+        data: formData,
+        xhr: function () { //获取ajaxSettings中的xhr对象，为它的upload属性绑定progress事件的处理函数
+            myXhr = $.ajaxSettings.xhr();
+            if (myXhr.upload) { //检查upload属性是否存在
+                //绑定progress事件的回调函数
+                myXhr.upload.addEventListener('progress', progressHandlingFunction, false);
+            }
+            return myXhr; //xhr对象返回给jQuery使用
+        },
+        success: function (result) {
+            var result=JSON.parse(result);
+            if(result.status==1){
+                alert('编辑成功!');
+                window.location.href=result.url;
+            }else{
+                alert(result.info);
+            }
+        },
+        contentType: false, //必须false才会自动加上正确的Content-Type
+        processData: false  //必须false才会避开jQuery对 formdata 的默认处理
+    });
+    return false;
+};
+//上传进度回调函数：
+function progressHandlingFunction(e) {
+    if (e.lengthComputable) {
+        $('#progress').attr({value: e.loaded, max: e.total}); //更新数据到进度条
+        var percent = Math.round(e.loaded * 100 / e.total);
+        $('#progress').html(percent.toFixed(2) + "%");
+        $('#progress').css('width', percent.toFixed(2) + "%");
+    }
+}
 $(function(){
     $("#js_validate").validate({
         rules:{
@@ -92,13 +159,13 @@ $(function(){
             }
         }
     });
-    $('#save').click(function(event){
-        event.preventDefault();
-        if( $("#js_validate").valid() ) {
-        	$("#js_validate").get(0).submit();
-        }
-        return false;
-    });
+    // $('#save').click(function(event){
+    //     event.preventDefault();
+    //     if( $("#js_validate").valid() ) {
+    //     	$("#js_validate").get(0).submit();
+    //     }
+    //     return false;
+    // });
 });
 </script>
 </body>

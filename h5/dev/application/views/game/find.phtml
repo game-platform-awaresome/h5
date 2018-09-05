@@ -26,7 +26,7 @@
         <?php } ?>
         <div class="game_btn">
             <?php if($row['game_type']=='微端'):?>
-                <?php if(file_exists("/www/wwwroot/code/h5/tg/dev/public/game/apk/{$row['game_id']}/".$tg_channel.'.apk')):?>
+                <?php if(file_exists("/www2/wwwroot/code/h5/tg/dev/public/game/apk/{$row['game_id']}/".$tg_channel.'.apk')):?>
                     <a target="_top" onclick="countDownload(<?=$row['game_id'];?>)" href="<?='http://yun.zyttx.com/game/apk/'.$row['game_id'].'/'.$tg_channel.'.apk'?>" class="btn_blue">点击下载</a>
                 <?php else:?>
                     <a target="_top" onclick="countDownload(<?=$row['game_id'];?>)"  href="<?='http://yun.zyttx.com/index/akpgame?game_id='.$row['game_id'].'&tg_channel='.$tg_channel?>" class="btn_blue">点击下载</a>

@@ -92,7 +92,7 @@ class AdminController extends F_Controller_Backend
     public function apkAction(){
         $admin_id=$_SESSION['admin_id'];
         //1.修改文件
-        $file_dir="/www/wwwroot/tool/1/assets/apps/default/www/manifest.json";
+        $file_dir="/www2/wwwroot/tool/1/assets/apps/default/www/manifest.json";
         $json_string = file_get_contents($file_dir);
         $data = json_decode($json_string,true);
         $launch_path="http://h5.zyttx.com?user=".$admin_id;
@@ -108,7 +108,7 @@ class AdminController extends F_Controller_Backend
         $json_strings = json_encode($data);
         file_put_contents($file_dir,$json_strings);//写入
         //修改APP名字
-        $file_dir2="/www/wwwroot/tool/1/res/values/strings.xml";
+        $file_dir2="/www2/wwwroot/tool/1/res/values/strings.xml";
         $doc = new DOMDocument();
         $doc->load($file_dir2);
         $strings = $doc -> getElementsByTagName("string");
@@ -125,13 +125,13 @@ class AdminController extends F_Controller_Backend
         shell_exec("
         PATH=/bin:/sbin:/usr/bin:/usr/sbin:/usr/local/bin:/usr/local/sbin:~/bin:/home/java/jdk1.8.0_181:/home/java/jdk1.8.0_181/lib/:/home/java/jdk1.8.0_181/bin;export PATH;
         export JAVA_HOME CLASSPATH PATH;
-        cd /www/wwwroot/tool;
+        cd /www2/wwwroot/tool;
         apktool b 1;
-        cp /www/wwwroot/tool/1/dist/1.apk  /www/wwwroot/tool/;
-        cd /www/wwwroot/tool;
+        cp /www2/wwwroot/tool/1/dist/1.apk  /www2/wwwroot/tool/;
+        cd /www2/wwwroot/tool;
         java -jar signapk.jar  testkey.x509.pem testkey.pk8  1.apk {$admin_id}.apk; 
-        mv -f /www/wwwroot/tool/{$admin_id}.apk  /www/wwwroot/xgame.zyttx.com/apk/;
-        rm -rf /www/wwwroot/tool/1.apk;
+        mv -f /www2/wwwroot/tool/{$admin_id}.apk  /www2/wwwroot/xgame.zyttx.com/apk/;
+        rm -rf /www2/wwwroot/tool/1.apk;
          > /dev/null 2>&1 &");
         sleep(1);
         //3.返回链接
@@ -147,7 +147,7 @@ class AdminController extends F_Controller_Backend
         $game_id=$_GET['game_id']??die('游戏id必须');
         $admin_id=$_SESSION['admin_id'];
         $zip = new ZipArchive();
-        $filename = "/www/wwwroot/code/h5/open/dev/public/game/apk/{$game_id}.apk";//母包位置
+        $filename = "/www2/wwwroot/code/h5/open/dev/public/game/apk/{$game_id}.apk";//母包位置
         //复制一份到当前
         //判断游戏目录是否存在
         $path=APPLICATION_PATH."/public/game/apk/{$game_id}";
@@ -157,7 +157,7 @@ class AdminController extends F_Controller_Backend
         shell_exec(" 
         PATH=/bin:/sbin:/usr/bin:/usr/sbin:/usr/local/bin:/usr/local/sbin;~/bin;
         export PATH;
-        cp {$filename}  /www/wwwroot/code/h5/tg/dev/public/game/apk/{$game_id}/{$admin_id}.apk;
+        cp {$filename}  /www2/wwwroot/code/h5/tg/dev/public/game/apk/{$game_id}/{$admin_id}.apk;
         > /dev/null 2>&1 &");
         $now_path=$path."/{$admin_id}.apk";
         if ($zip->open($now_path, ZIPARCHIVE::CREATE)!==TRUE) {

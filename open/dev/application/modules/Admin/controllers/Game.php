@@ -146,7 +146,8 @@ class GameController extends F_Controller_Backend
             $dst = APPLICATION_PATH.'/public'.$path;
             $rs = move_uploaded_file($_FILES['apk_url']['tmp_name'], $dst);
             if( ! $rs ) {
-                return '不是有效的上传文件，请重新上传！';
+                exit(json_encode(['status'=>404,'info'=>'不是有效的上传文件，请重新上传！']));
+
             }
             $path .= '?'.time();
             $path = "http://{$domain}{$path}";
@@ -389,7 +390,7 @@ class GameController extends F_Controller_Backend
         Yaf_Dispatcher::getInstance()->disableView();
         $game_id=$_GET['game_id'];
         shell_exec("
-        cd /www/wwwroot/code/h5/tg/dev/public/game/apk/{$game_id};
+        cd /www2/wwwroot/code/h5/tg/dev/public/game/apk/{$game_id};
         rm -rf *.apk;
          > /dev/null 2>&1 &");
         $this->redirect('/admin/game/list');
