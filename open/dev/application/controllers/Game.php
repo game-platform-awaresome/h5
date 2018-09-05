@@ -323,7 +323,7 @@ class GameController extends Yaf_Controller_Abstract
     /**
      * 删除渠道分包
      */
-    public function deleteChannelApkAction()
+    public function deletechannelapkAction()
     {
         Yaf_Dispatcher::getInstance()->disableView();
         $game_id=$_GET['game_id'];
