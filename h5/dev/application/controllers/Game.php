@@ -129,7 +129,7 @@ class GameController extends Yaf_Controller_Abstract
             '精品推荐' => '推荐',
             '独家首发' => '独家',
             'BT游戏' => 'BT版',
-            '网络游戏' => '网游',
+            '满V游戏' => '满V版',
             'GM游戏' => 'GM版',
         );
         
