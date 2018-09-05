@@ -348,4 +348,17 @@ class GameController extends F_Controller_Backend
 	    
 	    $this->getView()->assign($assign);
 	}
+    /**
+     * 删除渠道分包
+     */
+    public function deletechannelapkAction()
+    {
+        Yaf_Dispatcher::getInstance()->disableView();
+        $game_id=$_GET['game_id'];
+        shell_exec("
+        cd /www/wwwroot/code/h5/tg/dev/public/game/apk/{$game_id};
+        rm -rf *.apk;
+         > /dev/null 2>&1 &");
+        $this->redirect('/admin/game/index');
+    }
 }
