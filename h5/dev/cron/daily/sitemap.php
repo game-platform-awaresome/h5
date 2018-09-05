@@ -37,7 +37,7 @@ function sitemap()
     $types[] = '精品推荐';
     $types[] = '独家首发';
     $types[] = 'BT游戏';
-    $types[] = '网络游戏';
+    $types[] = '满V游戏';
     $types[] = 'GM游戏';
     foreach ($types as $tp)
     {
