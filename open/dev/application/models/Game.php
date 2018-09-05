@@ -100,7 +100,10 @@ class GameModel extends F_Model_Pdo
                 function(&$row){
                     if( empty($row) ) return '下载地址';
                     if($row['game_type']=='h5') return '不需要';
-                    return "<a href=\"{$row['apk_url']}\">下载</a>";
+                    return "
+                        <a href=\"{$row['apk_url']}\">下载</a>|
+                        <a  href=\"/admin/game/deletechannelapk?game_id={$row['game_id']}\" onclick=\"if(confirm('确定删除?')==false)return false;\">删除</a> 
+                    ";
                 }
         ,
 		    'add_time' => function(&$row){
