@@ -162,6 +162,11 @@ class SdkapiController extends Yaf_Controller_Abstract
         $m_pay     = new PayModel();
         $m_game    = new GameModel();
         $game_name = $m_game->fetch(['game_id' => $request['game_id']], 'name');
+        if(!$game_name){
+            $data['status'] = 500;
+            $data['msg']    = '错误的游戏id';
+            echo json_encode($data);
+        }
         $pay_id=$m_pay->createPayId();
         $m_user=new UsersModel();
         $user_info=$m_user->fetch(['user_id'=>$request['user_id']],'player_channel');
