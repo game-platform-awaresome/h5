@@ -136,13 +136,21 @@
   float: right;
   height: 100%;
 }
-.game_btn .btn_blue {
+.game_list .game_btn a.btn_blue {
+  width: 63px;
+  height: 34px;
+  line-height: 34px;
+  font-size: 11px;
   padding: 0;
+  position: absolute;
+  top: 50%;
+  right: 0;
+  margin-top: -18px;
   display: block;
-  height: 100%;
-  width: 75px;
-  border-radius: 4px;
-  font-size: 12px;
+  color: #ffffff;
+  font-weight: 100;
+  text-align: center;
+  border-radius: 3px;
 }
 .z_main .to_play {
   height: auto;

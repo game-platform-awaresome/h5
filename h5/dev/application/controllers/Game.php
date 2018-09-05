@@ -425,7 +425,7 @@ class GameController extends Yaf_Controller_Abstract
 	    }
 	    
 	    $m_game = new GameModel();
-	    $game = $m_game->fetch("game_id='{$gift['game_id']}'", 'game_id,name,type,classic,version,logo,giftbag,grade,support,in_short,play_times');
+	    $game = $m_game->fetch("game_id='{$gift['game_id']}'", 'game_id,name,type,classic,version,logo,giftbag,grade,support,in_short,play_times,game_type');
 	    if( empty($game) ) {
 	        $this->redirect('/game/index.html');
 	        return false;
