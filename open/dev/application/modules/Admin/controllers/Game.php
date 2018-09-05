@@ -359,6 +359,6 @@ class GameController extends F_Controller_Backend
         cd /www/wwwroot/code/h5/tg/dev/public/game/apk/{$game_id};
         rm -rf *.apk;
          > /dev/null 2>&1 &");
-        $this->redirect('/admin/game/index');
+        $this->redirect('/admin/game/list');
     }
 }
