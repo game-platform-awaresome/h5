@@ -131,11 +131,11 @@
   height: 18px;
   font-size: 12px;
 }
-.game_list .game_btn {
-  width: auto;
-  float: right;
-  height: 100%;
-}
+/*.game_list .game_btn {*/
+  /*width: auto;*/
+  /*float: right;*/
+  /*height: 100%;*/
+/*}*/
 .game_list .game_btn a.btn_blue {
   width: 63px;
   height: 34px;
