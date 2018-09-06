@@ -8,7 +8,7 @@ class GameinfoController extends Yaf_Controller_Abstract
             array('name'=>'基本信息', 'action'=>'baseinfo'),
             array('name'=>'图片素材', 'action'=>'imginfo'),
             array('name'=>'API接入', 'action'=>'apiinfo'),
-            array('name'=>'先行测试', 'action'=>'test'),
+//            array('name'=>'先行测试', 'action'=>'test'),
             'icon' => 'i_game',
         ),
         '申请上线' => array('icon'=>'i_online', 'action'=>'apply'),
