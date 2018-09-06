@@ -131,5 +131,8 @@ class TestController extends Yaf_Controller_Abstract
             var_dump($redis->get('test'));
             die;
         }
+        function testschemeAction(){
+            
+        }
 
 }
