@@ -131,8 +131,20 @@ class TestController extends Yaf_Controller_Abstract
             var_dump($redis->get('test'));
             die;
         }
-        function testschemeAction(){
-            
+        function testSignAction(){
+            $key="1a7b8b2f4dd6aa5d153b7723df4d7d7a";
+            //游戏密钥
+            $arr=array(
+                'user_id'=>intval(2310),
+                'username'=>urldecode('qq_≮々槑槑々≯'),
+                'game_id'=>intval(78),
+                'server_id'=>0,
+                'time'=>1536218760,
+            );
+            ksort($arr);
+            //数组重新排序
+            $sign=md5(implode('',  $arr) . $key);
+            var_dump($sign);
         }
 
 }

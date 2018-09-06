@@ -25,13 +25,15 @@ input.w240{width:240px !important}
         </p>
         <p>
           <label>所属游戏</label>
-          <span>游戏：</span>
-          <select id="game_id" name="info[game_id]">
+            <span>搜索：</span>
+            <input id="inputselect" type="text" onchange="searchGame(this)"/><br/>
+            <span>游戏：</span>
+            <select id="game_id" name="info[game_id]">
           <?php foreach ($games as $gm) { ?>
             <option value="<?=$gm['game_id']?>"<?php if(isset($info) && $info['game_id'] == $gm['game_id']) echo ' selected="selected"'; ?>><?=$gm['name']?></option>
           <?php } ?>
           </select>
-          <span>区/服：</span>
+            <span>区/服：</span>
           <select id="server_id" name="info[server_id]"></select>
           <input type="hidden" id="game_name" name="info[game_name]" value="<?php echo isset($info) ? $info['game_name'] : ''; ?>">
           <input type="hidden" id="server_name" name="info[server_name]" value="<?php echo isset($info) ? $info['server_name'] : ''; ?>">
@@ -271,4 +273,24 @@ $(function(){
         return false;
     });
 });
+
+/**
+ * 搜索游戏
+ * @param obj
+ */
+function searchGame(obj){
+    var value=obj.value.trim();
+    // console.log(value);
+    var options=$('#game_id option');
+    // console.log(options);
+    for(var i=0;i<options.length-1;i++){
+        var option=options[i];
+        // console.log(option);
+        var now_value=option.text;
+        if(value==now_value){
+            // console.log(now_value);
+            $(option).attr('selected','selected');
+        }
+    }
+}
 </script>
