@@ -60,7 +60,7 @@ function statistics()
                 $m_bygame->update($row, $conds." AND game_id='{$row['game_id']}'");
             } else {
                 $game = $m_game->fetch("game_id='{$row['game_id']}'", 'name,dev_id');
-                $row['game_name'] = $game['name'];
+                $row['game_name'] = $game['name']??'未知';
                 $row['ymd'] = $ymd;
                 $row['dev_id'] = $game['dev_id'];
                 $m_bygame->insert($row, false);
