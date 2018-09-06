@@ -143,8 +143,9 @@ class GameController extends Yaf_Controller_Abstract
             $games = $m_game->fetchAll("visible=1 AND type='{$tc}'", $pn, $limit, $selects, $order);
         } elseif( in_array($tc, $m_game->_classic) ) {
             $games = $m_game->fetchAll("visible=1 AND classic='{$tc}'", $pn, $limit, $selects, $order);
+        }elseif(in_array($tc,$m_game->_game_type)){
+            $games = $m_game->fetchAll("visible=1 AND game_type='{$tc}'", $pn, $limit, $selects, $order);
         }
-        
         foreach ($games as &$row)
         {
             $row['grade'] = $m_game->gradeHtml($row['grade']);

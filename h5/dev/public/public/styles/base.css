@@ -588,7 +588,7 @@ button {
   height: 20px;
   margin: 2px auto;
 }
-.z_footer nav a:nth-child(3) i {
+.z_footer nav a:nth-child(3) i,.z_footer nav a:nth-child(2) i{
   width: 25px;
 }
 .z_footer nav a {
@@ -623,7 +623,7 @@ button {
   background-position: 0 -103px;
 }
 .i_ft02 {
-  background-position: -20px -103px;
+  background-position: -40px -103px;
 }
 .i_ft03 {
   background-position: -40px -103px;
@@ -638,7 +638,7 @@ button {
   background-position: 0 -124px;
 }
 #footer_nav_active .i_ft02 {
-  background-position: -20px -124px;
+  background-position: -40px -124px;
 }
 #footer_nav_active .i_ft03 {
   background-position: -40px -124px;

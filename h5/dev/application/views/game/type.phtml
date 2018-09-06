@@ -61,7 +61,11 @@
 <script src="/public/scripts/jquery.mobile.min.js"></script>
 <script src="/jquery/swipe.js"></script>
 <script>
-$('#footer a:eq(2)').attr('id', 'footer_nav_active');
+    <?php if($_GET['tc']=='微端'):?>
+        $('#footer a:eq(1)').attr('id', 'footer_nav_active');
+    <?php else:?>
+        $('#footer a:eq(2)').attr('id', 'footer_nav_active');
+    <?php endif;?>
 $(function(){
 	var nomore = '<label>没有更多数据了</label>';
     var current = 0;
