@@ -62,7 +62,7 @@ function statistics()
                 $game = $m_game->fetch("game_id='{$row['game_id']}'", 'name,dev_id');
                 $row['game_name'] = $game['name']??'未知';
                 $row['ymd'] = $ymd;
-                $row['dev_id'] = $game['dev_id'];
+                $row['dev_id'] = $game['dev_id']??0;
                 $m_bygame->insert($row, false);
                 $arr_bygame[$row['game_id']] = $game['dev_id'];
             }
