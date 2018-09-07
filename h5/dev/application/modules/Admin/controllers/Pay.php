@@ -20,6 +20,10 @@ class PayController extends F_Controller_Backend
             $search['add_end']=strtotime($search['add_end']);
             $conds = "{$comma}pay_time BETWEEN {$search['add_begin']} AND {$search['add_end']}";
         }
+        if(!empty($search['game_name'])){
+            $conds = "{$comma}game_name LIKE '%{$search['game_name']}%'";
+            unset($search['game_name']);
+        }
         //支付状态
         if(!empty($search['pay_status'])){
             if($search['pay_status']=='need_pay'){
