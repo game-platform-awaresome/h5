@@ -21,7 +21,11 @@ class PayController extends F_Controller_Backend
             $conds = "{$comma}pay_time BETWEEN {$search['add_begin']} AND {$search['add_end']}";
         }
         if(!empty($search['game_name'])){
-            $conds = "{$comma}game_name LIKE '%{$search['game_name']}%'";
+            if($conds){
+                $conds .= " AND {$comma}game_name LIKE '%{$search['game_name']}%'";
+            }else{
+                $conds .= "{$comma}game_name LIKE '%{$search['game_name']}%'";
+            }
             unset($search['game_name']);
         }
         //支付状态
