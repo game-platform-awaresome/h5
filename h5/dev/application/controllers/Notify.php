@@ -166,7 +166,7 @@ class NotifyController extends Yaf_Controller_Abstract
             if($pay_info['money']!=$okprice){
                 $m_log->insert(array(
                     'admin' => '非法订单,修改订单金额,ip:'.$this->getIp(),
-                    'content' => json_encode($_REQUEST),
+                    'content' => json_encode($_REQUEST).$html,
                     'ymd' => date('Ymd'),
                 ));
                 echo '非法订单修改订单金额,已记录访问ip,请勿违法犯罪之事';die;
