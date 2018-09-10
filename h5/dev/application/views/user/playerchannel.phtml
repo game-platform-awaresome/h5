@@ -7,29 +7,46 @@
 <link rel="stylesheet" href="/public/styles/base.css"/>
 <link rel="stylesheet" href="/styles/my_favs.css"/>
 <link rel="stylesheet" href="/styles/pay_list.css"/>
+    <style>
+        .login_btn {
+            display: block;
+            width: 50%;
+            height: 45px;
+            line-height: 45px;
+            background-color: #29ba67;
+            color: #ffffff;
+            border: 0;
+            border-radius: 2px;
+            font-size: 24px;
+            font-weight: 100;
+            text-align: center;
+            -webkit-box-shadow: 0 0 rgba(255, 0, 0, 0);
+            box-shadow: 0 0 rgba(255, 0, 0, 0);
+            margin: 27px auto 0;
+            border-radius: 5px;
+        }
+    </style>
 </head>
 <body class="bg00">
 <div data-role="page" class="z_container bg01">
     <div class="main">
         <header  class="z_header">
-            <a target="_top" href="/user/index.html"></a>我的推广
+            <a target="_top" href="/user/index.html"></a>推广赚钱
         </header>
 
         <section style="padding: 10px;font-size: large;">
                推广说明<br/>
-                <div style="font-size: small;padding: 10px">
-                    您的好友通过你的推广链接注册成功后，系统将自动跟踪统计你的下线提成20%
+                <div style="font-size: small;padding: 10px;color: #bbbbbb">
+                    您的好友通过你的推广链接注册成功后，成为你的下线，他充值你就有20%的提成!
                 </div>
-               推广二维码
-               <div style="text-align: center;padding: 10px">
-                   <div id="qrcode_player_channel" ></div>
-               </div>
             <div>
-                推广链接
+                推广宣传语
                 <div style="font-size: small;padding: 10px">
-                    <span id="mytext"><?="http://".$_SERVER['HTTP_HOST'].'/user/register.html?fwd=/user/index&player_channel='.$_SESSION['user_id']?></span>
+                    <textarea id="mytext" style="width: 100%;height: 80px;">我在玩最新版GM手游,不花一分钱上线送满级VIP+无限元宝,不花一分钱体验GM牛逼特权,道具装备随便刷一切,游戏下载地址：<?="http://".$_SERVER['HTTP_HOST'].'/user/register.html?fwd=/user/index&player_channel='.$_SESSION['user_id']?>
+                    </textarea>
                     <br/>
-                    <button id="copy_input">复制</button>
+<!--                    <button id="copy_input">复制</button>-->
+                    <button onClick="copyUrl()" class="login_btn" id="save" id="copy_input"><image src="/images/playerchannel/share.png" style="width: 20px;height: 20px;"></image>复制推广语</button>
                 </div>
             </div>
             <!--            <div>-->
@@ -64,20 +81,15 @@
 </div>
 <?php include $this->getScriptPath().'/footer.phtml'; ?>
 <script src="/js/jquery-zclip/jquery.zclip.js"></script>
-
 <script>
 $('#footer a:eq(4)').attr('id', 'footer_nav_active');
+function copyUrl() {
+    var Url2 = document.getElementById("mytext");
+    Url2.select(); // 选择对象
+    document.execCommand("Copy"); // 执行浏览器复制命令
+    alert("已复制好，可贴粘。");
+}
 $(function(){
-    $('#copy_input').zclip({        　 //copy_input表示 按钮
-        path: '/js/jquery-zclip/ZeroClipboard.swf',
-        copy: function(){ 　　　　　　　　　　//复制内容
-            return $('#mytext').text();  　 //mytext表示 内容
-        },
-        afterCopy: function(){ //复制成功
-            // $("<span id='msg'/>").insertAfter($('#copy_input')).text('复制成功');
-            alert('复制成功');
-        }
-    });
 	$('.i_delete').parent().on('tap', function(){
 		$('.i_close').toggleClass('none');
 	});
