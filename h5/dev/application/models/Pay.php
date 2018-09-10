@@ -28,10 +28,11 @@ class PayModel extends F_Model_Pdo
 		        if( empty($row) ) return '支付ID';
 		        return sprintf('%16.0f', $row['pay_id']);
 		    },
-		    'username' => '支付账号',
+//		    'username' => '支付账号',
 		    'to_user' => '充入账号',
+		    'role_id' => '角色id',
 		    'game_name' => '游戏名称',
-			'server_name' => '区/服名称',
+			'server_id' => '区服id',
 		    'money' => function(&$row){
 		        if( empty($row) ) return '充值金额';
 		        return number_format($row['money']).'￥';
@@ -45,7 +46,8 @@ class PayModel extends F_Model_Pdo
 		        return $this->_types[$row['type']];
 		    },
 		    'pay_type' => '支付方式',
-			'trade_no' => '第三方流水号',
+			'trade_no' => '金猪流水号',
+//			'cp_return' => '第三方流水号',
 		    'add_time' => function(&$row){
 		        if( empty($row) ) return '下单时间';
 		        return date('Y-m-d H:i:s', $row['add_time']);
