@@ -19,7 +19,7 @@
     </header>
 
     <!--div.z_min 内容区域 statr-->
-    <div class="z_main" data-role="conent">
+    <div class="z_main" data-role="content">
         <form class="user_form">
             <p class="tips">账号输入错误</p>
             <input class="text" type="text" placeholder="账号" id="username" maxlength="32"/>
@@ -56,11 +56,9 @@
     		</div>
     		<div class="box3"></div>
         </section>
-        <?php if($_GET['player_channel']??false):?>
-        <section style="margin-top: 10px">
+        <section style="margin-top: 10px;display: none" id="image_logo">
             <image src="/images/login/player_channel.png" style="width: 100%;height: auto"></image>
         </section>
-        <?php endif;?>
         <div class="footer_padding"></div>
     </div>
     <!--div.z_min 内容区域 end-->
@@ -75,6 +73,11 @@
 <script>
 $('#footer a:eq(4)').attr('id', 'footer_nav_active');
 $(function(){
+    <?php if($_GET['player_channel']??false):?>
+        $('#image_logo').show();
+    <?php else:?>
+        $('#image_logo').hide();
+    <?php endif;?>
 	$('.user_form input').focus(function(){
 		$(this).css('color', '#FFF');
 		$('#footer, .bottom_btns').hide();
