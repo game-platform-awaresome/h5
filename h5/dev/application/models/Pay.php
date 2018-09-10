@@ -47,7 +47,7 @@ class PayModel extends F_Model_Pdo
 		    },
 		    'pay_type' => '支付方式',
 			'trade_no' => '金猪流水号',
-//			'cp_return' => '第三方流水号',
+			'cp_order' => '第三方流水号',
 		    'add_time' => function(&$row){
 		        if( empty($row) ) return '下单时间';
 		        return date('Y-m-d H:i:s', $row['add_time']);
