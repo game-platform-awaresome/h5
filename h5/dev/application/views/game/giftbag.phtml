@@ -50,7 +50,7 @@
                     <p>收藏</p>
                 </div>
                 <div class="game_btn">
-                        <?php if($game['game_type']=='微端'):?>
+                        <?php if($game['game_type']=='手游'):?>
                             <?php if(file_exists("/www2/wwwroot/code/h5/tg/dev/public/game/apk/{$game['game_id']}/".$tg_channel.'.apk')):?>
                                 <a target="_top"  onclick="countDownload(<?=$game['game_id'];?>)"  href="<?='http://yun.zyttx.com/game/apk/'.$game['game_id'].'/'.$tg_channel.'.apk'?>" class="btn_blue">点击下载</a>
                             <?php else:?>

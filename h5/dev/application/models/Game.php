@@ -11,7 +11,7 @@ class GameModel extends F_Model_Pdo
 	public $_classic = array(
 	    '角色扮演', '动作过关', '休闲娱乐', '街机童年', '竞速狂飙', '卡牌回合', '体育竞技', '解密探险', '放置挂机', '音乐舞蹈',
 	);
-	public $_game_type=array('h5','微端');
+	public $_game_type=array('h5','手游');
 	//角标
 	public $_corner = array(
 	    'normal' => '-',

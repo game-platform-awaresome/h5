@@ -94,7 +94,7 @@ class GameModel extends F_Model_Pdo
 		    },
 		    'support' => function(&$row){
                 if( empty($row) ) return '推广链接';
-                if($row['game_type']=='微端'){
+                if($row['game_type']=='手游'){
                     $channel_id=$_SESSION['admin_id'];
                     if(file_exists("/www2/wwwroot/code/h5/tg/dev/public/game/apk/{$row['game_id']}/".$channel_id.'.apk')){
                             $a='<a href="http://yun.zyttx.com/game/apk/'.$row['game_id'].'/'.$channel_id.'.apk">http://yun.zyttx.com/game/apk/'.$row['game_id'].'/'.$channel_id.'.apk </a>';

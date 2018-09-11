@@ -4,7 +4,7 @@ class GameModel extends F_Model_Pdo
 {
 	protected $_table = 'game';
 	protected $_primary = 'game_id';
-    public $_game_types = array('h5','微端');
+    public $_game_types = array('h5','手游');
 	//类型
 	public $_types = array('推荐','独家','BT版','满V版','GM版');
 	//经典分类

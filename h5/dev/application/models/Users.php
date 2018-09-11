@@ -897,4 +897,17 @@ class UsersModel extends F_Model_Pdo
 	    }
 	    return $logs;
 	}
+
+    /**
+     * 申请结算
+     */
+	public function applyBalance(){
+        //todo
+    }
+    /**
+     * 代理渠道支付列表
+     */
+    public function getPlayerChannelPayList(){
+        //todo
+    }
 }
