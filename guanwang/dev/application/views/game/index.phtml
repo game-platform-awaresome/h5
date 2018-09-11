@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+<meta charset="UTF-8">
+<title>开发者概览 - 管理中心 久乐游戏开发者平台</title>
+<link rel="stylesheet" href="/css/base.css"/>
+<link rel="stylesheet" href="/css/user_developer.css"/>
+</head>
+<body class="user">
+    <div class="container">
+        <?php include $this->getScriptPath().'/header.phtml'; ?>
+        <div class="main2">
+            <div class="center">
+                <?php include $this->getScriptPath().'/menu.phtml'; ?>
+                <div class="content">
+                    <section class="sections">
+                        <h2 class="title"><i class="icons i_account"></i>游戏流水统计</h2>
+                        <ul class="number_list">
+                            <li>
+                                <strong><?=$dev['trade_money']?></strong>
+                                <h4>累计流水</h4>
+                            </li>
+                            <li>
+                                <strong><?=$month_money?></strong>
+                                <h4>当月流水</h4>
+                            </li>
+                            <li>
+                                <strong class="orange"><?=$yestoday_money?></strong>
+                                <h4>昨日流水</h4>
+                            </li>
+                            <li>
+                                <strong><?=$yestoday_people?></strong>
+                                <h4>昨日活跃</h4>
+                            </li>
+                        </ul>
+                    </section>
+                    <section class="sections">
+                        <h2 class="title"><i class="icons i_game2"></i>游戏数量统计</h2>
+                        <ul class="number_list">
+                            <li>
+                                <strong><?=($dev['on_nums']+$dev['off_nums'])?></strong>
+                                <h4>游戏总数</h4>
+                            </li>
+                            <li>
+                                <strong><?=$dev['on_nums']?></strong>
+                                <h4>已上线的</h4>
+                            </li>
+                            <li>
+                                <strong><?=$dev['off_nums']?></strong>
+                                <h4>未上线的</h4>
+                            </li>
+                            <li>
+                                <strong class="orange"><?=$dev['check_nums']?></strong>
+                                <h4>审核中的</h4>
+                            </li>
+                        </ul>
+                    </section>
+                    <section class="sections">
+                        <h2 class="title"><i class="icons i_ranking"></i>最近半月游戏趋势</h2>
+                        <figure class="record" id="container" style="height:362px; width:842px"></figure>
+                    </section>
+                </div>
+            </div>
+        </div>
+        <?php include $this->getScriptPath().'/footer.phtml'; ?>
+    </div>
+<script src="/js/jquery-1.11.1.min.js"></script>
+<script src="/js/Highcharts/highcharts.js"></script>
+<script>
+<?php include $this->getScriptPath().'/base.js'; ?>
+$(function(){
+    $('#container').highcharts({
+        title: {
+            text: '半月走势',
+            x: -20
+        },
+        subtitle: {
+            text: '最近半月的充值流水及活跃用户走势',
+            x: -20
+        },
+        xAxis: {
+            categories: [<?php $comma = ''; foreach ($logs as $row) { echo "{$comma}'{$row['ymd']}'"; $comma = ','; } ?>]
+        },
+        yAxis: {
+            title: {
+                text: '金额或人数'
+            },
+            plotLines: [{
+                value: 0,
+                width: 1,
+                color: '#808080'
+            }]
+        },
+        legend: {
+            layout: 'vertical',
+            align: 'right',
+            verticalAlign: 'middle',
+            borderWidth: 0
+        },
+        series: [{
+            name: '充值流水',
+            data: [<?php $comma = ''; foreach ($logs as $row) { echo "{$comma}{$row['recharge_money']}"; $comma = ','; } ?>]
+        }, {
+            name: '活跃用户',
+            data: [<?php $comma = ''; foreach ($logs as $row) { echo "{$comma}{$row['signon_people']}"; $comma = ','; } ?>]
+        }]
+    });
+});
+</script>
+</body>
+</html>

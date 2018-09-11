@@ -1,0 +1,66 @@
+    <div class="content-box">
+      <!-- Start Content Box -->
+      <div class="content-box-header">
+        <h3><?=$title?></h3>
+        <a class="go_back" href="javascript:history.go(-1);">返回上一页</a>
+        <div class="clear"></div>
+      </div>
+      <!-- End .content-box-header -->
+      <div class="content-box-content">
+        <div class="tab-content default-tab">
+          <form action="/admin/<?=$controller?>/update?<?=$query?>" method="post" enctype="multipart/form-data">
+          <input type="hidden" name="info[<?=$primary?>]" value="<?php echo isset($info) ? $info[$primary] : ''; ?>" />
+            <fieldset>
+            <!-- Set class to "column-left" or "column-right" on fieldsets to divide the form into columns -->
+            <p>
+              <label>分类</label>
+              <select class="small-input" name="info[type]">
+              <?php foreach ($types as $tp) { ?>
+                <option value="<?=$tp?>"<?php if(isset($info) && $info['type'] == $tp) echo ' selected="selected"'; ?>><?=$tp?></option>
+              <?php } ?>
+              </select>
+            </p>
+            <p>
+              <label>排序（升序， 0-65535）</label>
+              <input class="text-input small-input" type="text" name="info[weight]" value="<?php echo isset($info) ? $info['weight'] : '0'; ?>" />
+            </p>
+            
+            <p>
+              <label>标题</label>
+              <input class="text-input medium-input" type="text" name="info[title]" value="<?php echo isset($info) ? $info['title'] : ''; ?>" />
+            </p>
+            <p>
+              <label>详细信息</label>
+              <textarea name="info[content]" id="article_content" style="width:80%px; height:360px;"><?php echo isset($info) ? $info['content'] : ''; ?></textarea>
+            </p>
+            
+            <p>
+              <label>是否可见</label>
+              <select name="info[visible]">
+              <?php foreach (array('1'=>'是','0'=>'否') as $lk=>$lv) { ?>
+                <option value="<?=$lk?>"<?php if(isset($info) && $info['visible'] == $lk) echo ' selected="selected"'; ?>><?=$lv?></option>
+              <?php } ?>
+              </select>
+            </p>
+            <p>
+              <input class="button" type="submit" value="提交" />
+            </p>
+            </fieldset>
+            <div class="clear"></div>
+            <!-- End .clear -->
+          </form>
+        </div>
+        <!-- End #tab2 -->
+      </div>
+      <!-- End .content-box-content -->
+    </div>
+    <!-- End .content-box -->
+
+    <div class="clear"></div>
+
+<script type="text/javascript" charset="utf-8" src="/ue/ueditor.config.js"></script>
+<script type="text/javascript" charset="utf-8" src="/ue/ueditor.all.min.js"> </script>
+<script type="text/javascript" charset="utf-8" src="/ue/lang/zh-cn/zh-cn.js"></script>
+<script>
+    var editor = UE.getEditor('article_content');
+</script>

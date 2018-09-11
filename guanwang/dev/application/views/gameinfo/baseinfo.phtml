@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+<meta charset="UTF-8">
+<title><?=$info['name']?> - 游戏管理 久乐游戏开发者平台</title>
+<link rel="stylesheet" href="/css/base.css"/>
+<link rel="stylesheet" href="/css/game_api.css"/>
+</head>
+<body class="user">
+    <div class="container">
+        <?php include $this->getScriptPath().'/header.phtml'; ?>
+        <div class="main2">
+            <div class="center">
+                <?php include $this->getScriptPath().'/info_menu.phtml'; ?>
+                <section class="content">
+                    <header class="user_title">
+                        <nav>
+                            <a href="/gameinfo/index.html?game_id=<?=$game_id?>">游戏总览</a>
+                            <span class="gt"> &gt; </span>
+                            <strong>基本信息</strong>
+                        </nav>
+                        <a href="/gameinfo/editinfo.html?game_id=<?=$game_id?>">
+                            <i class="icons i_edit2"></i><span>编辑</span>
+                        </a>
+                    </header>
+                    <article>
+                        <ul class="ul_info">
+                            <li class="info_list">
+                                <strong>游戏ID：</strong>
+                                <span><?=$game_id?></span>
+                            </li>
+                            <li class="info_list">
+                                <strong>游戏KEY：</strong>
+                                <span><?=$info['sign_key']?></span>
+                            </li>
+                            <li class="info_list">
+                                <strong>游戏名称：</strong>
+                                <span class="grey"><?=$info['name']?></span>
+                            </li>
+                            <li class="info_list">
+                                <strong>类别:</strong>
+                                <span class="grey"><?=$info['classic']?></span>
+                            </li>
+                            <li class="info_list">
+                                <strong>类型:</strong>
+                                <span class="grey"><?=$info['game_type']?></span>
+                            </li>
+                            <li class="info_list">
+                                <strong>屏幕适配：</strong>
+                                <span><?=$info['screen']?></span>
+                            </li>
+                            <li class="info_list">
+                                <strong>多区多服：</strong>
+                                <span><?=$servers?'是':'否'?></span>
+                            </li>
+                            <li class="info_list">
+                                <strong>版本信息：</strong>
+                                <span><time><?=$info['version']?></time></span>
+                            </li>
+                            <li class="info_list">
+                                <strong>创建日期：</strong>
+                                <span><time><?=$info['add_time']?></time></span>
+                            </li>
+                            <li class="info_list">
+                                <strong>游戏描述：</strong>
+                                <span class="grey"><?=$info['in_short']?></span>
+                            </li>
+                        </ul>
+                    </article>
+                </section>
+            </div>
+        </div>
+        <?php include $this->getScriptPath().'/footer.phtml'; ?>
+    </div>
+<script src="/js/jquery-1.11.1.min.js"></script>
+<script>
+<?php include $this->getScriptPath().'/info_base.js'; ?>
+</script>
+</body>
+</html>

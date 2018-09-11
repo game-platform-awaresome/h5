@@ -1,0 +1,15 @@
+<aside class="menu">
+<?php foreach ($menu as $ck=>&$ca) { ?>
+   <div class="lists<?=($ck==$menu_c)?' selected':''?>">
+       <h3>
+           <i class="icons <?=$ca['icon']?>"></i><span><?=$ca['name']?></span>
+           <i class="icons i_open<?=($ck==$menu_c)?' i_down':''?>"></i>
+       </h3>
+       <nav>
+       <?php foreach ($ca['list'] as $ak=>&$aa) { ?>
+           <a href="/<?=$ck?>/<?=$ak?>.html"<?=($ck==$menu_c && $ak==$menu_a)?' class="choose"':''?>><i class="icons <?=$aa['icon']?>"></i><?=$aa['name']?></a>
+       <?php } ?>
+       </nav>
+    </div>
+<?php } ?>
+</aside>

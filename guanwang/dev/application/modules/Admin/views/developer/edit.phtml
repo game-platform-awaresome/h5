@@ -1,0 +1,98 @@
+<div class="content-box">
+  <!-- Start Content Box -->
+  <div class="content-box-header">
+    <h3><?=$title?></h3>
+    <a class="go_back" href="javascript:history.go(-1);">返回上一页</a>
+    <div class="clear"></div>
+  </div>
+  <!-- End .content-box-header -->
+  <div class="content-box-content">
+    <div class="tab-content default-tab">
+      <form action="/admin/<?=$controller?>/update?<?=$query?>" method="post" enctype="multipart/form-data">
+      <input type="hidden" name="info[<?=$primary?>]" value="<?php echo isset($info) ? $info[$primary] : ''; ?>" />
+        <fieldset>
+        <!-- Set class to "column-left" or "column-right" on fieldsets to divide the form into columns -->
+        <p>
+          <label>开发者账号</label>
+          <span><?=$info['username']?></span>
+        </p>
+        <p>
+          <label>账号性质</label>
+          <span><?=$info['type']=='company' ? '公司' : '个人'?></span>
+        </p>
+        <p<?=$info['type']!='company' ? ' style="display:none"' : ''?>>
+          <label>公司名称</label>
+          <span><?=$info['company']?>（<?=$info['com_short']?>）</span>
+        </p>
+        <p>
+          <label><?=$info['type']=='company' ? '组织机构代码证' : '身份证正面'?></label>
+          <?php if($info['org_img']){ ?>
+          <a class="lightbox" href="<?=$info['org_img']?>"><img src="<?=$info['org_img']?>"></a>
+          <?php } else { echo '<span style="color:red;">未上传</span>'; } ?>
+          <?php if($info['type']=='company') { ?><br><span>代码证号：<?=$info['org_code']?></span><?php } ?>
+        </p>
+        <p>
+          <label><?=$info['type']=='company' ? '营业执照' : '身份证背面'?></label>
+          <?php if($info['lic_img']){ ?>
+          <a class="lightbox" href="<?=$info['lic_img']?>"><img src="<?=$info['lic_img']?>"></a>
+          <?php } else { echo '<span style="color:red;">未上传</span>'; } ?>
+          <?php if($info['type']=='company') { ?><br><span>执照编号：<?=$info['license']?></span><?php } ?>
+        </p>
+        <p>
+          <label>联系地址</label>
+          <span><?=$info['province']?><?=$info['city']?><?=$info['county']?><?=$info['addr']?></span>
+        </p>
+        <p>
+          <label>联系人</label>
+          <span><?=$info['contact']?>（手机：<?=$info['mobile']?>）、（固话：<?=$info['tel']?>）</span>
+        </p>
+        <p>
+          <label>QQ与微信</label>
+          <span>QQ：<?=$info['qq']?>、微信：<?=$info['wx']?></span>
+        </p>
+        <p>
+          <label>银行信息</label>
+          <span>银行：<?=$info['bank_name']?>、支行：<?=$info['bank_open']?>、开户人姓名：<?=$info['bank_user']?>、账号：<?=$info['bank_no']?></span>
+        </p>
+        <p>
+          <label>对账人信息</label>
+          <span>对账人：<?=$info['bank_check']?>、手机号：<?=$info['bank_ck_mobile']?></span>
+        </p>
+        <p>
+          <label>认证状态</label>
+          <select class="text-input small-input" name="info[status]" id="status">
+          <?php foreach ($status as $k=>$v) { ?>
+            <option value="<?=$k?>"<?php if($k == $info['status']) echo ' selected="selected"'; ?>><?=$v?></option>
+          <?php } ?>
+          </select>
+        </p>
+        <p id="msg_p"<?php if($info['status'] != 2 && $info['status'] != 3){ ?> style="display:none;"<?php } ?>>
+          <label>给开发者的留言（解释拒绝/冻结的原因）</label>
+          <input class="text-input medium-input" type="text" name="info[message]" value="<?=$info['message']?>">
+        </p>
+        <p>
+          <input class="button" type="submit" value="提交" />
+        </p>
+        </fieldset>
+        <div class="clear"></div>
+        <!-- End .clear -->
+      </form>
+    </div>
+    <!-- End #tab2 -->
+  </div>
+  <!-- End .content-box-content -->
+</div>
+<!-- End .content-box -->
+<div class="clear"></div>
+<script>
+$(function(){
+	$('#status').change(function(){
+		var v = $(this).val();
+		if( v == '2' || v == '3' ) {
+			$('#msg_p').slideDown();
+		} else {
+			$('#msg_p').slideUp();
+		}
+	});
+});
+</script>

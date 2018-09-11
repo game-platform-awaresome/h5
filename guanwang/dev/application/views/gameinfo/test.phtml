@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+<meta charset="UTF-8">
+<title>先行测试 - 游戏管理 久乐游戏开发者平台</title>
+<link rel="stylesheet" href="/css/base.css"/>
+<link rel="stylesheet" href="/css/game_api.css"/>
+<link rel="stylesheet" href="/js/dxj-alert/dxj-alert.css"/>
+<style>
+.top_title{text-align:left}
+.top_title h3{margin-bottom:10px}
+.top_title ol{margin-left:24px}
+.top_title ol li{font-size:14px; letter-spacing:0.5px; list-style:decimal outside; margin-left:24px; padding: 2px 0}
+input#money{min-width:70px; width:70px}
+a.btn_green{cursor:pointer; margin-left:6px; padding:4px 10px}
+</style>
+</head>
+<body class="user">
+    <div class="container">
+        <?php include $this->getScriptPath().'/header.phtml'; ?>
+        <div class="main2">
+            <div class="center">
+                <?php include $this->getScriptPath().'/info_menu.phtml'; ?>
+                <section class="content">
+                    <header class="user_title">
+                        <nav>
+                            <a href="/gameinfo/index.html?game_id=<?=$game_id?>">游戏总览</a>
+                            <span class="gt"> &gt; </span>
+                            <strong>先行测试</strong>
+                        </nav>
+                    </header>
+                    <article>
+                        <div class="top_title">
+                            <h3>一般性开发与测试步骤：</h3>
+                            <ol>
+                                <li>设置登录与充值接口地址（免费游戏不用设置充值接口）；</li>
+                                <li>根据文档开发登录与充值接口；</li>
+                                <li>点击二维码或使用手机扫描二维码测试进入接口是否可用；</li>
+                                <li>输入金额点击充入游戏按钮测试充值接口（仅限支持平台发起充值的游戏）；</li>
+                                <li>在游戏中发起充值请求，测试充值接口；</li>
+                                <li>提交审核申请，准备上线；</li>
+                                <li>审核通过，清理游戏临时数据（一般包括用户与订单数据）；</li>
+                                <li>上线运营；</li>
+                            </ol>
+                        </div>
+                        <ul class="ul_info">
+                            <li class="info_list">
+                                <strong>游戏ID：</strong>
+                                <span><?=$game_id?></span>
+                            </li>
+                            <li class="info_list">
+                                <strong>游戏KEY：</strong>
+                                <span><?=$sign_key?></span>
+                            </li>
+                        <?php if($status < 6) { ?>
+                            <li class="info_list">
+                                <strong>游戏入口：</strong>
+                            <?php if($game_url) { ?>
+                                <a target="_blank" href="/game/entry.html?game_id=<?=$game_id?>">
+                                    <img src="/qrcode/game.html?addr=<?=urlencode($game_url)?>">
+                                </a>
+                            <?php } else { ?>
+                                <span style="color:red">请先设置登录接口地址，并参考文档完成API接口。</span>
+                            <?php } ?>
+                            </li>
+                            <li class="info_list">
+                                <strong>游戏充值：</strong>
+                            <?php if($prepay && $recharge_url) { ?>
+                                <input type="text" id="money" name="money" placeholder="请输入充值金额，最小为1元" value="1" maxlength="2"/>
+                                <a id="recharge" class="btn_green">充入游戏</a>
+                            <?php } elseif( $prepay ) { ?>
+                                <span style="color:red">请先设置充值接口地址，并参考文档完成API接口（免费游戏请忽略）。</span>
+                            <?php } else { ?>
+                                <span style="color:grey">此游戏不支持平台发起支付，请在游戏内发起充值进行测试。</span>
+                            <?php } ?>
+                            </li>
+                        <?php } else { ?>
+                            <li class="info_list">
+                                <strong>游戏已通过审核</strong>
+                                <span style="color:red">通过审核或已上线的游戏，不可以再进行测试性的登录与充值等操作。</span>
+                            </li>
+                        <?php } ?>
+                        </ul>
+                    </article>
+                </section>
+            </div>
+        </div>
+        <?php include $this->getScriptPath().'/footer.phtml'; ?>
+    </div>
+<script src="/js/jquery-1.11.1.min.js"></script>
+<script src="/js/dxj-alert/dxj-alert.js"></script>
+<script>
+<?php include $this->getScriptPath().'/info_base.js'; ?>
+$(function(){
+	var loading = false;
+	$('#recharge').click(function(event){
+		event.preventDefault();
+		if( loading ) return false;
+		var m = parseInt($('#money').val());
+		if( isNaN(m) || m < 1 || m > 99 ) {
+			$('#money').val(1);
+			dxjalert('请输入一个数字（1~99）', 'error');
+			return false;
+		}
+		loading = true;
+		$.post('/gameinfo/prepay.html?game_id=<?=$game_id?>', 'money='+m, function(msg){
+			loading = false;
+			if( msg == 'success' ) {
+				dxjalert('充值成功，进入游戏或后台查看订单是否充值到账吧！', 'success');
+			} else {
+			    dxjalert(msg, 'error');
+			}
+		}, 'text');
+	});
+});
+</script>
+</body>
+</html>

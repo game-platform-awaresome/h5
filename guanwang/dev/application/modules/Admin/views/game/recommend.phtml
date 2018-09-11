@@ -1,0 +1,56 @@
+<style>
+fieldset p{clear:both;}
+.game-items{display:inline-block; float:left; width:140px;}
+.game-items input{float:left;}
+.game-items label{display:inline-block; height:20px; line-height:20px; overflow:hidden; padding-bottom:0; width:110px;}
+</style>
+<div class="content-box">
+  <!-- Start Content Box -->
+  <div class="content-box-header">
+    <h3>今日推荐</h3>
+    <a class="go_back" href="javascript:history.go(-1);">返回上一页</a>
+    <div class="clear"></div>
+  </div>
+  <!-- End .content-box-header -->
+  <div class="content-box-content">
+    <div class="tab-content default-tab">
+      <form action="" method="post" enctype="multipart/form-data">
+        <fieldset>
+        <!-- Set class to "column-left" or "column-right" on fieldsets to divide the form into columns -->
+    <?php foreach ($initial as $k=>&$v) { ?>
+        <p>
+          <label><?=$k?></label>
+        <?php foreach ($v as &$r) { ?>
+          <span class="game-items">
+            <input type="checkbox" id="g_<?=$r['game_id']?>" name="gids[]" value="<?=$r['game_id']?>"<?php if(in_array($r['game_id'], $gids)) echo ' checked="checked"'; ?>>
+            <label for="g_<?=$r['game_id']?>"><?=$r['name']?></label>
+          </span>
+        <?php } ?>
+        </p>
+    <?php } ?>
+        <p>
+          <input class="button" type="submit" value="保存" />
+          <small>前台按照游戏的“排序”属性升序显示</small>
+        </p>
+        </fieldset>
+        <div class="clear"></div>
+        <!-- End .clear -->
+      </form>
+    </div>
+    <!-- End #tab2 -->
+  </div>
+  <!-- End .content-box-content -->
+</div>
+<!-- End .content-box -->
+<div class="clear"></div>
+<script>
+$(function(){
+	$('input[type="checkbox"]').click(function(){
+		var _t = $(this);
+		if( _t.prop('checked') ) 
+			_t.next().css('color', '#de0a64');
+		else
+			_t.next().css('color', '#555');
+	}).filter(':checked').next().css('color', '#de0a64');
+});
+</script>

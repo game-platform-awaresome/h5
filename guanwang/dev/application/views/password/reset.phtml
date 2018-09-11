@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+<meta charset="UTF-8">
+<title>重置密码 - 管理中心 久乐游戏开发者平台</title>
+<link rel="stylesheet" href="/css/base.css"/>
+<link rel="stylesheet" href="/css/user_public.css"/>
+<link rel="stylesheet" href="/js/dxj-alert/dxj-alert.css"/>
+<style>
+.form_edit div span{float:left; font-size:14px}
+</style>
+</head>
+<body class="user">
+<div class="container">
+    <?php include $this->getScriptPath().'/header.phtml'; ?>
+    <div class="main2">
+        <div class="center">
+            <section class="content">
+                <div class="user_title">
+                    <nav>
+                        <a href="/developer/login.html">返回登录</a>
+                        <span class="gt"> &gt; </span>
+                        <strong>重置密码</strong>
+                    </nav>
+                </div>
+                <form class="form_edit" id="js_validate" method="post">
+                    <input type="hidden" name="email" value="<?=$email?>"/>
+                    <input type="hidden" name="xcode" value="<?=$xcode?>"/>
+                    <div>
+                        <label>登录邮箱</label>
+                        <span><?=$email?></span>
+                    </div>
+                    <div>
+                        <label>设置新密码</label>
+                        <input type="password" class="widen" id="newpwd" name="newpwd" maxlength="16"/>
+                    </div>
+                    <div>
+                        <label>确认新密码</label>
+                        <input type="password" class="widen" id="re_pwd" name="re_pwd" maxlength="16"/>
+                    </div>
+                    <div class="btn_group" style="display:block">
+                        <label></label>
+                        <?php if( isset($error) ) { ?>
+                        <span style="color:red;"><?=$error?></span>
+                        <?php } else { ?>
+                        <input type="button" id="save" value="确定" style="width:120px"/>
+                        <?php } ?>
+                    </div>
+                </form>
+            </section>
+        </div>
+    </div>
+    <?php include $this->getScriptPath().'/footer.phtml'; ?>
+</div>
+<script src="/js/jquery-1.11.1.min.js"></script>
+<script src="/js/dxj-alert/dxj-alert.js"></script>
+<script src="/js/jquery.validate.min.js"></script>
+<script>
+<?php include $this->getScriptPath().'/base.js'; ?>
+$(function(){
+    jQuery.validator.addMethod("isTheSame", function(value, element, id) {   
+        var v2 = $.trim($('#'+id).val());
+        return this.optional(element) || (value == v2);
+    });
+    $("#js_validate").validate({
+        rules:{
+        	newpwd: {
+                required:true,
+                rangelength:[6,16]
+            },
+            re_pwd: {
+                required:true,
+                rangelength:[6,16],
+                isTheSame:'newpwd'
+            }
+        },
+        messages:{
+        	newpwd: {
+                required:"新密码不能为空",
+                rangelength:"密码由6-16位字母、数字或字符组成"
+            },
+            re_pwd: {
+                required:"确认密码不能为空",
+                rangelength:"密码由6-16位字母、数字或字符组成",
+                isTheSame:"确认密码与密码不符"
+            }
+        }
+    });
+    var loading = false;
+    $('#save').click(function(){
+        if( loading ) return false;
+        if( $('#js_validate').valid() ) {
+        	loading = true;
+        	$.post('/password/reset.html', $('#js_validate').serialize(), function(msg){
+        		loading = false;
+            	if( msg.result == 'success' ) {
+                	var func = function(){ location.href = '/developer/login.html'; };
+                	var opt = {onOk:func, onCancle:func, onClose:func};
+            		dxjalert('密码已重置，请使用新密码登录。', 'success', opt);
+            	} else {
+            		dxjalert(msg.error, 'error');
+            	}
+        	}, 'json');
+        }
+    });
+});
+</script>
+</body>
+</html>

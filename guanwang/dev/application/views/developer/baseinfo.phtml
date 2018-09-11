@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+<meta charset="UTF-8">
+<title>基本信息 - 管理中心 久乐游戏开发者平台</title>
+<link rel="stylesheet" href="/css/base.css"/>
+<link rel="stylesheet" href="/css/user_public.css"/>
+</head>
+<body class="user">
+<div class="container">
+    <?php include $this->getScriptPath().'/header.phtml'; ?>
+    <div class="main2">
+        <div class="center">
+            <?php include $this->getScriptPath().'/menu.phtml'; ?>
+            <section class="content">
+                <div class="user_title">
+                    <nav>
+                        <a href="/developer/index.html">账号中心</a>
+                        <span class="gt"> &gt; </span>
+                        <strong>基本信息</strong>
+                    </nav>
+                    <a href="/developer/editinfo.html" id="edit">
+                        <i class="icons i_edit2"></i><span>编辑</span>
+                    </a>
+                </div>
+                <nav class="buttons">
+                    <a<?=($dev['type'] == 'company')?' class="selected"':''?> id="companyID" >公司账号</a>
+                    <a<?=($dev['type'] == 'person')?' class="selected"':''?> id="personID" >个人账号</a>
+                </nav>
+                <ul class="company_info">
+                <?php if($dev['type'] == 'company') { ?>
+                    <li class="company_list">
+                        <strong> <i class="red">*</i> 公司简称</strong>
+                        <span><?=$dev['com_short']?></span>
+                    </li>
+                    <li class="company_list">
+                        <strong> <i class="red">*</i> 公司全称</strong>
+                        <span><?=$dev['company']?></span>
+                    </li>
+<!--                    <li class="company_list">-->
+<!--                        <strong> <i class="red">*</i> 组织机构代码</strong>-->
+<!--                        <span>--><?//=$dev['org_code']?><!--</span>-->
+<!--                    </li>-->
+                    <li class="company_list">
+                        <strong> <i class="red">*</i> 统一社会信用代码</strong>
+                        <span><?=$dev['license']?></span>
+                    </li>
+                    <li class="company_list">
+                        <strong> <i class="red">*</i> 公司规模</strong>
+                        <span><?=$dev['scale']?></span>
+                    </li>
+                <?php } ?>
+                    <li>
+                        <strong> <i class="red">*</i> 所在城市</strong>
+                        <span><?=$dev['province']?><?=$dev['city']?' - '.$dev['city']:''?><?=$dev['county']?' - '.$dev['county']:''?></span>
+                    </li>
+                    <li>
+                        <strong> <i class="red">*</i> 联系地址</strong>
+                        <span><?=$dev['addr']?></span>
+                    </li>
+                    <li>
+                        <strong> <i class="red">*</i> 联系人</strong>
+                        <span><?=$dev['contact']?></span>
+                    </li>
+                    <li>
+                        <strong> <i class="red">*</i> 联系电话</strong>
+                        <span><?=$dev['mobile']?></span>
+                    </li>
+                <?php if($dev['type'] == 'company') { ?>
+                    <li class="company_list">
+                        <strong> <i class="red">*</i> 固定电话</strong>
+                        <span><?=$dev['tel']?></span>
+                    </li>
+                <?php } ?>
+                    <li>
+                        <strong> <i class="red">*</i> 邮箱</strong>
+                        <span><?=$dev['email']?></span>
+                    </li>
+                    <li>
+                        <strong> <i class="red">*</i> QQ号</strong>
+                        <span><?=$dev['qq']?></span>
+                    </li>
+                    <li>
+                        <strong> <i class="red">*</i> 微信号</strong>
+                        <span><?=$dev['wx']?></span>
+                    </li>
+                </ul>
+            </section>
+        </div>
+    </div>
+    <?php include $this->getScriptPath().'/footer.phtml'; ?>
+</div>
+<script src="/js/jquery-1.4.2.min.js"></script>
+<script>
+<?php include $this->getScriptPath().'/base.js'; ?>
+</script>
+</body>
+</html>

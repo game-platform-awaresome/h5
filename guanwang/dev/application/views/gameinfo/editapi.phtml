@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+<meta charset="UTF-8">
+<title>编辑API - 游戏管理 久乐游戏开发者平台</title>
+<link rel="stylesheet" href="/css/base.css"/>
+<link rel="stylesheet" href="/css/game_api.css"/>
+<style>
+    .container2 {
+        width: 200px;
+        height: 20px;
+        background-color: gray;
+    }
+    #progress {
+        height: 20px;
+        background-color: orange;
+        display: inline-block;
+    }
+</style>
+</head>
+<body class="user">
+    <div class="container">
+        <?php include $this->getScriptPath().'/header.phtml'; ?>
+        <div class="main2">
+            <div class="center">
+                <?php include $this->getScriptPath().'/info_menu.phtml'; ?>
+                <section class="content">
+                    <header class="user_title">
+                        <nav>
+                            <a href="/gameinfo/index.html?game_id=<?=$game_id?>">游戏总览</a>
+                            <span class="gt"> &gt; </span>
+                            <a href="/gameinfo/apiinfo.html?game_id=<?=$game_id?>">API接入</a>
+                            <span class="gt"> &gt; </span>
+                            <strong>编辑</strong>
+                        </nav>
+                    </header>
+                    <article>
+                        <div class="top_title">
+                            <h3>请参考这些文档，完成API的接入，并补全下面的资料，以便通过审核</h3>
+                            <p>在线查看：
+                            <?php foreach ($doc['ads'] as $i=>$row) { ?>
+                                <a href="<?=$row['url']?>" class="green"><?=$row['subject']?></a><?=($i==0)?' |':''?>
+                            <?php } ?>
+                            </p>
+                        </div>
+                        <form class="ul_info" id="js_validate" method="post"  enctype="multipart/form-data">
+                            <div class="info_list">
+                                <strong>游戏ID：</strong>
+                                <span><?=$game_id?></span>
+                            </div>
+                            <div class="info_list">
+                                <strong>游戏KEY：</strong>
+                                <span><?=$sign_key?></span>
+                            </div>
+                            <div class="info_list">
+                                <label class="labels"> 登录接口地址：</label>
+                                <input type="text" id="login_url" name="login_url" placeholder="微端游戏不用填写" value="<?=$login_url?>" />
+                            </div>
+                            <div class="info_list">
+                                <label class="labels"> 充值接口地址：</label>
+                                <input type="text" id="recharge_url" name="recharge_url" placeholder="免费游戏不用填写" value="<?=$recharge_url?>" />
+                            </div>
+                            <div class="info_list">
+                                <label class="labels"> 是否支持平台发起充值：</label>
+                                <select id="prepay" name="prepay">
+                                <?php foreach (array(0=>'否',1=>'是') as $k=>$v) { ?>
+                                    <option value="<?=$k?>"<?php if($k == $prepay) echo ' selected="selected"'; ?>><?=$v?></option>
+                                <?php } ?>
+                                </select>
+                            </div>
+                            <li class="info_list">
+                                <strong>微端游戏包上传：</strong>
+                                <span>
+                                    <input type="file" name="apk_url">
+                                    <div class='container2'>
+                                        <div id="progress"></div>
+                                    </div>
+                                <div id="info"></div>
+                                </span>
+                            </li>
+                            <input type="hidden" name="game_id" value="<?=$game_id;?>">
+                        </form>
+                    </article>
+                    <footer class="buttons_group">
+                        <div class="buttons_center">
+                            <input onclick="upload()"  type="button" id="save" value="保存信息" class="btn_green2 fl">
+                            <button onclick="javascript:location.href='/gameinfo/baseinfo.html?game_id=<?=$game_id?>';return false;" class="btn_white fl">取消修改</button>
+                        </div>
+                    </footer>
+                </section>
+            </div>
+        </div>
+        <?php include $this->getScriptPath().'/footer.phtml'; ?>
+    </div>
+<script src="/js/jquery-1.11.1.min.js"></script>
+<script src="/js/jquery.validate.min.js"></script>
+<script>
+<?php include $this->getScriptPath().'/info_base.js'; ?>
+function upload(){
+    event.preventDefault();
+    if( !$("#js_validate").valid() ) {
+        return false;
+    }
+    $('#upload').attr('disabled','disabled');
+    //创建FormData对象，初始化为form表单中的数据。需要添加其他数据可使用formData.append("property", "value");
+    var formData = new FormData($('form')[0]);
+    //ajax异步上传56
+    $.ajax({
+        url: "/gameinfo/editapi",
+        type: "POST",
+        data: formData,
+        xhr: function () { //获取ajaxSettings中的xhr对象，为它的upload属性绑定progress事件的处理函数
+            myXhr = $.ajaxSettings.xhr();
+            if (myXhr.upload) { //检查upload属性是否存在
+                //绑定progress事件的回调函数
+                myXhr.upload.addEventListener('progress', progressHandlingFunction, false);
+            }
+            return myXhr; //xhr对象返回给jQuery使用
+        },
+        success: function (result) {
+            var result=JSON.parse(result);
+            if(result.status==1){
+                alert('编辑成功!');
+                window.location.href=result.url;
+            }else{
+                alert(result.info);
+            }
+        },
+        contentType: false, //必须false才会自动加上正确的Content-Type
+        processData: false  //必须false才会避开jQuery对 formdata 的默认处理
+    });
+    return false;
+};
+//上传进度回调函数：
+function progressHandlingFunction(e) {
+    if (e.lengthComputable) {
+        $('#progress').attr({value: e.loaded, max: e.total}); //更新数据到进度条
+        var percent = Math.round(e.loaded * 100 / e.total);
+        $('#progress').html(percent.toFixed(2) + "%");
+        $('#progress').css('width', percent.toFixed(2) + "%");
+    }
+}
+$(function(){
+    $("#js_validate").validate({
+        rules:{
+        	login_url: {
+                maxlength:128
+            },
+            recharge_url: {
+                maxlength:128
+            }
+        },
+        messages:{
+        	login_url: {
+                maxlength:"登录接口地址的长度限制为128位"
+            },
+            recharge_url: {
+                maxlength:"充值接口地址的长度限制为128位"
+            }
+        }
+    });
+    // $('#save').click(function(event){
+    //     event.preventDefault();
+    //     if( $("#js_validate").valid() ) {
+    //     	$("#js_validate").get(0).submit();
+    //     }
+    //     return false;
+    // });
+});
+</script>
+</body>
+</html>

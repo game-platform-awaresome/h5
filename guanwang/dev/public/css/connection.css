@@ -1,0 +1,157 @@
+/**
+*info:联系我们
+*author:zhangting
+*date:2015.11.23 10:07
+*logo:
+**/
+.linkman{
+    background: transparent url("../images/bg_map.png") repeat-x bottom;
+    height: 810px;
+    background-color: #f2f2f2;
+}
+.linkman_main{
+    width: 1284px;
+    height: 567px;
+    background: transparent url("../images/map.png") no-repeat scroll center top;
+    margin: 0 auto;
+    position: relative;
+}
+.title{
+    font-size: 48px;
+    font-weight: 100;
+    text-align: center;
+    color: rgb(113, 113, 113);
+    padding: 80px 0 38px;
+}
+.linkman_info{
+    overflow: hidden;
+    display: inline-block;
+    position: absolute;
+    width: 403px;
+    height: 160px;
+    left: 378px;
+}
+.linkman_info img{
+    width: 148px;
+    height: auto;
+    border: 5px solid #AC75EA;
+    border-radius: 90px;
+    z-index: 5;
+    float: left;
+    position: absolute;
+}
+.linkman_info article{
+    float: right;
+    margin-top: 27px;
+}
+.linkman_info article div{
+    background-color: #AC75EA;
+    border-radius: 5px;
+    color: #FFF;
+    padding: 5px 15px 5px 50px;
+}
+.i_open1{
+    width: 29px;
+    height: 23px;
+    background-position: -171px -232px;
+    left: 128px;
+}
+.i_open2{
+    width: 29px;
+    height: 23px;
+    background-position: -203px -232px;
+    left: 128px;
+}
+.i_open3{
+    width: 29px;
+    height: 23px;
+    background-position: -140px -232px;
+    left: 128px;
+}
+.linkman_info article h3{
+    font-size: 24px;
+    font-weight: 100;
+    margin-bottom: 5px;
+}
+.linkman_info article p{
+    line-height: 32px;
+    font-size: 16px;
+    height: 32px;
+    clear: both;
+}
+.linkman_info article p .open_qq{
+    float: right;
+}
+.open_qq{
+    width: 92px;
+    height: 33px;
+    background-position: -43px -232px;
+    border: 0;
+    cursor: pointer;
+}
+.bg_green{
+    top: 150px;
+    left: 183px;
+}
+.bg_green img{
+    border-color: #50c089;
+}
+.bg_green article div{
+    background-color: #50c089;
+}
+.bg_blue{
+    left: 737px;
+    top: 255px;
+}
+.bg_blue img{
+    border-color: #51c4ef;
+}
+.bg_blue article div{
+    background-color: #51c4ef;
+}
+.bg_orange{
+    left: 544px;
+    top: -10px;
+}
+.bg_orange img{
+    border-color: #dd8c49;
+}
+.bg_orange article div{
+    background-color: #dd8c49;
+}
+.api_link{
+    background: url("../images/con_bg_02.jpg") no-repeat top;
+    height: 668px;
+}
+.api_link .title{
+    color: #FFFFFF;
+}
+.linkmans{
+    width: 915px;
+    margin: 0 auto;
+    overflow: hidden;
+    position: relative;
+    top: 251px;
+}
+.linkman2{
+    background-color: rgba(34, 144, 237, 0.8);
+    color: #FFF;
+    display: inline-block;
+    border-radius: 7px;
+    padding: 10px 25px;
+}
+.api_link .linkman2:first-child{
+    float: left;
+}
+.api_link .linkman2:last-child{
+    float: right;
+}
+.linkman2 h3{
+    font-size: 24px;
+    font-weight: 100;
+    margin: 5px 0 18px;
+}
+.linkman2 button{
+    display: block;
+    margin: 0 auto;
+}

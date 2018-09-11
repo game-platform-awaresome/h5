@@ -1,0 +1,184 @@
+/**
+*info:
+* 1、管理中心-公司账号user_company.html
+* 2、管理中心-公司账号-编辑 user_companyEdit.html
+* 3、管理中心-个人账号 user_person.html
+* 4、管理中心-个人账号-编辑 user_personEdit.html
+* 5、管理中心-银行账号 user_bank.html
+*author:zhangting
+*date:2015.12.01 10:07
+*logo:
+**/
+.buttons{
+    line-height: 32px;
+    height: auto;
+    overflow: hidden;
+    margin: 0 auto;
+    width: 177px;
+}
+.buttons a{
+    background-color: #F2F2F2;
+    border: 1px solid #E6E6E6;
+    color: #555;
+    font-size: 14px;
+    width: 85px;
+    display: inline-block;
+    text-align: center;
+    float: left;
+    border-radius: 5px;
+    cursor: pointer;
+}
+.buttons a:first-child{
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+}
+.buttons a:last-child{
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+    border-left: 0 none;
+}
+.buttons a.selected{
+    color: #ffffff;
+    background-color: #56a161;
+    border-color: #56a161;
+}
+.company_info{
+    padding: 20px 0;
+}
+.company_info li{
+    height: 45px;
+    line-height: 45px;
+    font-size: 14px;
+}
+.company_info li strong{
+    float: left;
+    width: 37%;
+    text-align: right;
+    padding-right: 3%;
+    color: #555555;
+}
+.company_info li span{
+    width: 60%;
+    float: left;
+    color: #3f3f3f;
+}
+.red{
+    font-style: normal;
+    color: #fb5f5f;
+}
+/**2、管理中心-公司账号-编辑 user_companyEdit.html**/
+.form_edit{
+    text-align: center;
+}
+.form_edit>div{
+    width: 100%;
+    height: auto;
+    overflow: hidden;
+    padding: 12px 0;
+}
+.form_edit>div label{
+    float: left;
+    width: 27%;
+    height: 32px;
+    line-height: 32px;
+    text-align: right;
+    padding-right: 3%;
+    font-size: 14px;
+    color: rgb(85, 85, 85);
+
+}
+.form_edit>div input,.form_edit>div select{
+    float: left;
+    height: 30px;
+    line-height: 30px;
+    text-indent: 10px;
+    color: rgb(63, 63, 63);
+    width: 215px;
+    border: 1px solid rgb(221, 221, 221);
+    border-radius: 4px;
+    box-shadow: 1px 1px rgba(221, 221, 221, 0.54);
+}
+.form_edit>div ul{
+    float: left;
+    width: 70%;
+    overflow: hidden;
+}
+.form_edit>div ul li{
+    float: left;
+}
+.form_edit>div ul li select{
+    width: 120px;
+    margin-right: 10px;
+}
+.form_edit .widen{
+    width: 380px;
+}
+.form_edit .btn_group{
+    width: auto;
+    margin: 0 auto;
+    display: inline-block;
+}
+.form_edit .btn_group input{
+    float: left;
+    width: 80px;
+    height: 35px;
+    color: #ffffff;
+    font-size: 14px;
+    background-color: #56a161;
+    border: 0;
+    margin-right: 20px;
+    text-align: center;
+    text-indent: 0;
+    cursor: pointer;
+}
+.form_edit .btn_group button{
+    float: left;
+    width: 80px;
+    height: 35px;
+    color: #555555;
+    font-size: 14px;
+    background-color: #fff;
+    border: 1px solid #d5d5d5;
+    text-align: center;
+    text-indent: 0;
+    border-radius: 3px;
+    cursor: pointer;
+}
+
+.form_edit label.error{
+    float: left;
+    text-align: left;
+    margin-left: 10px;
+    color: #f68142;
+    width: auto;
+    padding: 0;
+}
+/**user_papers.html  css 证件资质页面*/
+.papers{
+    padding: 40px;
+    overflow: hidden;
+    width: 640px;
+    margin: 0 auto;
+}
+.papers figure{
+    text-align: center;
+}
+.papers figure.fl img{
+    width: 340px;
+    height: auto;
+}
+.papers figure.fr img{
+    width: 170px;
+    height: auto;
+}
+.papers figcaption{
+    font-size: 16px;
+    font-weight: bold;
+    text-align: center;
+    line-height: 45px;
+    font-family: inherit;
+}
+/**游戏中心页面*/
+.bg_blue{
+    background-color: #3789de;
+}

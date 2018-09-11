@@ -1,0 +1,64 @@
+/**
+*info:
+* 1、游戏管理-game_images.html
+*author:zhangting
+*date:2015.12.08 10:07
+*logo:
+**/
+.section_title{
+    height: 50px;
+    line-height: 50px;
+    font-family: inherit;
+    font-size: 16px;
+}
+.section_title .red{
+    font-weight: 100;
+    font-size: 14px;
+}
+.ul_imgs{
+    overflow: hidden;
+    padding: 20px 60px;
+}
+.ul_imgs li{
+    float: left;
+    width: 21%;
+    padding: 2%;
+    text-align: center;
+}
+.ul_imgs li figure{
+    color: rgb(255, 255, 255);
+    text-align: center;
+    background-color: rgb(187, 187, 187);
+    padding: 20px;
+}
+.ul_imgs li figure img{
+    display: block;
+    width: 100%;
+    height: auto;
+}
+.ul_imgs li figure figcaption{
+    line-height: 20px;
+    padding: 10px 0 0;
+}
+.ul_imgs li button{
+    display: block;
+    margin: 16px auto;
+}
+.ul_up{
+    overflow: hidden;
+    margin: 20px 0 60px;
+}
+.ul_up li{
+    float: left;
+    width: 33.333%;
+}
+.ul_up li img{
+    display: block;
+    width: 156px;
+    height: auto;
+    margin: 0 auto;
+}
+.ul_up li button{
+    display: block;
+    margin: 15px auto;
+}

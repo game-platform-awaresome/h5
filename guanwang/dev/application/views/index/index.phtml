@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+<meta charset="UTF-8">
+<title>久乐游戏开发者平台-最好的H5游戏开发平台！</title>
+<link rel="stylesheet" href="/css/base.css"/>
+<link rel="stylesheet" href="/css/index.css"/>
+</head>
+<body>
+<div class="container">
+    <?php include $this->getScriptPath().'/header.phtml'; ?>
+    <section class="swipe" id="slider" style="height:705px; overflow:hidden;">
+        <figure class="swipe-wrap">
+        <?php foreach ($banner['ads'] as $idx=>&$row) { ?>
+            <a class="wrap" href="<?=$row['url']?>"<?=$row['target']?> style="background:url(<?=$row['image']?>) no-repeat scroll center top;"></a>
+        <?php } ?>
+        </figure>
+        <ul class="select_btn" id="fade_bar">
+        <?php foreach ($banner['ads'] as $idx=>&$row) { ?>
+            <li<?php if($idx==0) echo ' class="selected"'; ?>></li>
+        <?php } ?>
+        </ul>
+    </section>
+
+    <section class="join">
+        <h2 class="title">- 加入久乐 / join jiule -</h2>
+        <nav class="join_nav">
+            <a href="/documents/index.html?id=4">
+                <i class="icons i_nav1"></i>
+                <span>&nbsp;对接指南 &gt;</span>
+                <small>对接流程清晰简洁，快速高效实现互利互赢。</small>
+            </a>
+            <a href="/documents/index.html?id=3">
+                <i class="icons i_nav2"></i>
+                <span>&nbsp;&nbsp;资料下载 &gt;</span>
+                <small>整合支付宝等多种支付渠道，接入更省心。</small>
+            </a>
+            <a href="/developer/index.html">
+                <i class="icons i_nav3"></i>
+                <span>&nbsp;&nbsp;创建游戏 &gt;</span>
+                <small>提供纬度报表服务，实时掌握游戏走势。</small>
+            </a>
+        </nav>
+    </section>
+    <section class="case">
+        <h2 class="title">- 案例展示/case show-</h2>
+        <div id="gallery">
+            <div class="container_image">
+                <ul id="myRoundabout">
+                <?php foreach ($cases['ads'] as &$row) { ?>
+                    <li><a href="<?=$row['url']?>"<?=$row['target']?> title="<?=$row['subject']?>"><img src="<?=$row['image']?>"></a></li>
+                <?php } ?>
+                </ul>
+            </div>
+        </div>
+    </section>
+    <section class="game_lists">
+        <ul>
+        <?php foreach ($games['ads'] as $row) { ?>
+            <li>
+                <a href="<?=$row['url']?>"<?=$row['target']?>>
+                    <img src="<?=$row['image']?>" alt="<?=$row['subject']?>" />
+                    <span><?=$row['subject']?></span>
+                </a>
+            </li>
+        <?php } ?>
+        </ul>
+    </section>
+    <?php include $this->getScriptPath().'/footer.phtml'; ?>
+</div>
+<script src="/js/jquery-1.4.2.min.js"></script>
+<script src="/js/swipe.min.js"></script>
+<script src="/js/jquery.roundabout.min.js"></script>
+<script src="/js/jquery.easing.min.js"></script>
+<script>
+$('#top_nav a:eq(0)').addClass('selected');
+$(function(){
+    var banner = Swipe(document.getElementById('slider'), {
+        auto: 4400,
+        speed: 400,
+        continuous: true,
+        callback: function(index, element) {
+        	index %= $("#fade_bar li").length;
+            $("#fade_bar li").eq(index).addClass("selected").siblings().removeClass("selected");
+        }
+    });
+    $("#fade_bar li").click(function(){
+    	banner.slide($(this).index(), 400);
+    });
+
+    $('#myRoundabout').roundabout({
+        minOpacity: 1,
+        easing:'easeOutExpo'
+    });
+});
+</script>
+<?php include $this->getScriptPath().'/namiyx_wx.phtml'; ?>
+</body>
+</html>

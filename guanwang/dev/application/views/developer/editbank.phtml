@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+<meta charset="UTF-8">
+<title>编辑银行账号 - 管理中心 久乐游戏开发者平台</title>
+<link rel="stylesheet" href="/css/base.css"/>
+<link rel="stylesheet" href="/css/user_public.css"/>
+</head>
+<body class="user">
+<div class="container">
+    <?php include $this->getScriptPath().'/header.phtml'; ?>
+    <div class="main2">
+        <div class="center">
+            <?php include $this->getScriptPath().'/menu.phtml'; ?>
+            <section class="content">
+                <div class="user_title">
+                    <nav>
+                        <a href="/developer/index.html">账号概述</a>
+                        <span class="gt"> &gt; </span>
+                        <a href="/developer/bankinfo.html">银行账号</a>
+                        <span class="gt"> &gt; </span>
+                        <strong>编辑</strong>
+                    </nav>
+                </div>
+                <form class="form_edit" id="js_validate" method="post">
+                    <div>
+                        <label>
+                            <span class="red">*</span> 银行
+                        </label>
+                        <select id="bank_name" name="bank_name">
+                            <option value="">请选择银行</option>
+                        <?php foreach ($banks as $bk) { ?>
+                            <option value="<?=$bk?>"<?php if($bk==$dev['bank_name']) echo ' selected="selected"'; ?>><?=$bk?></option>
+                        <?php } ?>
+                        </select>
+                    </div>
+                    <div>
+                        <label>
+                            <span class="red">*</span> 开户行名称
+                        </label>
+                        <input type="text" placeholder="请填写开户行名称" class="widen" id="bank_open" name="bank_open" value="<?=$dev['bank_open']?>"/>
+                    </div>
+                    <div>
+                        <label>
+                            <span class="red">*</span> 账户名
+                        </label>
+                        <input type="text" placeholder="请填写账号名" class="widen" id="bank_user" name="bank_user" value="<?=$dev['bank_user']?>"/>
+                    </div>
+                    <div>
+                        <label>
+                            <span class="red">*</span> 银行账号
+                        </label>
+                        <input type="text" placeholder="请填写银行账号" class="widen" id="bank_no" name="bank_no" value="<?=$dev['bank_no']?>"/>
+                    </div>
+                    <div>
+                        <label>
+                            <span class="red">*</span> 确认银行账号
+                        </label>
+                        <input type="text" placeholder="请再次填写银行账号" class="widen" id="bank_no_re" name="bank_no_re" value="<?=$dev['bank_no']?>"/>
+                    </div>
+                    <div>
+                        <label>对账人</label>
+                        <input type="text" placeholder="请填写对账人名字"  id="bank_check" name="bank_check" value="<?=$dev['bank_check']?>"/>
+                    </div>
+                    <div>
+                        <label>对账人电话</label>
+                        <input type="text" placeholder="请填写对账人电话" id="bank_ck_mobile" name="bank_ck_mobile" value="<?=$dev['bank_ck_mobile']?>"/>
+                    </div>
+                    <div class="btn_group">
+                        <input type="submit" value="保存信息"  />
+                        <button onclick="javascript:history.go(-1);return false;">取消修改</button>
+                    </div>
+                </form>
+            </section>
+        </div>
+    </div>
+    <?php include $this->getScriptPath().'/footer.phtml'; ?>
+</div>
+<script src="/js/jquery-1.11.1.min.js"></script>
+<script src="/js/jquery.validate.min.js"></script>
+<script>
+<?php include $this->getScriptPath().'/base.js'; ?>
+$(function(){
+    /**自定义手机验证*/
+    $.validator.addMethod("isMobile",function(value,element){
+        var phone =  /^(?:13[0-9]|14[57]|15[0-9]|17[0678]|18[0-9])\d{8}$/;
+        return this.optional(element) || (phone.test(value));
+    });
+
+    /**自定义  银行卡验证*/
+    $.validator.addMethod("isBank",function(value,element){
+        // var reg = /^(?:\d{12}|\d{16}|\d{18,21})$/;
+        var reg = /^(?:\d{12}|\d{16}|\d{6,21})$/;
+        return this.optional(element) || (reg.test(value));
+    });
+
+    /**自定义  确认银行卡验证*/
+    $.validator.addMethod("isSure",function(value,element,params){
+        var bank = $("#bank_no").val();
+        var sure = $("#bank_no_re").val();
+        if(sure != bank){
+            return false;
+        }else{
+            return true;
+        }
+    },"两次输入必须一致");
+
+    $("#js_validate").validate({
+        rules:{
+            bank_name: {
+                required: true
+            },
+            bank_open: {
+                required: true,
+                rangelength:[4,24]
+            },
+            bank_user: {
+                required: true,
+                rangelength:[4,24]
+            },
+            bank_no: {
+                required: true,
+                isBank: true
+            },
+            bank_no_re: {
+                required: true,
+                isSure: true
+            },
+            bank_check:{
+            	rangelength: [2,8]
+            },
+            bank_ck_mobile: {
+                isMobile: true
+            }
+        },
+        messages:{
+        	bank_name: {
+                required: "请选择银行"
+            },
+            bank_open: {
+                required: "开户行名称不能为空",
+                rangelength:"请输入正确的开户银行支行名称"
+            },
+            bank_user: {
+                required: "账号名不能为空",
+                rangelength: "请输入正确的账号名"
+            },
+            bank_no: {
+                required: "银行卡号不能为空",
+                isBank: "请输入正确的银行卡号"
+            },
+            bank_no_re: {
+                required: "确认卡号不能为空",
+                isSure: "两次输入的卡号不一致"
+            },
+            bank_check: {
+            	rangelength: "对账人姓名为2-8个汉字"
+            },
+            bank_ck_mobile: {
+                isMobile: "请输入正确的手机号"
+            }
+        }
+    });
+});
+</script>
+</body>
+</html>

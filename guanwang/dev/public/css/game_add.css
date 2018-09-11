@@ -1,0 +1,106 @@
+/**
+*info:
+* 1、游戏管理-创建游戏 game_add.html
+*author:zhangting
+*date:2015.12.07 10:07
+*logo:
+**/
+.top_title{
+    padding: 20px 0;
+    text-align: center;
+    background-color: #fafafa;
+}
+.top_title h3{
+    color: #555555;
+    font-size: 18px;
+    margin-bottom: 22px;
+}
+.top_title p{
+    font-size: 14px;
+}
+.ul_info{
+    margin-bottom: 70px;
+}
+.ul_info .info_list{
+    line-height: 50px;
+    font-size: 14px;
+    overflow: hidden;
+}
+.ul_info .info_list strong,.ul_info .info_list label{
+    float: left;
+    width: 35%;
+    text-align: right;
+    padding-right: 3%;
+    font-weight: bold;
+}
+.ul_info .info_list span{
+    float: left;
+    width: 62%;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+.ul_info .info_list input[type=text],.ul_info .info_list select{
+    float: left;
+    height: 32px;
+    line-height: 32px;
+    padding: 0 10px;
+    font-size: 14px;
+    border-radius: 2px;
+    border: 1px solid #dddddd;
+    width: 300px;
+    min-width: 300px;
+    max-width: 60%;
+    margin-top: 8px;
+    font-family: inherit;
+}
+.ul_info .info_list select{
+    padding-right: 0;
+}
+.agree{
+    padding-left: 38%;
+    font-size: 14px;
+    margin: 20px 0 40px;
+}
+.agree input[type=checkbox]{
+    position: relative;
+    top: 2px;
+}
+
+.text_center{
+    text-align: center;
+}
+.text_center .btn_green2{
+    display: block;
+    width: 190px;
+    height: 50px;
+    line-height: 50px;
+    font-size: 24px;
+    margin: 0 auto;
+}
+.h2_title{
+    text-align: center;
+    font-weight: 100;
+    font-size: 24px;
+    color: #56a161;
+    margin: 20px 0;
+}
+.border1{
+    border: 1px solid #e2e0e0;
+    width: 90%;
+    margin: 40px auto 70px;
+}
+.border1 label{
+    font-size: 16px;
+}
+.border1 span{
+    font-size: 16px;
+    font-family: inherit;
+    color: #8c8c8c;
+}
+.tips_time{
+    text-align: center;
+    color: #8c8c8c;
+    font-size: 14px;
+    margin-bottom: 50px;
+}

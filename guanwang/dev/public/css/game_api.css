@@ -1,0 +1,81 @@
+/**
+*info:
+* 1、游戏管理-API接入 game_api.html
+* 2、>游戏管理-基本信息-编辑 game_infoEdit.html
+*author:zhangting
+*date:2015.12.04 10:07
+*logo:
+**/
+.top_title{
+    padding: 20px 0;
+    text-align: center;
+    background-color: #fafafa;
+}
+.top_title h3{
+    color: #555555;
+    font-size: 18px;
+    margin-bottom: 22px;
+}
+.top_title p{
+    font-size: 14px;
+}
+.ul_info{
+    margin-bottom: 40px;
+}
+.ul_info .info_list{
+    line-height: 50px;
+    font-size: 14px;
+    overflow: hidden;
+}
+.ul_info .info_list strong,.ul_info .info_list .labels{
+    float: left;
+    width: 35%;
+    text-align: right;
+    padding-right: 3%;
+    font-weight: bold;
+}
+.ul_info .info_list span{
+    float: left;
+    width: 62%;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+.ul_info .info_list input[type=text],.combobox{
+    float: left;
+    height: 32px;
+    line-height: 32px;
+    padding: 0 10px;
+    font-size: 14px;
+    border-radius: 2px;
+    border: 1px solid #dddddd;
+    width: 300px;
+    min-width: 300px;
+    max-width: 60%;
+    margin-top: 8px;
+}
+/**game_infoEdit.html*/
+.game_show{
+    float: left;
+    width: 300px;
+    height: 120px;
+    border: 1px solid #dbdbdb;
+    line-height: 25px;
+    padding: 10px;
+    font-family: inherit;
+}
+.combobox{
+    width: 200px;
+    min-width: 150px;
+    font-family: inherit;
+    padding: 0;
+}
+
+.radio_group label{
+    margin-right: 30px;
+    cursor: pointer;
+}
+
+.buttons_center2{
+    margin: 20px 0 20px 38%;
+}

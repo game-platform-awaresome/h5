@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+<meta charset="UTF-8">
+<title>API接入 - 游戏管理 久乐游戏开发者平台</title>
+<link rel="stylesheet" href="/css/base.css"/>
+<link rel="stylesheet" href="/css/game_api.css"/>
+</head>
+<body class="user">
+    <div class="container">
+        <?php include $this->getScriptPath().'/header.phtml'; ?>
+        <div class="main2">
+            <div class="center">
+                <?php include $this->getScriptPath().'/info_menu.phtml'; ?>
+                <section class="content">
+                    <header class="user_title">
+                        <nav>
+                            <a href="/gameinfo/index.html?game_id=<?=$game_id?>">游戏总览</a>
+                            <span class="gt"> &gt; </span>
+                            <strong>API接入</strong>
+                        </nav>
+                        <a href="/gameinfo/editapi.html?game_id=<?=$game_id?>">
+                            <i class="icons i_edit2"></i>编辑
+                        </a>
+                    </header>
+                    <article>
+                        <div class="top_title">
+                            <h3>请参考这些文档，完成API的接入，并补全下面的资料，以便通过审核</h3>
+                            <p>在线查看：
+                            <?php foreach ($doc['ads'] as $i=>$row) { ?>
+                                <a href="<?=$row['url']?>" class="green"><?=$row['subject']?></a><?=($i==0)?' |':''?>
+                            <?php } ?>
+                            </p>
+                        </div>
+                        <ul class="ul_info">
+                            <li class="info_list">
+                                <strong>游戏ID：</strong>
+                                <span><?=$game_id?></span>
+                            </li>
+                            <li class="info_list">
+                                <strong>游戏KEY：</strong>
+                                <span><?=$sign_key?></span>
+                            </li>
+                            <li class="info_list">
+                                <strong>登录接口地址：</strong>
+                                <span<?=$login_url?'':' class="grey"'?>><?=$login_url?$login_url:'还未设置登录接口'?></span>
+                            </li>
+                            <li class="info_list">
+                                <strong>充值接口地址：</strong>
+                                <span<?=$recharge_url?'':' class="grey"'?>><?=$recharge_url?$recharge_url:'还未设置充值接口'?></span>
+                            </li>
+                            <li class="info_list">
+                                <strong>是否支持平台发起充值：</strong>
+                                <span><?=$prepay?'是':'否'?></span>
+                            </li>
+                            <li class="info_list">
+                                <strong>是否上传微端游戏包：</strong>
+                                <span><?=$apk_url?'是':'否'?></span>
+                            </li>
+                        </ul>
+                    </article>
+                </section>
+            </div>
+        </div>
+        <?php include $this->getScriptPath().'/footer.phtml'; ?>
+    </div>
+<script src="/js/jquery-1.11.1.min.js"></script>
+<script>
+<?php include $this->getScriptPath().'/info_base.js'; ?>
+</script>
+</body>
+</html>

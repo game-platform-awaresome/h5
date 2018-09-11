@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+<meta charset="UTF-8">
+<title><?=isset($title)?$title:'已上线的'?> - 游戏管理 久乐游戏开发者平台</title>
+<link rel="stylesheet" href="/css/base.css"/>
+<link rel="stylesheet" href="/css/user_hasOnline.css"/>
+</head>
+<body class="user">
+    <div class="container">
+        <?php include $this->getScriptPath().'/header.phtml'; ?>
+        <div class="main2">
+            <div class="center">
+                <?php include $this->getScriptPath().'/menu.phtml'; ?>
+                <section class="content">
+                    <header class="user_title">
+                        <nav>
+                            <a href="javascript:void(0)">游戏管理</a>
+                            <span class="gt"> &gt; </span>
+                            <strong>已上线</strong>
+                        </nav>
+                        <a href="/game/create.html" class="btn_green3">
+                            <span class="f16">+</span><span>创建游戏</span>
+                        </a>
+                    </header>
+                    <article>
+                        <div class="pages_con">
+                            <ul class="ul_game">
+                            <?php foreach ($games as $row) { ?>
+                                <li>
+                                    <figure class="figure_game">
+                                        <a href="/gameinfo/index.html?game_id=<?=$row['game_id']?>">
+                                            <img src="<?=$row['logo'] ? $row['logo'] : '/images/logo-dft.jpg'?>" width="87" height="87"/>
+                                        </a>
+                                        <figcaption>
+                                            <h3><?=$row['name']?></h3>
+                                            <p><?=$row['isfree'] ? '免费' : '收费'?> | <?=$row['classic']?></p>
+                                            <p><a href="/gameinfo/index.html?game_id=<?=$row['game_id']?>"><i class="icons i_data"></i> 数据统计</a></p>
+                                        </figcaption>
+                                    </figure>
+                                </li>
+                            <?php } ?>
+                            </ul>
+                        </div>
+                    </article>
+                    <div class="pagination_con" id="pagination">
+                        <ul class="pagination"><?=$pager?></ul>
+                    </div>
+                </section>
+            </div>
+        </div>
+        <?php include $this->getScriptPath().'/footer.phtml'; ?>
+    </div>
+<script src="/js/jquery-1.11.1.min.js"></script>
+<script>
+<?php include $this->getScriptPath().'/base.js'; ?>
+</script>
+</body>
+</html>
