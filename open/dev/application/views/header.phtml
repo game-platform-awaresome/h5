@@ -22,7 +22,7 @@ if( !isset($dev) ) {
             <a href="/documents/index.html">资料库</a>
             <a href="/nami/contactus.html">联系我们</a>
         </nav>
-    <?php if(!$_SERVER['SERVER_NAME']=='jjlwl.com' || !$_SERVER['SERVER_NAME']=='www.jjlwl.com'):?>
+    <?php if($_SERVER['SERVER_NAME']!='jjlwl.com' || !$_SERVER['SERVER_NAME']!='www.jjlwl.com'):?>
     <aside>
             <i class="icons i_person"></i>
         <?php if($dev) { ?>
