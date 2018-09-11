@@ -24,18 +24,29 @@ class GameController extends F_Controller_Backend
     {
         $search = $this->getRequest()->getQuery('search', array());
         $conds = 'dev_id > 0';
-        $comma = ' AND ';
+        $comma = '';
         if( !empty($search['add_begin']) && !empty($search['add_end']) ) {
             $search['add_end'] .= ' 23:59:59';
             $conds = "{$comma}add_time BETWEEN '{$search['add_begin']}' AND '{$search['add_end']}'";
         }
         unset($search['add_begin'], $search['add_end']);
+        if(!empty($search['name'])){
+            if($conds){
+                $conds .= " AND {$comma}name LIKE '%{$search['name']}%'";
+            }else{
+                $conds .= "{$comma}name LIKE '%{$search['name']}%'";
+            }
+            unset($search['name']);
+        }
         foreach ($search as $k=>$v)
         {
             $v = trim($v);
             if( empty($v) ) continue;
-            $conds .= "{$comma}{$k}='{$v}'";
-            $comma = ' AND ';
+            if($conds){
+                $conds .= " AND {$comma}{$k}='{$v}'";
+            }else{
+                $conds .= "{$comma}{$k}='{$v}'";
+            }
         }
         $params['conditions'] = $conds;
         

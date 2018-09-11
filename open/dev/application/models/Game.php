@@ -135,6 +135,7 @@ class GameModel extends F_Model_Pdo
 	{
 	    return array(
 	        'type' => array('分类', 'select', $this->_types, null),
+	        'name' => array('游戏名字', 'input', null, ''),
 	        'game_id' => array('游戏ID', 'input', null, ''),
 	        'add_begin' => array('开始日期', 'datepicker', null, ''),
 	        'add_end' => array('结束日期', 'datepicker', null, ''),
