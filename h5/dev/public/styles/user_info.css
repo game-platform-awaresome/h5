@@ -73,7 +73,7 @@
 .links a:active {
   color: #FFFFFF;
 }
-.login_btn {
+.login_btn .login_btn2{
   display: block;
   width: 90%;
   height: 45px;

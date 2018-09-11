@@ -106,7 +106,7 @@ div {
   color: #FFFFFF;
   border-color: #90ba35;
 }
-.user_form a.login_btn {
+.user_form a.login_btn,.user_form a.login_btn2{
   display: block;
   width: 45%;
   height: 45px;
