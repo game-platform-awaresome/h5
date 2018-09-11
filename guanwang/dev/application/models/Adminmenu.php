@@ -9,7 +9,7 @@ class AdminmenuModel extends F_Model_Pdo
 	{
 		return '菜单列表';
 	}
-	
+
 	public function getFieldsLabel()
 	{
 		return array(
