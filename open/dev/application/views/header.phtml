@@ -16,11 +16,14 @@ if( !isset($dev) ) {
         <a href="/" class="icons i_logo"></a>
         <nav id="top_nav">
             <a href="/">首页</a>
-            <a href="/developer/index.html">管理中心</a>
+            <?php if($_SERVER['SERVER_NAME']!='jjlwl.com' || $_SERVER['SERVER_NAME']!='www.jjlwl.com'):?>
+                <a href="/developer/index.html">管理中心</a>
+            <?php endif;?>
             <a href="/documents/index.html">资料库</a>
             <a href="/nami/contactus.html">联系我们</a>
         </nav>
-        <aside>
+    <?php if(!$_SERVER['SERVER_NAME']=='jjlwl.com' || !$_SERVER['SERVER_NAME']=='www.jjlwl.com'):?>
+    <aside>
             <i class="icons i_person"></i>
         <?php if($dev) { ?>
             <a href="/developer/index.html"><?=$username?></a>
@@ -32,6 +35,7 @@ if( !isset($dev) ) {
             <a href="/developer/register.html<?=$fwd?>">注册</a>
         <?php } ?>
         </aside>
+    <?php endif;?>
     </div>
     <hr class="line"/>
 </header>
