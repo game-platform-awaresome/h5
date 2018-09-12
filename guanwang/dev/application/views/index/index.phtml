@@ -27,17 +27,17 @@
         <nav class="join_nav">
             <a href="/documents/index.html">
                 <i class="icons i_nav1"></i>
-                <span>&nbsp;关于我们 &gt;</span>
+                <span>&nbsp;公司介绍 &gt;</span>
                 <small>介绍成都九九六网络科技有限公司的相关业务。</small>
             </a>
             <a href="/nami/contactus.html">
                 <i class="icons i_nav2"></i>
-                <span>&nbsp;联系我们 &gt;</span>
+                <span>&nbsp;产品介绍 &gt;</span>
                 <small>关于成都九九六网络科技有限公司的联系方式 。</small>
             </a>
             <a href="http://h5.zyttx.com">
                 <i class="icons i_nav3"></i>
-                <span>&nbsp;久乐游戏&gt;</span>
+                <span>&nbsp;加入我们</span>
                 <small>成都九九六网络科技有限公司战略合作游戏平台。</small>
             </a>
         </nav>
@@ -54,18 +54,18 @@
             </div>
         </div>
     </section>
-    <section class="game_lists">
-        <ul>
-        <?php foreach ($games['ads'] as $row) { ?>
-            <li>
-                <a href="<?=$row['url']?>"<?=$row['target']?>>
-                    <img src="<?=$row['image']?>" alt="<?=$row['subject']?>" />
-                    <span><?=$row['subject']?></span>
-                </a>
-            </li>
-        <?php } ?>
-        </ul>
-    </section>
+<!--    <section class="game_lists">-->
+<!--        <ul>-->
+<!--        --><?php //foreach ($games['ads'] as $row) { ?>
+<!--            <li>-->
+<!--                <a href="--><?//=$row['url']?><!--"--><?//=$row['target']?><!-->-->
+<!--                    <img src="--><?//=$row['image']?><!--" alt="--><?//=$row['subject']?><!--" />-->
+<!--                    <span>--><?//=$row['subject']?><!--</span>-->
+<!--                </a>-->
+<!--            </li>-->
+<!--        --><?php //} ?>
+<!--        </ul>-->
+<!--    </section>-->
     <?php include $this->getScriptPath().'/footer.phtml'; ?>
 </div>
 <script src="/js/jquery-1.4.2.min.js"></script>
