@@ -845,3 +845,6 @@ div.error {
     border-color: #428BCA;
     cursor: default;
 }
+.container{
+    min-width: 1200px;
+}
