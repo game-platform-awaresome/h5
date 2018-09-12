@@ -56,10 +56,79 @@
     /**
      * 统计
      */
-    function countDownload(game_id){
+    function countDownload(obj){
+        //进度条
+        var game_id=$(obj).attr('data-id');
+        var url=$(obj).attr('data-url');
+        progressDownLoad({
+            url:url,
+            params:{game_id:game_id},
+            name:'text.apk',
+            process:function (evt) {
+                console.log(evt);
+            },
+            success:function(evt){
+            console.log(evt);
+            console.log('success');
+            }
+    });
         $.post("/index/game/countgame",{game_id:game_id},function(result){
             console.log(result);
         });
+        return false;
+    }
+    /**
+     * 下载文件 - 带进度监控
+     * @param url: 文件请求路径
+     * @param params: 请求参数
+     * @param name: 保存的文件名
+     * @param progress: 进度处理回调函数
+     * @param success: 下载完成回调函数
+     * eg: progressDownLoad({url:'http://loacalhost:8080/downLoad.action',name:'file.rar',progress:function(evt){
+     *        console.log(evt);
+     *     }});
+     **/
+    function progressDownLoad({url,filename,params,progress,success}){
+        var xhr = new XMLHttpRequest();
+        xhr.open("POST", url, true);
+        //监听进度事件
+        xhr.addEventListener("progress", function (evt) {
+            if(progress) try{ progress.call(evt); }catch(e){}
+        }, false);
+        xhr.responseType = "blob";
+        xhr.setRequestHeader("Content-Type","application/x-www-form-urlencoded; charset=UTF-8");
+        // 指定允许其他域名访问
+        header('Access-Control-Allow-Origin:*');
+// 响应类型
+        header('Access-Control-Allow-Methods:POST');
+// 响应头设置
+        header('Access-Control-Allow-Headers:x-requested-with,content-type')
+        xhr.onreadystatechange = function () {
+            if (xhr.readyState === 4 && xhr.status === 200) {
+                if (typeof window.chrome !== 'undefined') {
+                    // Chrome version
+                    var link = document.createElement('a');
+                    link.href = window.URL.createObjectURL(xhr.response);
+                    link.download = filename;
+                    link.click();
+                } else if (typeof window.navigator.msSaveBlob !== 'undefined') {
+                    // IE version
+                    var blob = new Blob([xhr.response], { type: 'application/force-download' });
+                    window.navigator.msSaveBlob(blob, filename);
+                } else {
+                    // Firefox version
+                    var file = new File([xhr.response], filename, { type: 'application/force-download' });
+                    window.open(URL.createObjectURL(file));
+                }
+                if(success) try{ success.call(xhr); }catch(e){}
+            }
+        };
+        // FormData
+        //var formData = new FormData();
+        var paramsStr = '';
+        if(params) for (var key in params) paramsStr += '&'+key+'='+params[key];
+        if(paramsStr) paramsStr = paramsStr.substring(1);
+        xhr.send(paramsStr);
     }
 </script>
 
