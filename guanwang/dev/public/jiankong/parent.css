@@ -1,0 +1,40 @@
+*{margin:0; padding:0;}
+body{font-size:12px; color:#333; line-height:24px; font-family:Arial, Helvetica, sans-serif;}
+ul,li,ol{list-style:none;}
+a:link,a:visited{color:#ff6f00; text-decoration:none;}
+a:hover,.colorFF{color:#ff6600;}
+.high_txt{color:#333;}
+.gray_txt{color:#999;}
+/*.head{ background:url(images/head_bg.jpg) repeat-x left top;}*/
+.content{width:980px; margin:0 auto; margin-top:10px; }
+.left_cnt{width:700px; float:left;}
+.right_col{width:260px; float:right;}
+.clear{clear:both;}
+.main_tab{background:url(../images/tab_main_bg.jpg) no-repeat left top;}
+.main_tab ul{list-style:none; margin-left:20px; overflow:hidden; width:381px;}
+.main_tab ul li{ height:42px; float:left; background:url(../images/tab_v_line.jpg) no-repeat left top; line-height:50px; text-align:center; font-size:16px; color:#333; margin-right:30px; cursor:pointer; overflow:hidden;line-height:40px;}
+.main_tab ul li.now{background:url(../images/tab_now_bg.gif) no-repeat left top; color:#333; font-weight:bold; cursor:default;}
+.main_ttl{margin-top:10px; margin-bottom:10px;}
+.intro_tbl{border-bottom:1px solid #DDDDDD;}
+.main_intro{font-size:12px; color:#666666; line-height:22px;}
+.main_intro p{margin:5px 0;}
+.con1_sec2,.con1_sec3{ border-bottom:1px solid #ddd; padding:15px 25px;}
+.safety_logo {margin-top:5px;}
+#foot {height:150px; text-align:center; line-height:24px; color:#666;}
+.col_ttl{height:29px; line-height:29px; background:url(../images/rgt_ttl_bg.gif) no-repeat left top; padding-left:20px; font-size:14px;}
+.col_cnt{width:238px; border:1px solid #DBE1E6; border-top:none; border-bottom:none; padding:10px;}
+.col_btm{height:5px; background:url(../images/rgt_col_btm.gif) no-repeat left top;margin-bottom:15px;}
+.down li{padding-left:25px; background:url(../images/icon_text.gif) no-repeat left 6px;}
+.down li a{color:#666;}
+.down li a:hover{color:#ff6600;}
+.qa_tbl tr td{line-height:18px;}
+
+
+#foot{height:150px; text-align:center; line-height:24px; color:#666;}
+#foot ul.foot_tab{width:570px; height:14px; margin:7px auto; overflow:hidden;}
+#foot ul.foot_tab li{display:inline-block; padding:0 10px; float:left; height:12px; line-height:12px; border-left:1px solid #CCCCCC; padding-top:1px; overflow:hidden; margin-left:-2px;}
+#foot ul.foot_tab li a:link,#foot ul.foot_tab li a:visited{color:#666; text-decoration:none;}
+#foot ul.foot_tab li.high a:link,#foot ul.foot_tab li.high a:visited{color:#2864B4;}
+#foot ul.foot_tab li.high a:hover{color:#ff6600;}
+#foot ul.foot_tab li a:hover{color:#ff6600;}
+.safety_logo{margin-top:5px; }
