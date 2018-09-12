@@ -5,7 +5,7 @@ class ArticleModel extends F_Model_Pdo
 	protected $_table = 'article';
 	protected $_primary = 'article_id';
 	
-	public $_types = array('新手指引','对接指南','技术指引');
+	public $_types = array('公司介绍','产品介绍','加入我们');
 	
 	public function getTableLabel()
 	{
