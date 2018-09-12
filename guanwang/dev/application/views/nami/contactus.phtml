@@ -1,85 +1,85 @@
 <!DOCTYPE html>
 <html>
 <head lang="en">
-<meta charset="UTF-8">
-<title>联系我们</title>
-<link rel="stylesheet" href="/css/base.css"/>
-<link rel="stylesheet" href="/css/connection.css"/>
+    <meta charset="UTF-8">
+    <title>联系我们</title>
+    <link rel="stylesheet" href="/css/base.css"/>
+    <link rel="stylesheet" href="/css/connection.css"/>
 </head>
 <body>
-    <div class="container">
-        <?php include $this->getScriptPath().'/header.phtml'; ?>
-        <figure class="top">
-<!--        --><?php //foreach ($banner['ads'] as &$row) { ?>
-<!--            <a href="--><?//=$row['url']?><!--"--><?//=$row['target']?><!-->
-<!--                <img src="--><?//=$row['image']?><!--" alt="--><?//=$row['subject']?><!--" width="100%" height="auto"/>-->
-<!--            </a>-->
-<!--        --><?php //} ?>
-        </figure>
-        <section class="linkman">
-            <h2  class="title">- 商务合作/Business cooperation -</h2>
-            <div class="linkman_main">
-                <div class="linkman_info bg_green" style="width:423px">
-                    <img src="/images/service_04.jpg" width="148px" height="auto" alt="图片"/>
-                    <article>
-                        <div>
-                            <h3>西南、华东地区</h3>
-                            <p>
-                                <span>联系人：小天天</span>
-                                <a target="_blank" href="http://wpa.qq.com/msgrd?v=3&uin=254139143&site=qq&menu=yes" class="icons open_qq"></a>                            </p>
-                            <p>邮箱：254139143@qq.com</p>
-                        </div>
-                        <i class="icons i_open1"></i>
-                    </article>
-                </div>
-                <div class="linkman_info bg_blue">
-                    <img src="/images/service_04.jpg" width="148px" height="auto" alt="图片"/>
-                    <article>
-                        <div>
-                            <h3>华南地区</h3>
-                            <p>
-                                <span>联系人：小天天</span>
-                                <a target="_blank" href="http://wpa.qq.com/msgrd?v=3&uin=254139143&site=qq&menu=yes" class="icons open_qq"></a>                            </p>
-                            <p>邮箱：254139143@qq.com</p>
-                        </div>
-                        <i class="icons i_open2"></i>
-                    </article>
-                </div>
-                <div class="linkman_info bg_orange" style="width:415px">
-                    <img src="/images/service_04.jpg" width="148px" height="auto" alt="图片"/>
-                    <article>
-                        <div>
-                            <h3>华北地区</h3>
-                            <p>
-                                <span>联系人：小天天</span>
-                                <a target="_blank" href="http://wpa.qq.com/msgrd?v=3&uin=254139143&site=qq&menu=yes" class="icons open_qq"></a>
-                            </p>
-                            <p>邮箱：254139143@qq.com</p>
-                        </div>
-                        <i class="icons i_open3"></i>
-                    </article>
-                </div>
+<div class="container">
+    <?php include $this->getScriptPath().'/header.phtml'; ?>
+    <figure class="top">
+        <?php foreach ($banner['ads'] as &$row) { ?>
+            <a href="<?=$row['url']?>"<?=$row['target']?>>
+                <img src="<?=$row['image']?>" alt="<?=$row['subject']?>" width="100%" height="auto"/>
+            </a>
+        <?php } ?>
+    </figure>
+    <section class="linkman">
+        <h2  class="title">- 商务合作/Business cooperation -</h2>
+        <div class="linkman_main">
+            <div class="linkman_info bg_green" style="width:423px">
+                <img src="/images/service_04.jpg" width="148px" height="auto" alt="图片"/>
+                <article>
+                    <div>
+                        <h3>联系方式</h3>
+                        <p>
+                            <span>联系人：小天天</span>
+                            <a target="_blank" href="http://wpa.qq.com/msgrd?v=3&uin=254139143&site=qq&menu=yes" class="icons open_qq"></a>                            </p>
+                        <p>邮箱：254139143@qq.com</p>
+                    </div>
+                    <i class="icons i_open1"></i>
+                </article>
             </div>
-        </section>
+            <!--                <div class="linkman_info bg_blue">-->
+            <!--                    <img src="/images/service_04.jpg" width="148px" height="auto" alt="图片"/>-->
+            <!--                    <article>-->
+            <!--                        <div>-->
+            <!--                            <h3>华南地区</h3>-->
+            <!--                            <p>-->
+            <!--                                <span>联系人：小天天</span>-->
+            <!--                                <a target="_blank" href="http://wpa.qq.com/msgrd?v=3&uin=254139143&site=qq&menu=yes" class="icons open_qq"></a>                            </p>-->
+            <!--                            <p>邮箱：254139143@qq.com</p>-->
+            <!--                        </div>-->
+            <!--                        <i class="icons i_open2"></i>-->
+            <!--                    </article>-->
+            <!--                </div>-->
+            <!--                <div class="linkman_info bg_orange" style="width:415px">-->
+            <!--                    <img src="/images/service_04.jpg" width="148px" height="auto" alt="图片"/>-->
+            <!--                    <article>-->
+            <!--                        <div>-->
+            <!--                            <h3>华北地区</h3>-->
+            <!--                            <p>-->
+            <!--                                <span>联系人：小天天</span>-->
+            <!--                                <a target="_blank" href="http://wpa.qq.com/msgrd?v=3&uin=254139143&site=qq&menu=yes" class="icons open_qq"></a>-->
+            <!--                            </p>-->
+            <!--                            <p>邮箱：254139143@qq.com</p>-->
+            <!--                        </div>-->
+            <!--                        <i class="icons i_open3"></i>-->
+            <!--                    </article>-->
+            <!--                </div>-->
+        </div>
+    </section>
 
-        <section class="api_link">
-            <h2 class="title">- 问题反馈 / Question feedback -</h2>
-            <div class="linkmans">
-                <article class="linkman2">
-                    <h3>技术支持：</h3>
-                    <a target="_blank" href="http://wpa.qq.com/msgrd?v=3&uin=1551255297&site=qq&menu=yes" class="icons open_qq"></a>
-                </article>
-                <article class="linkman2">
-                    <h3>问题反馈：</h3>
-                    <span style="color:#60ff00; font-size:16px">254139143@qq.com</span>
-                </article>
-            </div>
-        </section>
-        <?php include $this->getScriptPath().'/footer.phtml'; ?>
-    </div>
+    <section class="api_link">
+        <h2 class="title">- 问题反馈 / Question feedback -</h2>
+        <div class="linkmans">
+            <article class="linkman2">
+                <h3>技术支持：</h3>
+                <a target="_blank" href="http://wpa.qq.com/msgrd?v=3&uin=1551255297&site=qq&menu=yes" class="icons open_qq"></a>
+            </article>
+            <article class="linkman2">
+                <h3>问题反馈：</h3>
+                <span style="color:#60ff00; font-size:16px">254139143@qq.com</span>
+            </article>
+        </div>
+    </section>
+    <?php include $this->getScriptPath().'/footer.phtml'; ?>
+</div>
 <script src="/js/jquery-1.4.2.min.js"></script>
 <script>
-$('#top_nav a:eq(2)').addClass('selected');
+    $('#top_nav a:eq(2)').addClass('selected');
 </script>
 <?php include $this->getScriptPath().'/namiyx_wx.phtml'; ?>
 </body>
