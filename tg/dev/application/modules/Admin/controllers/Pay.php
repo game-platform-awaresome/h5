@@ -22,12 +22,12 @@ class PayController extends F_Controller_Backend
                 $search['add_begin']=strtotime($search['add_begin']);
                 $search['add_end']=strtotime($search['add_end']);
                 $conds = "pay_time BETWEEN {$search['add_begin']} AND {$search['add_end']}";
+                $cmm=' AND ';
+            }else{
+                $cmm = '';
             }
             unset($search['add_begin'], $search['add_end']);
-            $cmm = '';
-            if($conds){
-                $conds.=' AND ';
-            }
+
             foreach ($search as $k=>$v)
             {
                 if( empty($v) ) {
