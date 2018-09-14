@@ -397,12 +397,8 @@ class UsersModel extends F_Model_Pdo
 	    
 //	    $uid = uc_user_register($username, $password, $email);
 //	    if( $uid > 0 ) {
-	        $sess = Yaf_Session::getInstance();
-	        $channel_id = $sess->get('user');
-	        if( empty($channel_id) ) {
-//	            $channel_id = isset($_COOKIE['user']) ? $_COOKIE['user'] : 0;
-	            $channel_id=1;
-	        }
+            $url=new F_Helper_Url();
+	        $channel_id = $url->getUrlSign();
 	        try {
                 $rs = $this->insert(array(
 //	            'user_id' => $uid,
