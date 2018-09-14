@@ -17,7 +17,17 @@ class PayController extends F_Controller_Backend
         $s = Yaf_Session::getInstance();
         $channel_ids_condition=$s->get('channel_ids_condition');
         if( $search ) {
+            if( !empty($search['add_begin']) && !empty($search['add_end']) ) {
+                $search['add_end'] .= ' 23:59:59';
+                $search['add_begin']=strtotime($search['add_begin']);
+                $search['add_end']=strtotime($search['add_end']);
+                $conds = "pay_time BETWEEN {$search['add_begin']} AND {$search['add_end']}";
+            }
+            unset($search['add_begin'], $search['add_end']);
             $cmm = '';
+            if($conds){
+                $conds.=' AND ';
+            }
             foreach ($search as $k=>$v)
             {
                 if( empty($v) ) {

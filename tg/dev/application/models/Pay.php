@@ -65,7 +65,10 @@ class PayModel extends F_Model_Pdo
 	public function getFieldsSearch()
 	{
 	    return array(
-	        'type' => array('付款方式', 'select', $this->_types, ''),
+            'add_begin' => array('开始日期', 'datepicker', null, ''),
+            'add_end' => array('结束日期', 'datepicker', null, ''),
+	        'pay_type' => array('付款方式', 'select', $this->_types, ''),
+	        'tg_channel' => array('渠道id', 'input', null, ''),
 	        'pay_id' => array('支付ID', 'input', null, ''),
 	        'username' => array('用户名', 'input', null, ''),
 	        'game_id' => array('游戏ID', 'input', null, ''),
