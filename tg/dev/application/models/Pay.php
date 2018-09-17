@@ -82,7 +82,7 @@ class PayModel extends F_Model_Pdo
                                 $divide_into_game=$divide_into['divide_into'];
                                 $admin=new AdminModel();
                                 $divide_into_admin=$admin->fetch("admin_id = {$row['tg_channel']}",'divide_into');
-                                return $row['money']*($divide_into_game-$divide_into_admin)/100;
+                                return $row['money']*((int)$divide_into_game['divide_into']-(int)$divide_into_admin['divide_into'])/100;
                             case 3:
                                 return 0;
                             default:
@@ -120,7 +120,7 @@ class PayModel extends F_Model_Pdo
                                 $divide_into_game=$divide_into['divide_into'];
                                 $admin=new AdminModel();
                                 $divide_into_admin=$admin->fetch("admin_id = {$row['tg_channel']}",'divide_into');
-                                return $row['money']*($divide_into_game-$divide_into_admin)/100;
+                                return $row['money']*((int)$divide_into_game['divide_into']-(int)$divide_into_admin['divide_into'])/100;
                             case 3:
                                 return 0;
                             default:
