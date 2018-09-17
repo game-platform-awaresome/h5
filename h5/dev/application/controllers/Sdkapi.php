@@ -305,7 +305,7 @@ class SdkapiController extends Yaf_Controller_Abstract
         $data['info'][0]=$info;
       }else{
         $data['status']=200;
-        $msg['暂无客服信息'];
+        $data['msg']='暂无客服信息';
       }
       echo json_encode($data);
     }
