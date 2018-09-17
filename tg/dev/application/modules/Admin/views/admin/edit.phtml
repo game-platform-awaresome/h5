@@ -58,7 +58,9 @@
                     <p>
                         <label>分成比例(20-55之间)</label>
                         <input class="text-input small-input" type="number" id="boxname" name="info[divide_into]"
-                               value="<?php echo isset($info) ? $info['divide_into'] : ''; ?>" min="20" max="55" required/>
+                               value="<?php echo isset($info) ? $info['divide_into'] : ''; ?>" min="20" max="55" required
+                               <?php if($info['admin_id']==$_SESSION['admin_id']) echo 'disabled';?>
+                               />
                         <br/>
                     </p>
                     <p>
