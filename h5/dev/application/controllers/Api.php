@@ -190,19 +190,19 @@ class ApiController extends Yaf_Controller_Abstract
                 $curl = new F_Helper_Curl();
                 $rs = $curl->request($url);
                 if($rs=='success' || $rs=='ok'){
+                    $pdo->commit();
                     echo json_encode(['code'=>0,'message'=>$return]);
                 }else{
+                    $pdo->rollBack();
                     echo json_encode(['code'=>1,'message'=>'游戏发货失败,请联系客服处理']);
                 }
-                $pdo->commit();
-                echo json_encode(['code'=>0,'message'=>$return]);
             }else{
                 $pdo->rollBack();
                 echo json_encode(['code'=>1,'message'=>'发货失败']);
             }
             return false;
         }else{
-            echo json_encode(['code'=>1,'message'=>'平台币不足']);
+            echo json_encode(['code'=>1,'message'=>'平台币不足']);die;
             return false;
         }
     }
