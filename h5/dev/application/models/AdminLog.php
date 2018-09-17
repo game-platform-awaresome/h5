@@ -22,6 +22,7 @@ class AdminlogModel extends F_Model_Pdo
 	
 	public function getFieldsSearch()
 	{
+
 	    return array(
 	        'admin' => array('操作管理员', 'input', null, ''),
 	        'content' => array('操作内容', 'input', null, ''),

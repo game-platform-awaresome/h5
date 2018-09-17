@@ -59,6 +59,7 @@ class UsersModel extends F_Model_Pdo
 	public function getFieldsSearch()
 	{
 	    return array(
+	        'user_id' => array('用户id', 'input', null, ''),
 	        'username' => array('用户名', 'input', null, ''),
 	        'reg_begin' => array('开始日期', 'datepicker', null, ''),
 	        'reg_end' => array('结束日期', 'datepicker', null, ''),
