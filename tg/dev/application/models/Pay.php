@@ -28,7 +28,15 @@ class PayModel extends F_Model_Pdo
 		        if( empty($row) ) return '支付ID';
 		        return sprintf('%16.0f', $row['pay_id']);
 		    },
-		    'username' => '支付账号',
+		    'username' => function(&$row){
+                if( empty($row) ) return '玩家账号';
+                if($row['player_channel']){
+                    return "(玩家推广)".$row['username'];
+                }else{
+                    return $row['username'];
+                }
+            }
+            ,
 		    'to_user' => '充入账号',
 		    'tg_channel' => '渠道id',
 		    'game_name' => '游戏名称',
@@ -41,6 +49,86 @@ class PayModel extends F_Model_Pdo
 		        if( empty($row) ) return '平台币存量';
 		        return $row['game_name'] ? '-' : number_format($row['deposit']).'￥';
 		    },
+            'player_channel' => function(&$row){
+                if( empty($row) ) return '获得分成';
+                if($row['player_channel']){
+                    if($row['tg_channel']==$_SESSION['admin_id']){
+                        //自推广
+                        switch ($_SESSION['cps_type']){
+                            case 1:
+                                return 0;
+                            case 2:
+                                $game=new GameModel();
+                                $divide_into=$game->fetch("game_id={$row['game_id']}",'divide_into');
+                                $divide_into=(int)($divide_into['divide_into']-20);
+                                return $row['money']*$divide_into/100;
+                            case 3:
+                                $admin=new AdminModel();
+                                $divide_into=$admin->fetch("admin_id = {$_SESSION['admin_id']}",'divide_into');
+                                $divide_into=(int)($divide_into['divide_into']-20);
+                                return $row['money']*$divide_into/100;
+                            default:
+                                break;
+                        }
+                    }else{
+                        //下级代理推广
+                        //自推广
+                        switch ($_SESSION['cps_type']){
+                            case 1:
+                                return 0;
+                            case 2:
+                                $game=new GameModel();
+                                $divide_into=$game->fetch("game_id={$row['game_id']}",'divide_into');
+                                $divide_into_game=$divide_into['divide_into'];
+                                $admin=new AdminModel();
+                                $divide_into_admin=$admin->fetch("admin_id = {$row['tg_channel']}",'divide_into');
+                                return $row['money']*($divide_into_game-$divide_into_admin)/100;
+                            case 3:
+                                return 0;
+                            default:
+                                break;
+                        }
+                    }
+                }else{
+                    if($row['tg_channel']==$_SESSION['admin_id']){
+                        //自推广
+                        switch ($_SESSION['cps_type']){
+                            case 1:
+                                return 0;
+                            case 2:
+                                $game=new GameModel();
+                                $divide_into=$game->fetch("game_id={$row['game_id']}",'divide_into');
+                                $divide_into=$divide_into['divide_into'];
+                                return $row['money']*$divide_into/100;
+                            case 3:
+                                $admin=new AdminModel();
+                                $divide_into=$admin->fetch("admin_id = {$_SESSION['admin_id']}",'divide_into');
+                                $divide_into=$divide_into['divide_into'];
+                                return $row['money']*$divide_into/100;
+                            default:
+                                break;
+                        }
+                    }else{
+                        //下级代理推广
+                        //自推广
+                        switch ($_SESSION['cps_type']){
+                            case 1:
+                                return 0;
+                            case 2:
+                                $game=new GameModel();
+                                $divide_into=$game->fetch("game_id={$row['game_id']}",'divide_into');
+                                $divide_into_game=$divide_into['divide_into'];
+                                $admin=new AdminModel();
+                                $divide_into_admin=$admin->fetch("admin_id = {$row['tg_channel']}",'divide_into');
+                                return $row['money']*($divide_into_game-$divide_into_admin)/100;
+                            case 3:
+                                return 0;
+                            default:
+                                break;
+                        }
+                    }
+                }
+            },
 		    'type' => function(&$row){
 		        if( empty($row) ) return '支付渠道';
 		        return $this->_types[$row['type']];

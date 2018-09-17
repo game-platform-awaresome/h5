@@ -50,7 +50,7 @@ class PayController extends F_Controller_Backend
         }else{
             $conds.="tg_channel in {$channel_ids_condition}";
         }
-        $conds.=' AND pay_time>0';
+        $conds.=' AND pay_time>0 AND game_id >0';
         $params['conditions']=$conds;
         $params['orderby'] = 'add_time DESC';
         return $params;
