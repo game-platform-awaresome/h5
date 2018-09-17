@@ -144,7 +144,7 @@ class PaybalanceController extends F_Controller_Backend
                 $pay_list=$pay->fetchAll("add_time  between {$start_time} and {$end_time} and pay_time > 0 and game_id > 0 and tg_channel = {$admin_id}",1,2000000,'game_id,money,tg_channel,player_channel');
                 $balance=0;
                 foreach ($pay_list as $key=>$value){
-                    if($pay_list['player_channel']){
+                    if($value['player_channel']){
                         //间接获取的玩家
                         $divide_into=$game->fetch("game_id={$value['game_id']}",'divide_into');
                         $divide_into=(int)($divide_into['divide_into']-20);
@@ -161,21 +161,20 @@ class PaybalanceController extends F_Controller_Backend
             case 3:
                 $pay_list=$pay->fetchAll("add_time  between {$start_time} and {$end_time} and pay_time > 0 and game_id > 0 and tg_channel = {$admin_id}",1,2000000,'game_id,money,tg_channel,player_channel');
                 $balance=0;
-                if($pay_list['player_channel']){
-                    //间接获取的玩家
-                    $divide_into=$admin->fetch("admin_id = {$admin_id}",'divide_into');
-                    $divide_into=(int)($divide_into['divide_into']-20);
-                    foreach ($pay_list as $key=>$value){
+                foreach ($pay_list as $key=>$value){
+                    if($value['player_channel']){
+                        //间接获取的玩家
+                        $divide_into=$admin->fetch("admin_id = {$admin_id}",'divide_into');
+                        $divide_into=(int)($divide_into['divide_into']-20);
                         $balance+=$value['money']*$divide_into/100;
-                    }
-                }else{
-                    //直接推广获取的玩家
-                    $divide_into=$admin->fetch("admin_id = {$admin_id}",'divide_into');
-                    $divide_into=$divide_into['divide_into'];
-                    foreach ($pay_list as $key=>$value){
+                    }else{
+                        //直接推广获取的玩家
+                        $divide_into=$admin->fetch("admin_id = {$admin_id}",'divide_into');
+                        $divide_into=$divide_into['divide_into'];
                         $balance+=$value['money']*$divide_into/100;
                     }
                 }
+
                 return $balance;
             default:
                 return 0;
