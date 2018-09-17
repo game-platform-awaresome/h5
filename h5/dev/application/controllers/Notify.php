@@ -156,7 +156,8 @@ class NotifyController extends Yaf_Controller_Abstract
                 'content' => json_encode($_REQUEST),
                 'ymd' => date('Ymd'),
             ));
-            echo '非法订单,已记录访问ip,请勿违法犯罪之事';die;
+            echo 'success';die;
+//            echo '非法订单,已记录访问ip,请勿违法犯罪之事';die;
         }else{
             $html_arr=json_decode($html,true);
             $okprice=$html_arr['okprice'];
@@ -169,7 +170,8 @@ class NotifyController extends Yaf_Controller_Abstract
                     'content' => json_encode($_REQUEST).$html,
                     'ymd' => date('Ymd'),
                 ));
-                echo '非法订单修改订单金额,已记录访问ip,请勿违法犯罪之事';die;
+                echo 'success';die;
+//                echo '非法订单修改订单金额,已记录访问ip,请勿违法犯罪之事';die;
             }
         }
         }
