@@ -1,0 +1,25 @@
+<?php
+/**
+ * Created by PhpStorm.
+ * User: Administrator
+ * Date: 2018/9/18/018
+ * Time: 16:41
+ */
+$detail=json_decode($gift_keys['details']);
+?>
+<p>使用方法:</p>
+    <?=$gift_bag['howget']?>
+<p>礼包内容:</p>
+    <?php
+    $content=unserialize($gift_bag['content']);
+    echo $content[0]['name'];
+    ?>
+<p>礼包详情:</p>
+<span>
+    <?php if($detail):?>
+    <?php foreach ($detail as $key=>$value):?>
+         <?=$value?> <br/>
+    <?php endforeach;?>
+    <?php endif;?>
+</span>
+

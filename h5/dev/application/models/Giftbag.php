@@ -147,7 +147,7 @@ class GiftbagModel extends F_Model_Pdo
 	    }
 	    
 //	    if( $gift['type'] == 'limited' ) {
-	        $stm = $pdo->query("SELECT cdkey FROM giftbag_cdkey WHERE gift_id='{$gid}' AND user_id=0 LIMIT 1");
+	        $stm = $pdo->query("SELECT cdkey FROM giftbag_cdkey WHERE gift_id='{$gid}' AND user_id=0  AND get_time=0 LIMIT 1");
 	        $tmp = $stm->fetch(PDO::FETCH_ASSOC);
 	        if( empty($tmp) ) {
 	            return '激活码已全部送出！';

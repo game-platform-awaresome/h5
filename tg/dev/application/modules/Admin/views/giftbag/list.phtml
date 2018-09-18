@@ -1,0 +1,19 @@
+<link rel="stylesheet" href="../layui/css/layui.css">
+<script src="/layui/layui.js"></script>
+<?php echo $html; ?>
+
+<script>
+    layui.use(['layer', 'form','jquery'], function(){
+        var layer = layui.layer
+            ,$ =layui.jquery;
+        $('.open_detail').click(function () {
+            var id=$(this).attr('data-id');
+            layer.open({
+                title:'礼包内容',
+                type: 2,
+                area: ['50%', '60%'],
+                content: '/admin/giftbag/detail?gift_id='+id//这里content是一个普通的String
+            });
+        })
+    });
+</script>
