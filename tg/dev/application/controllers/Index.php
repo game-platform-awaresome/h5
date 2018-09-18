@@ -43,15 +43,18 @@ class IndexController extends Yaf_Controller_Abstract
      */
     public function akpgame2Action(){
         $admin_id=$_REQUEST['tg_channel'];
+        $admin=new AdminModel();
         //1.修改文件
         $file_dir="/www2/wwwroot/tool/1/assets/apps/default/www/manifest.json";
         $json_string = file_get_contents($file_dir);
         $data = json_decode($json_string,true);
         $launch_path="http://{$admin_id}.h5.zyttx.com";
         $developer_url="http://{$admin_id}.h5.zyttx.com";
-        $boxname=$_SESSION['boxname'];
+        $boxname=$admin->fetch(['admin_id'=>$admin_id],'boxname');
         if($boxname==''){
             $boxname='游戏盒子';
+        }else{
+            $boxname=$boxname['boxname'];
         }
         // 把JSON字符串转成PHP数组
         $data['name']=$boxname;
