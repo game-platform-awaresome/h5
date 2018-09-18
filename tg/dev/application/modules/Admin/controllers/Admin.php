@@ -95,8 +95,8 @@ class AdminController extends F_Controller_Backend
         $file_dir="/www2/wwwroot/tool/1/assets/apps/default/www/manifest.json";
         $json_string = file_get_contents($file_dir);
         $data = json_decode($json_string,true);
-        $launch_path="http://h5.zyttx.com?user=".$admin_id;
-        $developer_url="http://h5.zyttx.com?user=".$admin_id;
+        $launch_path="http://{$admin_id}.h5.zyttx.com";
+        $developer_url="http://{$admin_id}.h5.zyttx.com";
         $boxname=$_SESSION['boxname'];
         if($boxname==''){
             $boxname='游戏盒子';
