@@ -58,7 +58,8 @@ class UserController extends Yaf_Controller_Abstract
             $user = $this->user;
         }
         //渠道id
-        $channel_id=$_SESSION['user']??1;
+        $url=new F_Helper_Url();
+        $channel_id=$url->getUrlSign();
         $cps_admin=new AdminModel('cps');
         $channel_info=$cps_admin->fetch(['admin_id'=>$channel_id]);
         $user['qq1']=$channel_info['qq1'];
