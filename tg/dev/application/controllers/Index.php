@@ -37,6 +37,57 @@ class IndexController extends Yaf_Controller_Abstract
         $this->downFile($admin_id.'.apk',"/www2/wwwroot/code/h5/tg/dev/public/game/apk/{$game_id}/");
         Yaf_Dispatcher::getInstance()->disableView();
     }
+
+    /**
+     * 盒子下载
+     */
+    public function akpgame2(){
+        $admin_id=$_REQUEST['tg_channel'];
+        //1.修改文件
+        $file_dir="/www2/wwwroot/tool/1/assets/apps/default/www/manifest.json";
+        $json_string = file_get_contents($file_dir);
+        $data = json_decode($json_string,true);
+        $launch_path="http://{$admin_id}.h5.zyttx.com";
+        $developer_url="http://{$admin_id}.h5.zyttx.com";
+        $boxname=$_SESSION['boxname'];
+        if($boxname==''){
+            $boxname='游戏盒子';
+        }
+        // 把JSON字符串转成PHP数组
+        $data['name']=$boxname;
+        $data['launch_path']=$launch_path;
+        $data['developer']['url']=$developer_url;
+        $json_strings = json_encode($data);
+        file_put_contents($file_dir,$json_strings);//写入
+        //修改APP名字
+        $file_dir2="/www2/wwwroot/tool/1/res/values/strings.xml";
+        $doc = new DOMDocument();
+        $doc->load($file_dir2);
+        $strings = $doc -> getElementsByTagName("string");
+        //遍历
+        foreach ($strings as $string) {
+            //将id=3的title设置为33333
+            if($string->getAttribute('name')=='app_name'){
+                $string->nodeValue=$boxname;
+            }
+        }
+        //对文件做修改后，一定要记得重新sava一下，才能修改掉原文件
+        $doc -> save($file_dir2);
+        //2. 编译app
+        shell_exec("
+        PATH=/bin:/sbin:/usr/bin:/usr/sbin:/usr/local/bin:/usr/local/sbin:~/bin:/home/java/jdk1.8.0_181:/home/java/jdk1.8.0_181/lib/:/home/java/jdk1.8.0_181/bin;export PATH;
+        export JAVA_HOME CLASSPATH PATH;
+        cd /www2/wwwroot/tool;
+        apktool b 1;
+        cp /www2/wwwroot/tool/1/dist/1.apk  /www2/wwwroot/tool/;
+        cd /www2/wwwroot/tool;
+        java -jar signapk.jar  testkey.x509.pem testkey.pk8  1.apk {$admin_id}.apk; 
+        mv -f /www2/wwwroot/tool/{$admin_id}.apk  /www2/wwwroot/xgame.zyttx.com/apk/;
+        rm -rf /www2/wwwroot/tool/1.apk;
+         > /dev/null 2>&1 &");
+        $this->downFile($admin_id.'.apk',"/www2/wwwroot/xgame.zyttx.com/apk/");
+        Yaf_Dispatcher::getInstance()->disableView();
+    }
     private function downFile($file_name,$file_dir){
         //检查文件是否存在
         if (! file_exists ( $file_dir . $file_name )) {

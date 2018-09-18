@@ -220,6 +220,11 @@
                         <?php if (isset($info) && $info['material_url']) echo "<a  href=\"{$info['material_url']}\">{$info['material_url']}</a>"; ?>
                     </p>
                     <p>
+                        <label>包名</label>
+                        <input class="text-input large-input" type="text" name="info[package_name]"
+                               value="<?php echo isset($info) ? $info['package_name'] : ''; ?>"/>
+                    </p>
+                    <p>
                         <label>下载地址</label>
                         <input type="file" name="apk_url">
                         <div class='container'>
@@ -229,6 +234,7 @@
                         <div id="result"></div>
                     <?php if (isset($info) && $info['apk_url']) echo "<a  href=\"{$info['apk_url']}\">{$info['apk_url']}</a>"; ?>
                     </p>
+
                     <p>
                         <input  onclick="upload()" class="button" type="button" value="提交"/>
                     </p>

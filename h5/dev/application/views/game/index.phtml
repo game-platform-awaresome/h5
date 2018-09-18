@@ -127,14 +127,13 @@
             ?>
             <!--figure.game_figure vip俱乐部  statr-->
             <figure class="game_figure">
-            <?php foreach ($shortcut['ads'] as &$row) { ?>
-                <a href="<?='http://xgame.zyttx.com/apk/'.$g.'.apk'?>">
-                    <img src="<?=$row['image']?>" width="100%" height="auto" alt="<?=$row['subject']?>"/>
-                </a>
-            <?php } ?>
+                <?php if(file_exists("/www2/wwwroot/xgame.zyttx.com/apk/{$g}.apk")):?>
+                    <a target="_top"  href="<?="http://xgame.zyttx.com/apk/{$g}.apk"?>" class="btn_blue">点击下载</a>
+                <?php else:?>
+                    <a target="_top"  href="<?='http://yun.zyttx.com/index/akpgame2?&tg_channel='.$g?>" class="btn_blue">点击下载</a>
+                <?php endif;?>
             </figure>
             <!--figure.game_figure vip俱乐部  end-->
-
             <!--section.game_news hot 火爆新游  statr-->
             <section class="game_news">
                 <h2 class="title">
