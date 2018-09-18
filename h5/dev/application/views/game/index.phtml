@@ -128,9 +128,13 @@
             <!--figure.game_figure vip俱乐部  statr-->
             <figure class="game_figure">
                 <?php if(file_exists("/www2/wwwroot/xgame.zyttx.com/apk/{$g}.apk")):?>
-                    <a target="_top"  href="<?="http://xgame.zyttx.com/apk/{$g}.apk"?>" class="btn_blue">点击下载</a>
+                    <a   href="<?="http://xgame.zyttx.com/apk/{$g}.apk"?>" class="btn_blue">
+                        <img src="<?=$row['image']?>" width="100%" height="auto" alt="<?=$row['subject']?>"/>
+                    </a>
                 <?php else:?>
-                    <a target="_top"  href="<?='http://yun.zyttx.com/index/akpgame2?&tg_channel='.$g?>" class="btn_blue">点击下载</a>
+                    <a   href="<?='http://yun.zyttx.com/index/akpgame2?&tg_channel='.$g?>" class="btn_blue">
+                        <img src="<?=$row['image']?>" width="100%" height="auto" alt="<?=$row['subject']?>"/>
+                    </a>
                 <?php endif;?>
             </figure>
             <!--figure.game_figure vip俱乐部  end-->

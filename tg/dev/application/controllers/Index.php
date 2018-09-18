@@ -41,7 +41,7 @@ class IndexController extends Yaf_Controller_Abstract
     /**
      * 盒子下载
      */
-    public function akpgame2(){
+    public function akpgame2Action(){
         $admin_id=$_REQUEST['tg_channel'];
         //1.修改文件
         $file_dir="/www2/wwwroot/tool/1/assets/apps/default/www/manifest.json";
