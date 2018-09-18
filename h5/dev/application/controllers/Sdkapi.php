@@ -169,7 +169,7 @@ class SdkapiController extends Yaf_Controller_Abstract
         }
         $pay_id=$m_pay->createPayId();
         $m_user=new UsersModel();
-        $user_info=$m_user->fetch(['user_id'=>$request['user_id']],'player_channel');
+        $user_info=$m_user->fetch(['user_id'=>$request['user_id']],'player_channel,tg_channel');
         $pay       = array(
             'pay_id'      => $pay_id,
             'user_id'     => $request['user_id'],
@@ -188,7 +188,7 @@ class SdkapiController extends Yaf_Controller_Abstract
             'add_time'    => time(),
             'cp_order'    => $request['order_number'],
             'cp_return'    => 'android',
-            'tg_channel'  => $request['q_id'],
+            'tg_channel'  => $user_info['tg_channel'],
             'extra'       => $request['goods_id'],
             'player_channel'=>$user_info['player_channel']
         );
