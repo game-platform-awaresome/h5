@@ -91,6 +91,7 @@ class AdminController extends F_Controller_Backend
      */
     public function apkAction(){
         $admin_id=$_SESSION['admin_id'];
+        $admin_id='996'.$admin_id;
         //1.修改文件
         $file_dir="/www2/wwwroot/tool/1/assets/apps/default/www/manifest.json";
         $json_string = file_get_contents($file_dir);
