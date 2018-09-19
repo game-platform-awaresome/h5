@@ -19,8 +19,13 @@ class GiftbagController extends F_Controller_Backend
         $m_tggiftbag=new TggiftbagModel();
         $m_giftbag=new GiftbagModel();
         $gift_info=$m_giftbag->fetch(['gift_id'=>$gift_id]);
+        if(($gift_info['nums']-$gift_info['used'])<50 && $gift_info['type']=='limited'){
+            $this->redirect('/admin/giftbag/list.html');
+            return false;
+        }
         if($m_tggiftbag->fetch(['tg_channel'=>$tg_id,'giftbag_id'=>$gift_id]) && !$gift_info){
             $this->redirect('/admin/giftbag/list.html');
+            return false;
         }else{
             $m_gift_keys=new GiftbagcdkeyModel();
             //取20个礼包

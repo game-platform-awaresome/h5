@@ -47,7 +47,8 @@ class GiftbagModel extends F_Model_Pdo
 			   $tggifbag=$m_tggifbag->fetch(['tg_channel'=>$_SESSION['admin_id'],'giftbag_id'=>$row['gift_id']],'id');
 			    if($tggifbag['id']){
                         return '已领取';
-                }elseif(($row['nums']-$row['used'])<20 && $row['type']=='limited'){
+                }elseif(($row['nums']-$row['used'])<50 && $row['type']=='limited'){
+//			            return $row['nums']-$row['used'];
 			            return '礼包码不足';
                 }else{
 			            return '未领取';
@@ -69,6 +70,8 @@ class GiftbagModel extends F_Model_Pdo
                 $tggifbag=$m_tggifbag->fetch(['tg_channel'=>$_SESSION['admin_id'],'giftbag_id'=>$row['gift_id']],'id');
                 if($tggifbag['id']){
                     return '';
+                }elseif(($row['nums']-$row['used'])<50 && $row['type']=='limited'){
+                    return '';
                 }else{
                     return "<a href=\"/admin/giftbag/get?gift_id={$row['gift_id']}\">领取</a>";
                 }
@@ -79,6 +82,7 @@ class GiftbagModel extends F_Model_Pdo
 	public function getFieldsSearch()
 	{
 	    return array(
+	        'gift_id' => array('礼包ID', 'input', null, ''),
 	        'game_id' => array('游戏ID', 'input', null, ''),
 	        'game_name' => array('游戏名字', 'input', null, ''),
 	    );
