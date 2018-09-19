@@ -132,7 +132,6 @@ class GameController extends Yaf_Controller_Abstract
             '满V游戏' => '满V版',
             'GM游戏' => 'GM版',
         );
-        
         $selects = 'game_id,name,logo,corner,label,giftbag,support,grade,in_short,play_times,game_type';
         $m_game = new GameModel();
         $games = array();

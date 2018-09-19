@@ -135,7 +135,6 @@ class ApiController extends Yaf_Controller_Abstract
 
 //          $this->redirect("/pay/numstype.html?server_id={$arr['server_id']}&game_id={$arr['game_id']}&money={$arr['money']}&cp_order={$arr['cp_order']}&cp_return={$arr['cp_return']}");
     }
-
     /**
      * 通过平台币充值
      */
@@ -237,6 +236,18 @@ class ApiController extends Yaf_Controller_Abstract
         
         $this->getView()->assign($arr);
     }
+    /**
+     * 获取游戏列表
+     * game_type 游戏类型 h5\手游
+     */
+    public function gameListAction(){
+        $request = $_POST;
+        $this->checkParams($request,['game_type']);
+        $game_type=$request['game_type'];
+        $m_game=new GameModel();
+        $game_list=$m_game->getTopByType($pn = 1, $limit = 5, $type = '',$game_type);//分类
+        echo json_encode($game_list,true);die;
+    }
     //不同环境下获取真实的IP
     function getIp(){
         global $ip;
@@ -248,5 +259,30 @@ class ApiController extends Yaf_Controller_Abstract
             $ip = getenv("REMOTE_ADDR");
         else $ip = "Unknow";
         return $ip;
+    }
+    /**
+     * 检查参数
+     * @Author   liuqi
+     * @DateTime 2018-08-22T11:01:38+0800
+     * @param    [type]
+     * @param    array
+     * @return   [type]
+     */
+    private function checkParams(array $request, array $check)
+    {
+        foreach ($check as $key => $value) {
+            if (!array_key_exists($value, $request)) {
+                $rs['status'] = 1001;
+                $rs['msg']  = $value . "参数必须!";
+                echo json_encode($rs);
+                die;
+            }
+            if (!$request[$value]) {
+                $rs['status'] = 1002;
+                $rs['msg']  = $value . "参数值必须!";
+                echo json_encode($rs);
+                die;
+            }
+        }
     }
 }

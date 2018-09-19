@@ -188,10 +188,14 @@ class GameModel extends F_Model_Pdo
 	 * @param string $type
 	 * @return array
 	 */
-	public function getTopByType($pn = 1, $limit = 3, $type = '')
+	public function getTopByType($pn = 1, $limit = 3, $type = '',$game_type='')
 	{
 	    if( in_array($type, $this->_types) ) {
-	        $data = $this->fetchAll("visible=1 AND type='{$type}'", $pn, $limit, 'game_id,name,logo,corner,label,giftbag,support,grade,in_short,play_times,game_type', 'weight ASC');
+	        if($game_type){
+                $data = $this->fetchAll("visible=1 AND type='{$type}' AND game_type='{$game_type}'", $pn, $limit, 'game_id,name,logo,corner,label,giftbag,support,grade,in_short,play_times,game_type,package_name', 'weight ASC');
+            }else{
+                $data = $this->fetchAll("visible=1 AND type='{$type}'", $pn, $limit, 'game_id,name,logo,corner,label,giftbag,support,grade,in_short,play_times,game_type,package_name', 'weight ASC');
+            }
 	        foreach ($data as &$row)
 	        {
 	            $row['grade'] = $this->gradeHtml($row['grade']);
@@ -203,7 +207,7 @@ class GameModel extends F_Model_Pdo
 	    $data = array();
 	    foreach ($this->_types as $type)
 	    {
-	        $data[$type] = $this->fetchAll("visible=1 AND type='{$type}'", $pn, $limit, 'game_id,name,logo,corner,label,giftbag,support,grade,in_short,play_times,game_type', 'weight ASC');
+	        $data[$type] = $this->fetchAll("visible=1 AND type='{$type}'", $pn, $limit, 'game_id,name,logo,corner,label,giftbag,support,grade,in_short,play_times,game_type,package_name', 'weight ASC');
 	        foreach ($data[$type] as &$row)
 	        {
 	            $row['grade'] = $this->gradeHtml($row['grade']);
