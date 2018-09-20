@@ -207,7 +207,11 @@ class GameModel extends F_Model_Pdo
 	    $data = array();
 	    foreach ($this->_types as $type)
 	    {
-	        $data[$type] = $this->fetchAll("visible=1 AND type='{$type}'", $pn, $limit, 'game_id,name,logo,corner,label,giftbag,support,grade,in_short,play_times,game_type,package_name,package_size', 'weight ASC');
+            if($game_type) {
+                $data[$type] = $this->fetchAll("visible=1 AND type='{$type}' AND game_type='{$game_type}'", $pn, $limit, 'game_id,name,logo,corner,label,giftbag,support,grade,in_short,play_times,game_type,package_name,package_size', 'weight ASC');
+            }else{
+                $data[$type] = $this->fetchAll("visible=1 AND type='{$type}'", $pn, $limit, 'game_id,name,logo,corner,label,giftbag,support,grade,in_short,play_times,game_type,package_name,package_size', 'weight ASC');
+            }
 	        foreach ($data[$type] as &$row)
 	        {
 	            $row['grade'] = $this->gradeHtml($row['grade']);
