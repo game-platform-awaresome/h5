@@ -88,7 +88,7 @@ class GameController extends Yaf_Controller_Abstract
         */
         
         $m_article = new ArticleModel();
-        $list=$m_article->fetchAll("visible=1", 1, 4, 'article_id,cover,title,up_time', 'weight ASC,article_id DESC');
+        $list=$m_article->fetchAll("visible=1 and type!='代理公告'", 1, 4, 'article_id,cover,title,up_time', 'weight ASC,article_id DESC');
         foreach ($list as &$row)
         {
             $row['up_time'] = $m_article->formatTime($row['up_time']);
