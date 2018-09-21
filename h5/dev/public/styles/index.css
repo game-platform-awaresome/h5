@@ -502,7 +502,7 @@ img.grade-star {
   -ms-box-sizing: border-box;
   box-sizing: border-box;
 }
-.game_news li {
+.game_news2 li {
   display: -webkit-box;
   display: -moz-box;
   display: box;
@@ -519,7 +519,7 @@ img.grade-star {
   -ms-box-sizing: border-box;
   box-sizing: border-box;
 }
-.game_news li > a {
+.game_news2 li > a {
   display: block;
   width: 90px;
   margin-right: 10px;
@@ -527,25 +527,25 @@ img.grade-star {
   max-height: 60px;
   overflow: hidden;
 }
-.game_news li > a img {
+.game_news2 li > a img {
   width: 100%;
   height: auto;
   display: block;
 }
-.game_news li article {
+.game_news2 li article {
   -moz-box-flex: 3;
   -webkit-box-flex: 3;
   box-flex: 3;
   line-height: 20px;
 }
-.game_news li article p {
+.game_news2 li article p {
   height: 40px;
   overflow: hidden;
 }
-.game_news li article div {
+.game_news2 li article div {
   color: #a1a4a6;
 }
-.game_news li article div span {
+.game_news2 li article div span {
   float: right;
   margin-right: 12px;
 }
