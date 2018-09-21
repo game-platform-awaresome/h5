@@ -269,7 +269,7 @@ class ApiController extends Yaf_Controller_Abstract
             $json['msg'] = '请输入用户名及密码！';
             exit(json_encode($json));
         }
-        $remember = 1;
+        $remember = 0;
         $error = $this->m_user->login($username, $password, $remember);
         if( $error ) {
             $json['msg'] = $error;
