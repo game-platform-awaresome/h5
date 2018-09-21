@@ -496,7 +496,7 @@ img.grade-star {
   border-top-width: 1px;
 }
 .game_news {
-  padding: 5px;
+  /*padding: 5px;*/
   -webkit-box-sizing: border-box;
   -o-box-sizing: border-box;
   -ms-box-sizing: border-box;
