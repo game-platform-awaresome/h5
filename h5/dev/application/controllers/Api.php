@@ -248,6 +248,20 @@ class ApiController extends Yaf_Controller_Abstract
         $game_list=$m_game->getTopByType($pn = 1, $limit = 5, $type = '',$game_type);//分类
         echo json_encode($game_list,true);die;
     }
+    /**
+     * 获取广告位列表
+     * game_type
+     */
+    public function gameAdposAction(){
+        $m_adpos = new AdposModel();
+        $banner = $m_adpos->getByCode('game_index_banner', 3);
+        echo json_encode($banner['ads'],true);die;
+    }
+    public function loginAction(){
+        $request = $_POST;
+        $this->checkParams($request,['username','password']);
+
+    }
     //不同环境下获取真实的IP
     function getIp(){
         global $ip;
