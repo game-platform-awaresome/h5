@@ -274,6 +274,8 @@ class ApiController extends Yaf_Controller_Abstract
         if( $error ) {
             $json['msg'] = $error;
             exit(json_encode($json));
+        }else{
+            $json['info']=$this->m_user->fetch(['username'=>$username]);
         }
         exit(json_encode($json));
     }
