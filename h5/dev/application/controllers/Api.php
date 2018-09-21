@@ -258,9 +258,24 @@ class ApiController extends Yaf_Controller_Abstract
         echo json_encode($banner['ads'],true);die;
     }
     public function loginAction(){
+        $json = array('msg'=>'success', 'xcode'=>'false', 'fwd'=>'');
         $request = $_POST;
         $this->checkParams($request,['username','password']);
-
+        $this->m_user = new UsersModel();
+        $username =$request['username'];
+        $password = $request['password'];
+        $username = preg_replace('#[\'\"\%\#\*\?\\\]+#', '', substr($username, 0, 32));
+        if( empty($username) || empty($password) ) {
+            $json['msg'] = '请输入用户名及密码！';
+            exit(json_encode($json));
+        }
+        $remember = 1;
+        $error = $this->m_user->login($username, $password, $remember);
+        if( $error ) {
+            $json['msg'] = $error;
+            exit(json_encode($json));
+        }
+        exit(json_encode($json));
     }
     //不同环境下获取真实的IP
     function getIp(){
