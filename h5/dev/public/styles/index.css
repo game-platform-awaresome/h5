@@ -495,3 +495,57 @@ img.grade-star {
 .game_list ul li:first-child {
   border-top-width: 1px;
 }
+.game_news {
+  padding: 5px;
+  -webkit-box-sizing: border-box;
+  -o-box-sizing: border-box;
+  -ms-box-sizing: border-box;
+  box-sizing: border-box;
+}
+.game_news li {
+  display: -webkit-box;
+  display: -moz-box;
+  display: box;
+  -moz-box-align: center;
+  -webkit-box-align: center;
+  box-align: center;
+  width: 100%;
+  background-color: rgba(0, 0, 0, 0.2);
+  margin-bottom: 5px;
+  padding: 10px;
+  border: 1px solid #2c2c2c;
+  -webkit-box-sizing: border-box;
+  -o-box-sizing: border-box;
+  -ms-box-sizing: border-box;
+  box-sizing: border-box;
+}
+.game_news li > a {
+  display: block;
+  width: 90px;
+  margin-right: 10px;
+  height: 60px;
+  max-height: 60px;
+  overflow: hidden;
+}
+.game_news li > a img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+.game_news li article {
+  -moz-box-flex: 3;
+  -webkit-box-flex: 3;
+  box-flex: 3;
+  line-height: 20px;
+}
+.game_news li article p {
+  height: 40px;
+  overflow: hidden;
+}
+.game_news li article div {
+  color: #a1a4a6;
+}
+.game_news li article div span {
+  float: right;
+  margin-right: 12px;
+}

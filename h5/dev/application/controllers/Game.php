@@ -87,9 +87,13 @@ class GameController extends Yaf_Controller_Abstract
         }
         */
         
-        //$m_article = new ArticleModel();
-        //$assign['info'] = $m_article->fetchAll("type='综合' AND visible=1", 1, 2, 'article_id,cover,title', 'weight ASC,article_id DESC');
-        
+        $m_article = new ArticleModel();
+        $list=$m_article->fetchAll("visible=1", 1, 4, 'article_id,cover,title,up_time', 'weight ASC,article_id DESC');
+        foreach ($list as &$row)
+        {
+            $row['up_time'] = $m_article->formatTime($row['up_time']);
+        }
+        $assign['info'] =$list;
         $this->getView()->assign($assign);
     }
     

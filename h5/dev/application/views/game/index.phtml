@@ -192,7 +192,6 @@
                                                     <a target="_top" href="/game/play.html?game_id=<?=$row['game_id']?>" class="btn_blue">开始玩</a>
                                                 <?php endif;?>
                                             </div>
-
                                         </section>
                                     </li>
                                 <?php } ?>
@@ -208,13 +207,28 @@
                     <span class="title_name"> <i class="icons i_action"></i>最新活动</span>
                     <a class="more" href="/info/index">更多 &gt;</a>
                 </h2>
-            <?php foreach ($activity['ads'] as $row) { ?>
-                <div class="actions">
-                    <a href="<?=$row['url']?>">
-                        <img src="<?=$row['image']?>"<?=$row['subject']?" alt=\"{$row['subject']}\"":''?> style="width:100%">
-                    </a>
-                </div>
-            <?php } ?>
+<!--            --><?php //foreach ($activity['ads'] as $row) { ?>
+<!--                <div class="actions">-->
+<!--                    <a href="--><?//=$row['url']?><!--">-->
+<!--                        <img src="--><?//=$row['image']?><!--"--><?//=$row['subject']?" alt=\"{$row['subject']}\"":''?><!-- style="width:100%">-->
+<!--                    </a>-->
+<!--                </div>-->
+<!--            --><?php //} ?>
+                <ul class="game_news">
+                    <?php foreach ($info as &$row) { ?>
+                        <li>
+                            <?php if( $row['cover'] ) { ?>
+                                <a href="/info/detail.html?type=<?=$type?>&article_id=<?=$row['article_id']?>"><img src="<?=$row['cover']?>" width="90" height="auto" alt="<?=$row['title']?>"/></a>
+                            <?php } ?>
+                            <article>
+                                <p><a href="/info/detail.html?type=<?=$type?>&article_id=<?=$row['article_id']?>"><?=$row['title']?></a></p>
+                                <div>
+                                    <span><?=$row['up_time']?></span>
+                                </div>
+                            </article>
+                        </li>
+                    <?php } ?>
+                </ul>
             </section>
             <!--section.game_news action 最新活动  end-->
 
