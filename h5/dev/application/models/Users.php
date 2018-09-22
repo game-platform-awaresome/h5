@@ -213,9 +213,8 @@ class UsersModel extends F_Model_Pdo
 //                    default: return $uid.' 用户数据同步失败，请重试！';
 //                }
 //            }
-            
-            $sess = Yaf_Session::getInstance();
-            $channel_id = $sess->get('user');
+            $url=new F_Helper_Url();
+            $channel_id = $url->getUrlSign();
             if( empty($channel_id) ) {
                 $channel_id = 1;
             }
