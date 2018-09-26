@@ -247,7 +247,7 @@ class GameModel extends F_Model_Pdo
                 break;
 	    }
         if($game_type){
-            $conds = "visible=1 AND game_type={$game_type}";
+            $conds = "visible=1 AND game_type='{$game_type}'";
         }else{
             $conds = 'visible=1';
         }
