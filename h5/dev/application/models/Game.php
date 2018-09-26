@@ -229,7 +229,7 @@ class GameModel extends F_Model_Pdo
 	 * @param int $limit
 	 * @return array
 	 */
-	public function getListByAttr($attr, $pn = 1, $limit = 10)
+	public function getListByAttr($attr, $pn = 1, $limit = 10,$game_type='')
 	{
 	    switch ($attr)
 	    {
@@ -242,8 +242,15 @@ class GameModel extends F_Model_Pdo
 	        case 'grade':
 	            $order = 'grade DESC';
 	            break;
+            case 'hot':
+                $order='play_times DESC';
+                break;
 	    }
-	    $conds = 'visible=1';
+        if($game_type){
+            $conds = "visible=1 AND game_type={$game_type}";
+        }else{
+            $conds = 'visible=1';
+        }
 	    $select = 'game_id,name,logo,corner,label,giftbag,support,grade,in_short,play_times,game_type';
 	    
 	    $games = $this->fetchAll($conds, $pn, $limit, $select, $order);

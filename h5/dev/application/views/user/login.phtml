@@ -44,18 +44,18 @@
 <!--            --><?php //endif;?>
         </section>
         
-        <section class="bottom_btns">
-            <div class="box1">
-                <i id="login_auto" class="i_check"></i>
-                <label for="login_auto">下次自动登录</label>
-            </div>
-    		<div class="box2">
-<!--            	<a target="_top" href="/user/register.html--><?//=$fwd ? '?fwd='.urlencode($fwd) : ''?><!--" class="btn_green2">注册账号</a>-->
-    		</div>
-<!--    		<div class="box3">-->
-<!--            	<a target="_top" href="/user/forget.html">找回密码</a>-->
+<!--        <section class="bottom_btns">-->
+<!--            <div class="box1">-->
+<!--                <i id="login_auto" class="i_check"></i>-->
+<!--                <label for="login_auto">下次自动登录</label>-->
+<!--            </div>-->
+<!--    		<div class="box2">-->
+<!--<!--            	<a target="_top" href="/user/register.html--><?////=$fwd ? '?fwd='.urlencode($fwd) : ''?><!--<!--" class="btn_green2">注册账号</a>-->
 <!--    		</div>-->
-        </section>
+<!--<!--    		<div class="box3">-->
+<!--<!--            	<a target="_top" href="/user/forget.html">找回密码</a>-->
+<!--<!--    		</div>-->
+<!--        </section>-->
         <div class="footer_padding"></div>
     </div>
     <!--div.z_min 内容区域 end-->
@@ -73,11 +73,11 @@ $(function(){
 		$('#footer').show();
 	});
 
-	var remember = 0;
-	$(".i_check").on("tap", function(){
-        $(this).toggleClass("selected");
-        remember = $(this).hasClass("selected") ? 1 : 0;
-    });
+	var remember = 1;
+	// $(".i_check").on("tap", function(){
+    //     $(this).toggleClass("selected");
+    //     remember = $(this).hasClass("selected") ? 1 : 0;
+    // });
     $('label[for]').on('tap', function(){
         $(this).prev().trigger('tap');
     });

@@ -2,6 +2,7 @@
 
 class ApiController extends Yaf_Controller_Abstract
 {
+    private $_ck_ui_name = 'u_auth';
     //游戏直充
     public function payAction()
     {
@@ -245,8 +246,10 @@ class ApiController extends Yaf_Controller_Abstract
         $this->checkParams($request,['game_type']);
         $game_type=$request['game_type'];
         $m_game=new GameModel();
-        $game_list=$m_game->getTopByType($pn = 1, $limit = 5, $type = '',$game_type);//分类
-        echo json_encode($game_list,true);die;
+        $assign['top_games']=$m_game->getTopByType($pn = 1, $limit = 5, $type = '',$game_type);//分类
+        $assign['new_games'] = $m_game->getListByAttr('new',1,5,$game_type);
+        $assign['hot'] = $m_game->getListByAttr('hot',1,5,$game_type);
+        echo json_encode($assign,true);die;
     }
     /**
      * 获取广告位列表
@@ -279,6 +282,19 @@ class ApiController extends Yaf_Controller_Abstract
         }
         exit(json_encode($json));
     }
+//    //注销
+//    public function logoutAction()
+//    {
+//        $s = Yaf_Session::getInstance();
+//        $s->del('user_id');
+//        $s->del('username');
+//        $s->del('nickname');
+//        $s->del('email');
+//        if( isset($_COOKIE[$this->_ck_ui_name]) ) {
+//            $domain = Yaf_Registry::get('config')->cookie->domain;
+//            setcookie($this->_ck_ui_name, '', 1, '/', $domain);
+//        }
+//    }
     //不同环境下获取真实的IP
     function getIp(){
         global $ip;

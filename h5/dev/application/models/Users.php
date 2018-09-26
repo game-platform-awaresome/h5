@@ -157,7 +157,7 @@ class UsersModel extends F_Model_Pdo
 
 		if( $remember ) {
             //始终使用自动登录功能
-            $time = $time + 86400 * 7;
+            $time = $time + 86400 * 30;//缓存一个月
             $info = "{$u_id}\t{$username}\t{$nickname}\t{$password}\t{$has['email']}\t{$channel_id}\t{$player_channel}";
             $info = F_Helper_Mcrypt::authcode($info, 'ENCODE');
             $domain = Yaf_Registry::get('config')->cookie->domain;
@@ -342,7 +342,7 @@ class UsersModel extends F_Model_Pdo
 		}
 		$info = F_Helper_Mcrypt::authcode($_COOKIE[$this->_ck_ui_name],'DECODE');
 		$info = explode("\t", $info);
-		if( count($info) != 6 ) {
+		if( count($info) != 7 ) {
 		    $domain = Yaf_Registry::get('config')->cookie->domain;
 			setcookie($this->_ck_ui_name, '', 1, '/', $domain);
 			return null;
