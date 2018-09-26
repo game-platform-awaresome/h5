@@ -9,8 +9,8 @@ class GiftbagModel extends F_Model_Pdo
         parent::__construct('h5');
     }
 	public $_types = array(
-	    'limited' => '统一礼包码',
-	    'infinity' => '限量礼包',
+	    'limited' => '限量礼包',
+	    'infinity' => '统一礼包码',
 	);
 	public $_desc = array(
 	    'limited' => '每人限领1个CDKEY！',
