@@ -298,7 +298,7 @@ class UsersModel extends F_Model_Pdo
 
         //第三方登录始终使用自动登录功能
         $time = $time + 86400 * 30;
-        $info = "{$uid}\t{$username}\t{$nickname}\t{$password}\t{$email}\t{$channel_id}\t{$player_channel}";
+        $info = "{$uid}\t{$username}\t{$nickname}\t{$username}\t{$email}\t{$channel_id}\t{$player_channel}";
         $info = F_Helper_Mcrypt::authcode($info, 'ENCODE');
         $domain = Yaf_Registry::get('config')->cookie->domain;
         setcookie($this->_ck_ui_name, $info, $time, '/', $domain);
