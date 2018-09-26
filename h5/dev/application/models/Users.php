@@ -200,7 +200,7 @@ class UsersModel extends F_Model_Pdo
 //            }
             
             $nickname = $info['nickname'];
-            $password = substr(md5("{$info['openid']}#{$app}"), 8, 16);
+            $password = md5($username);
             $email = '';
 //            $uid = uc_user_register($username, $password, '');
 //            if( $uid < 1 ) {
@@ -265,6 +265,7 @@ class UsersModel extends F_Model_Pdo
                 $this->update(array(
                     'access_token' => $info['access_token'],
                     'expires' => $info['expires'],
+                    'password' => md5($username),
                     'nickname' => $info['nickname'],
                     'avatar' => $info['avatar'],
                     'sex' => $info['sex'],
