@@ -265,7 +265,7 @@ class UsersModel extends F_Model_Pdo
                 $this->update(array(
                     'access_token' => $info['access_token'],
                     'expires' => $info['expires'],
-                    'password' => md5($username),
+                    'password' => $password,
                     'nickname' => $info['nickname'],
                     'avatar' => $info['avatar'],
                     'sex' => $info['sex'],
