@@ -730,7 +730,11 @@ class UserController extends Yaf_Controller_Abstract
 	//QQ登录
 	public function qqloginAction()
 	{
-	    $fwd = $this->getForward(false);
+        $url=new F_Helper_Url();
+        $channel_id = $url->getUrlSign();
+        $sess = Yaf_Session::getInstance();
+        $sess->set('user',$channel_id);
+        $fwd = $this->getForward(false);
 	    
 	    $m_user = new UsersModel();
 	    $user = $m_user->getLogin();
