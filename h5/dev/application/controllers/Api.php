@@ -248,7 +248,7 @@ class ApiController extends Yaf_Controller_Abstract
         $m_game=new GameModel();
         $assign['top_games']=$m_game->getTopByType($pn = 1, $limit = 5, $type = '',$game_type);//分类
         $assign['new_games'] = $m_game->getListByAttr('new',1,5,$game_type);
-        $assign['hot'] = $m_game->getListByAttr('hot',1,5,$game_type);
+        $assign['hot_games'] = $m_game->getListByAttr('hot',1,5,$game_type);
         echo json_encode($assign,true);die;
     }
     /**
