@@ -293,7 +293,7 @@ class ApiController extends Yaf_Controller_Abstract
     /**
      * 获取查询列表
      */
-    public function gameSearchList(){
+    public function gameSearchListAction(){
         $request = $_POST;
         $this->checkParams($request, ['game_type','name','pn']);
         $game_type = $request['game_type'];
