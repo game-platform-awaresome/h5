@@ -139,7 +139,8 @@ function statistics()
         foreach ($devs as $row)
         {
             //只统计正式上线的游戏
-            $stmt = $pdo_open->query("SELECT GROUP_CONCAT(game_id) AS gids FROM dev_games WHERE dev_id='{$row['dev_id']}' AND status=9");
+//            $stmt = $pdo_open->query("SELECT GROUP_CONCAT(game_id) AS gids FROM dev_games WHERE dev_id='{$row['dev_id']}' AND status=9");
+            $stmt = $pdo_open->query("SELECT GROUP_CONCAT(game_id) AS gids FROM dev_games WHERE dev_id='{$row['dev_id']}'");
             $tmp = $stmt->fetch(PDO::FETCH_ASSOC);
             if( empty($tmp) || empty($tmp['gids']) ) {
                 continue;
