@@ -251,7 +251,7 @@ class GameModel extends F_Model_Pdo
         }else{
             $conds = 'visible=1';
         }
-	    $select = 'game_id,name,logo,corner,label,giftbag,support,grade,in_short,play_times,game_type';
+	    $select = 'game_id,name,logo,corner,label,giftbag,support,grade,in_short,play_times,game_type,package_name,package_size';
 	    
 	    $games = $this->fetchAll($conds, $pn, $limit, $select, $order);
 	    foreach ($games as &$row)
