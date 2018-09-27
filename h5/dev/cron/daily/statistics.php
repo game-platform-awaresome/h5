@@ -51,7 +51,7 @@ function statistics()
     
     //检查记录是否存在
     $m_bygame = new StatbygameModel();
-    $tmp = $m_bygame->fetchAll($conds, 1, 2000, 'game_id,dev_id');
+    $tmp = $m_bygame->fetchAll($conds, 1, 200000, 'game_id,dev_id');
     $arr_bygame = array();
     foreach ($tmp as $row){
         $arr_bygame[$row['game_id']] = $row['dev_id'];
@@ -59,7 +59,7 @@ function statistics()
     
     //统计用户登录次数与人数
     $m_sign = new SignonlogModel();
-    $stat = $m_sign->fetchAll("time BETWEEN {$begin} AND {$end} GROUP BY game_id", 1, 2000, 'game_id, COUNT(*) AS signon_times, COUNT(DISTINCT user_id) AS signon_people');
+    $stat = $m_sign->fetchAll("time BETWEEN {$begin} AND {$end} GROUP BY game_id", 1, 200000, 'game_id, COUNT(*) AS signon_times, COUNT(DISTINCT user_id) AS signon_people');
     if( $stat ) {
         foreach ($stat as $row)
         {
@@ -84,7 +84,7 @@ function statistics()
     $m_stat->update($stat, $conds);
     
     //统计充值数据 - 游戏
-    $stat = $m_pay->fetchAll("finish_time BETWEEN {$begin} AND {$end} AND game_id<>0 GROUP BY game_id", 1, 2000, 'game_id, COUNT(pay_id) AS recharge_times, COUNT(DISTINCT user_id) AS recharge_people, SUM(money) AS recharge_money');
+    $stat = $m_pay->fetchAll("finish_time BETWEEN {$begin} AND {$end} AND game_id<>0 GROUP BY game_id", 1, 200000, 'game_id, COUNT(pay_id) AS recharge_times, COUNT(DISTINCT user_id) AS recharge_people, SUM(money) AS recharge_money');
     if( $stat ) {
         foreach ($stat as $row)
         {
