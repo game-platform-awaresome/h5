@@ -298,14 +298,16 @@ class ApiController extends Yaf_Controller_Abstract
         $this->checkParams($request, ['game_type','name','pn']);
         $game_type = $request['game_type'];
         $pn =$request['pn']??1;
-        $limit =8;
+        $limit =20;
         $order = 'game_id DESC';
         $selects = 'game_id,name,logo,corner,label,giftbag,support,grade,in_short,play_times,game_type,package_name,package_size';
         $m_game = new GameModel();
+        $m_gift = new GiftbagModel();
         $games = array();
         $games = $m_game->fetchAll("visible=1 and game_type='{$game_type}' and name like '%{$request['name']}%'", $pn, $limit, $selects, $order);
+        $gifts = $m_gift->fetchAll("game_name like '%{$request['name']}%'",1,200,'*','begin_time desc');
         $assign['game']=$games;
-        $assign['gift']=$games;
+        $assign['gift']=$gifts;
         echo json_encode($assign, true);
         die;
     }
