@@ -291,6 +291,26 @@ class ApiController extends Yaf_Controller_Abstract
     }
 
     /**
+     * 获取查询列表
+     */
+    public function gameSearchList(){
+        $request = $_POST;
+        $this->checkParams($request, ['game_type','name','pn']);
+        $game_type = $request['game_type'];
+        $pn =$request['pn']??1;
+        $limit =8;
+        $order = 'game_id DESC';
+        $selects = 'game_id,name,logo,corner,label,giftbag,support,grade,in_short,play_times,game_type,package_name,package_size';
+        $m_game = new GameModel();
+        $games = array();
+        $games = $m_game->fetchAll("visible=1 and game_type='{$game_type}' and name like '%{$request['name']}%'", $pn, $limit, $selects, $order);
+        $assign['game']=$games;
+        $assign['gift']=$games;
+        echo json_encode($assign, true);
+        die;
+    }
+
+    /**
      * 获取广告位列表
      * game_type
      */
