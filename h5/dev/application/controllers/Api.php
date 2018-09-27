@@ -274,7 +274,7 @@ class ApiController extends Yaf_Controller_Abstract
         $pn =$request['pn']??1;
         $limit =8;
         $order = 'game_id DESC';
-        $selects = 'game_id,name,logo,corner,label,giftbag,support,grade,in_short,play_times,game_type';
+        $selects = 'game_id,name,logo,corner,label,giftbag,support,grade,in_short,play_times,game_type,package_name,package_size';
         $m_game = new GameModel();
         $games = array();
         if ($tc == '全部') {
