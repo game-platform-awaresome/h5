@@ -303,8 +303,8 @@ class ApiController extends Yaf_Controller_Abstract
         foreach ($gifts as &$value){
             $value['content']=unserialize($value['content']);
             if($request['user_id']) {
-                $m_giftcdkey->fetch(['user_id' => $request['user_id'], 'gift_id' => $value['gift_id']], 'cdkey');
-                $value['cdkey'] = $m_giftcdkey['cdkey'];
+                $rs=$m_giftcdkey->fetch(['user_id' => $request['user_id'], 'gift_id' => $value['gift_id']], 'cdkey');
+                $value['cdkey'] = $rs['cdkey'];
             }
         }
         $assign['game']=$games;
