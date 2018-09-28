@@ -311,8 +311,8 @@ img.grade-star {
   -webkit-box-sizing: border-box;
           box-sizing: border-box;
 }
-.recommend a {
-  width: 50%;
+.recommend div {
+  width: 20%;
   height: auto;
   padding: 2px;
   float: left;
@@ -320,11 +320,13 @@ img.grade-star {
   -o-box-sizing: border-box;
   -ms-box-sizing: border-box;
   box-sizing: border-box;
+  text-align: center;
 }
+
 .recommend a img {
-  width: 100%;
+  width: 50%;
   height: auto;
-  display: block;
+  /*display: block;*/
 }
 #slider {
   width: 100%;

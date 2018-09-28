@@ -95,45 +95,75 @@
                     <span class="title_name"> <i class="icons i_hand"></i>快速通道</span>
                 </h2>
                 <div class="block_bg recommend">
-<!--                    <a href="/activity/index.html">-->
-<!--                        <img src="/images/index/fast01.png" width="100%" height="auto" alt="活动中心" />-->
-<!--                    </a>-->
-<!--                    <a href="/activity/giftbag.html">-->
-<!--                        <img src="/images/index/fast02.png" width="100%" height="auto" alt="礼包中心" />-->
-<!--                    </a>-->
-<!--                    <a href="--><?//=empty($user)?'/user/login.html?fwd=':''?><!--/pay/index.html">-->
-<!--                        <img src="/images/index/fast03.png" width="100%" height="auto" alt="支付中心" />-->
-<!--                    </a>-->
                     <a href="/game/center.html">
-                        <img src="/images/index/fast05.png" width="100%" height="auto" alt="游戏大厅" />
+                    <div style="text-align: center">
+                        <img src="/images/index/游戏分类.png" align="center" height="auto" alt="游戏分类" />
+                        <br/>
+                        <span>游戏分类</span>
+                    </div>
+                    </a>
+                    <a href="<?=empty($user)?'/user/login.html?fwd=':''?>/user/playerchannel.html">
+                    <div>
+                        <img src="/images/index/领取福利.png" height="auto" alt="领取福利" />
+                        <br/>
+                        <span>领取福利</span>
+                    </div>
                     </a>
                     <a href="/game/server?tc=0">
-                        <img src="/images/index/fast04.png" width="100%" height="auto" alt="开服列表" />
+                    <div>
+                        <img src="/images/index/开服详情.png"  height="auto" alt="开服详情" />
+                        <br/>
+                        <span>开服详情</span>
+                    </div>
                     </a>
+                    <a href="/info/index.html">
+                    <div>
+                        <img src="/images/index/活动资讯.png"  height="auto" alt="活动资讯" />
+                        <br/>
+                        <span>活动资讯</span>
+                    </div>
+                    </a>
+                    <?php
+                    //优先使用域名判断
+                    $url=new F_Helper_Url();
+                    $g=$url->getUrlSign();
+                    ?>
+                    <?php if(file_exists("/www2/wwwroot/xgame.zyttx.com/apk/{$g}.apk")):?>
+                        <a   href="<?="http://xgame.zyttx.com/apk/{$g}.apk"?>">
+                            <div>
+                            <img src="/images/index/盒子下载.png"  height="auto" alt="盒子下载" />
+                            <br/>
+                            <span>盒子下载</span>
+                            </div>
+                        </a>
+                    <?php else:?>
+                        <a   href="<?='http://yun.zyttx.com/index/akpgame2?&tg_channel='.$g?>">
+                            <div>
+                            <img src="/images/index/盒子下载.png"  height="auto" alt="盒子下载" />
+                            <br/>
+                            <span>盒子下载</span>
+                            </div>
+                        </a>
+                    <?php endif;?>
                 </div>
             </section>
             <!--div.game_news 快速通道  end-->
-            <?php
-                //优先使用域名判断
-                $url=new F_Helper_Url();
-                $g=$url->getUrlSign();
-            ?>
             <!--figure.game_figure vip俱乐部  statr-->
-            <figure class="game_figure">
-                <?php if(file_exists("/www2/wwwroot/xgame.zyttx.com/apk/{$g}.apk")):?>
-                    <a   href="<?="http://xgame.zyttx.com/apk/{$g}.apk"?>">
-                        <?php foreach ($shortcut['ads'] as &$row) :?>
-                        <img src="<?=$row['image']?>" width="100%" height="auto" alt="<?=$row['subject']?>"/>
-                        <?php endforeach;?>
-                    </a>
-                <?php else:?>
-                    <a   href="<?='http://yun.zyttx.com/index/akpgame2?&tg_channel='.$g?>">
-                        <?php foreach ($shortcut['ads'] as &$row) :?>
-                        <img src="<?=$row['image']?>" width="100%" height="auto" alt="<?=$row['subject']?>"/>
-                        <?php endforeach;?>
-                    </a>
-                <?php endif;?>
-            </figure>
+<!--            <figure class="game_figure">-->
+<!--                --><?php //if(file_exists("/www2/wwwroot/xgame.zyttx.com/apk/{$g}.apk")):?>
+<!--                    <a   href="--><?//="http://xgame.zyttx.com/apk/{$g}.apk"?><!--">-->
+<!--                        --><?php //foreach ($shortcut['ads'] as &$row) :?>
+<!--                        <img src="--><?//=$row['image']?><!--" width="100%" height="auto" alt="--><?//=$row['subject']?><!--"/>-->
+<!--                        --><?php //endforeach;?>
+<!--                    </a>-->
+<!--                --><?php //else:?>
+<!--                    <a   href="--><?//='http://yun.zyttx.com/index/akpgame2?&tg_channel='.$g?><!--">-->
+<!--                        --><?php //foreach ($shortcut['ads'] as &$row) :?>
+<!--                        <img src="--><?//=$row['image']?><!--" width="100%" height="auto" alt="--><?//=$row['subject']?><!--"/>-->
+<!--                        --><?php //endforeach;?>
+<!--                    </a>-->
+<!--                --><?php //endif;?>
+<!--            </figure>-->
             <!--figure.game_figure vip俱乐部  end-->
             <!--section.game_news hot 火爆新游  statr-->
             <section class="game_news">

@@ -69,7 +69,7 @@ class GameController extends Yaf_Controller_Abstract
         $assign['user'] = $user;
         
         $m_game = new GameModel();
-        $assign['games'] = $m_game->getTopByType();
+        $assign['games'] = $m_game->getTopByType(1,5);
         $assign['new_games'] = $m_game->getListByAttr('new',1,5);
         /*
         //今日推荐
