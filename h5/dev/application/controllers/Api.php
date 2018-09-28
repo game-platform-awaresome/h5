@@ -179,9 +179,6 @@ class ApiController extends Yaf_Controller_Abstract
 //            'pay_id' => $_REQUEST['jinzhue'],
 //            'trade_no' => $_REQUEST['OrderID'],
 //            'pay_type' => $_REQUEST['jinzhuc'],
-            //开启事务
-            $pdo = $m_user->getPdo();
-            $pdo->beginTransaction();
             //减扣平台币
             $m_user = new UsersModel();
             $now_money = (int)($user['money'] - $arr['money']);
@@ -193,14 +190,11 @@ class ApiController extends Yaf_Controller_Abstract
                 $curl = new F_Helper_Curl();
                 $rs = $curl->request($url);
                 if ($rs == 'success' || $rs == 'ok') {
-                    $pdo->commit();
                     echo json_encode(['code' => 0, 'message' => $return]);
                 } else {
-                    $pdo->rollBack();
                     echo json_encode(['code' => 1, 'message' => '游戏发货失败,请联系客服处理']);
                 }
             } else {
-                $pdo->rollBack();
                 echo json_encode(['code' => 1, 'message' => '发货失败']);
             }
             return false;
@@ -349,19 +343,13 @@ class ApiController extends Yaf_Controller_Abstract
         }
         exit(json_encode($json));
     }
-//    //注销
-//    public function logoutAction()
-//    {
-//        $s = Yaf_Session::getInstance();
-//        $s->del('user_id');
-//        $s->del('username');
-//        $s->del('nickname');
-//        $s->del('email');
-//        if( isset($_COOKIE[$this->_ck_ui_name]) ) {
-//            $domain = Yaf_Registry::get('config')->cookie->domain;
-//            setcookie($this->_ck_ui_name, '', 1, '/', $domain);
-//        }
-//    }
+    //领取礼包
+    function getGift(){
+        $request = $_POST;
+        $this->checkParams($request, ['user_id', 'gift_id']);
+        $m_gift=new GiftbagModel();
+        $m_gift->sendout($request['user_id'],$request['gift_id']);
+    }
     //不同环境下获取真实的IP
     function getIp()
     {
