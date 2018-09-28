@@ -401,6 +401,11 @@ class UsersModel extends F_Model_Pdo
 //	    if( $uid > 0 ) {
             $url=new F_Helper_Url();
 	        $channel_id = $url->getUrlSign();
+            $player_channel=$_SESSION['player_channel']??0;
+            if($player_channel){
+                $player_channel_info=$this->fetch(['user_id'=>$_SESSION['player_channel']],'tg_channel');
+                $channel_id=$player_channel_info['tg_channel'];
+            }
 	        try {
                 $rs = $this->insert(array(
 //	            'user_id' => $uid,
@@ -412,7 +417,7 @@ class UsersModel extends F_Model_Pdo
                     'reg_time' => time(),
                     'check_status' => $mobile ? 1 : 0,
                     'tg_channel' => $channel_id,
-                    'player_channel'=>$_SESSION['player_channel']??0
+                    'player_channel'=>$player_channel
                 ), false);
                 $uid = $rs;
                 return (int)$uid;
