@@ -305,7 +305,10 @@ class ApiController extends Yaf_Controller_Abstract
         $m_gift = new GiftbagModel();
         $games = array();
         $games = $m_game->fetchAll("visible=1 and game_type='{$game_type}' and name like '%{$request['name']}%'", $pn, $limit, $selects, $order);
-        $gifts = $m_gift->fetchAll("game_name like '%{$request['name']}%'",1,200,'*','begin_time desc');
+        $gifts = $m_gift->fetchAll("game_name like '%{$request['name']}%'",1,200,'name,game_name,nums,used,content,gift_id','begin_time desc');
+        foreach ($gifts as &$value){
+            $value['content']=unserialize($value['content']);
+        }
         $assign['game']=$games;
         $assign['gift']=$gifts;
         echo json_encode($assign, true);
