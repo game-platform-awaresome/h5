@@ -299,8 +299,12 @@ class ApiController extends Yaf_Controller_Abstract
         $m_gift = new GiftbagModel();
         $games = $m_game->fetchAll("visible=1 and game_type='{$game_type}' and name like '%{$request['name']}%'", $pn, $limit, $selects, $order);
         $gifts = $m_gift->fetchAllBySql("select h5.giftbag.name,game_name,nums,used,content,gift_id,h5.game.logo from h5.giftbag  inner join h5.`game`  on h5.giftbag.game_id = h5.`game`.game_id where h5.`game`.game_type =  '{$game_type}' and h5.giftbag.game_name like '%{$request['name']}%'");
+        $m_giftcdkey=new GiftbagcdkeyModel();
         foreach ($gifts as &$value){
             $value['content']=unserialize($value['content']);
+            if($request['user_id']) {
+                $value['cdkey'] = $m_giftcdkey->fetch(['user_id' => $request['user_id'], 'gift_id' => $value['gift_id']], 'cdkey');
+            }
         }
         $assign['game']=$games;
         $assign['gift']=$gifts;
