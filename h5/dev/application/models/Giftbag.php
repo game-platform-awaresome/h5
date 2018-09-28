@@ -138,13 +138,13 @@ class GiftbagModel extends F_Model_Pdo
 	    }
 	    
 	    $pdo = $this->getPdo();
-	    if( $gift['type'] != 'infinity' ) {
+//	    if( $gift['type'] != 'infinity' ) {
 	        $stm = $pdo->query("SELECT log_id FROM user_cdkey WHERE user_id='{$uid}' AND gift_id='{$gid}' LIMIT 1");
 	        $log = $stm->fetch(PDO::FETCH_ASSOC);
 	        if( $log ) {
 	            return '这个礼包你已经领取过了！';
 	        }
-	    }
+//	    }
 	    
 //	    if( $gift['type'] == 'limited' ) {
 	        $stm = $pdo->query("SELECT cdkey FROM giftbag_cdkey WHERE gift_id='{$gid}' AND user_id=0  AND get_time=0 LIMIT 1");
