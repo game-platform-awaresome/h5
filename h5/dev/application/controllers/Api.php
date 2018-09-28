@@ -344,11 +344,21 @@ class ApiController extends Yaf_Controller_Abstract
         exit(json_encode($json));
     }
     //领取礼包
-    function getGift(){
+    function getGiftAction(){
         $request = $_POST;
         $this->checkParams($request, ['user_id', 'gift_id']);
-        $m_gift=new GiftbagModel();
-        $m_gift->sendout($request['user_id'],$request['gift_id']);
+        $gift_id =$request['gift_id'];
+        if( $gift_id < 1 ) {
+            exit;
+        }
+        $cdkey = '';
+        $m_gift = new GiftbagModel();
+        $error = $m_gift->sendout($request['user_id'], $gift_id, $cdkey);
+        if( $error == '' ) {
+            exit(json_encode(array('msg'=>'领取成功!','cdkey'=>$cdkey)));
+        } else {
+            exit(json_encode(array('msg'=>$error,'cdkey'=>'')));
+        }
     }
     //不同环境下获取真实的IP
     function getIp()
