@@ -332,12 +332,12 @@ class ApiController extends Yaf_Controller_Abstract
         if( $servers['start'] == '' ) {
             $condition.=" and start_time< '{$now_time}'";//已开新服,时间大于当前,前三天
             $order = 'start_time desc';
-            $servers_list = $m_server->fetchAllBySql("select * from h5.server left join h5.game on h5.game.game_id=h5.server.game_id where {$condition} order {$order}");
+            $servers_list = $m_server->fetchAllBySql("select h5.game.*,h5.server.*,h5.server.name as server_name,h5.server.add_time as server_add_time from h5.server left join h5.game on h5.game.game_id=h5.server.game_id where {$condition} order {$order}");
             $servers['start']=$servers_list;
         }
         if($servers['will_start'] == '') {
             $condition.=" and start_time> '{$now_time}'";//新服预告
-            $servers_list = $m_server->fetchAllBySql("select * from h5.server left join h5.game on h5.game.game_id=h5.server.game_id where {$condition} order {$order}");
+            $servers_list = $m_server->fetchAllBySql("select h5.game.*,h5.server.*,h5.server.name as server_name,h5.server.add_time as server_add_time from h5.server left join h5.game on h5.game.game_id=h5.server.game_id where {$condition} order {$order}");
             $servers['will_start']=$servers_list;
         }
         echo json_encode($servers, true);
