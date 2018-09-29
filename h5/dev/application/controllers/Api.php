@@ -311,7 +311,55 @@ class ApiController extends Yaf_Controller_Abstract
         echo json_encode($assign, true);
         die;
     }
-
+    /**
+     * 获取区服列表
+     */
+    public function serverListAction(){
+        $request = $_POST;
+        $this->checkParams($request, ['game_type','pn']);
+        $pn =$request['pn'];
+        $limit = 8;
+        $order = 'start_time asc';
+        $selects = '*';
+        $m_server = new ServerModel();
+        $m_game=new GameModel();
+        $servers = array();
+        $now_time=(string)date('Y-m-d H:i:s');
+        $three_day_befor=(string)date("Y-m-d H:i:s",strtotime("-3 day"));
+        $three_day_after=(string)date("Y-m-d H:i:s",strtotime("+3 day"));
+        $condition="start_time between '{$three_day_befor}' and '{$three_day_after}'";
+        $servers['start']='';
+        $servers['will_start']='';
+        if( $servers['start'] == '' ) {
+            $condition.=" and start_time< '{$now_time}'";//已开新服,时间大于当前,前三天
+            $order = 'start_time desc';
+            $servers_list = $m_server->fetchAll($condition, $pn, $limit, $selects, $order);
+            $servers['start']=$servers_list;
+            if($servers_list) {
+                foreach ($servers['start'] as &$value) {
+                    $game_info = $m_game->fetch(['game_id' => $value['game_id']], 'game_type,giftbag,logo');
+                    $value['logo'] = $game_info['logo'];
+                    $value['game_type'] = $game_info['game_type'];
+                    $value['giftbag'] = $game_info['giftbag'];
+                }
+            }
+        }
+        if($servers['will_start'] == '') {
+            $condition.=" and start_time> '{$now_time}'";//新服预告
+            $servers_list = $m_server->fetchAll($condition, $pn, $limit, $selects, $order);
+            $servers['will_start']=$servers_list;
+            if($servers_list) {
+                foreach ($servers['will_start'] as &$value) {
+                    $game_info = $m_game->fetch(['game_id' => $value['game_id']], 'game_type,giftbag,logo');
+                    $value['logo'] = $game_info['logo'];
+                    $value['game_type'] = $game_info['game_type'];
+                    $value['giftbag'] = $game_info['giftbag'];
+                }
+            }
+        }
+        echo json_encode($servers, true);
+        die;
+    }
     /**
      * 获取广告位列表
      * game_type
