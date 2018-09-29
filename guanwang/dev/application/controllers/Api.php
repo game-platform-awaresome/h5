@@ -108,13 +108,13 @@ class ApiController extends Yaf_Controller_Abstract
      * 下载统计
      */
     public function countDownAction(){
+        Yaf_Dispatcher::getInstance()->disableView();
         $ip=$this->getIp();
         $time=date('Y-m-d H:i:s');
         $myfile = fopen("/www2/wwwroot/code/h5/guanwang/dev/public/count.txt", "a") or die("Unable to open file!");
         //w  重写  a追加
         $txt = 'IP:'.$ip.'点击时间:'.$time."\n";
         fwrite($myfile, $txt);
-        die;
     }
     function getIp(){
         global $ip;
