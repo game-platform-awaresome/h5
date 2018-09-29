@@ -103,4 +103,27 @@ class ApiController extends Yaf_Controller_Abstract
         }
         $this->getView()->assign('return', $return);
     }
+
+    /**
+     * 下载统计
+     */
+    public function countDownAction(){
+        $ip=$this->getIp();
+        $time=date('Y-m-d H:i:s');
+        $myfile = fopen("/www2/wwwroot/code/h5/guanwang/dev/public/count.txt", "a") or die("Unable to open file!");
+        //w  重写  a追加
+        $txt = 'IP:'.$ip.'点击时间:'.$time."\n";
+        fwrite($myfile, $txt);
+    }
+    function getIp(){
+        global $ip;
+        if (getenv("HTTP_CLIENT_IP"))
+            $ip = getenv("HTTP_CLIENT_IP");
+        else if(getenv("HTTP_X_FORWARDED_FOR"))
+            $ip = getenv("HTTP_X_FORWARDED_FOR");
+        else if( $_SERVER['REMOTE_ADDR'])
+            $ip = $_SERVER['REMOTE_ADDR'];
+        else $ip = "Unknow";
+        return $ip;
+    }
 }
