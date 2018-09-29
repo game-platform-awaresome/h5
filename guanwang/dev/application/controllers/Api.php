@@ -114,6 +114,7 @@ class ApiController extends Yaf_Controller_Abstract
         //w  重写  a追加
         $txt = 'IP:'.$ip.'点击时间:'.$time."\n";
         fwrite($myfile, $txt);
+        die;
     }
     function getIp(){
         global $ip;
