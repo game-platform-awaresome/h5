@@ -322,7 +322,6 @@ class ApiController extends Yaf_Controller_Abstract
         $order = 'start_time asc';
         $selects = '*';
         $m_server = new ServerModel();
-        $m_game=new GameModel();
         $servers = array();
         $now_time=(string)date('Y-m-d H:i:s');
         $three_day_befor=(string)date("Y-m-d H:i:s",strtotime("-3 day"));
@@ -333,29 +332,13 @@ class ApiController extends Yaf_Controller_Abstract
         if( $servers['start'] == '' ) {
             $condition.=" and start_time< '{$now_time}'";//已开新服,时间大于当前,前三天
             $order = 'start_time desc';
-            $servers_list = $m_server->fetchAll($condition, $pn, $limit, $selects, $order);
+            $servers_list = $m_server->fetchAllBySql("select * from h5.server left join h5.game on h5.game.game_id=h5.server.game_id where {$condition} order {$order}");
             $servers['start']=$servers_list;
-            if($servers_list) {
-                foreach ($servers['start'] as &$value) {
-                    $game_info = $m_game->fetch(['game_id' => $value['game_id']], 'game_type,giftbag,logo');
-                    $value['logo'] = $game_info['logo'];
-                    $value['game_type'] = $game_info['game_type'];
-                    $value['giftbag'] = $game_info['giftbag'];
-                }
-            }
         }
         if($servers['will_start'] == '') {
             $condition.=" and start_time> '{$now_time}'";//新服预告
-            $servers_list = $m_server->fetchAll($condition, $pn, $limit, $selects, $order);
+            $servers_list = $m_server->fetchAllBySql("select * from h5.server left join h5.game on h5.game.game_id=h5.server.game_id where {$condition} order {$order}");
             $servers['will_start']=$servers_list;
-            if($servers_list) {
-                foreach ($servers['will_start'] as &$value) {
-                    $game_info = $m_game->fetch(['game_id' => $value['game_id']], 'game_type,giftbag,logo');
-                    $value['logo'] = $game_info['logo'];
-                    $value['game_type'] = $game_info['game_type'];
-                    $value['giftbag'] = $game_info['giftbag'];
-                }
-            }
         }
         echo json_encode($servers, true);
         die;
