@@ -324,7 +324,7 @@ class ApiController extends Yaf_Controller_Abstract
         $order = 'h5.giftbag.game_id DESC';
         $m_gift = new GiftbagModel();
         $gifts = $m_gift->fetchAllBySql("select h5.giftbag.name,game_name,nums,used,content,gift_id,h5.game.logo from h5.giftbag  inner join h5.`game`  on h5.giftbag.game_id = h5.`game`.game_id where h5.`game`.game_type =  '{$game_type}' order by {$order}  LIMIT {$offset},{$limit} ");
-        $log="select h5.giftbag.name,game_name,nums,used,content,h5.giftbag.gift_id,h5.game.logo from h5.giftbag  inner join h5.`game`  on h5.giftbag.game_id = h5.`game`.game_id where h5.`game`.game_type =  '{$game_type}' order by {$order}  LIMIT {$offset},{$limit}";
+//        $log="select h5.giftbag.name,game_name,nums,used,content,h5.giftbag.gift_id,h5.game.logo from h5.giftbag  inner join h5.`game`  on h5.giftbag.game_id = h5.`game`.game_id where h5.`game`.game_type =  '{$game_type}' order by {$order}  LIMIT {$offset},{$limit}";
         foreach ($gifts as &$value){
             $value['content']=unserialize($value['content']);
             if($request['user_id']??0) {
