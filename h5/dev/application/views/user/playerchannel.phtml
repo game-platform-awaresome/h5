@@ -27,10 +27,10 @@
         }
         ui,li {
             list-style: none;
-            font-size: 15px;
+            font-size: 12px;
         }
         #news{
-            height: 24px;
+            height: 1rem;
             overflow: hidden;
             /*border: solid 1px #29ba67;*/
             text-align: center;
@@ -251,7 +251,7 @@ $player_channel_addr="http://".$_SERVER['HTTP_HOST'].'/user/register.html?fwd=us
         }, function() {
             scrollTimer = setInterval(function() {
                 scrollNews($this);
-            }, 2000);
+            }, 2500);
         }).trigger("mouseleave");
 
         function scrollNews(obj) {
