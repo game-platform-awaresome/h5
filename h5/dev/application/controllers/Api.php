@@ -301,12 +301,37 @@ class ApiController extends Yaf_Controller_Abstract
         $gifts = $m_gift->fetchAllBySql("select h5.giftbag.name,game_name,nums,used,content,gift_id,h5.game.logo from h5.giftbag  inner join h5.`game`  on h5.giftbag.game_id = h5.`game`.game_id where h5.`game`.game_type =  '{$game_type}' and h5.giftbag.game_name like '%{$request['name']}%'");
         foreach ($gifts as &$value){
             $value['content']=unserialize($value['content']);
-            if($request['user_id']) {
+            if($request['user_id']??0){
                 $rs=$m_gift->fetchBySql("select cdkey from h5.user_cdkey where user_id = {$request['user_id']} and gift_id = {$value['gift_id']}");
                 $value['cdkey'] = $rs['cdkey'];
             }
         }
         $assign['game']=$games;
+        $assign['gift']=$gifts;
+        echo json_encode($assign, true);
+        die;
+    }
+    /**
+     * 获取查询列表
+     */
+    public function giftListAction(){
+        $request = $_POST;
+        $this->checkParams($request, ['game_type','pn']);
+        $game_type = $request['game_type'];
+        $pn =$request['pn'];
+        $limit = 8;
+        $offset = ($pn - 1) * $limit;
+        $order = 'h5.giftbag.game_id DESC';
+        $m_gift = new GiftbagModel();
+        $gifts = $m_gift->fetchAllBySql("select h5.giftbag.name,game_name,nums,used,content,gift_id,h5.game.logo from h5.giftbag  inner join h5.`game`  on h5.giftbag.game_id = h5.`game`.game_id where h5.`game`.game_type =  '{$game_type}' order by {$order}  LIMIT {$offset},{$limit} ");
+        $log="select h5.giftbag.name,game_name,nums,used,content,h5.giftbag.gift_id,h5.game.logo from h5.giftbag  inner join h5.`game`  on h5.giftbag.game_id = h5.`game`.game_id where h5.`game`.game_type =  '{$game_type}' order by {$order}  LIMIT {$offset},{$limit}";
+        foreach ($gifts as &$value){
+            $value['content']=unserialize($value['content']);
+            if($request['user_id']??0) {
+                $rs=$m_gift->fetchBySql("select cdkey from h5.user_cdkey where user_id = {$request['user_id']} and gift_id = {$value['gift_id']}");
+                $value['cdkey'] = $rs['cdkey'];
+            }
+        }
         $assign['gift']=$gifts;
         echo json_encode($assign, true);
         die;
