@@ -316,7 +316,7 @@ class ApiController extends Yaf_Controller_Abstract
      */
     public function serverListAction(){
         $request = $_POST;
-        $this->checkParams($request, ['index,game_type','pn']);
+        $this->checkParams($request, ['index','game_type','pn']);
         $pn =$request['pn'];
         $limit = 8;
         $offset = ($pn - 1) * $limit;
