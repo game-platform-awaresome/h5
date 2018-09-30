@@ -319,7 +319,7 @@ class ApiController extends Yaf_Controller_Abstract
         $this->checkParams($request, ['game_type','pn']);
         $game_type = $request['game_type'];
         $pn =$request['pn'];
-        $limit = 8;
+        $limit = 9;
         $offset = ($pn - 1) * $limit;
         $order = 'h5.giftbag.game_id DESC';
         $m_gift = new GiftbagModel();
