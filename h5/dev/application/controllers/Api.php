@@ -424,7 +424,7 @@ class ApiController extends Yaf_Controller_Abstract
                 echo json_encode($rs);
                 die;
             }
-            if (!$request[$value]) {
+            if ($request[$value]==='') {
                 $rs['status'] = 1002;
                 $rs['msg'] = $value . "参数值必须!";
                 echo json_encode($rs);
