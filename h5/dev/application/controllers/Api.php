@@ -401,6 +401,11 @@ class ApiController extends Yaf_Controller_Abstract
         }
         exit(json_encode($json));
     }
+    public function loginoutAction(){
+        $m_user = new UsersModel();
+        $m_user->logout();
+        exit(json_encode(array('status'=>'success')));
+    }
     //领取礼包
     function getGiftAction(){
         $request = $_POST;
