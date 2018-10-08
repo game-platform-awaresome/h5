@@ -383,7 +383,7 @@ class ApiController extends Yaf_Controller_Abstract
         $json = array('msg' => 'success', 'xcode' => 'false', 'fwd' => '');
         $request = $_POST;
         $this->checkParams($request, ['username', 'password']);
-        $this->m_user = new UsersModel();
+        $m_user = new UsersModel();
         $username = $request['username'];
         $password = $request['password'];
         $username = preg_replace('#[\'\"\%\#\*\?\\\]+#', '', substr($username, 0, 32));
@@ -391,13 +391,13 @@ class ApiController extends Yaf_Controller_Abstract
             $json['msg'] = '请输入用户名及密码！';
             exit(json_encode($json));
         }
-        $remember = 0;
-        $error = $this->m_user->login($username, $password, $remember);
+        $remember = 1;
+        $error = $m_user->login($username, $password, $remember);
         if ($error) {
             $json['msg'] = $error;
             exit(json_encode($json));
         } else {
-            $json['info'] = $this->m_user->fetch(['username' => $username]);
+            $json['info'] = $m_user->fetch(['username' => $username]);
         }
         exit(json_encode($json));
     }
