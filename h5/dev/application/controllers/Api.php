@@ -440,8 +440,14 @@ class ApiController extends Yaf_Controller_Abstract
 //        } else {
 //            $assign['favorited'] = false;
 //        }
-
-
+    }
+    function isLogin(){
+        $m_user = new UsersModel();
+        if($m_user->getLogin()){
+            exit(json_encode('success'));
+        }else{
+            exit(json_encode('fail'));
+        }
     }
     //不同环境下获取真实的IP
     function getIp()
