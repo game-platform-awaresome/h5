@@ -441,7 +441,7 @@ class ApiController extends Yaf_Controller_Abstract
 //            $assign['favorited'] = false;
 //        }
     }
-    function isLogin(){
+    function isloginAction(){
         $m_user = new UsersModel();
         if($m_user->getLogin()){
             exit(json_encode('success'));
