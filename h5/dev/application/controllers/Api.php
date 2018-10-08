@@ -444,9 +444,9 @@ class ApiController extends Yaf_Controller_Abstract
     function isloginAction(){
         $m_user = new UsersModel();
         if($m_user->getLogin()){
-            exit(json_encode('success'));
+            exit(json_encode(array('status'=>'success')));
         }else{
-            exit(json_encode('fail'));
+            exit(json_encode(array('status'=>'fail')));
         }
     }
     //不同环境下获取真实的IP
