@@ -418,6 +418,31 @@ class ApiController extends Yaf_Controller_Abstract
             exit(json_encode(array('msg'=>$error,'cdkey'=>'')));
         }
     }
+    //游戏详情
+    function getGameDeatilAction(){
+        $request = $_POST;
+        $this->checkParams($request, ['game_id']);
+        $m_game=new GameModel();
+        $game = $m_game->fetch("game_id='{$request['game_id']}'");
+        if( empty($game) ) {
+            exit(json_encode(array('msg'=>'没有查到游戏详情!')));
+        }
+        $game['grade'] = $m_game->gradeHtml($game['grade']);
+        $game['support'] = $m_game->supportFormat($game['support'] + $game['play_times']);
+
+        $game['screenshots'] = empty($game['screenshots']) ? array() : unserialize($game['screenshots']);
+        $assign['game'] = $game;
+        exit(json_encode($game));
+//        $m_user = new UsersModel();
+//        $assign['user'] = $m_user->getLogin();
+//        if( $assign['user'] ) {
+//            $assign['favorited'] = $m_user->isFavorited($assign['user']['user_id'], $game_id);
+//        } else {
+//            $assign['favorited'] = false;
+//        }
+
+
+    }
     //不同环境下获取真实的IP
     function getIp()
     {
