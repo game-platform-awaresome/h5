@@ -483,6 +483,7 @@ class ApiController extends Yaf_Controller_Abstract
             $value['name']=$gift['name'];
             $value['nums']=$gift['nums'];
             $value['used']=$gift['used'];
+            $value['logo']=$gift['logo'];
         }
         exit(json_encode($logs));
     }
