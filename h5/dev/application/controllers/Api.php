@@ -479,6 +479,10 @@ class ApiController extends Yaf_Controller_Abstract
         foreach ($logs as &$value){
             $gift=$m_gift->fetch(['gift_id'=>$logs['gift_id']]);
             $value['content']=unserialize($gift['content']);
+            $value['game_name']=$gift['game_name'];
+            $value['name']=$gift['name'];
+            $value['nums']=$gift['nums'];
+            $value['used']=$gift['used'];
         }
         exit(json_encode($logs));
     }
