@@ -469,6 +469,7 @@ class ApiController extends Yaf_Controller_Abstract
         $this->checkParams($request, ['user_id','pn','limit']);
         //礼包详情
         $m_user = new UsersModel();
+        $m_game = new GameModel();
         $pn = $request['pn'];
         $limit = $request['limit'];
         if( $pn < 1 || $limit < 1 ) {
@@ -478,12 +479,13 @@ class ApiController extends Yaf_Controller_Abstract
         $logs = $m_user->giftLogs($request['user_id'], $pn, $limit);
         foreach ($logs as &$value){
             $gift=$m_gift->fetch(['gift_id'=>$value['gift_id']]);
+            $game=$m_game->fetch(['game_id'=>$gift['game_id']],'logo');
             $value['content']=unserialize($gift['content']);
             $value['game_name']=$gift['game_name'];
             $value['name']=$gift['name'];
             $value['nums']=$gift['nums'];
             $value['used']=$gift['used'];
-            $value['logo']=$gift['logo'];
+            $value['logo']=$game['logo'];
         }
         exit(json_encode($logs));
     }
