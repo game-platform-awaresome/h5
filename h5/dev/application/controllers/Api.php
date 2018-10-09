@@ -474,7 +474,12 @@ class ApiController extends Yaf_Controller_Abstract
         if( $pn < 1 || $limit < 1 ) {
             exit;
         }
+        $m_gift = new GiftbagModel();
         $logs = $m_user->giftLogs($request['user_id'], $pn, $limit);
+        foreach ($logs as &$value){
+            $gift=$m_gift->fetch(['gift_id'=>$logs['gift_id']]);
+            $value['content']=unserialize($gift['content']);
+        }
         exit(json_encode($logs));
     }
     function isloginAction(){
