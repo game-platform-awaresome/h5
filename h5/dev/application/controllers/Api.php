@@ -460,6 +460,23 @@ class ApiController extends Yaf_Controller_Abstract
 //            $assign['favorited'] = false;
 //        }
     }
+
+    /**
+     * 我的礼包
+     */
+    function myGiftBagAction(){
+        $request = $_GET;
+        $this->checkParams($request, ['user_id','pn','limit']);
+        //礼包详情
+        $m_user = new UsersModel();
+        $pn = $request->get('pn', 0);
+        $limit = $request->get('limit', 0);
+        if( $pn < 1 || $limit < 1 ) {
+            exit;
+        }
+        $logs = $m_user->giftLogs($request['user_id'], $pn, $limit);
+        exit(json_encode($logs));
+    }
     function isloginAction(){
         $m_user = new UsersModel();
         if($m_user->getLogin()){
