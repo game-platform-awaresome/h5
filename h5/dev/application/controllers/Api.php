@@ -477,7 +477,7 @@ class ApiController extends Yaf_Controller_Abstract
         $m_gift = new GiftbagModel();
         $logs = $m_user->giftLogs($request['user_id'], $pn, $limit);
         foreach ($logs as &$value){
-            $gift=$m_gift->fetch(['gift_id'=>$logs['gift_id']]);
+            $gift=$m_gift->fetch(['gift_id'=>$value['gift_id']]);
             $value['content']=unserialize($gift['content']);
             $value['game_name']=$gift['game_name'];
             $value['name']=$gift['name'];
