@@ -489,6 +489,23 @@ class ApiController extends Yaf_Controller_Abstract
         }
         exit(json_encode($logs));
     }
+
+    /**
+     * 充值记录
+     */
+    function mypaylogAction(){
+        $request = $_GET;
+        $this->checkParams($request, ['user_id','pn','limit']);
+        //礼包详情
+        $pn = $request['pn'];
+        $limit = $request['limit'];
+        if( $pn < 1 || $limit < 1 ) {
+            exit;
+        }
+        $m_pay = new PayModel();
+        $logs = $m_pay->fetchAll("user_id='{$request['user_id']}' and pay_time > 0", $pn, $limit, 'pay_id,to_user,game_id,game_name,money,add_time', 'add_time DESC');
+        exit(json_encode($logs));
+    }
     function isloginAction(){
         $m_user = new UsersModel();
         if($m_user->getLogin()){
