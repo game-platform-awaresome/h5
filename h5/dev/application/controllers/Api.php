@@ -469,8 +469,8 @@ class ApiController extends Yaf_Controller_Abstract
         $this->checkParams($request, ['user_id','pn','limit']);
         //礼包详情
         $m_user = new UsersModel();
-        $pn = $request->get('pn', 0);
-        $limit = $request->get('limit', 0);
+        $pn = $request['pn'];
+        $limit = $request['limit'];
         if( $pn < 1 || $limit < 1 ) {
             exit;
         }
