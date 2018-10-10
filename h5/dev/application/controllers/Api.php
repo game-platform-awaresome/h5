@@ -351,7 +351,7 @@ class ApiController extends Yaf_Controller_Abstract
         $now_time=(string)date('Y-m-d H:i:s');
         $three_day_befor=(string)date("Y-m-d H:i:s",strtotime("-3 day"));
         $three_day_after=(string)date("Y-m-d H:i:s",strtotime("+3 day"));
-        $condition="start_time between '{$three_day_befor}' and '{$three_day_after}'";
+        $condition="start_time between '{$three_day_befor}' and '{$three_day_after}' and game_type={$request['game_type']}";
         if( $request['index']==0 ) {
             $condition.=" and start_time< '{$now_time}'";//已开新服,时间大于当前,前三天
             $order = 'start_time desc';
@@ -509,7 +509,7 @@ class ApiController extends Yaf_Controller_Abstract
     /**
      * 最近在玩记录
      */
-    function gamesLogsAction(){
+    function gamesLogsgamesLogsAction(){
         $request = $_GET;
         $this->checkParams($request, ['user_id']);
         $m_user = new UsersModel();
