@@ -351,7 +351,7 @@ class ApiController extends Yaf_Controller_Abstract
         $now_time=(string)date('Y-m-d H:i:s');
         $three_day_befor=(string)date("Y-m-d H:i:s",strtotime("-3 day"));
         $three_day_after=(string)date("Y-m-d H:i:s",strtotime("+3 day"));
-        $condition="start_time between '{$three_day_befor}' and '{$three_day_after}' and game_type={$request['game_type']}";
+        $condition="start_time between '{$three_day_befor}' and '{$three_day_after}' and game_type='{$request['game_type']}'";
         if( $request['index']==0 ) {
             $condition.=" and start_time< '{$now_time}'";//已开新服,时间大于当前,前三天
             $order = 'start_time desc';
