@@ -491,8 +491,8 @@ class ApiController extends Yaf_Controller_Abstract
     }
 
     /**
-     * 充值记录
-     */
+ * 充值记录
+ */
     function mypaylogAction(){
         $request = $_GET;
         $this->checkParams($request, ['user_id','pn','limit']);
@@ -505,6 +505,26 @@ class ApiController extends Yaf_Controller_Abstract
         $m_pay = new PayModel();
         $logs = $m_pay->fetchAll("user_id='{$request['user_id']}' and pay_time > 0", $pn, $limit, 'pay_id,to_user,game_id,game_name,money,add_time', 'add_time DESC');
         exit(json_encode($logs));
+    }
+    /**
+     * 最近在玩记录
+     */
+    function gamesLogsAction(){
+        $request = $_GET;
+        $this->checkParams($request, ['user_id']);
+        $m_user = new UsersModel();
+        $games = $m_user->getPlayGames($request['user_id'], 1, 12);
+        exit(json_encode($games));
+    }
+    /**
+     * 收藏记录
+     */
+    function favoritesAction(){
+        $request = $_GET;
+        $this->checkParams($request, ['user_id']);
+        $m_user = new UsersModel();
+        $games = $m_user->getFavorites($request, 1, 12);
+        exit(json_encode($games));
     }
     function isloginAction(){
         $m_user = new UsersModel();
