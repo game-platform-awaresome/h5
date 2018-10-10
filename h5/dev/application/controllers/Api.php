@@ -509,7 +509,7 @@ class ApiController extends Yaf_Controller_Abstract
     /**
      * 最近在玩记录
      */
-    function gamesLogsgamesLogsAction(){
+    function gamesLogsAction(){
         $request = $_GET;
         $this->checkParams($request, ['user_id']);
         $m_user = new UsersModel();
