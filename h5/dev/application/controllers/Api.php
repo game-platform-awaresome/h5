@@ -523,7 +523,7 @@ class ApiController extends Yaf_Controller_Abstract
         $request = $_GET;
         $this->checkParams($request, ['user_id']);
         $m_user = new UsersModel();
-        $games = $m_user->getFavorites($request, 1, 12);
+        $games = $m_user->getFavorites($request['user_id'], 1, 12);
         exit(json_encode($games));
     }
     function isloginAction(){
