@@ -12,11 +12,12 @@
 <?php
 $show_type=$_GET['show_type']??1;
 ?>
-<div class="z_container <?php if($show_type!=2):?>bg01<?php endif?>">
+<div class="z_container <?php if($show_type!=2):?>bg01<?php endif;?>">
+    <?php if($show_type!=2):?>
     <header class="z_header">
         <a target="_top" href="/pay/index.html"></a>选择金额
     </header>
-
+    <?php endif;?>
     <!--div.z_min 内容区域 statr-->
     <form class="z_main" data-role="conent" action="http://api.357p.com" method="post">
         <h3 class="block_bg your_money" style="position:relative">
@@ -85,7 +86,7 @@ $show_type=$_GET['show_type']??1;
 <!--div.container 总外框  end-->
 <?php if($show_type!=2):?>
 <?php include $this->getScriptPath().'/footer.phtml'; ?>
-<?php endif?>">
+<?php endif;?>
 <script src="/public/scripts/jquery-1.11.1.min.js"></script>
 <script src="/public/scripts/jquery.mobile.min.js"></script>
 <script>
