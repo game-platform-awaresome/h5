@@ -103,7 +103,9 @@ class UserController extends Yaf_Controller_Abstract
 	    $this->m_user = new UsersModel();
 	    $this->user = $this->m_user->getLogin();
 	    if( $this->user ) {
-	        $json['msg'] = '你已登录，无需注册！';
+            $s = Yaf_Session::getInstance();
+            $json['info'] = $this->m_user->fetch(['username' => $s->get('username')]);
+            $json['msg'] = '你已登录，无需注册！';
 	        $json['fwd'] = '/user/index.html';
 	        exit(json_encode($json));
 	    }
@@ -165,7 +167,7 @@ class UserController extends Yaf_Controller_Abstract
 	        $json['fwd'] = '/user/login.html';
 	        exit(json_encode($json));
 	    }
-	    
+        $json['info'] = $this->m_user->fetch(['username' => $username]);
 	    $json['fwd'] = '/user/index.html';
 	    exit(json_encode($json));
 	}
