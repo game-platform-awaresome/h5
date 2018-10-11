@@ -259,7 +259,7 @@ class SdkapiController extends Yaf_Controller_Abstract
         $request = urldecode($_REQUEST['data']??'');
         $request = $this->convertUrlQuery($request);
         $this->checkParams($request, ['qu_id','game_id','role_id','role_name','username','server_id','user_id']);
-        $m_game_role=new GameRoleModel();
+        $m_game_role=new GameroleModel();
         $info['role_id']=$request['role_id'];
         $info['game_id']=$request['game_id'];
         $info['role_name']=$request['role_name'];
