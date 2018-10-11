@@ -9,7 +9,10 @@
 </head>
 <body class="bg00">
 <!--div.container 总外框  start-->
-<div class="z_container bg01">
+<?php
+$show_type=$_GET['show_type']??1;
+?>
+<div class="z_container <?php if($show_type!=2):?>bg01<?php endif?>">
     <header class="z_header">
         <a target="_top" href="/pay/index.html"></a>选择金额
     </header>
@@ -80,7 +83,9 @@
     <!--div.z_min 内容区域 end-->
 </div>
 <!--div.container 总外框  end-->
+<?php if($show_type!=2):?>
 <?php include $this->getScriptPath().'/footer.phtml'; ?>
+<?php endif?>">
 <script src="/public/scripts/jquery-1.11.1.min.js"></script>
 <script src="/public/scripts/jquery.mobile.min.js"></script>
 <script>
