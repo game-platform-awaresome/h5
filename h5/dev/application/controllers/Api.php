@@ -543,7 +543,7 @@ class ApiController extends Yaf_Controller_Abstract
         $this->checkParams($request, ['user_id']);
         $user_id=$request['user_id'];
         $m_user=new UsersModel();
-        $count=$m_user->fetchBySql("select COUNT(*) AS number SUM('player_channel_get') AS money  form h5.user where player_channel={$user_id}");
+        $count=$m_user->fetchBySql("select COUNT(*) AS number ,SUM(player_channel_get) as money  from h5.user where player_channel={$user_id}");
         $assign['money'] = $count['money'];
         $assign['number'] = $count['number'];
         exit(json_encode($assign));
