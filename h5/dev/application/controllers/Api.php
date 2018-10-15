@@ -534,6 +534,20 @@ class ApiController extends Yaf_Controller_Abstract
             exit(json_encode(array('status'=>'fail')));
         }
     }
+
+    /**
+     * 玩家推广统计
+     */
+    function playerChannelAction(){
+        $request = $_GET;
+        $this->checkParams($request, ['user_id']);
+        $user_id=$request['user_id'];
+        $m_user=new UsersModel();
+        $count=$m_user->fetchBySql("select COUNT(*) AS number SUM('player_channel_get') AS money  form h5.user where player_channel={$user_id}");
+        $assign['money'] = $count['money'];
+        $assign['number'] = $count['number'];
+        exit(json_encode($assign));
+    }
     function getGameDownloadUrlAction(){
         //获取下载资源链接
         $request = $_GET;
