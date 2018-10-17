@@ -296,15 +296,11 @@ class ApiController extends Yaf_Controller_Abstract
      * 获取文章详情
      */
     function getArticleDeatilAction(){
-        $req = $this->getRequest();
-        $type = $req->get('type', '');
+        $request = $_GET;
+        $type = $request['type'];
         $type = preg_replace('/[\'\"\\\]+/', '', $type);
-        $article_id = $req->get('article_id', 0);
-        if( $article_id < 1 ) {
-            return false;
-        }
+        $article_id = $request['article_id'];
         $assign['type'] = $type;
-
         $m_article = new ArticleModel();
         $assign['info'] = $m_article->fetch("article_id='{$article_id}' AND visible=1");
         echo json_encode($assign, true);
