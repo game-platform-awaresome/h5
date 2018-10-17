@@ -451,14 +451,11 @@ class ApiController extends Yaf_Controller_Abstract
             }
         }
         $assign['gift'] = $gifts;
+        //开服列表
+        $m_server=new ServerModel();
+        $server_list=$m_server->fetchAll(['game_id'=>$request['game_id']],1,30,'*','start_time desc');
+        $assign['server']=$server_list;
         exit(json_encode($assign));
-//        $m_user = new UsersModel();
-//        $assign['user'] = $m_user->getLogin();
-//        if( $assign['user'] ) {
-//            $assign['favorited'] = $m_user->isFavorited($assign['user']['user_id'], $game_id);
-//        } else {
-//            $assign['favorited'] = false;
-//        }
     }
 
     /**
