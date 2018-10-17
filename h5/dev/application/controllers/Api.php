@@ -293,13 +293,10 @@ class ApiController extends Yaf_Controller_Abstract
     }
     function getArticleListAction(){
         $req = $this->getRequest();
-        if( ! $req->isPost() ) {
-            exit;
-        }
         $type = $req->getPost('type', '');
         $type = preg_replace('/[\'\"\\\]+/', '', $type);
         $pn = $req->getPost('pn', 1);
-        $limit = $req->getPost('limit', 6);
+        $limit = 8;
         $m_article = new ArticleModel();
         if( $type == '综合' ) {
             $conds = 'visible=1';
@@ -314,7 +311,7 @@ class ApiController extends Yaf_Controller_Abstract
         {
             $row['up_time'] = $m_article->formatTime($row['up_time']);
         }
-        $assignp['list']=$list;
+        $assign['list']=$list;
         $assign['type']=$type;
         echo json_encode($assign, true);
         die;
