@@ -455,7 +455,7 @@ class ApiController extends Yaf_Controller_Abstract
         $m_server=new ServerModel();
 //        $server_list=$m_server->fetchAll(['game_id'=>$request['game_id'],'start_time'=>],1,30,'*','start_time asc');
         $now_date=date('Y-m-d');
-        $server_list=$m_server->fetchAllBySql("select * from server where game_id={$request['game_id']} and start_time>'{$now_date}' order start_time asc");
+        $server_list=$m_server->fetchAllBySql("select * from server where game_id={$request['game_id']} and start_time>'{$now_date}' order by start_time asc");
         $assign['server']=$server_list;
         exit(json_encode($assign));
     }
