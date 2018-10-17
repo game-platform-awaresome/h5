@@ -250,6 +250,14 @@ class ApiController extends Yaf_Controller_Abstract
         $assign['top_games'] = $m_game->getTopByType($pn = 1, $limit = 5, $type = '', $game_type);//分类
         $assign['new_games'] = $m_game->getListByAttr('new', 1, 5, $game_type);
         $assign['hot_games'] = $m_game->getListByAttr('hot', 1, 5, $game_type);
+        $assign['article_list'] = $m_game->getListByAttr('hot', 1, 5, $game_type);
+        $m_article = new ArticleModel();
+        $list=$m_article->fetchAll("visible=1 and type!='代理公告'", 1, 4, 'article_id,cover,title,up_time', 'weight ASC,article_id DESC');
+        foreach ($list as &$row)
+        {
+            $row['up_time'] = $m_article->formatTime($row['up_time']);
+        }
+        $assign['info'] =$list;
         echo json_encode($assign, true);
         die;
     }
