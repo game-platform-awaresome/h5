@@ -308,6 +308,7 @@ class ApiController extends Yaf_Controller_Abstract
         $m_article = new ArticleModel();
         $assign['info'] = $m_article->fetch("article_id='{$article_id}' AND visible=1");
         echo json_encode($assign, true);
+        die;
     }
 
     /**
