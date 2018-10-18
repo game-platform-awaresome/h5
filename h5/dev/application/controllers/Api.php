@@ -322,11 +322,17 @@ class ApiController extends Yaf_Controller_Abstract
      */
     function getGamesBySortAction(){
         $request = $_GET;
-        $this->checkParams($request, ['game_type','pn']);
+        $this->checkParams($request, ['game_type','pn','type']);
         $game_type = $request['game_type'];
+        $type = $request['type'];
         $m_game = new GameModel();
-        $assign['new_games'] = $m_game->getListByAttr('new', $request['pn'], 8, $game_type);
-        $assign['hot_games'] = $m_game->getListByAttr('hot', $request['pn'], 8, $game_type);
+        if($type=='new'){
+            $assign=$m_game->getListByAttr('new', $request['pn'], 8, $game_type);
+        }elseif($type=='hot'){
+            $assign=$m_game->getListByAttr('hot', $request['pn'], 8, $game_type);
+        }else{
+            $assign='fail';
+        }
         echo json_encode($assign, true);
     }
     /**
