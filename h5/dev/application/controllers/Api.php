@@ -336,6 +336,7 @@ class ApiController extends Yaf_Controller_Abstract
             $assign='fail';
         }
         echo json_encode($assign, true);
+        die;
     }
     /**
      * 获取文章详情
