@@ -316,6 +316,19 @@ class ApiController extends Yaf_Controller_Abstract
         echo json_encode($assign, true);
         die;
     }
+
+    /**
+     * 获取游戏
+     */
+    function getGamesBySortAction(){
+        $request = $_GET;
+        $this->checkParams($request, ['game_type','pn']);
+        $game_type = $request['game_type'];
+        $m_game = new GameModel();
+        $assign['new_games'] = $m_game->getListByAttr('new', $request['pn'], 8, $game_type);
+        $assign['hot_games'] = $m_game->getListByAttr('hot', $request['pn'], 8, $game_type);
+        echo json_encode($assign, true);
+    }
     /**
      * 获取文章详情
      */
