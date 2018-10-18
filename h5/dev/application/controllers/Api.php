@@ -325,7 +325,7 @@ class ApiController extends Yaf_Controller_Abstract
         $m_article = new ArticleModel();
         $assign['info'] = $m_article->fetch("article_id='{$article_id}' AND visible=1");
         //正则匹配标签，加上绝对路径<img src="/
-        $assign['info'] = str_replace("<img src=\"","<img src=\"/http://h5.zyttx.com",$assign['info']);
+        $assign['info'] = str_replace("<img src=\"","<img src=\"http://h5.zyttx.com",$assign['info']);
         echo json_encode($assign, true);
         die;
     }
