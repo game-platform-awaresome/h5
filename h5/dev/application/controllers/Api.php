@@ -327,9 +327,11 @@ class ApiController extends Yaf_Controller_Abstract
         $type = $request['type'];
         $m_game = new GameModel();
         if($type=='new'){
-            $assign=$m_game->getListByAttr('new', $request['pn'], 8, $game_type);
+            $res=$m_game->getListByAttr('new', $request['pn'], 8, $game_type);
+            $assign=$res['new_games'];
         }elseif($type=='hot'){
-            $assign=$m_game->getListByAttr('hot', $request['pn'], 8, $game_type);
+            $res=$m_game->getListByAttr('hot', $request['pn'], 8, $game_type);
+            $assign=$res['hot_games'];
         }else{
             $assign='fail';
         }
