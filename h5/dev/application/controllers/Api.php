@@ -533,7 +533,23 @@ class ApiController extends Yaf_Controller_Abstract
             $row['up_time'] = $m_article->formatTime($row['up_time']);
         }
         $assign['info'] =$list;
+//        //评论列表
+//        $m_comment=new CommentModel();
+//        $comment_list=$m_comment->fetchAll(['game_id']);
         exit(json_encode($assign));
+    }
+    function getCommentAction(){
+        $request = $_GET;
+        $this->checkParams($request, ['game_id','pn']);
+        $pn = $request['pn'];
+        $limit = 20;
+        if( $pn < 1 || $limit < 1 ) {
+            exit;
+        }
+        $m_comment=new CommentModel();
+        $comment_list=$m_comment->getComment(['game_id'],$pn,$limit);
+        exit(json_encode($comment_list));
+
     }
 
     /**
