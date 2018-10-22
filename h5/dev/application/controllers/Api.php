@@ -573,7 +573,7 @@ class ApiController extends Yaf_Controller_Abstract
         }else{
             $m_commtlike->insert($request);
             $m_comment=new CommentModel();
-            $m_comment->fetchBySql("update comment set like_num=like_num+1 where comm_id={$request['comm_id']}");
+            $m_comment->fetchBySql("update comment set like_num = like_num+1 where comm_id={$request['comm_id']}");
             exit(json_encode(array('status'=>'success')));
         }
     }
