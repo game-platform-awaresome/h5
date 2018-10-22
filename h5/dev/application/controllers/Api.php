@@ -563,6 +563,18 @@ class ApiController extends Yaf_Controller_Abstract
             exit(json_encode(array('status'=>'fail')));
         }
     }
+    function addCommentLike(){
+        $request = $_GET;
+        $this->checkParams($request, ['comm_id','user_id']);
+        $m_commtlike=new CommentlikeModel();
+        $rs=$m_commtlike->fetch(['comm_id'=>$request['comm_id'],'user_id'=>$request['user_id']]);
+        if($rs){
+            exit(json_encode(array('status'=>'fail','info'=>'你已点过赞了!')));
+        }else{
+            $m_commtlike->insert($request);
+            exit(json_encode(array('status'=>'success')));
+        }
+    }
 
     /**
      * 我的礼包
