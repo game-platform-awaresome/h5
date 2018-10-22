@@ -2,8 +2,12 @@
 
 class CommentModel extends F_Model_Pdo
 {
-	protected $_table = 'commont';
+	protected $_table = 'comment';
 	protected $_primary='comm_id';
+//    public function __construct()
+//    {
+//        parent::__construct('h5_open');
+//    }
 	public function getFieldsLabel()
 	{
 		return array(
