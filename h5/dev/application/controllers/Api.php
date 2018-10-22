@@ -555,7 +555,7 @@ class ApiController extends Yaf_Controller_Abstract
         $this->checkParams($request, ['parent_id','game_id','comm_cont','user_id']);
         $data=$request;
         $data['comm_time']=time();
-        $data['like']=0;
+        $data['like_num']=0;
         $m_comment=new CommentModel();
         if($m_comment->insert($data)){
             exit('success');

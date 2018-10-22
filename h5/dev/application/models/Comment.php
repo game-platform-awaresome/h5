@@ -13,7 +13,7 @@ class CommentModel extends F_Model_Pdo
 		    'game_id' => '游戏id',
 		    'comm_cont' => '评论',
 		    'comm_time' => '时间',
-		    'like' => '赞',
+		    'like_num' => '赞',
 		);
 	}
     /**
