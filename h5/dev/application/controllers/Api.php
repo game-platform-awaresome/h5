@@ -551,10 +551,13 @@ class ApiController extends Yaf_Controller_Abstract
         exit(json_encode($comment_list));
     }
     function addCommentAction(){
-        $request = $_GET;
+        $request = $_POST;
         $this->checkParams($request, ['parent_id','game_id','comm_cont','user_id']);
+        $data=$request;
+        $data['comm_time']=time();
+        $data['like']=0;
         $m_comment=new CommentModel();
-        if($m_comment->insert($request)){
+        if($m_comment->insert($data)){
             exit('success');
         }else{
             exit('fail');
