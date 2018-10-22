@@ -563,7 +563,7 @@ class ApiController extends Yaf_Controller_Abstract
             exit(json_encode(array('status'=>'fail')));
         }
     }
-    function addCommentLike(){
+    function addcommentlikeAction(){
         $request = $_GET;
         $this->checkParams($request, ['comm_id','user_id']);
         $m_commtlike=new CommentlikeModel();
