@@ -547,7 +547,7 @@ class ApiController extends Yaf_Controller_Abstract
             exit;
         }
         $m_comment=new CommentModel();
-        $comment_list=$m_comment->getComment(['game_id'],$pn,$limit);
+        $comment_list=$m_comment->getComment($request['game_id'],$pn,$limit);
         exit(json_encode($comment_list));
 
     }
