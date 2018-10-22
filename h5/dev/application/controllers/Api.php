@@ -558,9 +558,9 @@ class ApiController extends Yaf_Controller_Abstract
         $data['like_num']=0;
         $m_comment=new CommentModel();
         if($m_comment->insert($data)){
-            exit('success');
+            exit(json_encode(array('status'=>'success')));
         }else{
-            exit('fail');
+            exit(json_encode(array('status'=>'fail')));
         }
     }
 
