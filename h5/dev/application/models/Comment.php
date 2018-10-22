@@ -32,7 +32,7 @@ class CommentModel extends F_Model_Pdo
     {
         $offset = ($pn - 1) * $limit;
         $pdo = $this->getPdo();
-        $stm = $pdo->query("SELECT * FROM comment WHERE game_id='{$game_id}' and  parent_id=0, LIMIT {$offset},{$limit}");
+        $stm = $pdo->query("SELECT * FROM comment WHERE game_id='{$game_id}' and parent_id = 0 LIMIT {$offset},{$limit}");
         $logs = array();
         $row = $stm->fetch(PDO::FETCH_ASSOC);
         while ($row)
