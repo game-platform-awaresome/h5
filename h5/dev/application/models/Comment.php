@@ -32,7 +32,7 @@ class CommentModel extends F_Model_Pdo
     {
         $offset = ($pn - 1) * $limit;
         $pdo = $this->getPdo();
-        $stm = $pdo->query("SELECT * FROM comment WHERE game_id='{$game_id}' and parent_id = 0 LIMIT {$offset},{$limit}");
+        $stm = $pdo->query("SELECT comment.*,user.username,user.avatar FROM comment LEFT join user on user.user_id=comment.user_id WHERE game_id='{$game_id}' and parent_id = 0 LIMIT {$offset},{$limit}");
         $logs = array();
         $row = $stm->fetch(PDO::FETCH_ASSOC);
         while ($row)
@@ -40,8 +40,11 @@ class CommentModel extends F_Model_Pdo
             $logs[] = $row;
             $row = $stm->fetch(PDO::FETCH_ASSOC);
         }
+        //递归
+
         foreach ($logs as $key =>&$value){
-            $value['children']=$this->fetchAll(['parent_id'=>$value['comm_id']]);
+            $value['children']=$this->fetchAllBySql("SELECT comment.*,user.username,user.avatar FROM comment LEFT join user on user.user_id=comment.user_id where parent_id={$value['comm_id']}");
+            //回复人的id
         }
         return $logs;
     }
