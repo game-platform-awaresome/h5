@@ -88,6 +88,12 @@ class GameModel extends F_Model_Pdo
 		    'grade' => '评级',
 		    'weight' => '排序',
 		    'version' => '当前版本',
+		    'dev_id' => function(&$row){
+                if( empty($row) ) return '游戏厂商';
+                $m_developer=new DeveloperModel();
+                $developer=$m_developer->fetch(['dev_id'=>$row['dev_id']],'com_short');
+                return $developer['com_short'];
+            },
 		    'trade_money' => '总流水',
 			'play_times' => '游戏次数',
 			'material_url' =>

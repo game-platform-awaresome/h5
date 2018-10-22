@@ -53,6 +53,12 @@ class PayController extends F_Controller_Backend
         $conds.=' AND pay_time>0 AND game_id >0';
         $params['conditions']=$conds;
         $params['orderby'] = 'add_time DESC';
+        $m_pay=new PayModel();
+        if(!$params['conditions']){
+            $params['conditions']='1=1';
+        }
+        $total_money=$m_pay->fetch($params['conditions'],'SUM(money)  sum_money');
+        $this->getView()->assign('total_money',$total_money['sum_money']);
         return $params;
     }
     
