@@ -32,7 +32,6 @@ class CommentModel extends F_Model_Pdo
     {
         $offset = ($pn - 1) * $limit;
         $pdo = $this->getPdo();
-        echo "SELECT comment.*,user.username,user.avatar FROM comment LEFT join user on user.user_id=comment.user_id WHERE game_id='{$game_id}' and parent_id = 0 ORDER BY commit_time desc LIMIT {$offset},{$limit} ";
         $stm = $pdo->query("SELECT comment.*,user.username,user.avatar FROM comment LEFT join user on user.user_id=comment.user_id WHERE game_id='{$game_id}' and parent_id = 0 ORDER BY comm_time desc LIMIT {$offset},{$limit} ");
         $logs = array();
         $row = $stm->fetch(PDO::FETCH_ASSOC);
