@@ -296,7 +296,7 @@ class ApiController extends Yaf_Controller_Abstract
         $type = $req->getPost('type', '');
         $type = preg_replace('/[\'\"\\\]+/', '', $type);
         $pn = $req->getPost('pn', 1);
-        $limit = 8;
+        $limit = 13;
         $m_article = new ArticleModel();
         if( $type == '综合' ) {
             $conds = 'visible=1';
