@@ -274,7 +274,7 @@ class ApiController extends Yaf_Controller_Abstract
         $tc =$request['tc'];
         $tc = preg_replace('/[\%\*\'\"\\\]+/', '', $tc);
         $pn =$request['pn']??1;
-        $limit =8;
+        $limit =9;
         $order = 'game_id DESC';
         $selects = 'game_id,name,logo,corner,label,giftbag,support,grade,in_short,play_times,game_type,package_name,package_size';
         $m_game = new GameModel();
@@ -411,7 +411,7 @@ class ApiController extends Yaf_Controller_Abstract
         $request = $_POST;
         $this->checkParams($request, ['index','game_type','pn']);
         $pn =$request['pn'];
-        $limit = 8;
+        $limit = 9;
         $offset = ($pn - 1) * $limit;
         $order = 'start_time asc';
         $m_server = new ServerModel();
