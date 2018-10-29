@@ -16,8 +16,8 @@ class StatbygameController extends F_Controller_Backend
             $conds = "ymd BETWEEN {$search['ymd_begin']} AND {$search['ymd_end']}";
             $comma = ' AND ';
         }
-        if( !empty($search['game_id']) ) {
-            $conds .= "{$comma}game_id='{$search['game_id']}'";
+        if( !empty($search['game_name']) ) {
+            $conds .= "{$comma}game_name LIKE '%{$search['game_name']}%'";
         }
         $admin_id=$_SESSION['admin_id'];
         if($conds!=''){
