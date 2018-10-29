@@ -10,7 +10,6 @@ function statistics()
     $m_game = new GameModel();
     $ymd = date('Ymd');
     $conds = "ymd='{$ymd}'";
-    
     $last = $m_stat->fetch($conds, 'user_id');
     if( empty($last) ) {
         $last = $m_stat->fetchBySql("SELECT user_id FROM {$m_stat->getTable()} ORDER BY ymd DESC LIMIT 1");
@@ -36,6 +35,7 @@ function statistics()
         $m_stat->update($stat, $conds);
     } else {
         $stat['ymd'] = $ymd;
+        $stat['channel_id']=1;
         $m_stat->insert($stat, false);
         $last['user_id'] = $stat['user_id'];
     }

@@ -152,7 +152,11 @@ function statistics()
             $stat['dev_id'] = $row['dev_id'];
             $stat['dev_name'] = $row['username'];
             $stat['signon_times']=$stat['signon_times']??0;
-            $m_bydev->insert($stat, false);
+            if($m_bydev->fetch(['ymd'=>$ymd,'dev_id'=>$row['dev_id'],'dev_name'=>$row['username']])){
+                $m_bydev->update($stat,['ymd'=>$ymd,'dev_id'=>$row['dev_id']]);
+            }else{
+                $m_bydev->insert($stat, false);
+            }
             if( $stat['recharge_money'] > 0 ) {
                 $pdo_open->exec("UPDATE developer SET trade_money = trade_money + {$stat['recharge_money']} WHERE dev_id='{$row['dev_id']}'");
             }
