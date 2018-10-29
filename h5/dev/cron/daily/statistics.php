@@ -149,11 +149,11 @@ function statistics()
                 'SUM(signon_times) AS signon_times, SUM(signon_people) AS signon_people, SUM(recharge_times) AS recharge_times,
                 SUM(recharge_people) AS recharge_people, SUM(recharge_money) AS recharge_money');
             if($stat) {
-                $stat['signon_times']=$stat['signon_times']??0
-                $stat['signon_people']=$stat['signon_people']??0
-                $stat['recharge_times']=$stat['recharge_times']??0
-                $stat['recharge_people']=$stat['recharge_people']??0
-                $stat['recharge_money']=$stat['recharge_money']??0
+                $stat['signon_times']=$stat['signon_times']??0;
+                $stat['signon_people']=$stat['signon_people']??0;
+                $stat['recharge_times']=$stat['recharge_times']??0;
+                $stat['recharge_people']=$stat['recharge_people']??0;
+                $stat['recharge_money']=$stat['recharge_money']??0;
                 $stat['ymd'] = $ymd;
                 $stat['dev_id'] = $row['dev_id'];
                 $stat['dev_name'] = $row['username'];
