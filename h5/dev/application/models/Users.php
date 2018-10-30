@@ -400,7 +400,11 @@ class UsersModel extends F_Model_Pdo
 //	    $uid = uc_user_register($username, $password, $email);
 //	    if( $uid > 0 ) {
             $url=new F_Helper_Url();
-	        $channel_id = $url->getUrlSign();
+	        if($_POST['channelid']){
+                $channel_id=$_POST['channelid'];
+            }else{
+                $channel_id = $url->getUrlSign();
+            }
             $player_channel=$_SESSION['player_channel']??0;
             if($player_channel){
                 $player_channel_info=$this->fetch(['user_id'=>$_SESSION['player_channel']],'tg_channel');
