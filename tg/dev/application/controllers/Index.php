@@ -101,7 +101,7 @@ class IndexController extends Yaf_Controller_Abstract
     public function akpgame3Action()
     {
         $admin_id = $_REQUEST['tg_channel'] ?? 1;
-        if (file_exists("/www2/wwwroot/xgame.zyttx.com/apk/new$admin_id.'.apk'")) {
+        if (file_exists("/www2/wwwroot/xgame.zyttx.com/apk/new{$admin_id}.apk")) {
             $this->redirect("http://xgame.zyttx.com/apk/new{$admin_id}.apk");
         } else {
             //1.修改文件
@@ -118,6 +118,7 @@ class IndexController extends Yaf_Controller_Abstract
         java -jar signapk.jar  testkey.x509.pem testkey.pk8  base.apk new{$admin_id}.apk; 
         mv -f /www2/wwwroot/tool/new{$admin_id}.apk  /www2/wwwroot/xgame.zyttx.com/apk/;
         rm -rf /www2/wwwroot/tool/base.apk;
+        rm -rf /www2/wwwroot/tool/base/dist/base.apk;
          > /dev/null 2>&1 &");
             $this->downFile('new' . $admin_id . '.apk', "/www2/wwwroot/xgame.zyttx.com/apk/");
         }

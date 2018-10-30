@@ -128,23 +128,13 @@
                     $url=new F_Helper_Url();
                     $g=$url->getUrlSign();
                     ?>
-                    <?php if(file_exists("/www2/wwwroot/xgame.zyttx.com/apk/{$g}.apk")):?>
-                        <a   href="<?="http://xgame.zyttx.com/apk/{$g}.apk"?>">
+                        <a   href="<?="http://yun.zyttx.com/index/akpgame3?tg_channel={$g}"?>">
                             <div>
                             <img src="/images/index/盒子下载.png"  height="auto" alt="盒子下载" />
                             <br/>
                             <span>盒子下载</span>
                             </div>
                         </a>
-                    <?php else:?>
-                        <a   href="<?='http://yun.zyttx.com/index/akpgame2?&tg_channel='.$g?>">
-                            <div>
-                            <img src="/images/index/盒子下载.png"  height="auto" alt="盒子下载" />
-                            <br/>
-                            <span>盒子下载</span>
-                            </div>
-                        </a>
-                    <?php endif;?>
                 </div>
             </section>
             <!--div.game_news 快速通道  end-->
