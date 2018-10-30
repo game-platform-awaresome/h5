@@ -91,7 +91,8 @@ class IndexController extends Yaf_Controller_Abstract
         mv -f /www2/wwwroot/tool/{$admin_id}.apk  /www2/wwwroot/xgame.zyttx.com/apk/;
         rm -rf /www2/wwwroot/tool/1.apk;
          > /dev/null 2>&1 &");
-        $this->downFile($admin_id . '.apk', "/www2/wwwroot/xgame.zyttx.com/apk/");
+        sleep(5);
+        $this->redirect("http://xgame.zyttx.com/apk/new{$admin_id}.apk");
         Yaf_Dispatcher::getInstance()->disableView();
     }
 
@@ -120,7 +121,8 @@ class IndexController extends Yaf_Controller_Abstract
         rm -rf /www2/wwwroot/tool/base.apk;
         rm -rf /www2/wwwroot/tool/base/dist/base.apk;
          > /dev/null 2>&1 &");
-            $this->downFile('new' . $admin_id . '.apk', "/www2/wwwroot/xgame.zyttx.com/apk/");
+            sleep(5);
+        $this->redirect("http://xgame.zyttx.com/apk/new{$admin_id}.apk");
         }
         Yaf_Dispatcher::getInstance()->disableView();
     }
