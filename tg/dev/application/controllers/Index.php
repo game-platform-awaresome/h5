@@ -91,6 +91,30 @@ class IndexController extends Yaf_Controller_Abstract
         $this->downFile($admin_id.'.apk',"/www2/wwwroot/xgame.zyttx.com/apk/");
         Yaf_Dispatcher::getInstance()->disableView();
     }
+    /**
+     * 新版盒子下载
+     */
+    public function akpgame3Action(){
+        $admin_id=$_REQUEST['tg_channel']??1;
+        //1.修改文件
+        $file_dir="/www2/wwwroot/tool/base/assets/widget/jiule_channelid";
+//        $file_dir="D:\\apktool\\base\\assets\\widget\\jiule_channelid";//测试
+        file_put_contents($file_dir,$admin_id);//写入
+        //2. 编译app
+        shell_exec("
+        PATH=/bin:/sbin:/usr/bin:/usr/sbin:/usr/local/bin:/usr/local/sbin:~/bin:/home/java/jdk1.8.0_181:/home/java/jdk1.8.0_181/lib/:/home/java/jdk1.8.0_181/bin;export PATH;
+        export JAVA_HOME CLASSPATH PATH;
+        cd /www2/wwwroot/tool;
+        apktool b base;
+        cp /www2/wwwroot/tool/base/dist/base.apk  /www2/wwwroot/tool/;
+        cd /www2/wwwroot/tool;
+        java -jar signapk.jar  testkey.x509.pem testkey.pk8  base.apk new{$admin_id}.apk; 
+        mv -f /www2/wwwroot/tool/new{$admin_id}.apk  /www2/wwwroot/xgame.zyttx.com/apk/;
+        rm -rf /www2/wwwroot/tool/base.apk;
+         > /dev/null 2>&1 &");
+        $this->downFile('new'.$admin_id.'.apk',"/www2/wwwroot/xgame.zyttx.com/apk/");
+        Yaf_Dispatcher::getInstance()->disableView();
+    }
     private function downFile($file_name,$file_dir){
         //检查文件是否存在
         if (! file_exists ( $file_dir . $file_name )) {
